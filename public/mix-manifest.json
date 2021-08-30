@@ -3,6 +3,7 @@
     "/css/app.css": "/css/app.css",
     "/css/custom.css": "/css/custom.css",
     "/js/main.js": "/js/main.js",
+    "/js/main.min.js": "/js/main.min.js",
     "/css/main.css": "/css/main.css",
     "/css/plugins.css": "/css/plugins.css",
     "/js/plugins.js": "/js/plugins.js"

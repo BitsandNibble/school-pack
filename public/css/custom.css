@@ -75,6 +75,8 @@
   background-color: transparent;
 }
 
-.radius-30 {
+.btn-round {
   border-radius: 30px;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
 }

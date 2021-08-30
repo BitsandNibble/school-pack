@@ -47,6 +47,7 @@
     {{-- footer --}}
     <div class="footer">
       {{-- footer content here --}}
+      @include('layouts.footer')
     </div>
     {{-- end footer --}}
   </div>

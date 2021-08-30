@@ -49,6 +49,83 @@
       <x-button.submit-rounded-outline>Submit</x-button.submit-rounded-outline>
       <x-button.cancel-rounded-outline>Cancel</x-button.cancel-rounded-outline>
     </section>
+
+    <section class="mt-2">
+      <h1>Forms</h1>
+      <div class="row">
+        <div class="col-md-4">
+          <x-form.label for="first_name">First name</x-form.label>
+          <x-form.input type="text" id="first_name" />
+          {{-- <x-form.input class="is-invalid mt-2" id="first_name" /> --}}
+          <x-form.input-error for="first_name">Please enter your firstname</x-form.input-error>
+        </div>
+
+        <div class="col-md-4">
+          <x-form.label for="lastname">Last name</x-form.label>
+          <x-form.input type="text" id="lastname" />
+          <x-form.input-error for="lastname">Please enter your lastname</x-form.input-error>
+        </div>
+
+        <div class="col-md-4">
+          <x-form.label for="username">Username</x-form.label>
+          <div class="input-group"> <span class="input-group-text">@</span>
+            <x-form.input type="text" id="username" />
+          </div>
+          <x-form.input-error for="username">Please choose a username</x-form.input-error>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-md-6">
+          <x-form.label for="address">Address</x-form.label>
+          <x-form.textarea id="address" placeholder=""></x-form.textarea>
+          <x-form.input-error for="address">Please enter your address</x-form.input-error>
+        </div>
+
+        <div class="col-md-3">
+          <x-form.label for="state">State</x-form.label>
+          <x-form.select>
+            <option>...</option>
+            <option>...</option>
+            <option>...</option>
+          </x-form.select>
+          <x-form.input-error for="state">Please choose a state</x-form.input-error>
+        </div>
+
+        <div class="col-md-3">
+          <x-form.label for="dob">Date of birth</x-form.label>
+          <x-form.date id="dob" />
+          <x-form.input-error for="dob">Please pick you dob</x-form.input-error>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-md-6">
+          <x-form.label>Gender</x-form.label> <br>
+          <x-form.checked-input type="radio" name="gender" id="gender" />
+          <x-form.checked-label for="gender">Male</x-form.checked-label>
+
+          <x-form.checked-input type="radio" name="gender" id="gender" />
+          <x-form.checked-label for="gender">Female</x-form.checked-label>
+
+          <x-form.checked-input type="radio" name="gender" id="gender" />
+          <x-form.checked-label for="gender">Other</x-form.checked-label>
+          <x-form.input-error for="gender">Please choose a gender</x-form.input-error>
+        </div>
+
+        <div class="col-md-6">
+          <x-form.label for="image">Image</x-form.label>
+          <x-form.input type="file" id="image" />
+          <x-form.input-error for="image">Please upload an image</x-form.input-error>
+        </div>
+      </div>
+
+      <x-form.checked-label for="agree">
+        <x-form.checked-input type="checkbox" name="agree" id="agree" />Agree to terms and conditions
+      </x-form.checked-label>
+
+
+    </section>
   </main>
 </body>
 

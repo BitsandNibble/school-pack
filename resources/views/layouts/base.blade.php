@@ -7,14 +7,8 @@
 
   <title>Laravel</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
   <!-- Styles -->
-  {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
-  <link rel="stylesheet" href="{{ mix('css/main.css') }}">
-  <link rel="stylesheet" href="{{ mix('css/custom.css') }}">
-  <link rel="stylesheet" href="{{ mix('css/plugins.css') }}">
+  @include('layouts.styles')
 
   @livewireStyles
 </head>
@@ -35,20 +29,17 @@
     {{-- header --}}
     <header class="top-header">
       {{-- header content here --}}
+      @include('layouts.header')
     </header>
     {{-- end header --}}
 
     {{-- page wrapper --}}
     <div class="page-wrapper">
-      {{-- page content wrapper --}}
-      <div class="page-content-wrapper">
-        <div class="page-content">
-          <x-flash />
-          {{-- page content here --}}
-          {{ $slot }}
-        </div>
+      <div class="page-content">
+        <x-flash />
+        {{-- page content here --}}
+        {{ $slot }}
       </div>
-      {{-- end page-content wrapper --}}
     </div>
     {{-- end page wrapper --}}
 
@@ -65,10 +56,8 @@
 
   <!-- Scripts -->
   @livewireScripts
-
-  <script src="{{ mix('js/main.js') }}" defer></script>
-  <script src="{{ mix('js/main.min.js') }}" defer></script>
-  <script src="{{ mix('js/plugins.js') }}" defer></script>
+  
+  @include('layouts.scripts')
 </body>
 
 </html>

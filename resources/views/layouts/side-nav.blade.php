@@ -29,7 +29,7 @@
 </li>
 
 <li>
-  <a href="widgets.html">
+  <a href="{{ route('results') }}">
     <div class="parent-icon"><i class='bx bx-notepad'></i></div>
     <div class="menu-title">Results</div>
   </a>

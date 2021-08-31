@@ -1,4 +1,6 @@
     <x-base-layout>
+      <x-breadcrumb>Components</x-breadcrumb>
+
       <section>
         <x-card>
           <h1 class="card-title">Buttons</h1>

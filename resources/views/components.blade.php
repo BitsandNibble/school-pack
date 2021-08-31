@@ -37,11 +37,11 @@
         </x-card>
       </section>
 
-      <section class="mt-3" style="margin-bottom: 500px">
+      <section class="mt-3">
         <x-card>
           <div class="border p-2 rounded">
-
             <h1 class="card-title">Form Components</h1>
+
             <div class="row">
               <div class="col-md-4">
                 <x-form.label for="first_name">First name</x-form.label>
@@ -117,4 +117,44 @@
         </x-card>
       </section>
 
+      <section>
+        <x-card>
+          <h1 class="card-title">Modals</h1>
+
+          <x-button.primary data-bs-toggle="modal" data-bs-target="#lgmodal">Open Modal</x-button.primary>
+
+          <x-button.danger-rounded-outline data-bs-toggle="modal" data-bs-target="#anotherModal">Open Modal
+          </x-button.danger-rounded-outline>
+
+        </x-card>
+      </section>
+
+
+
+
+      @push('modals')
+        <x-modal id="lgmodal">
+          <x-slot name="title">A Large Modal</x-slot>
+
+          Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
+          literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
+          College in Virginia, looked up one of the more obscure Latin words, consectetur.
+
+          <x-slot name="footer">
+            <x-button.submit>Save</x-button.submit>
+          </x-slot>
+        </x-modal>
+
+        <x-modal id="anotherModal">
+          <x-slot name="title">Another Modal</x-slot>
+
+          Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
+          literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
+          College in Virginia, looked up one of the more obscure Latin words, consectetur.
+
+          <x-slot name="footer">
+            <x-button.submit>Save</x-button.submit>
+          </x-slot>
+        </x-modal>
+      @endpush
     </x-base-layout>

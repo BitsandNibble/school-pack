@@ -1,7 +1,6 @@
     <x-base-layout>
-      <section class="card">
-        <div class="card-body">
-
+      <section>
+        <x-card>
           <h1 class="card-title">Buttons</h1>
 
           <x-button.primary>Primary</x-button.primary>
@@ -33,12 +32,11 @@
           <x-button.success-rounded-outline>Success</x-button.success-rounded-outline>
           <x-button.submit-rounded-outline>Submit</x-button.submit-rounded-outline>
           <x-button.cancel-rounded-outline>Cancel</x-button.cancel-rounded-outline>
-        </div>
+        </x-card>
       </section>
 
-      <section class="mt-3 card">
-        <div class="card-body">
-
+      <section class="mt-3">
+        <x-card>
           <div class="border p-2 rounded">
 
             <h1 class="card-title">Form Components</h1>
@@ -114,8 +112,7 @@
               <x-form.checked-input type="checkbox" name="agree" id="agree" />Agree to terms and conditions
             </x-form.checked-label>
           </div>
-        </div>
+        </x-card>
       </section>
-      
 
     </x-base-layout>

@@ -35,7 +35,7 @@
         </x-card>
       </section>
 
-      <section class="mt-3">
+      <section class="mt-3" style="margin-bottom: 500px">
         <x-card>
           <div class="border p-2 rounded">
 

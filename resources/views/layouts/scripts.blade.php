@@ -10,6 +10,3 @@
 <!--app JS-->
 <script src="{{ asset('assets/js/app.js') }}"></script>
 <script src="{{ mix('js/app.js') }}"></script>
-
-<script src="https://cdn.jsdelivr.net/gh/livewire/turbolinks@v0.1.x/dist/livewire-turbolinks.js"
-data-turbolinks-eval="false"></script>

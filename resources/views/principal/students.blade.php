@@ -1,9 +1,5 @@
 <x-base-layout>
-  <x-breadcrumb>Classes</x-breadcrumb>
-
-  <x-card>
-    <x-button data-bs-toggle="modal" data-bs-target="#classModal">Add New Class</x-button>
-  </x-card>
+  <x-breadcrumb>Students</x-breadcrumb>
 
   <x-card>
     <div class="row">
@@ -11,12 +7,10 @@
         <div class="col-md-4 col-sm-6">
           <x-card>
             <div class="d-flex align-items-center">
-              <div>
-                <p class="mb-0 text-dark">Class Teacher</p>
-                <p class="mb-0 text-primary">Mr Something</p>
-                <h5 class="mb-0">JSS1</h5>
-              </div>
-              <div class="dropdown ms-auto" style="position: relative;">
+              <a href="{{ route('student') }}" class="stretched-link w-100" style="position: relative">
+                <h4 class="my-1">JSS1</h4>
+              </a>
+              <div class="dropdown ms-auto d-flex justify-content-end">
                 <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer" data-bs-toggle="dropdown">
                   <i class='bx bx-dots-horizontal-rounded font-22'></i>
                 </div>
@@ -32,11 +26,4 @@
     </div>
   </x-card>
 
-
-  @push('modals')
-    <x-modal id="classModal">
-      <x-slot name="title">Add New Class</x-slot>
-      <x-slot name="footer"></x-slot>
-    </x-modal>
-  @endpush
 </x-base-layout>

@@ -18,9 +18,20 @@
   <div class="wrapper">
     {{-- sidebar wrapper --}}
     <div class="sidebar-wrapper" data-simplebar="true">
+      <div class="sidebar-header">
+        <div>
+          <img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
+        </div>
+        <div>
+          <h4 class="text-dark logo-text">School Pack</h4>
+        </div>
+        <div class="toggle-icon ms-auto text-dark"><i class='bx bx-first-page'></i>
+        </div>
+      </div>
       {{-- navigation --}}
       <ul class="metismenu" id="menu">
         {{-- menu content here --}}
+        @include('layouts.side-nav')
       </ul>
       {{-- end navigation --}}
     </div>
@@ -45,10 +56,7 @@
 
 
     {{-- footer --}}
-    <div class="footer">
-      {{-- footer content here --}}
-      @include('layouts.footer')
-    </div>
+    @include('layouts.footer')
     {{-- end footer --}}
   </div>
   {{-- end wrapper --}}
@@ -57,7 +65,7 @@
 
   <!-- Scripts -->
   @livewireScripts
-  
+
   @include('layouts.scripts')
 </body>
 

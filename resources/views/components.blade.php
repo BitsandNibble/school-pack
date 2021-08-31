@@ -5,35 +5,48 @@
         <x-card>
           <h1 class="card-title">Buttons</h1>
 
-          <x-button.primary>Primary</x-button.primary>
-          <x-button.danger>Danger</x-button.danger>
-          <x-button.success>Success</x-button.success>
-          <x-button.submit>Submit</x-button.submit>
-          <x-button.cancel>Cancel</x-button.cancel>
-
+          <h6>Flat Buttons</h6>
+          <x-button>Primary</x-button>
+          <x-button value="secondary">Secondary</x-button>
+          <x-button value="danger">Danger</x-button>
+          <x-button value="success">Success</x-button>
+          <x-button value="submit">Submit</x-button>
+          <x-button value="info">Info</x-button>
+          <x-button value="warning">Warning</x-button>
+          <x-button value="dark">Dark</x-button>
           <br><br>
 
-          <x-button.primary-outline>Primary</x-button.primary-outline>
-          <x-button.danger-outline>Danger</x-button.danger-outline>
-          <x-button.success-outline>Success</x-button.success-outline>
-          <x-button.submit-outline>Submit</x-button.submit-outline>
-          <x-button.cancel-outline>Cancel</x-button.cancel-outline>
-
+          <h6>Flat Outline Buttons</h6>
+          <x-outline-button>Primary</x-outline-button>
+          <x-outline-button value="secondary">Secondary</x-outline-button>
+          <x-outline-button value="danger">Danger</x-outline-button>
+          <x-outline-button value="success">Success</x-outline-button>
+          <x-outline-button value="submit">Submit</x-outline-button>
+          <x-outline-button value="info">Info</x-outline-button>
+          <x-outline-button value="warning">Warning</x-outline-button>
+          <x-outline-button value="dark">Dark</x-outline-button>
           <br><br>
 
-          <x-button.primary-rounded>Primary</x-button.primary-rounded>
-          <x-button.danger-rounded>Danger</x-button.danger-rounded>
-          <x-button.success-rounded>Success</x-button.success-rounded>
-          <x-button.submit-rounded>Submit</x-button.submit-rounded>
-          <x-button.cancel-rounded>Cancel</x-button.cancel-rounded>
-
+          <h6>Round Buttons</h6>
+          <x-round-button>Primary</x-round-button>
+          <x-round-button value="secondary">Secondary</x-round-button>
+          <x-round-button value="danger">Danger</x-round-button>
+          <x-round-button value="success">Success</x-round-button>
+          <x-round-button value="submit">Submit</x-round-button>
+          <x-round-button value="info">Info</x-round-button>
+          <x-round-button value="warning">Warning</x-round-button>
+          <x-round-button value="dark">Dark</x-round-button>
           <br><br>
 
-          <x-button.primary-rounded-outline>Primary</x-button.primary-rounded-outline>
-          <x-button.danger-rounded-outline>Danger</x-button.danger-rounded-outline>
-          <x-button.success-rounded-outline>Success</x-button.success-rounded-outline>
-          <x-button.submit-rounded-outline>Submit</x-button.submit-rounded-outline>
-          <x-button.cancel-rounded-outline>Cancel</x-button.cancel-rounded-outline>
+          <h6>Round Outline Buttons</h6>
+          <x-round-outline-button>Primary</x-round-outline-button>
+          <x-round-outline-button value="secondary">Secondary</x-round-outline-button>
+          <x-round-outline-button value="danger">Danger</x-round-outline-button>
+          <x-round-outline-button value="success">Success</x-round-outline-button>
+          <x-round-outline-button value="submit">Submit</x-round-outline-button>
+          <x-round-outline-button value="info">Info</x-round-outline-button>
+          <x-round-outline-button value="warning">Warning</x-round-outline-button>
+          <x-round-outline-button value="dark">Dark</x-round-outline-button>
         </x-card>
       </section>
 
@@ -44,75 +57,75 @@
 
             <div class="row">
               <div class="col-md-4">
-                <x-form.label for="first_name">First name</x-form.label>
-                <x-form.input type="text" id="first_name" />
-                {{-- <x-form.input class="is-invalid mt-2" id="first_name" /> --}}
-                <x-form.input-error for="first_name">Please enter your firstname</x-form.input-error>
+                <x-label for="first_name">First name</x-label>
+                <x-input type="text" id="first_name" />
+                {{-- <x-input class="is-invalid mt-2" id="first_name" /> --}}
+                <x-input-error for="first_name">Please enter your firstname</x-input-error>
               </div>
 
               <div class="col-md-4">
-                <x-form.label for="lastname">Last name</x-form.label>
-                <x-form.input type="text" id="lastname" />
-                <x-form.input-error for="lastname">Please enter your lastname</x-form.input-error>
+                <x-label for="lastname">Last name</x-label>
+                <x-input type="text" id="lastname" />
+                <x-input-error for="lastname">Please enter your lastname</x-input-error>
               </div>
 
               <div class="col-md-4">
-                <x-form.label for="username">Username</x-form.label>
+                <x-label for="username">Username</x-label>
                 <div class="input-group"> <span class="input-group-text">@</span>
-                  <x-form.input type="text" id="username" />
+                  <x-input type="text" id="username" />
                 </div>
-                <x-form.input-error for="username">Please choose a username</x-form.input-error>
+                <x-input-error for="username">Please choose a username</x-input-error>
               </div>
             </div>
 
             <div class="row mt-2">
               <div class="col-md-6">
-                <x-form.label for="address">Address</x-form.label>
-                <x-form.textarea id="address" placeholder=""></x-form.textarea>
-                <x-form.input-error for="address">Please enter your address</x-form.input-error>
+                <x-label for="address">Address</x-label>
+                <x-textarea id="address" placeholder=""></x-textarea>
+                <x-input-error for="address">Please enter your address</x-input-error>
               </div>
 
               <div class="col-md-3">
-                <x-form.label for="state">State</x-form.label>
-                <x-form.select>
+                <x-label for="state">State</x-label>
+                <x-select>
                   <option>...</option>
                   <option>...</option>
                   <option>...</option>
-                </x-form.select>
-                <x-form.input-error for="state">Please choose a state</x-form.input-error>
+                </x-select>
+                <x-input-error for="state">Please choose a state</x-input-error>
               </div>
 
               <div class="col-md-3">
-                <x-form.label for="dob">Date of birth</x-form.label>
-                <x-form.date id="dob" />
-                <x-form.input-error for="dob">Please pick you dob</x-form.input-error>
+                <x-label for="dob">Date of birth</x-label>
+                <x-input type="date" id="dob" />
+                <x-input-error for="dob">Please pick you dob</x-input-error>
               </div>
             </div>
 
             <div class="row mt-2">
               <div class="col-md-6">
-                <x-form.label>Gender</x-form.label> <br>
-                <x-form.checked-input type="radio" name="gender" id="gender" />
-                <x-form.checked-label for="gender">Male</x-form.checked-label>
+                <x-label>Gender</x-label> <br>
+                <x-checked-input type="radio" name="gender" id="gender" />
+                <x-checked-label for="gender">Male</x-checked-label>
 
-                <x-form.checked-input type="radio" name="gender" id="gender" />
-                <x-form.checked-label for="gender">Female</x-form.checked-label>
+                <x-checked-input type="radio" name="gender" id="gender" />
+                <x-checked-label for="gender">Female</x-checked-label>
 
-                <x-form.checked-input type="radio" name="gender" id="gender" />
-                <x-form.checked-label for="gender">Other</x-form.checked-label>
-                <x-form.input-error for="gender">Please choose a gender</x-form.input-error>
+                <x-checked-input type="radio" name="gender" id="gender" />
+                <x-checked-label for="gender">Other</x-checked-label>
+                <x-input-error for="gender">Please choose a gender</x-input-error>
               </div>
 
               <div class="col-md-6">
-                <x-form.label for="image">Image</x-form.label>
-                <x-form.input type="file" id="image" />
-                <x-form.input-error for="image">Please upload an image</x-form.input-error>
+                <x-label for="image">Image</x-label>
+                <x-input type="file" id="image" />
+                <x-input-error for="image">Please upload an image</x-input-error>
               </div>
             </div>
 
-            <x-form.checked-label for="agree">
-              <x-form.checked-input type="checkbox" name="agree" id="agree" />Agree to terms and conditions
-            </x-form.checked-label>
+            <x-checked-label for="agree">
+              <x-checked-input type="checkbox" name="agree" id="agree" />Agree to terms and conditions
+            </x-checked-label>
           </div>
         </x-card>
       </section>
@@ -121,11 +134,11 @@
         <x-card>
           <h1 class="card-title">Modals</h1>
 
-          <x-button.primary data-bs-toggle="modal" data-bs-target="#lgmodal">Open Modal</x-button.primary>
+          <x-button data-bs-toggle="modal" data-bs-target="#lgmodal">Open Modal</x-button>
 
-          <x-button.danger-rounded-outline data-bs-toggle="modal" data-bs-target="#anotherModal">Open Modal
-          </x-button.danger-rounded-outline>
-
+          <x-round-outline-button value="danger" data-bs-toggle="modal" data-bs-target="#anotherModal">Confirmation
+            Modal
+          </x-round-outline-button>
         </x-card>
       </section>
 
@@ -141,20 +154,27 @@
           College in Virginia, looked up one of the more obscure Latin words, consectetur.
 
           <x-slot name="footer">
-            <x-button.submit>Save</x-button.submit>
+            <x-button value="submit">Save</x-button>
           </x-slot>
         </x-modal>
 
-        <x-modal id="anotherModal">
-          <x-slot name="title">Another Modal</x-slot>
+        <x-confirmation-modal id="anotherModal">
+          <x-slot name="title">Delete</x-slot>
 
-          Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
-          literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
-          College in Virginia, looked up one of the more obscure Latin words, consectetur.
+          <div class="d-flex align-items-center">
+            <div class="font-35 text-warning mb-3">
+              <i class="lni lni-warning"></i>
+            </div>
+            <div class="ms-auto font-20">
+              <p class="mb-0 text-secondary">
+                Are you sure you want to delete this item ?
+              </p>
+            </div>
+          </div>
 
           <x-slot name="footer">
-            <x-button.submit>Save</x-button.submit>
+            <x-button value="danger">Delete</x-button>
           </x-slot>
-        </x-modal>
+        </x-confirmation-modal>
       @endpush
     </x-base-layout>

@@ -29,6 +29,13 @@
 </li>
 
 <li>
+  <a href="{{ route('subjects') }}">
+    <div class="parent-icon"><i class='bx bx-book'></i></div>
+    <div class="menu-title">Subjects</div>
+  </a>
+</li>
+
+<li>
   <a href="{{ route('results') }}">
     <div class="parent-icon"><i class='bx bx-notepad'></i></div>
     <div class="menu-title">Results</div>

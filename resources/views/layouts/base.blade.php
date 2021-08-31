@@ -9,6 +9,7 @@
 
   <!-- Styles -->
   @include('layouts.styles')
+  @stack('styles')
 
   @livewireStyles
 </head>
@@ -67,6 +68,7 @@
   @livewireScripts
 
   @include('layouts.scripts')
+  @stack('scripts')
 </body>
 
 </html>

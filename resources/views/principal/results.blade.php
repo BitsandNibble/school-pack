@@ -7,7 +7,7 @@
         <div class="col-md-4 col-sm-6">
           <x-card>
             <div class="d-flex align-items-center">
-              <a href="{{ route('result') }}" class="stretched-link w-100" style="position: relative">
+              <a href="{{ route('principal.result') }}" class="stretched-link w-100" style="position: relative">
                 <h4 class="my-1">JSS1</h4>
               </a>
               <div class="dropdown ms-auto d-flex justify-content-end">

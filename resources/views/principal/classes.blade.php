@@ -1,4 +1,4 @@
-<x-base-layout>
+<x-app-layout>
   <x-breadcrumb>Classes</x-breadcrumb>
 
   <x-card>
@@ -39,4 +39,4 @@
       <x-slot name="footer"></x-slot>
     </x-modal>
   @endpush
-</x-base-layout>
+</x-app-layout>

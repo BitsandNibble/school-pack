@@ -22,6 +22,6 @@ class PrincipalSeeder extends Seeder
         'email' => 'principal@gmail.com',
         'phone_number' => '0802222222',
         'password' => Hash::make('password'),
-    ]);
+      ]);
     }
 }

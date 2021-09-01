@@ -1,6 +1,6 @@
 <x-base-layout>
   <x-breadcrumb>
-    <a href="{{ route('students') }}">Students</a>
+    <a href="{{ route('principal.students') }}">Students</a>
     <li class="breadcrumb-item active" aria-current="page">Student</li>
   </x-breadcrumb>
 

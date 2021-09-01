@@ -1,4 +1,4 @@
-<x-base-layout>
+<x-app-layout>
   <x-breadcrumb>
     <a href="{{ route('principal.students') }}">Students</a>
     <li class="breadcrumb-item active" aria-current="page">Student</li>
@@ -152,4 +152,4 @@
       });
     </script>
   @endpush
-</x-base-layout>
+</x-app-layout>

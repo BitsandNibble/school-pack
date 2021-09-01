@@ -1,4 +1,4 @@
-<x-base-layout>
+<x-app-layout>
   <x-breadcrumb>Students</x-breadcrumb>
 
   <x-card>
@@ -26,4 +26,4 @@
     </div>
   </x-card>
 
-</x-base-layout>
+</x-app-layout>

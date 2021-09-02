@@ -7,7 +7,7 @@
 
   <x-card>
     <div class="table-responsive">
-      <table id="teachersTable" class="table table-striped table-bordered" style="width:100%">
+      <table id="teachrsTable" class="table table-striped table-bordered" style="width:100%">
         <thead>
           <tr>
             <th>S/N</th>
@@ -35,7 +35,7 @@
         </tbody>
       </table>
 
-      {{-- {{ $teachers->links() }} --}}
+      {{ $teachers->links() }}
     </div>
 
   </x-card>

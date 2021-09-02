@@ -1,4 +1,4 @@
-<div class="modal fade" tabindex="-1" aria-hidden="true" {{ $attributes }}>
+<div wire:ignore.self class="modal fade" tabindex="-1" aria-hidden="true" {{ $attributes }}>
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">

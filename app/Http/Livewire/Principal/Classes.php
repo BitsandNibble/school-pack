@@ -12,9 +12,8 @@ class Classes extends Component
 {
   use WithPagination;
 
-  public $name;
-  public $class_id, $existingTeacher, $teacher_id;
-  public $reset = ['name', 'teacher_id', 'class_id']; // fields to reset
+  public $existingTeacher, $class_id, $name, $teacher_id;
+  public $reset = ['name', 'teacher_id', 'class_id'];
   protected $paginationTheme = 'bootstrap';
 
   protected $rules;
@@ -69,7 +68,8 @@ class Classes extends Component
       $class->teachers()->sync($this->teacher_id);
     }
 
-    $this->cancel();
+    $this->emit('closeModal');
+    $this->reset($this->reset);
   }
 
   public function deleteExistingTeacher($id)
@@ -80,7 +80,8 @@ class Classes extends Component
       $teacher->classRooms()->detach($teacherClass->id);
     }
 
-    $this->cancel();
+    $this->emit('closeModal');
+    $this->reset($this->reset);
   }
 
   public function delete(ClassRoom $class)

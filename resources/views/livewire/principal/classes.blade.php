@@ -76,7 +76,7 @@
           {{-- <x-validation-errors /> --}}
 
           <div class="col-md-4">
-            <x-input type="hidden" id="class_id" wire:model="class_id" />
+            <x-input type="hidden" wire:model="class_id" />
             <x-label for="name">Class name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="name" wire:model.defer="name" />
             <x-input-error for="name" />

@@ -10,13 +10,14 @@ class StudentClass extends Model
   use HasFactory;
 
   protected $table = 'classes';
+  public $timestamps = false;
 
   protected $fillable = [
     'name', 'teacher_id',
   ];
 
-  // public function teacher()
-  // {
-  //   return $this->belongsTo(Teacher::class, 'class_id');
-  // }
+  public function teacher()
+  {
+    return $this->belongsTo(Teacher::class);
+  }
 }

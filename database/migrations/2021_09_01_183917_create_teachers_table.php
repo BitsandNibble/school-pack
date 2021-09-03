@@ -15,7 +15,6 @@ class CreateTeachersTable extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('class_id')->index()->nullable();
             $table->string('slug');
             $table->string('firstname');
             $table->string('middlename')->nullable();
@@ -23,6 +22,7 @@ class CreateTeachersTable extends Migration
             $table->string('title');
             $table->string('gender')->nullable();
             $table->date('date_of_birth')->nullable();
+            $table->string('class_teacher')->nullable();
             $table->string('staff_id');
             $table->string('email')->unique()->nullable();
             $table->string('password');

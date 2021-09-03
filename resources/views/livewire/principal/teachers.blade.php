@@ -29,11 +29,7 @@
               <td>{{ $teacher->staff_id }}</td>
               <td>{{ $teacher->email }}</td>
               <td>{{ $teacher->phone_number }}</td>
-              <td class="text-uppercase">
-                @foreach (\App\Models\StudentClass::where('id', $teacher->class_id)->get() as $class)
-                  {{ $class->name }}
-                @endforeach
-              </td>
+              <td>{{ $teacher->class_teacher }}</td>
             </tr>
           @endforeach
         </tbody>
@@ -94,11 +90,11 @@
           </div>
 
           <div class="col-md-4">
-            <x-label for="class_id">Class</x-label>
-            <x-select id="class_id" wire:model.defer="teacher.class_id">
-              @foreach ($classes as $class)
-                <option value="{{ $class->id }}">{{ $class->name }}</option>
-              @endforeach
+            <x-label for="class_teacher">Class Teacher</x-label>
+            <x-select id="class_teacher" wire:model.defer="teacher.class_teacher">
+              <option value="JSS1">JSS1</option>
+              <option value="JSS2">JSS2</option>
+              <option value="JSS3">JSS3</option>
             </x-select>
           </div>
         </div>

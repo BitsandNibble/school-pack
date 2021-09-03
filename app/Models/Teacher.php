@@ -37,5 +37,18 @@ class Teacher extends Model
     return $this->belongsToMany(ClassRoom::class);
   }
 
+  public function getFirstnameAttribute($value)
+  {
+    return ucfirst($value);
+  }
 
+  public function getMiddlenameAttribute($value)
+  {
+    return ucfirst($value);
+  }
+
+  public function getLastnameAttribute($value)
+  {
+    return ucfirst($value);
+  }
 }

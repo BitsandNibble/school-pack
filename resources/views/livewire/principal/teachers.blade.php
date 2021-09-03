@@ -30,7 +30,7 @@
               <td>{{ $teacher->staff_id }}</td>
               <td>{{ $teacher->email }}</td>
               <td>{{ $teacher->phone_number }}</td>
-              <td class="text-uppercase">
+              <td>
                 @forelse ($teacher->classRooms as $class)
                   {{ $class->name }}
                 @empty
@@ -38,6 +38,10 @@
                 @endforelse
               </td>
               <td>
+                <x-button wire:click="edit({{ $teacher->id }})" value="" data-bs-toggle="modal"
+                  data-bs-target="#teacherModal">
+                  <i class="bx bxs-pen"></i>
+                </x-button>
                 <x-button wire:click.prevent="delete({{ $teacher->id }})"
                   onclick="confirm('Are you sure you want to delete this teacher?') || event.stopImmediatePropagation()"
                   value="">
@@ -55,7 +59,7 @@
   </x-card>
 
   <x-modal id="teacherModal">
-    <x-slot name="title">Add New Teacher</x-slot>
+    <x-slot name="title">{{ isset($this->teacher_id) ? 'Edit' : 'Add New' }} Teacher</x-slot>
 
     <x-slot name="content">
       <form>
@@ -65,6 +69,7 @@
           {{-- <x-validation-errors /> --}}
 
           <div class="col-md-4">
+            <x-input type="hidden" wire:model="teacher_id" />
             <x-label for="firstname">First name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="firstname" wire:model.defer="teacher.firstname" />
             <x-input-error for="teacher.firstname" custom-message="The firstname is required" />
@@ -90,6 +95,9 @@
               <option value="Mrs">Mrs</option>
               <option value="Ms">Ms</option>
               <option value="Miss">Miss</option>
+              <option value="Prof">Prof</option>
+              <option value="Asst. Prof">Asst. Prof</option>
+              <option value="Dr">Dr</option>
             </x-select>
             <x-input-error for="teacher.title" custom-message="The title is required" />
           </div>
@@ -105,18 +113,28 @@
 
           <div class="col-md-4">
             <x-label for="class_id">Class</x-label>
-            <x-select id="class_id" wire:model.defer="teacher.class_id">
-              @foreach ($classes as $class)
-                <option value="{{ $class->id }}">{{ $class->name }}</option>
-              @endforeach
-            </x-select>
+            @if (isset($this->teacher_id) && $this->class_id != '')
+              <div class="d-flex justify-content">
+                <h6 class="mr-4">{{ $existingClass }}</h6>
+                <a class="text-dark" href="javascript:;"
+                  wire:click.prevent="deleteExistingClass({{ $this->class_id }})">
+                  <i class="bx bxs-trash-alt"></i>
+                </a>
+              </div>
+            @else
+              <x-select id="class_id" wire:model.defer="teacher.class_id">
+                @foreach ($classes as $class)
+                  <option value="{{ $class->id }}">{{ $class->name }}</option>
+                @endforeach
+              </x-select>
+            @endif
           </div>
         </div>
       </form>
     </x-slot>
 
     <x-slot name="footer">
-      <x-button value="dark" wire:click="close">Close</x-button>
+      <x-button value="dark" wire:click="cancel">Close</x-button>
       <x-button value="submit" wire:click.prevent="store">Save</x-button>
     </x-slot>
   </x-modal>

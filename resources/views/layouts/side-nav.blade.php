@@ -22,7 +22,7 @@
 </li>
 
 <li>
-  <a href="{{ route('classes') }}">
+  <a href="widgets.html">
     <div class="parent-icon"><i class='bx bx-home-circle'></i></div>
     <div class="menu-title">Classes</div>
   </a>

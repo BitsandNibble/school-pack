@@ -487,6 +487,7 @@
         </tfoot>
       </table>
     </div>
+    </div>
   </x-card>
 
 

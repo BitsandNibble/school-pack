@@ -25,7 +25,7 @@
             <tr>
               <td>{{ $loop->iteration }}</td>
               <td>{{ $teacher->title }}</td>
-              <td>{{ $teacher->fullname }} </td>
+              <td>{{ $teacher->firstname }} {{ $teacher->middlename }} {{ $teacher->lastname }}</td>
               <td>{{ $teacher->staff_id }}</td>
               <td>{{ $teacher->email }}</td>
               <td>{{ $teacher->phone_number }}</td>

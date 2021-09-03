@@ -21,19 +21,24 @@ class Classes extends Component
   public function render()
   {
     $classes = StudentClass::Paginate(10);
-    $teachers = Teacher::where('class_teacher', '')->get();
+    $teachers = Teacher::where('class_id', NULL)->get();
 
     return view('livewire.principal.classes', compact('classes', 'teachers'));
   }
 
-  public function saveClass(StudentClass $student)
+  public function saveClass(StudentClass $class)
   {
     $this->validate();
 
-    $student->create([
+    $class->create([
       'name' => $this->class['name'],
-      'teacher_id' => $this->class['teacher_id'] ?? '',
+      'teacher_id' => $this->class['teacher_id'] ?? null,
     ]);
+
+    $id = StudentClass::latest()->first();
+    $teach = Teacher::where('id', $this->class['teacher_id'])->first();
+    $teach->class_id = $id['id'];
+    $teach->save();
 
     session()->flash('message', 'Class Added Successfully');
     $this->reset(['class']);

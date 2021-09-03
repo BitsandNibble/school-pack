@@ -1,11 +1,11 @@
 <x-app-layout>
   <x-breadcrumb>Teachers</x-breadcrumb>
 
-  {{-- <x-card>
+  <x-card>
     <x-button data-bs-toggle="modal" data-bs-target="#teacherModal">Add New Teacher</x-button>
-  </x-card> --}}
+  </x-card>
 
-  {{-- <x-card>
+  <x-card>
     <div class="table-responsive">
       <table id="teachersTable" class="table table-striped table-bordered" style="width:100%">
         <thead>
@@ -488,11 +488,15 @@
         </tfoot>
       </table>
     </div>
-  </x-card> --}}
+  </x-card>
 
 
-  <livewire:principal.teachers />
-
+  @push('modals')
+    <x-modal id="teacherModal">
+      <x-slot name="title">Add New Teacher</x-slot>
+      <x-slot name="footer"></x-slot>
+    </x-modal>
+  @endpush
 
   @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}">

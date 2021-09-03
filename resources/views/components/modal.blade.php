@@ -1,4 +1,4 @@
-<div class="modal fade" tabindex="-1" aria-hidden="true" {{ $attributes }}>
+<div wire:ignore.self class="modal fade" tabindex="-1" aria-hidden="true" {{ $attributes }}>
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -9,7 +9,7 @@
         {{ $content }}
       </div>
       <div class="modal-footer">
-        <x-button value="dark" data-bs-dismiss="modal">Close</x-button>
+        {{-- <x-button value="dark" data-bs-dismiss="modal">Close</x-button> --}}
         {{ $footer }}
       </div>
     </div>

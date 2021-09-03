@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-base-layout>
   <x-breadcrumb>Results</x-breadcrumb>
 
   <x-card>
@@ -26,4 +26,4 @@
     </div>
   </x-card>
 
-</x-app-layout>
+</x-base-layout>

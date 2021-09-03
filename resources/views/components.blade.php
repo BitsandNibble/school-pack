@@ -1,4 +1,4 @@
-    <x-app-layout>
+    <x-base-layout>
       <x-breadcrumb>Components</x-breadcrumb>
 
       <section>
@@ -61,13 +61,13 @@
                 <x-label for="first_name">First name</x-label>
                 <x-input type="text" id="first_name" />
                 {{-- <x-input class="is-invalid mt-2" id="first_name" /> --}}
-                <x-input-error for="first_name" custom-message="Please enter your firstname" />
+                <x-input-error for="first_name" custom-message="Please enter your firstname"/>
               </div>
 
               <div class="col-md-4">
                 <x-label for="lastname">Last name</x-label>
                 <x-input type="text" id="lastname" />
-                <x-input-error for="lastname" />
+                <x-input-error for="lastname"/>
               </div>
 
               <div class="col-md-4">
@@ -172,4 +172,4 @@
           </x-slot>
         </x-confirmation-modal>
       @endpush
-    </x-app-layout>
+    </x-base-layout>

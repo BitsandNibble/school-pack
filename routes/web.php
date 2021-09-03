@@ -28,4 +28,8 @@ Route::group(['prefix' => 'principal', 'as' => 'principal.'], function () {
   Route::view('result', 'principal.result')->name('result');
   Route::view('subjects', 'principal.subjects')->name('subjects');
 });
-Route::view('loginx', 'auth.login');
+Route::view('loginx', '_auth.login');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+  return view('dashboard');
+})->name('dashboard');

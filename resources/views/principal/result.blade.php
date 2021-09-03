@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-base-layout>
   <x-breadcrumb>
     <a href="{{ route('principal.results') }}">Results</a>
     <li class="breadcrumb-item active" aria-current="page">Result</li>
@@ -47,4 +47,4 @@
     </div>
   </x-card>
 
-</x-app-layout>
+</x-base-layout>

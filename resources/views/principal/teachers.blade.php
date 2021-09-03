@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-base-layout>
   <x-breadcrumb>Teachers</x-breadcrumb>
 
   <x-card>
@@ -518,4 +518,4 @@
       });
     </script>
   @endpush
-</x-app-layout>
+</x-base-layout>

@@ -11,10 +11,8 @@ use Livewire\WithPagination;
 class Teachers extends Component
 {
   use WithPagination;
-
   public $teacher;
-  protected $paginationTheme = 'bootstrap';
-  
+
   protected $rules = [
     'teacher.firstname' => 'required|string',
     'teacher.lastname' => 'required|string',

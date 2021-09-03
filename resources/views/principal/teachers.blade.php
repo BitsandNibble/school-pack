@@ -1,10 +1,9 @@
 <x-base-layout>
   <x-breadcrumb>Teachers</x-breadcrumb>
 
-  <x-card>
+  <x-card class="flex">
     <x-button data-bs-toggle="modal" data-bs-target="#teacherModal">Add New Teacher</x-button>
   </x-card>
-  
   <x-card>
     <div class="table-responsive">
       <table id="teachersTable" class="table table-striped table-bordered" style="width:100%">

@@ -1,7 +1,7 @@
 <x-base-layout>
   <x-breadcrumb>Classes</x-breadcrumb>
 
-  <x-card>
+  <x-card class="flex">
     <x-button data-bs-toggle="modal" data-bs-target="#classModal">Add New Class</x-button>
   </x-card>
 

@@ -15,7 +15,7 @@
 </li>
 
 <li>
-  <a href="{{ route('students') }}">
+  <a href="widgets.html">
     <div class="parent-icon"><i class='lni lni-users'></i></div>
     <div class="menu-title">Students</div>
   </a>

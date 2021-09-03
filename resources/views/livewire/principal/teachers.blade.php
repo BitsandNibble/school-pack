@@ -17,6 +17,7 @@
             <th>Email</th>
             <th>Number</th>
             <th>Class Teacher</th>
+            <th></th>
           </tr>
         </thead>
 
@@ -33,6 +34,13 @@
                 @foreach (\App\Models\StudentClass::where('id', $teacher->class_id)->get() as $class)
                   {{ $class->name }}
                 @endforeach
+              </td>
+              <td>
+                <x-button wire:click.prevent="delete({{ $teacher->id }})"
+                  onclick="confirm('Are you sure you want to delete this teacher?') || event.stopImmediatePropagation()"
+                  class="btn-sm" value="">
+                  <i class="bx bx-trash-alt"></i>
+                </x-button>
               </td>
             </tr>
           @endforeach
@@ -107,7 +115,7 @@
 
     <x-slot name="footer">
       <x-button value="dark" wire:click="close">Close</x-button>
-      <x-button value="submit" wire:click.prevent="saveTeacher">Save</x-button>
+      <x-button value="submit" wire:click.prevent="store">Save</x-button>
     </x-slot>
   </x-modal>
 </div>

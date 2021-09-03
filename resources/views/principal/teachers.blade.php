@@ -4,7 +4,7 @@
   <x-card>
     <x-button data-bs-toggle="modal" data-bs-target="#teacherModal">Add New Teacher</x-button>
   </x-card>
-
+  
   <x-card>
     <div class="table-responsive">
       <table id="teachersTable" class="table table-striped table-bordered" style="width:100%">
@@ -499,12 +499,12 @@
   @endpush
 
   @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap5.min.css') }}">
   @endpush
 
   @push('scripts')
-    <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dataTables.bootstrap5.min.js') }}"></script>
 
     <script>
       $(document).ready(function() {

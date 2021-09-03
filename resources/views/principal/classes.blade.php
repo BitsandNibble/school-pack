@@ -6,7 +6,7 @@
   </x-card>
 
   <x-card>
-    <div class="row pricing-table">
+    <div class="row">
       @for ($i = 1; $i <= 10; $i++)
         <div class="col-md-4 col-sm-6">
           <x-card>

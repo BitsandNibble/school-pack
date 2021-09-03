@@ -14,10 +14,10 @@
               <div>
                 <h6 class="mb-1 text-dark">Class Teacher</h6>
                 <p class="mb-1 text-primary">
-                  @forelse (\App\Models\Teacher::where('id', $class->teacher_id)->get() as $teacher)
+                  @forelse ($class->teachers as $teacher)
                     {{ $teacher->title }} {{ $teacher->fullname }}
                   @empty
-                    None
+                    ------
                   @endforelse
                 </p>
                 <h4 class="text-uppercase">{{ $class->name }}</h4>

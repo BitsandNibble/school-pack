@@ -34,8 +34,8 @@
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="javascript:;" wire:click.prevent="delete({{ $class->id }})"
-                      onclick="confirm('Are you sure you want to delete this class?') || event.stopImmediatePropagation()">
+                    <a class="dropdown-item" href="javascript:;" wire:click="openDeleteModal({{ $class->id }})"
+                      data-bs-toggle="modal" data-bs-target="#deleteModal">
                       <i class="bx bxs-trash-alt"></i> Delete
                     </a>
                   </li>
@@ -109,4 +109,17 @@
       <x-button value="submit" wire:click.prevent="store">Save</x-button>
     </x-slot>
   </x-modal>
+
+  <x-confirmation-modal id="deleteModal">
+    <x-slot name="title">Delete Class</x-slot>
+
+    <x-slot name="content">
+      Are you sure you want to delete this class?
+    </x-slot>
+
+    <x-slot name="footer">
+      <x-button value="dark" wire:click="cancel">Cancel</x-button>
+      <x-button value="danger" wire:click.prevent="delete({{ $deleting }})">Delete</x-button>
+    </x-slot>
+  </x-confirmation-modal>
 </div>

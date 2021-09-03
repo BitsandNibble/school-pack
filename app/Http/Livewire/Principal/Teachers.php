@@ -14,7 +14,7 @@ class Teachers extends Component
 {
   use WithPagination;
 
-  public $teacher;
+  public $teacher, $deleting;
   public $class_id, $teacher_id, $existingClass;
   protected $paginationTheme = 'bootstrap';
 
@@ -100,9 +100,16 @@ class Teachers extends Component
     $this->cancel();
   }
 
+  public function openDeleteModal($id)
+  {
+    $del = Teacher::find($id);
+    $this->deleting = $del['id'];
+  }
+
   public function delete(Teacher $teacher)
   {
     $teacher->classRooms()->detach($this->class_id);
     $teacher->delete();
+    $this->cancel();
   }
 }

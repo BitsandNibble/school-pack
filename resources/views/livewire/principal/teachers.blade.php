@@ -42,10 +42,9 @@
                   data-bs-target="#teacherModal">
                   <i class="bx bxs-pen"></i>
                 </x-button>
-                <x-button wire:click.prevent="delete({{ $teacher->id }})"
-                  onclick="confirm('Are you sure you want to delete this teacher?') || event.stopImmediatePropagation()"
-                  value="">
-                  <i class="bx bx-trash-alt"></i>
+                <x-button value="" wire:click="openDeleteModal({{ $teacher->id }})" data-bs-toggle="modal"
+                  data-bs-target="#deleteModal">
+                  <i class="bx bxs-trash-alt"></i>
                 </x-button>
               </td>
             </tr>
@@ -138,4 +137,17 @@
       <x-button value="submit" wire:click.prevent="store">Save</x-button>
     </x-slot>
   </x-modal>
+
+  <x-confirmation-modal id="deleteModal">
+    <x-slot name="title">Delete Teacher</x-slot>
+
+    <x-slot name="content">
+      Are you sure you want to delete this teacher?
+    </x-slot>
+
+    <x-slot name="footer">
+      <x-button value="dark" wire:click="cancel">Cancel</x-button>
+      <x-button value="danger" wire:click.prevent="delete({{ $deleting }})">Delete</x-button>
+    </x-slot>
+  </x-confirmation-modal>
 </div>

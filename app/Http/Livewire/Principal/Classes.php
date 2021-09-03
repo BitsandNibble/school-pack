@@ -12,7 +12,7 @@ class Classes extends Component
 {
   use WithPagination;
 
-  public $name;
+  public $name, $deleting;
   public $class_id, $existingTeacher, $teacher_id;
   public $reset = ['name', 'teacher_id', 'class_id']; // fields to reset
   protected $paginationTheme = 'bootstrap';
@@ -83,9 +83,16 @@ class Classes extends Component
     $this->cancel();
   }
 
+  public function openDeleteModal($id)
+  {
+    $del = ClassRoom::find($id);
+    $this->deleting = $del['id'];
+  }
+
   public function delete(ClassRoom $class)
   {
     $class->teachers()->detach($this->teacher_id);
     $class->delete();
+    $this->cancel();
   }
 }

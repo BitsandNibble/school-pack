@@ -31,16 +31,13 @@
               <td>{{ $teacher->email }}</td>
               <td>{{ $teacher->phone_number }}</td>
               <td class="text-uppercase">
-                @forelse ($teacher->classRooms as $class)
+                @foreach (\App\Models\StudentClass::where('id', $teacher->class_id)->get() as $class)
                   {{ $class->name }}
-                @empty
-                  --------
-                @endforelse
+                @endforeach
               </td>
               <td>
                 <x-button wire:click.prevent="delete({{ $teacher->id }})"
-                  onclick="confirm('Are you sure you want to delete this teacher?') || event.stopImmediatePropagation()"
-                  value="">
+                  onclick="confirm('Are you sure you want to delete this teacher?') || event.stopImmediatePropagation()" value="">
                   <i class="bx bx-trash-alt"></i>
                 </x-button>
               </td>

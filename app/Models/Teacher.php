@@ -12,7 +12,7 @@ class Teacher extends Model
   protected $fillable = [
     'firstname', 'middlename', 'lastname',
     'title', 'gender', 'date_of_birth',
-    'staff_id', 'email',
+    'class_id', 'staff_id', 'email',
     'password', 'phone_number', 'profile_photo',
     'slug',
   ];
@@ -32,10 +32,10 @@ class Teacher extends Model
     return $this->firstname . ' ' . $this->middlename . ' ' . $this->lastname;
   }
 
-  public function classRooms()
-  {
-    return $this->belongsToMany(ClassRoom::class);
-  }
+  // public function studentClass()
+  // {
+  //   return $this->hasOne(StudentClass::class);
+  // }
 
 
 }

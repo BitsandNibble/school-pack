@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Principal;
 
-use App\Models\ClassRoom;
+use App\Models\StudentClass;
 use App\Models\Teacher;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -15,14 +15,13 @@ class Classes extends Component
   protected $paginationTheme = 'bootstrap';
 
   protected $rules = [
-    'class.name' => 'required|string|unique:class_rooms,name',
+    'class.name' => 'required|string|unique:classes,name',
   ];
 
   public function render()
   {
-    $classes = ClassRoom::with('teachers')->Paginate(10);
-    // $teachers = Teacher::where('class_id', NULL)->get();
-    $teachers = Teacher::get();
+    $classes = StudentClass::Paginate(10);
+    $teachers = Teacher::where('class_id', NULL)->get();
 
     return view('livewire.principal.classes', compact('classes', 'teachers'));
   }
@@ -33,25 +32,26 @@ class Classes extends Component
     $this->emit('closeModal');
   }
 
-  public function store()
+  public function store(StudentClass $class)
   {
     $this->validate();
 
-    $class = ClassRoom::create([
+    $class->create([
       'name' => $this->class['name'],
       'teacher_id' => $this->class['teacher_id'] ?? null,
     ]);
 
-    if (!empty($this->class['teacher_id'])) {
-      $class->teachers()->sync($this->class['teacher_id']);
-    }
+    $id = StudentClass::latest()->first();
+    $teach = Teacher::where('id', $this->class['teacher_id'])->first();
+    $teach->class_id = $id['id'];
+    $teach->save();
 
     session()->flash('message', 'Class Added Successfully');
     $this->reset(['class']);
     $this->emit('closeModal');
   }
 
-  public function delete(ClassRoom $class)
+  public function delete(StudentClass $class)
   {
     $class->delete();
   }

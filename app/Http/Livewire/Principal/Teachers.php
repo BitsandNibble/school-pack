@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Principal;
 
-use App\Models\ClassRoom;
+use App\Models\StudentClass;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
@@ -24,9 +24,8 @@ class Teachers extends Component
 
   public function render()
   {
-    $teachers = Teacher::with('classRooms')->Paginate(10);
-    // $classes = StudentClass::where('teacher_id', NULL)->get();
-    $classes = ClassRoom::get();
+    $teachers = Teacher::Paginate(10);
+    $classes = StudentClass::where('teacher_id', NULL)->get();
 
     return view('livewire.principal.teachers', compact('teachers', 'classes'));
   }
@@ -41,21 +40,18 @@ class Teachers extends Component
   {
     $this->validate();
 
-    $teach = Teacher::create([
+    Teacher::create([
       'firstname' => $this->teacher['firstname'],
       'middlename' => $this->teacher['middlename'] ?? '',
       'lastname' => $this->teacher['lastname'],
       'title' => $this->teacher['title'],
       'gender' => $this->teacher['gender'] ?? '',
+      'class_id' => $this->teacher['class_id'] ?? null,
       'staff_id' => 'GS_' . mt_rand(500, 1000),
       'password' => Hash::make('password'),
       'slug' => Str::slug($this->teacher['firstname'], '-'),
     ]);
 
-    if (!empty($this->teacher['class_id'])) {
-      $teach->classRooms()->sync($this->teacher['class_id']);
-    }
-    
     session()->flash('message', 'Teacher Added Successfully');
     $this->reset(['teacher']);
     $this->emit('closeModal');

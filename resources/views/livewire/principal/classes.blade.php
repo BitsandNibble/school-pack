@@ -27,17 +27,11 @@
                   <i class='bx bx-dots-horizontal-rounded font-22'></i>
                 </div>
                 <ul class="dropdown-menu">
-                  <li>
-                    <a class="dropdown-item" href="javascript:;" wire:click="edit({{ $class->id }})"
-                      data-bs-toggle="modal" data-bs-target="#classModal">
-                      <i class="bx bxs-pen"></i> Edit
-                    </a>
-                  </li>
+                  <li><a class="dropdown-item" href="javascript:;">Edit</a></li>
                   <li>
                     <a class="dropdown-item" href="javascript:;" wire:click.prevent="delete({{ $class->id }})"
-                      onclick="confirm('Are you sure you want to delete this class?') || event.stopImmediatePropagation()">
-                      <i class="bx bxs-trash-alt"></i> Delete
-                    </a>
+                      onclick="confirm('Are you sure you want to delete this class?') || event.stopImmediatePropagation()"><i
+                        class="bx bx-trash-alt"></i> Delete</a>
                   </li>
                 </ul>
               </div>
@@ -49,24 +43,8 @@
     {{ $classes->links() }}
   </x-card>
 
-  <x-card>
-    <h5>Useful Tips <i class="bx bx-bulb font-24"></i></h5>
-
-    <ol>
-      <li class="text-justify">How to change a class teacher that currently exists in another class.
-        <ol style="list-style-type: upper-roman;">
-          <li class="mb-1">Click on the <kbd><i class='bx bx-dots-horizontal-rounded font-22'></i></kbd> icon
-          </li>
-          <li class="mb-1">Click on <kbd><i class="bx bxs-pen"></i> Edit</li></kbd>
-          <li class="mb-1">Click on the <kbd><i class="bx bxs-trash-alt"></i></kbd> icon </li>
-          <li class="mb-0">Now <code>Add</code> or <code>Edit</code> the teacher.</li>
-        </ol>
-      </li>
-    </ol>
-  </x-card>
-
   <x-modal id="classModal">
-    <x-slot name="title">{{ isset($this->class_id) ? 'Edit' : 'Add New' }} Class</x-slot>
+    <x-slot name="title">Add New Class</x-slot>
 
     <x-slot name="content">
       <form>
@@ -76,36 +54,25 @@
           {{-- <x-validation-errors /> --}}
 
           <div class="col-md-4">
-            <x-input type="hidden" id="class_id" wire:model="class_id" />
             <x-label for="name">Class name <span class="text-danger">*</span></x-label>
-            <x-input type="text" id="name" wire:model.defer="name" />
-            <x-input-error for="name" />
+            <x-input type="text" id="name" wire:model.defer="class.name" />
+            <x-input-error for="class.name" />
           </div>
 
           <div class="col-md-4">
             <x-label for="teacher_id">Class Teacher</x-label>
-            @if (isset($this->class_id) && $this->teacher_id != '')
-              <div class="d-flex justify-content">
-                <h6 class="mr-4">{{ $existingTeacher }}</h6>
-                <a class="text-dark" href="javascript:;"
-                  wire:click.prevent="deleteExistingTeacher({{ $this->teacher_id }})">
-                  <i class="bx bxs-trash-alt"></i>
-                </a>
-              </div>
-            @else
-              <x-select id="teacher_id" wire:model.defer="teacher_id">
-                @foreach ($teachers as $teacher)
-                  <option value="{{ $teacher->id }}">{{ $teacher->fullname }}</option>
-                @endforeach
-              </x-select>
-            @endif
+            <x-select id="teacher_id" wire:model.defer="class.teacher_id">
+              @foreach ($teachers as $teacher)
+                <option value="{{ $teacher->id }}">{{ $teacher->fullname }}</option>
+              @endforeach
+            </x-select>
           </div>
         </div>
       </form>
     </x-slot>
 
     <x-slot name="footer">
-      <x-button value="dark" wire:click="cancel">Close</x-button>
+      <x-button value="dark" wire:click="close">Close</x-button>
       <x-button value="submit" wire:click.prevent="store">Save</x-button>
     </x-slot>
   </x-modal>

@@ -9,7 +9,7 @@
         {{ $slot }}
       </div>
       <div class="modal-footer">
-        <x-button value="dark" data-bs-dismiss="modal">Close</x-button>
+        <x-button.cancel data-bs-dismiss="modal">Close</x-button.cancel>
         {{ $footer }}
       </div>
     </div>

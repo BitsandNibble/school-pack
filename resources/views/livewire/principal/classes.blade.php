@@ -13,7 +13,13 @@
             <div class="d-flex align-items-center">
               <div>
                 <h6 class="mb-1 text-dark">Class Teacher</h6>
-                <p class="mb-1 text-primary">Mr Something</p>
+                <p class="mb-1 text-primary">
+                  @forelse (\App\Models\Teacher::where('id', $class->teacher_id)->get() as $teacher)
+                    {{ $teacher->title }} {{ $teacher->fullname }}
+                  @empty
+                    None
+                  @endforelse
+                </p>
                 <h4 class="text-uppercase">{{ $class->name }}</h4>
               </div>
               <div class="dropdown ms-auto" style="position: relative;">
@@ -57,6 +63,7 @@
               @endforeach
             </x-select>
           </div>
+        </div>
       </form>
     </x-slot>
 

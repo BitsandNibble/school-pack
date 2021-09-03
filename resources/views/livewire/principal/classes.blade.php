@@ -28,7 +28,11 @@
                 </div>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="javascript:;">Edit</a></li>
-                  <li><a class="dropdown-item" href="javascript:;">Delete</a></li>
+                  <li>
+                    <a class="dropdown-item" href="javascript:;" wire:click.prevent="delete({{ $class->id }})"
+                      onclick="confirm('Are you sure you want to delete this class?') || event.stopImmediatePropagation()"><i
+                        class="bx bx-trash-alt"></i> Delete</a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -69,7 +73,7 @@
 
     <x-slot name="footer">
       <x-button value="dark" wire:click="close">Close</x-button>
-      <x-button value="submit" wire:click.prevent="saveClass">Save</x-button>
+      <x-button value="submit" wire:click.prevent="store">Save</x-button>
     </x-slot>
   </x-modal>
 </div>

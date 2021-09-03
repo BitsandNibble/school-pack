@@ -33,16 +33,6 @@
                   </div>
                 </div>
 
-                <div class="col-12">
-                  <x-label for="user">Login As</x-label>
-                  <x-select>
-                    <option value="1">Principal</option>
-                    <option value="2">Teacher</option>
-                    <option value="3">Student</option>
-                    <option value="4">Parent</option>
-                  </x-select>
-                </div>
-
                 <div class="col-md-6">
                   <div class="form-check form-switch">
                     <x-checked-input type="checkbox" name="agree" id="agree" />

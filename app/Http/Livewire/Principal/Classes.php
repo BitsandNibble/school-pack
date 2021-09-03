@@ -21,7 +21,8 @@ class Classes extends Component
   public function render()
   {
     $classes = ClassRoom::with('teachers')->Paginate(10);
-    $teachers = Teacher::whereDoesntHave('classRooms')->get();
+    // $teachers = Teacher::where('class_id', NULL)->get();
+    $teachers = Teacher::get();
 
     return view('livewire.principal.classes', compact('classes', 'teachers'));
   }

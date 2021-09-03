@@ -17,5 +17,5 @@
 {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
 
 <script>
-  Livewire.on('closeModal', () => $('.modal').modal('hide'));
+  Livewire.on('closeModal', () => $('.modal').modal('toggle'));
 </script>

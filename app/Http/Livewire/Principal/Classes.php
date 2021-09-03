@@ -26,13 +26,7 @@ class Classes extends Component
     return view('livewire.principal.classes', compact('classes', 'teachers'));
   }
 
-  public function close()
-  {
-    $this->reset(['class']);
-    $this->emit('closeModal');
-  }
-
-  public function store(StudentClass $class)
+  public function saveClass(StudentClass $class)
   {
     $this->validate();
 
@@ -51,8 +45,9 @@ class Classes extends Component
     $this->emit('closeModal');
   }
 
-  public function delete(StudentClass $class)
+  public function close()
   {
-    $class->delete();
+    $this->reset(['class']);
+    $this->emit('closeModal');
   }
 }

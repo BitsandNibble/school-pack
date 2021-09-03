@@ -25,8 +25,7 @@ class Teachers extends Component
   public function render()
   {
     $teachers = Teacher::with('classRooms')->Paginate(10);
-    // $classes = StudentClass::where('teacher_id', NULL)->get();
-    $classes = ClassRoom::get();
+    $classes = ClassRoom::whereDoesntHave('teachers')->get();
 
     return view('livewire.principal.teachers', compact('teachers', 'classes'));
   }
@@ -55,7 +54,7 @@ class Teachers extends Component
     if (!empty($this->teacher['class_id'])) {
       $teach->classRooms()->sync($this->teacher['class_id']);
     }
-    
+
     session()->flash('message', 'Teacher Added Successfully');
     $this->reset(['teacher']);
     $this->emit('closeModal');

@@ -1,41 +1,46 @@
 <li>
-  <a href="{{ route('home') }}">
-    <div class="parent-icon"><i class='bx bx-home'></i></div>
+  <a href="javascript:;" class="has-arrow">
+    <div class="parent-icon"><i class='bx bx-home'></i>
+    </div>
     <div class="menu-title">Dashboard</div>
   </a>
+  <ul>
+    <li> <a href="index.html"><i class="bx bx-right-arrow-circle"></i>Analytics</a>
+    </li>
+    <li> <a href="index2.html"><i class="bx bx-right-arrow-circle"></i>Sales</a>
+    </li>
+    <li> <a href="index3.html"><i class="bx bx-right-arrow-circle"></i>eCommerce</a>
+    </li>
+    <li> <a href="index4.html"><i class="bx bx-right-arrow-circle"></i>Alternate</a>
+    </li>
+    <li> <a href="index5.html"><i class="bx bx-right-arrow-circle"></i>Hospitality</a>
+    </li>
+  </ul>
 </li>
-
-<li class="menu-label">Pages</li>
-
 <li>
-  <a href="{{ route('teachers') }}">
-    <div class="parent-icon"><i class='bx bxs-user'></i></div>
-    <div class="menu-title">Teachers</div>
+  <a href="javascript:;" class="has-arrow">
+    <div class="parent-icon"><i class='bx bx-spa'></i>
+    </div>
+    <div class="menu-title">Application</div>
   </a>
+  <ul>
+    <li> <a href="app-emailbox.html"><i class="bx bx-right-arrow-circle"></i>Email</a>
+    </li>
+    <li> <a href="app-chat-box.html"><i class="bx bx-right-arrow-circle"></i>Chat Box</a>
+    </li>
+    <li> <a href="app-file-manager.html"><i class="bx bx-right-arrow-circle"></i>File Manager</a>
+    </li>
+    <li> <a href="app-contact-list.html"><i class="bx bx-right-arrow-circle"></i>Contatcs</a>
+    </li>
+    <li> <a href="app-to-do.html"><i class="bx bx-right-arrow-circle"></i>Todo List</a>
+    </li>
+    <li> <a href="app-invoice.html"><i class="bx bx-right-arrow-circle"></i>Invoice</a>
+    </li>
+    <li> <a href="app-fullcalender.html"><i class="bx bx-right-arrow-circle"></i>Calendar</a>
+    </li>
+  </ul>
 </li>
-
-<li>
-  <a href="widgets.html">
-    <div class="parent-icon"><i class='lni lni-users'></i></div>
-    <div class="menu-title">Students</div>
-  </a>
-</li>
-
-<li>
-  <a href="widgets.html">
-    <div class="parent-icon"><i class='bx bx-home-circle'></i></div>
-    <div class="menu-title">Classes</div>
-  </a>
-</li>
-
-<li>
-  <a href="widgets.html">
-    <div class="parent-icon"><i class='bx bx-notepad'></i></div>
-    <div class="menu-title">Results</div>
-  </a>
-</li>
-
-{{-- <li class="menu-label">UI Elements</li>
+<li class="menu-label">UI Elements</li>
 <li>
   <a href="widgets.html">
     <div class="parent-icon"><i class='bx bx-briefcase-alt-2'></i>
@@ -198,8 +203,7 @@
     <li> <a href="authentication-reset-password.html" target="_blank"><i class="bx bx-right-arrow-circle"></i>Reset
         Password</a>
     </li>
-    <li> <a href="authentication-lock-screen.html" target="_blank"><i class="bx bx-right-arrow-circle"></i>Lock
-        Screen</a>
+    <li> <a href="authentication-lock-screen.html" target="_blank"><i class="bx bx-right-arrow-circle"></i>Lock Screen</a>
     </li>
   </ul>
 </li>
@@ -310,4 +314,4 @@
     </div>
     <div class="menu-title">Support</div>
   </a>
-</li> --}}
+</li>

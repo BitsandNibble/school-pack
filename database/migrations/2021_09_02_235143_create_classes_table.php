@@ -17,6 +17,7 @@ class CreateClassesTable extends Migration
             $table->id();
             $table->integer('teacher_id')->index()->nullable();
             $table->string('name');
+            $table->timestamps();
 
             $table->foreign('teacher_id')
                 ->references('id')

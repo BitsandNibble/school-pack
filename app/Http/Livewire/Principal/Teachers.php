@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Principal;
 
+use App\Models\StudentClass;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
@@ -14,7 +15,7 @@ class Teachers extends Component
 
   public $teacher;
   protected $paginationTheme = 'bootstrap';
-  
+
   protected $rules = [
     'teacher.firstname' => 'required|string',
     'teacher.lastname' => 'required|string',
@@ -24,8 +25,9 @@ class Teachers extends Component
   public function render()
   {
     $teachers = Teacher::Paginate(10);
+    $classes = StudentClass::where('teacher_id', NULL)->get();
 
-    return view('livewire.principal.teachers', compact('teachers'));
+    return view('livewire.principal.teachers', compact('teachers', 'classes'));
   }
 
   public function saveTeacher()
@@ -38,7 +40,7 @@ class Teachers extends Component
       'lastname' => $this->teacher['lastname'],
       'title' => $this->teacher['title'],
       'gender' => $this->teacher['gender'] ?? '',
-      'class_teacher' => $this->teacher['class_teacher'] ?? '',
+      'class_id' => $this->teacher['class_id'] ?? null,
       'staff_id' => 'GS_' . mt_rand(500, 1000),
       'password' => Hash::make('password'),
       'slug' => Str::slug($this->teacher['firstname'], '-'),

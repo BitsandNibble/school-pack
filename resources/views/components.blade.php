@@ -144,11 +144,9 @@
         <x-modal id="lgmodal">
           <x-slot name="title">A Large Modal</x-slot>
 
-          <x-slot name="content">
-            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
-            literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
-            College in Virginia, looked up one of the more obscure Latin words, consectetur.
-          </x-slot>
+          Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
+          literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
+          College in Virginia, looked up one of the more obscure Latin words, consectetur.
 
           <x-slot name="footer">
             <x-button value="submit">Save</x-button>
@@ -158,18 +156,16 @@
         <x-confirmation-modal id="anotherModal">
           <x-slot name="title">Delete</x-slot>
 
-          <x-slot name="content">
-            <div class="d-flex align-items-center">
-              <div class="font-35 text-warning mb-3">
-                <i class="lni lni-warning"></i>
-              </div>
-              <div class="ms-auto font-20">
-                <p class="mb-0 text-secondary">
-                  Are you sure you want to delete this item ?
-                </p>
-              </div>
+          <div class="d-flex align-items-center">
+            <div class="font-35 text-warning mb-3">
+              <i class="lni lni-warning"></i>
             </div>
-          </x-slot>
+            <div class="ms-auto font-20">
+              <p class="mb-0 text-secondary">
+                Are you sure you want to delete this item ?
+              </p>
+            </div>
+          </div>
 
           <x-slot name="footer">
             <x-button value="danger">Delete</x-button>

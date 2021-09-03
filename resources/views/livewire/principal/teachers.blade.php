@@ -37,7 +37,8 @@
               </td>
               <td>
                 <x-button wire:click.prevent="delete({{ $teacher->id }})"
-                  onclick="confirm('Are you sure you want to delete this teacher?') || event.stopImmediatePropagation()" value="">
+                  onclick="confirm('Are you sure you want to delete this teacher?') || event.stopImmediatePropagation()"
+                  class="btn-sm" value="">
                   <i class="bx bx-trash-alt"></i>
                 </x-button>
               </td>

@@ -18,18 +18,14 @@ Route::get('/', function () {
 });
 
 Route::view('components', 'components');
-Route::prefix('principal')->group(function () {
-  Route::name('principal.')->group(function () {
-    Route::view('/', 'principal.index')->name('home');
-    Route::view('teachers', 'principal.teachers')->name('teachers');
-    Route::view('students', 'principal.students')->name('students');
-    Route::view('student', 'principal.student')->name('student');
-    Route::view('classes', 'principal.classes')->name('classes');
-    Route::view('results', 'principal.results')->name('results');
-    Route::view('result', 'principal.result')->name('result');
-    Route::view('subjects', 'principal.subjects')->name('subjects');
-  });
-});
+Route::view('dash', 'principal.index')->name('home');
+Route::view('teachers', 'principal.teachers')->name('teachers');
+Route::view('students', 'principal.students')->name('students');
+Route::view('student', 'principal.student')->name('student');
+Route::view('classes', 'principal.classes')->name('classes');
+Route::view('results', 'principal.results')->name('results');
+Route::view('result', 'principal.result')->name('result');
+Route::view('subjects', 'principal.subjects')->name('subjects');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
   return view('dashboard');

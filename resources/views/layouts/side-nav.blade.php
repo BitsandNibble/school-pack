@@ -1,5 +1,5 @@
 <li>
-  <a href="{{ route('principal.home') }}">
+  <a href="{{ route('home') }}">
     <div class="parent-icon"><i class='bx bx-home'></i></div>
     <div class="menu-title">Dashboard</div>
   </a>
@@ -8,35 +8,35 @@
 <li class="menu-label">Pages</li>
 
 <li>
-  <a href="{{ route('principal.teachers') }}">
+  <a href="{{ route('teachers') }}">
     <div class="parent-icon"><i class='bx bxs-user'></i></div>
     <div class="menu-title">Teachers</div>
   </a>
 </li>
 
 <li>
-  <a href="{{ route('principal.students') }}">
+  <a href="{{ route('students') }}">
     <div class="parent-icon"><i class='lni lni-users'></i></div>
     <div class="menu-title">Students</div>
   </a>
 </li>
 
 <li>
-  <a href="{{ route('principal.classes') }}">
+  <a href="{{ route('classes') }}">
     <div class="parent-icon"><i class='bx bx-home-circle'></i></div>
     <div class="menu-title">Classes</div>
   </a>
 </li>
 
 <li>
-  <a href="{{ route('principal.subjects') }}">
+  <a href="{{ route('subjects') }}">
     <div class="parent-icon"><i class='bx bx-book'></i></div>
     <div class="menu-title">Subjects</div>
   </a>
 </li>
 
 <li>
-  <a href="{{ route('principal.results') }}">
+  <a href="{{ route('results') }}">
     <div class="parent-icon"><i class='bx bx-notepad'></i></div>
     <div class="menu-title">Results</div>
   </a>

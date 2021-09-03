@@ -5,7 +5,7 @@
     <div class="top-menu-left d-none d-lg-block">
       <ul class="nav">
         <li class="nav-item">
-          <a class="nav-link text-white" href="{{ route('components') }}"><i class='bx bx-wind'></i></a>
+          <a class="nav-link text-white" href="components"><i class='bx bx-wind'></i></a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="app-chat-box.html"><i class='bx bx-message'></i></a>

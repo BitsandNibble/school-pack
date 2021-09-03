@@ -17,7 +17,7 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-Route::view('components', 'components')->name('components');
+Route::view('components', 'components');
 Route::prefix('principal')->group(function () {
   Route::name('principal.')->group(function () {
     Route::view('/', 'principal.index')->name('home');

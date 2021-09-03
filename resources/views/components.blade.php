@@ -56,18 +56,17 @@
             <h1 class="card-title">Form Components</h1>
 
             <div class="row">
-              <x-validation-errors />
               <div class="col-md-4">
                 <x-label for="first_name">First name</x-label>
                 <x-input type="text" id="first_name" />
                 {{-- <x-input class="is-invalid mt-2" id="first_name" /> --}}
-                <x-input-error for="first_name" custom-message="Please enter your firstname"/>
+                <x-input-error for="first_name">Please enter your firstname</x-input-error>
               </div>
 
               <div class="col-md-4">
                 <x-label for="lastname">Last name</x-label>
                 <x-input type="text" id="lastname" />
-                <x-input-error for="lastname"/>
+                <x-input-error for="lastname">Please enter your lastname</x-input-error>
               </div>
 
               <div class="col-md-4">
@@ -75,6 +74,7 @@
                 <div class="input-group"> <span class="input-group-text">@</span>
                   <x-input type="text" id="username" />
                 </div>
+                <x-input-error for="username">Please choose a username</x-input-error>
               </div>
             </div>
 
@@ -82,6 +82,7 @@
               <div class="col-md-6">
                 <x-label for="address">Address</x-label>
                 <x-textarea id="address" placeholder=""></x-textarea>
+                <x-input-error for="address">Please enter your address</x-input-error>
               </div>
 
               <div class="col-md-3">
@@ -91,11 +92,13 @@
                   <option>...</option>
                   <option>...</option>
                 </x-select>
+                <x-input-error for="state">Please choose a state</x-input-error>
               </div>
 
               <div class="col-md-3">
                 <x-label for="dob">Date of birth</x-label>
                 <x-input type="date" id="dob" />
+                <x-input-error for="dob">Please pick you dob</x-input-error>
               </div>
             </div>
 
@@ -110,11 +113,13 @@
 
                 <x-checked-input type="radio" name="gender" id="gender" />
                 <x-checked-label for="gender">Other</x-checked-label>
+                <x-input-error for="gender">Please choose a gender</x-input-error>
               </div>
 
               <div class="col-md-6">
                 <x-label for="image">Image</x-label>
                 <x-input type="file" id="image" />
+                <x-input-error for="image">Please upload an image</x-input-error>
               </div>
             </div>
 

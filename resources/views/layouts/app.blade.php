@@ -48,6 +48,7 @@
     {{-- page wrapper --}}
     <div class="page-wrapper">
       <div class="page-content">
+        <x-flash />
         {{-- page content here --}}
         {{ $slot }}
       </div>

@@ -1,4 +1,4 @@
 <select {{ $attributes->merge(['class' => 'form-select']) }}>
-  <option selected value="">Select One...</option>
+  <option selected disabled value="">Select One...</option>
   {{ $slot }}
 </select>

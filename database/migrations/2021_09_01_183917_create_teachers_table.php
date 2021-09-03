@@ -15,7 +15,7 @@ class CreateTeachersTable extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('class_id')->index()->nullable();
+            $table->unsignedBigInteger('admin_id')->index()->nullable();
             $table->string('slug');
             $table->string('firstname');
             $table->string('middlename')->nullable();
@@ -30,6 +30,11 @@ class CreateTeachersTable extends Migration
             $table->rememberToken();
             $table->string('profile_photo', 2048)->nullable();
             $table->timestamps();
+
+            $table->foreign('admin_id')
+                ->references('id')
+                ->on('principals')
+                ->onDelete('cascade');
         });
     }
 

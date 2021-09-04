@@ -82,7 +82,7 @@
         <div class="row">
           {{-- <x-validation-errors /> --}}
 
-          <div class="col-md-4">
+          <div class="col-md-4 mb-2">
             <x-input type="hidden" wire:model="class_id" />
             <x-label for="name">Class name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="name" wire:model.defer="name" />

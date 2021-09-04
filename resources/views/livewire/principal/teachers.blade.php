@@ -85,12 +85,12 @@
             <x-input-error for="teacher.firstname" custom-message="The firstname is required" />
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4 mt-2">
             <x-label for="middlename">Middle name</x-label>
             <x-input type="text" id="middlename" wire:model.defer="teacher.middlename" />
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4 mt-2">
             <x-label for="lastname">Last name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="lastname" wire:model.defer="teacher.lastname" />
             <x-input-error for="teacher.lastname" custom-message="The lastname is required" />
@@ -112,7 +112,7 @@
             <x-input-error for="teacher.title" custom-message="The title is required" />
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4 mt-2">
             <x-label for="gender">Gender</x-label>
             <x-select id="gender" wire:model.defer="teacher.gender">
               <option value="Male">Male</option>
@@ -121,7 +121,7 @@
             </x-select>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4 mt-2">
             <x-label for="class_id">Class</x-label>
             @if (isset($this->teacher_id) && $this->selected_class_id != '')
               <div class="d-flex justify-content">

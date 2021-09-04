@@ -60,12 +60,12 @@
             <x-input-error for="student.firstname" custom-message="The firstname is required" />
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4 mt-2">
             <x-label for="middlename">Middle name</x-label>
             <x-input type="text" id="middlename" wire:model.defer="student.middlename" />
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4 mt-2">
             <x-label for="lastname">Last name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="lastname" wire:model.defer="student.lastname" />
             <x-input-error for="student.lastname" custom-message="The lastname is required" />
@@ -82,7 +82,7 @@
             </x-select>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4 mt-2">
             <x-label for="current_class_id">Current Class <span class="text-danger">*</span></x-label>
             <x-select id="current_class_id" wire:model.defer="student.current_class_id">
               @foreach ($classes as $class)
@@ -92,7 +92,7 @@
             <x-input-error for="student.current_class_id" custom-message="The current class is required" />
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4 mt-2">
             <x-label for="gender">Gender</x-label>
             <x-select id="gender" wire:model.defer="student.gender">
               <option value="Male">Male</option>

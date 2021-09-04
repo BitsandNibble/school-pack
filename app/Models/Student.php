@@ -30,4 +30,19 @@ class Student extends Model
   {
     return $this->firstname . ' ' . $this->middlename . ' ' . $this->lastname;
   }
+
+  public function getFirstnameAttribute($value)
+  {
+    return ucfirst($value);
+  }
+
+  public function getMiddlenameAttribute($value)
+  {
+    return ucfirst($value);
+  }
+
+  public function getLastnameAttribute($value)
+  {
+    return ucfirst($value);
+  }
 }

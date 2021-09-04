@@ -208,6 +208,8 @@
     </x-slot>
   </x-confirmation-modal>
 
+  <x-spinner />
+
   @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}">
   @endpush

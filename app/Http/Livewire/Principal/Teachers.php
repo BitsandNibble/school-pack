@@ -38,7 +38,7 @@ class Teachers extends Component
   public function cancel()
   {
     $this->emit('closeModal');
-    $this->reset(['teacher', 'teacher_id', 'class_id']);
+    $this->reset(['teacher', 'teacher_id', 'class_id', 'teacherInfo', 'teacherClassInfo']);
   }
 
   public function edit($id)

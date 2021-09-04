@@ -89,7 +89,7 @@
             <x-input-error for="name" />
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-6 col">
             <x-label for="teacher_id">Class Teacher</x-label>
             @if (isset($this->class_id) && $this->teacher_id != '')
               <div class="d-flex justify-content">

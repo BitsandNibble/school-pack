@@ -14,7 +14,7 @@ class Teachers extends Component
 {
   use WithPagination;
 
-  public $teacher, $deleting;
+  public $teacher, $teacherInfo, $teacherClassInfo, $deleting;
   public $class_id, $teacher_id, $existingClass;
   protected $paginationTheme = 'bootstrap';
 
@@ -87,6 +87,17 @@ class Teachers extends Component
     }
 
     $this->cancel();
+  }
+
+  public function showInfo($id)
+  {
+    $teacher = Teacher::where('id', $id)->with('classRooms')->first();
+
+    foreach ($teacher->classRooms()->get() as $teacherClass) {
+      $this->teacherClassInfo = $teacherClass->name;
+    }
+
+    $this->teacherInfo = $teacher;
   }
 
   public function deleteExistingClass($id)

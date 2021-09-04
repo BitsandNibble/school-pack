@@ -16,7 +16,7 @@
             <th>Staff ID</th>
             <th>Email</th>
             <th>Number</th>
-            <th>Class Teacher</th>
+            <th>Class</th>
             <th></th>
           </tr>
         </thead>
@@ -38,12 +38,16 @@
                 @endforelse
               </td>
               <td>
-                <x-button wire:click="edit({{ $teacher->id }})" value="" data-bs-toggle="modal"
+                <x-button class="px-0" value="" wire:click="showInfo({{ $teacher->id }})"
+                  data-bs-toggle="modal" data-bs-target="#infoModal">
+                  <i class="bx bxs-show"></i>
+                </x-button>
+                <x-button class="px-0" wire:click="edit({{ $teacher->id }})" value="" data-bs-toggle="modal"
                   data-bs-target="#teacherModal">
                   <i class="bx bxs-pen"></i>
                 </x-button>
-                <x-button value="" wire:click="openDeleteModal({{ $teacher->id }})" data-bs-toggle="modal"
-                  data-bs-target="#deleteModal">
+                <x-button class="px-0" value="" wire:click="openDeleteModal({{ $teacher->id }})"
+                  data-bs-toggle="modal" data-bs-target="#deleteModal">
                   <i class="bx bxs-trash-alt"></i>
                 </x-button>
               </td>
@@ -135,6 +139,52 @@
     <x-slot name="footer">
       <x-button value="dark" wire:click="cancel">Close</x-button>
       <x-button value="submit" wire:click.prevent="store">Save</x-button>
+    </x-slot>
+  </x-modal>
+
+  <x-modal id="infoModal">
+    <x-slot name="title">Teacher</x-slot>
+
+    <x-slot name="content">
+      <table class="table table-sm table-borderless table-hover">
+        <tr>
+          <th>Fullname</th>
+          <td>{{ $teacherInfo['firstname'] ?? '' }} {{ $teacherInfo['middlename'] ?? '' }}
+            {{ $teacherInfo['lastname'] ?? '' }}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>{{ $teacherInfo['email'] ?? '' }}</td>
+        </tr>
+        <tr>
+          <th>Phone Number</th>
+          <td>{{ $teacherInfo['phone_number'] ?? '' }}</td>
+        </tr>
+        <tr>
+          <th>Gender</th>
+          <td>{{ $teacherInfo['gender'] ?? '' }}</td>
+        </tr>
+        <tr>
+          <th>Date of Birth</th>
+          <td>{{ $teacherInfo['date_of_birth'] ?? '' }}</td>
+        </tr>
+        <tr>
+          <th>Staff ID</th>
+          <td>{{ $teacherInfo['staff_id'] ?? '' }}</td>
+        </tr>
+        <tr>
+          <th>Class Teacher</th>
+          <td>{{ $teacherClassInfo ?? '' }}</td>
+        </tr>
+        <tr>
+          <th>Subjects</th>
+          {{-- <td>{{ $teacherClassInfo ?? '' }}</td> --}}
+        </tr>
+    </table>
+    </x-slot>
+
+    <x-slot name="footer">
+      <x-button value="dark" wire:click="cancel">Close</x-button>
     </x-slot>
   </x-modal>
 

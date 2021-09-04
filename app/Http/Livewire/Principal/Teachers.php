@@ -7,7 +7,6 @@ use App\Models\Teacher;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Livewire\WithPagination;
 
 class Teachers extends Component
@@ -15,7 +14,7 @@ class Teachers extends Component
   use WithPagination;
 
   public $teacher, $teacherInfo, $teacherClassInfo, $deleting;
-  public $class_id, $teacher_id, $existingClass;
+  public $selected_class_id, $teacher_id, $existingClass;
   protected $paginationTheme = 'bootstrap';
 
   protected $rules = [
@@ -38,7 +37,7 @@ class Teachers extends Component
   public function cancel()
   {
     $this->emit('closeModal');
-    $this->reset(['teacher', 'teacher_id', 'class_id', 'teacherInfo', 'teacherClassInfo']);
+    $this->reset(['teacher', 'teacher_id', 'selected_class_id', 'teacherInfo', 'teacherClassInfo']);
   }
 
   public function edit($id)
@@ -48,7 +47,7 @@ class Teachers extends Component
 
     $this->teacher = $teacher;
     foreach ($teacher->classRooms()->get() as $teacherClass) {
-      $this->class_id = $teacherClass->id;
+      $this->selected_class_id = $teacherClass->id;
       $this->existingClass = $teacherClass->name;
     }
   }
@@ -119,7 +118,7 @@ class Teachers extends Component
 
   public function delete(Teacher $teacher)
   {
-    $teacher->classRooms()->detach($this->class_id);
+    $teacher->classRooms()->detach($this->teacher_id);
     $teacher->delete();
     $this->cancel();
   }

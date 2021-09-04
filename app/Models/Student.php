@@ -12,13 +12,22 @@ class Student extends Model
   protected $fillable = [
     'firstname', 'middlename', 'lastname',
     'gender', 'date_of_birth', 'admission_no',
-    'email', 'previous_class', 'current_class',
-    'password', 'phone_number', 'profile_photo',
-    'slug',
+    'email', 'previous_class', 'password',
+    'phone_number', 'profile_photo', 'slug',
   ];
 
   protected $hidden = [
     'password',
     'remember_token',
   ];
+
+  public function classRooms()
+  {
+    return $this->belongsToMany(ClassRoom::class);
+  }
+
+  public function getFullnameAttribute()
+  {
+    return $this->firstname . ' ' . $this->middlename . ' ' . $this->lastname;
+  }
 }

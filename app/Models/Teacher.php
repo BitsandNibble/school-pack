@@ -27,14 +27,14 @@ class Teacher extends Model
   //   return $this->belongsTo(Principal::class);
   // }
 
-  public function getFullnameAttribute()
-  {
-    return $this->firstname . ' ' . $this->middlename . ' ' . $this->lastname;
-  }
-
   public function classRooms()
   {
     return $this->belongsToMany(ClassRoom::class);
+  }
+
+  public function getFullnameAttribute()
+  {
+    return $this->firstname . ' ' . $this->middlename . ' ' . $this->lastname;
   }
 
   public function getFirstnameAttribute($value)

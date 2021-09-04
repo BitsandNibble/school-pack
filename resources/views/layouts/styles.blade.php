@@ -3,7 +3,7 @@
  <link rel="stylesheet" href="{{ asset('assets/plugins/simplebar/css/simplebar.css') }}">
  <link rel="stylesheet" href="{{ asset('assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}">
  <link rel="stylesheet" href="{{ asset('assets/plugins/metismenu/css/metisMenu.min.css') }}">
- <link rel="stylesheet" href="{{ asset('assets/css/pace.min.css') }}">
+ {{-- <link rel="stylesheet" href="{{ asset('assets/css/pace.min.css') }}"> --}}
 
  <!-- Bootstrap CSS -->
  <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">

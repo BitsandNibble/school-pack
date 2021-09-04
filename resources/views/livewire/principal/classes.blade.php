@@ -18,7 +18,7 @@
         <div class="col-md-4 col-sm-6">
           <x-card>
             <div class="d-flex align-items-center">
-              <div>
+              <a href="{{ route('principal.classes.students', [$class]) }}">
                 <h6 class="mb-1 text-dark">Class Teacher</h6>
                 <p class="mb-1 text-primary">
                   @forelse ($class->teachers as $teacher)
@@ -28,7 +28,7 @@
                   @endforelse
                 </p>
                 <h4 class="text-uppercase">{{ $class->name }}</h4>
-              </div>
+              </a>
               <div class="dropdown ms-auto" style="position: relative;">
                 <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer" data-bs-toggle="dropdown">
                   <i class='bx bx-dots-horizontal-rounded font-22'></i>
@@ -129,4 +129,6 @@
       <x-button value="danger" wire:click.prevent="delete({{ $deleting }})">Delete</x-button>
     </x-slot>
   </x-confirmation-modal>
+
+  <x-spinner />
 </div>

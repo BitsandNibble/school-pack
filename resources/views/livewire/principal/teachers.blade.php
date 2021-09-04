@@ -123,11 +123,11 @@
 
           <div class="col-md-4">
             <x-label for="class_id">Class</x-label>
-            @if (isset($this->teacher_id) && $this->class_id != '')
+            @if (isset($this->teacher_id) && $this->selected_class_id != '')
               <div class="d-flex justify-content">
                 <h6 class="mr-4">{{ $existingClass }}</h6>
                 <a class="text-dark" href="javascript:;"
-                  wire:click.prevent="deleteExistingClass({{ $this->class_id }})">
+                  wire:click.prevent="deleteExistingClass({{ $this->selected_class_id }})">
                   <i class="bx bxs-trash-alt"></i>
                 </a>
               </div>
@@ -207,6 +207,8 @@
       <x-button value="danger" wire:click.prevent="delete({{ $deleting }})">Delete</x-button>
     </x-slot>
   </x-confirmation-modal>
+
+  <x-spinner />
 
   @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}">

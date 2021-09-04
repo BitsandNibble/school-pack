@@ -18,6 +18,11 @@ class ClassRoom extends Model
     return $this->belongsToMany(Teacher::class);
   }
 
+  public function students()
+  {
+    return $this->belongsToMany(Student::class);
+  }
+
   public function getNameAttribute($value)
   {
     return strtoupper($value);

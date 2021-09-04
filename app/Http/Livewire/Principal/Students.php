@@ -26,9 +26,7 @@ class Students extends Component
 
   public function render()
   {
-    // $classes = ClassRoom::orderBy('name')->with('classRooms')->get();
     $classes = ClassRoom::orderBy('name')->with('students')->get();
-
 
     return view('livewire.principal.students', compact('classes'));
   }
@@ -39,13 +37,12 @@ class Students extends Component
     $this->reset(['student', 'student_id', 'studentInfo', 'studentClassInfo']);
   }
 
-
   public function edit($id)
   {
     $student = Student::where('id', $id)->with('classRooms')->first();
     $this->student_id = $student['id'];
-
     $this->student = $student;
+    
     foreach ($student->classRooms()->get() as $studentClass) {
       $this->student['current_class_id'] = $studentClass->id;
     }

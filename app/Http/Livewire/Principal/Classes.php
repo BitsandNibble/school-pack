@@ -15,9 +15,10 @@ class Classes extends Component
   public $name, $deleting;
   public $class_id, $existingTeacher, $teacher_id;
   public $reset = ['name', 'teacher_id', 'class_id']; // fields to reset
+  
   protected $paginationTheme = 'bootstrap';
-
   protected $rules;
+
   protected function rules()
   {
     return [
@@ -37,15 +38,14 @@ class Classes extends Component
   {
     $this->emit('closeModal');
     $this->reset($this->reset);
-    // $this->reset(['name', 'teacher_id', 'class_id']);
   }
 
   public function edit($id)
   {
     $class = ClassRoom::where('id', $id)->with('teachers')->first();
     $this->class_id = $class['id'];
-
     $this->name = $class->name;
+
     foreach ($class->teachers()->get() as $classTeacher) {
       $this->teacher_id = $classTeacher->id;
       $this->existingTeacher = $classTeacher->title . ' ' . $classTeacher->fullname;

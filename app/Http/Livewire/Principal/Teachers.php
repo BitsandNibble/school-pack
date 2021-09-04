@@ -44,8 +44,8 @@ class Teachers extends Component
   {
     $teacher = Teacher::where('id', $id)->with('classRooms')->first();
     $this->teacher_id = $teacher['id'];
-
     $this->teacher = $teacher;
+    
     foreach ($teacher->classRooms()->get() as $teacherClass) {
       $this->selected_class_id = $teacherClass->id;
       $this->existingClass = $teacherClass->name;

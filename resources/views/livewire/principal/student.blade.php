@@ -1,4 +1,4 @@
-<x-app-layout>
+<div>
   <x-breadcrumb>
     <a href="{{ route('principal.students') }}">Students</a>
     <li class="breadcrumb-item active" aria-current="page">Student</li>
@@ -128,6 +128,7 @@
   @push('modals')
     <x-modal id="studentModal">
       <x-slot name="title">Add New Student</x-slot>
+      <x-slot name="content"></x-slot>
       <x-slot name="footer"></x-slot>
     </x-modal>
   @endpush
@@ -152,4 +153,4 @@
       });
     </script>
   @endpush
-</x-app-layout>
+</div>

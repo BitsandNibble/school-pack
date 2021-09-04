@@ -1,4 +1,6 @@
 <div>
+  <h5>{{ $title }}</h5>
+
   <x-card>
     <div class="table-responsive">
       <table id="studentsTable" class="table table-striped table-bordered" style="width:100%">

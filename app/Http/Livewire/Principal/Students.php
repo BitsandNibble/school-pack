@@ -11,9 +11,9 @@ use Illuminate\Support\Str;
 class Students extends Component
 {
   public $student, $studentInfo, $studentClassInfo, $deleting;
-  public $student_id, $title = 'All Students';
+  public $student_id;
 
-  protected $listeners = ['edit', 'showInfo', 'openDeleteModal', 'changeTitle'];
+  protected $listeners = ['edit', 'showInfo', 'openDeleteModal'];
 
   protected $rules = [
     'student.firstname' => 'required|string',
@@ -115,14 +115,8 @@ class Students extends Component
     $this->emit('filterStudents', $id);
   }
 
-  public function changeTitle($value)
-  {
-    $this->title = $value;
-  }
-
   public function fetchAll()
   {
-    $this->title = 'All Students';
     $this->emit('fetchAll');
   }
 }

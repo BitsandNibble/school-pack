@@ -40,7 +40,6 @@
     </div>
   </x-card>
 
-  <h5>{{ $title }}</h5>
   <livewire:principal.student :id="null" :type="null" />
 
   <x-modal id="studentModal">

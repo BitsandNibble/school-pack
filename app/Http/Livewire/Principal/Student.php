@@ -11,7 +11,7 @@ class Student extends Component
 {
   use WithPagination;
 
-  public $class_id, $parent;
+  public $class_id, $parent, $title = 'All Students';
 
   protected $paginationTheme = 'bootstrap';
 
@@ -31,7 +31,7 @@ class Student extends Component
     if ($this->class_id) {
       $class = ClassRoom::findOrFail($this->class_id);
       $students = $class->students()->wherePivot('class_room_id', $this->class_id)->Paginate(10);
-      $this->emit('changeTitle', $class->name);
+      $this->title = $class->name;
     } else {
       $students = ModelsStudent::with('classRooms')->Paginate(10);
     }
@@ -47,6 +47,7 @@ class Student extends Component
   public function fetchAll()
   {
     $this->class_id = '';
+    $this->title = 'All Students';
   }
 
   public function refresh()

@@ -3,7 +3,13 @@
   <x-flash />
 
   <x-card>
-    <x-button data-bs-toggle="modal" data-bs-target="#teacherModal">Add New Teacher</x-button>
+    <div class="d-flex align-items-center">
+      {{-- <h4 class="my-1">Class</h4> --}}
+
+      <div class="ms-auto d-flex justify-content-end">
+        <x-button data-bs-toggle="modal" data-bs-target="#teacherModal">Add New Teacher</x-button>
+      </div>
+    </div>
   </x-card>
 
   <x-card>

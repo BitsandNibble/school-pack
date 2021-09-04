@@ -5,7 +5,13 @@
   </x-breadcrumb>
 
   <x-card>
-    <x-button data-bs-toggle="modal" data-bs-target="#studentModal">Add New Student</x-button>
+    <div class="d-flex align-items-center">
+      <h4 class="my-1">JSS1</h4>
+
+      <div class="ms-auto d-flex justify-content-end">
+        <x-button data-bs-toggle="modal" data-bs-target="#studentModal">Add New Student</x-button>
+      </div>
+    </div>
   </x-card>
 
   <x-card>

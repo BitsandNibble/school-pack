@@ -41,7 +41,7 @@
   </x-card>
 
   <h5>{{ $title }}</h5>
-  <livewire:principal.student />
+  <livewire:principal.student :id="null" :type="null" />
 
   <x-modal id="studentModal">
     <x-slot name="title">{{ isset($this->student_id) ? 'Edit' : 'Add New' }} Student</x-slot>

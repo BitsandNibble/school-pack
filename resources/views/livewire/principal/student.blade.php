@@ -11,7 +11,9 @@
             @if (!$class_id)
               <th>Class</th>
             @endif
-            <th></th>
+            @if ($parent != '2')
+              <th></th>
+            @endif
           </tr>
         </thead>
 
@@ -31,20 +33,22 @@
                   @endforelse
                 </td>
               @endif
-              <td>
-                <x-button class="px-0" value="" wire:click="showInfo({{ $student->id }})"
-                  data-bs-toggle="modal" data-bs-target="#infoModal">
-                  <i class="bx bxs-show"></i>
-                </x-button>
-                <x-button class="px-0" wire:click="edit({{ $student->id }})" value="" data-bs-toggle="modal"
-                  data-bs-target="#studentModal">
-                  <i class="bx bxs-pen"></i>
-                </x-button>
-                <x-button class="px-0" value="" wire:click="openDeleteModal({{ $student->id }})"
-                  data-bs-toggle="modal" data-bs-target="#deleteModal">
-                  <i class="bx bxs-trash-alt"></i>
-                </x-button>
-              </td>
+              @if ($parent != '2')
+                <td>
+                  <x-button class="px-0" value="" wire:click="showInfo({{ $student->id }})"
+                    data-bs-toggle="modal" data-bs-target="#infoModal">
+                    <i class="bx bxs-show"></i>
+                  </x-button>
+                  <x-button class="px-0" wire:click="edit({{ $student->id }})" value=""
+                    data-bs-toggle="modal" data-bs-target="#studentModal">
+                    <i class="bx bxs-pen"></i>
+                  </x-button>
+                  <x-button class="px-0" value="" wire:click="openDeleteModal({{ $student->id }})"
+                    data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    <i class="bx bxs-trash-alt"></i>
+                  </x-button>
+                </td>
+              @endif
             </tr>
           @endforeach
         </tbody>

@@ -11,11 +11,20 @@ class Student extends Component
 {
   use WithPagination;
 
-  public $class_id;
+  public $class_id, $parent;
 
   protected $paginationTheme = 'bootstrap';
 
   protected $listeners = ['refresh', 'filterStudents', 'fetchAll'];
+
+  public function mount($id, $type)
+  {
+    $this->class_id = $id;
+    $this->parent = $type;
+
+    // type 1 = student
+    // type 2 = class
+  }
 
   public function render()
   {

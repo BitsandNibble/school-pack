@@ -15,7 +15,7 @@ class Classes extends Component
   public $name, $deleting;
   public $class_id, $existingTeacher, $teacher_id;
   public $reset = ['name', 'teacher_id', 'class_id']; // fields to reset
-  
+
   protected $paginationTheme = 'bootstrap';
   protected $rules;
 

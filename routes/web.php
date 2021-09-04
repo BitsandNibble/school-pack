@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Principal\HomeController;
 use App\Http\Livewire\Principal\Classes;
 use App\Http\Livewire\Principal\Students;
 use App\Http\Livewire\Principal\Teachers;
@@ -26,6 +27,7 @@ Route::group(['prefix' => 'principal', 'as' => 'principal.'], function () {
   Route::get('teachers', Teachers::class)->name('teachers');
   Route::get('students', Students::class)->name('students');
   Route::get('classes', Classes::class)->name('classes');
+  Route::get('classes/{classname:name}', [HomeController::class, 'getStudentsPerClass'])->name('classes.students');
   Route::view('results', 'principal.results')->name('results');
   Route::view('result', 'principal.result')->name('result');
   Route::view('subjects', 'principal.subjects')->name('subjects');

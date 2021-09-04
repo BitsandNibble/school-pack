@@ -1,4 +1,5 @@
 <div>
+  <x-breadcrumb>Classes</x-breadcrumb>
   <x-flash />
 
   <x-card>

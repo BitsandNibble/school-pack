@@ -35,6 +35,7 @@
   @push('modals')
     <x-modal id="subjectModal">
       <x-slot name="title">Add New Subject</x-slot>
+      <x-slot name="content"></x-slot>
       <x-slot name="footer"></x-slot>
     </x-modal>
   @endpush

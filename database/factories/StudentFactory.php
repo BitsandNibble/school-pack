@@ -28,7 +28,6 @@ class StudentFactory extends Factory
       'middlename' => $this->faker->firstName(),
       'lastname' => $this->faker->lastName(),
       'previous_class' => $this->faker->randomElement(['JSS1', 'JSS2', 'JSS3']),
-      'current_class' => $this->faker->randomElement(['SSS1', 'SSS2', 'SSS3']),
       'gender' => $this->faker->randomElement(['Male', 'Female']),
       // 'date_of_birth',
       'admission_no' => 'GS' . $this->faker->numerify('#####'),

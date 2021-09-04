@@ -8,7 +8,9 @@
             <th>Full name</th>
             <th>Admission no</th>
             <th>Gender</th>
-            <th>Class</th>
+            @if (!$class_id)
+              <th>Class</th>
+            @endif
             <th></th>
           </tr>
         </thead>
@@ -20,13 +22,15 @@
               <td>{{ $student->fullname }} </td>
               <td>{{ $student->admission_no }}</td>
               <td>{{ $student->gender }}</td>
-              <td>
-                @forelse ($student->classRooms as $class)
-                  {{ $class->name }}
-                @empty
-                  --------
-                @endforelse
-              </td>
+              @if (!$class_id)
+                <td>
+                  @forelse ($student->classRooms as $class)
+                    {{ $class->name }}
+                  @empty
+                    --------
+                  @endforelse
+                </td>
+              @endif
               <td>
                 <x-button class="px-0" value="" wire:click="showInfo({{ $student->id }})"
                   data-bs-toggle="modal" data-bs-target="#infoModal">

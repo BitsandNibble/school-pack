@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Principal;
 
+use App\Models\ClassRoom;
 use App\Models\Student as ModelsStudent;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -10,15 +11,33 @@ class Student extends Component
 {
   use WithPagination;
 
+  public $class_id;
+
   protected $paginationTheme = 'bootstrap';
 
-  protected $listeners = ['refresh'];
+  protected $listeners = ['refresh', 'filterStudents', 'fetchAll'];
 
   public function render()
   {
-    $students = ModelsStudent::with('classRooms')->paginate(10);
+    if ($this->class_id) {
+      $class = ClassRoom::findOrFail($this->class_id);
+      $students = $class->students()->wherePivot('class_room_id', $this->class_id)->Paginate(10);
+      $this->emit('changeTitle', $class->name);
+    } else {
+      $students = ModelsStudent::with('classRooms')->Paginate(10);
+    }
 
     return view('livewire.principal.student', compact('students'));
+  }
+
+  public function filterStudents($id)
+  {
+    $this->class_id = $id;
+  }
+
+  public function fetchAll()
+  {
+    $this->class_id = '';
   }
 
   public function refresh()

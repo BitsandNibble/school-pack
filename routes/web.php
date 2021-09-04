@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Livewire\Principal\Classes;
-use App\Http\Livewire\Principal\Student;
 use App\Http\Livewire\Principal\Students;
 use App\Http\Livewire\Principal\Teachers;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +25,6 @@ Route::group(['prefix' => 'principal', 'as' => 'principal.'], function () {
   Route::view('/', 'principal.index')->name('home');
   Route::get('teachers', Teachers::class)->name('teachers');
   Route::get('students', Students::class)->name('students');
-  Route::get('student', Student::class)->name('student');
   Route::get('classes', Classes::class)->name('classes');
   Route::view('results', 'principal.results')->name('results');
   Route::view('result', 'principal.result')->name('result');

@@ -11,16 +11,16 @@ use Illuminate\Support\Str;
 class Students extends Component
 {
   public $student, $studentInfo, $studentClassInfo, $deleting;
-  public $student_id;
+  public $student_id, $title = 'All Students';
 
-  protected $listeners = ['edit', 'showInfo', 'openDeleteModal'];
+  protected $listeners = ['edit', 'showInfo', 'openDeleteModal', 'changeTitle'];
 
   protected $rules = [
     'student.firstname' => 'required|string',
     'student.middlename' => 'sometimes|string',
     'student.lastname' => 'required|string',
     'student.previous_class' => 'sometimes',
-    'student.current_class_id' => 'sometimes',
+    'student.current_class_id' => 'required',
     'student.gender' => 'sometimes',
   ];
 
@@ -42,7 +42,7 @@ class Students extends Component
     $student = Student::where('id', $id)->with('classRooms')->first();
     $this->student_id = $student['id'];
     $this->student = $student;
-    
+
     foreach ($student->classRooms()->get() as $studentClass) {
       $this->student['current_class_id'] = $studentClass->id;
     }
@@ -108,5 +108,21 @@ class Students extends Component
     $student->delete();
     $this->emit('refresh');
     $this->cancel();
+  }
+
+  public function filter($id)
+  {
+    $this->emit('filterStudents', $id);
+  }
+
+  public function changeTitle($value)
+  {
+    $this->title = $value;
+  }
+
+  public function fetchAll()
+  {
+    $this->title = 'All Students';
+    $this->emit('fetchAll');
   }
 }

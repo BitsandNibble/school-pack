@@ -15,17 +15,23 @@
 
   <x-card>
     <div class="row pricing-table">
+      <div class="col-md-4">
+        <x-card wire:click="fetchAll" class="cursor-pointer">
+          <div class="d-flex align-items-center">
+            <h4 class="my-1">All</h4>
+            <div class="ms-auto d-flex justify-content-end">
+              <i class='bx bxs-down-arrow-circle font-22'></i>
+            </div>
+          </div>
+        </x-card>
+      </div>
       @foreach ($classes as $class)
         <div class="col-md-4 col-sm-6">
-          <x-card>
+          <x-card wire:click="filter({{ $class->id }})" class="cursor-pointer">
             <div class="d-flex align-items-center">
-              <a href="{{ route('principal.student') }}" class="stretched-link w-100">
-                <h4 class="my-1">{{ $class->name }}</h4>
-              </a>
+              <h4 class="my-1">{{ $class->name }}</h4>
               <div class="ms-auto d-flex justify-content-end">
-                <div class="cursor-pointer">
-                  <i class='bx bxs-right-arrow-circle font-22'></i>
-                </div>
+                <i class='bx bxs-down-arrow-circle font-22'></i>
               </div>
             </div>
           </x-card>
@@ -34,7 +40,7 @@
     </div>
   </x-card>
 
-  <h5>All Students</h5>
+  <h5>{{ $title }}</h5>
   <livewire:principal.student />
 
   <x-modal id="studentModal">
@@ -77,12 +83,13 @@
           </div>
 
           <div class="col-md-4">
-            <x-label for="current_class_id">Current Class</x-label>
+            <x-label for="current_class_id">Current Class <span class="text-danger">*</span></x-label>
             <x-select id="current_class_id" wire:model.defer="student.current_class_id">
               @foreach ($classes as $class)
                 <option value="{{ $class->id }}">{{ $class->name }}</option>
               @endforeach
             </x-select>
+            <x-input-error for="student.current_class_id" custom-message="The current class is required" />
           </div>
 
           <div class="col-md-4">

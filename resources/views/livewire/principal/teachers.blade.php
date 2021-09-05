@@ -29,7 +29,7 @@
         </thead>
 
         <tbody>
-          @foreach ($teachers as $teacher)
+          @forelse ($teachers as $teacher)
             <tr>
               <td>{{ $loop->iteration }}</td>
               <td>{{ $teacher->title }}</td>
@@ -59,7 +59,11 @@
                 </x-button>
               </td>
             </tr>
-          @endforeach
+          @empty
+          <tr>
+            <td colspan="5" align="center">No record found</td>
+          </tr>
+          @endforelse
         </tbody>
       </table>
 

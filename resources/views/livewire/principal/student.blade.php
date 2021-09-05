@@ -1,5 +1,7 @@
 <div>
-  <h5>{{ $title }}</h5>
+  @if ($parent != '2')
+    <h5>{{ $title }}</h5>
+  @endif
 
   <x-card>
     <div class="table-responsive">
@@ -20,7 +22,7 @@
         </thead>
 
         <tbody>
-          @foreach ($students as $student)
+          @forelse ($students as $student)
             <tr>
               <td>{{ $loop->iteration }}</td>
               <td>{{ $student->fullname }} </td>
@@ -52,10 +54,14 @@
                 </td>
               @endif
             </tr>
-          @endforeach
-        </tbody>
-      </table>
-    </div>
-    {{ $students->links() }}
-  </x-card>
-</div>
+            @empty
+            <tr>
+              <td colspan="5" align="center">No record found</td>
+            </tr>
+            @endforelse
+          </tbody>
+        </table>
+      </div>
+      {{ $students->links() }}
+    </x-card>
+  </div>

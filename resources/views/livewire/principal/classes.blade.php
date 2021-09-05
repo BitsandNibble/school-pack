@@ -60,12 +60,12 @@
     <h5>Useful Tips <i class="bx bx-bulb font-24"></i></h5>
 
     <ol>
-      <li class="text-justify">How to change a class teacher that currently exists in another class.
+      <li class="text-justify">How to assign a teacher to a new class.
         <ol style="list-style-type: upper-roman;">
           <li class="mb-1">Click on the <kbd><i class='bx bx-dots-horizontal-rounded font-22'></i></kbd> icon
           </li>
           <li class="mb-1">Click on <kbd><i class="bx bxs-pen"></i> Edit</li></kbd>
-          <li class="mb-1">Click on the <kbd><i class="bx bxs-trash-alt"></i></kbd> icon </li>
+          <li class="mb-1">If teacher already exists, click on the <kbd><i class="bx bxs-trash-alt"></i></kbd> icon to remove the teacher</li>
           <li class="mb-0">Now <code>Add</code> or <code>Edit</code> the teacher.</li>
         </ol>
       </li>

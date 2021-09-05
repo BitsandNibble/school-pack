@@ -32,4 +32,4 @@ Route::group(['prefix' => 'principal', 'as' => 'principal.'], function () {
   Route::view('result', 'principal.result')->name('result');
   Route::view('subjects', 'principal.subjects')->name('subjects');
 });
-Route::view('login', 'auth.login');
+Route::view('login', 'auth.login')->name('login');

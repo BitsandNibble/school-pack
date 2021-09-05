@@ -26,6 +26,15 @@ class Teachers extends Component
     'teacher.class_id' => 'sometimes',
   ];
 
+  protected $validationAttributes = [
+    'teacher.firstname' => 'firstname',
+    'teacher.middlename' => 'middlename',
+    'teacher.lastname' => 'lastname',
+    'teacher.title' => 'title',
+    'teacher.gender' => 'gender',
+    'teacher.class_id' => 'class Id',
+  ];
+
   public function render()
   {
     $teachers = Teacher::with('classRooms')->Paginate(10);
@@ -37,7 +46,7 @@ class Teachers extends Component
   public function cancel()
   {
     $this->emit('closeModal');
-    $this->reset(['teacher', 'teacher_id', 'selected_class_id', 'teacherInfo', 'teacherClassInfo']);
+    $this->reset();
   }
 
   public function edit($id)
@@ -45,7 +54,7 @@ class Teachers extends Component
     $teacher = Teacher::where('id', $id)->with('classRooms')->first();
     $this->teacher_id = $teacher['id'];
     $this->teacher = $teacher;
-    
+
     foreach ($teacher->classRooms()->get() as $teacherClass) {
       $this->selected_class_id = $teacherClass->id;
       $this->existingClass = $teacherClass->name;

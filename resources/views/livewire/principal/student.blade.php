@@ -39,15 +39,15 @@
               @endif
               @if ($parent != '2')
                 <td>
-                  <x-button class="px-0" value="" wire:click="showInfo({{ $student->id }})"
+                  <x-button class="px-0" value="" wire:click="$emit('showInfo', {{ $student->id }})"
                     data-bs-toggle="modal" data-bs-target="#infoModal">
                     <i class="bx bxs-show"></i>
                   </x-button>
-                  <x-button class="px-0" wire:click="edit({{ $student->id }})" value=""
+                  <x-button class="px-0" wire:click="$emit('edit', {{ $student->id }})" value=""
                     data-bs-toggle="modal" data-bs-target="#studentModal">
                     <i class="bx bxs-pen"></i>
                   </x-button>
-                  <x-button class="px-0" value="" wire:click="openDeleteModal({{ $student->id }})"
+                  <x-button class="px-0" value="" wire:click="$emit('openDeleteModal', {{ $student->id }})"
                     data-bs-toggle="modal" data-bs-target="#deleteModal">
                     <i class="bx bxs-trash-alt"></i>
                   </x-button>
@@ -55,9 +55,9 @@
               @endif
             </tr>
             @empty
-            <tr>
-              <td colspan="5" align="center">No record found</td>
-            </tr>
+              <tr>
+                <td colspan="5" align="center">No record found</td>
+              </tr>
             @endforelse
           </tbody>
         </table>

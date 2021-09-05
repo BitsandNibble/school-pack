@@ -86,7 +86,7 @@
             <x-input type="hidden" wire:model="teacher_id" />
             <x-label for="firstname">First name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="firstname" wire:model.defer="teacher.firstname" />
-            <x-input-error for="teacher.firstname" custom-message="The firstname is required" />
+            <x-input-error for="teacher.firstname" />
           </div>
 
           <div class="col-md-4 mt-2">
@@ -97,7 +97,7 @@
           <div class="col-md-4 mt-2">
             <x-label for="lastname">Last name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="lastname" wire:model.defer="teacher.lastname" />
-            <x-input-error for="teacher.lastname" custom-message="The lastname is required" />
+            <x-input-error for="teacher.lastname" />
           </div>
         </div>
 
@@ -113,7 +113,7 @@
               <option value="Asst. Prof">Asst. Prof</option>
               <option value="Dr">Dr</option>
             </x-select>
-            <x-input-error for="teacher.title" custom-message="The title is required" />
+            <x-input-error for="teacher.title" />
           </div>
 
           <div class="col-md-4 mt-2">

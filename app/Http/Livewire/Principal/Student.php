@@ -54,19 +54,4 @@ class Student extends Component
   {
     $this->render();
   }
-
-  public function edit($id)
-  {
-    $this->emit('edit', $id);
-  }
-
-  public function showInfo($id)
-  {
-    $this->emit('showInfo', $id);
-  }
-
-  public function openDeleteModal($id)
-  {
-    $this->emit('openDeleteModal', $id);
-  }
 }

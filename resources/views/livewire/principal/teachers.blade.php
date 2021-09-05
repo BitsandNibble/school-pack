@@ -13,6 +13,14 @@
   </x-card>
 
   <x-card>
+    <div class="d-flex align-items-center">
+      {{-- <h4 class="my-1">Class</h4> --}}
+
+      <div class="ms-auto d-flex justify-content-end">
+        <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" class="mb-3" />
+      </div>
+    </div>
+
     <div class="table-responsive">
       <table class="table table-striped table-bordered" style="width:100%">
         <thead>
@@ -60,9 +68,9 @@
               </td>
             </tr>
           @empty
-          <tr>
-            <td colspan="5" align="center">No record found</td>
-          </tr>
+            <tr>
+              <td colspan="8" align="center">No record found</td>
+            </tr>
           @endforelse
         </tbody>
       </table>
@@ -191,7 +199,7 @@
           <th>Subjects</th>
           {{-- <td>{{ $teacherClassInfo ?? '' }}</td> --}}
         </tr>
-    </table>
+      </table>
     </x-slot>
 
     <x-slot name="footer">

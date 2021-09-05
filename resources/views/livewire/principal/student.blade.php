@@ -4,6 +4,14 @@
   @endif
 
   <x-card>
+    <div class="d-flex align-items-center">
+      {{-- <h4 class="my-1">Class</h4> --}}
+
+      <div class="ms-auto d-flex justify-content-end">
+        <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" class="mb-3" />
+      </div>
+    </div>
+
     <div class="table-responsive">
       <table class="table table-striped table-bordered" style="width:100%">
         <thead>
@@ -64,4 +72,6 @@
       </div>
       {{ $students->links() }}
     </x-card>
+
+    <x-spinner />
   </div>

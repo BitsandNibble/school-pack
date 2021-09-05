@@ -13,9 +13,17 @@ class Teachers extends Component
 {
   use WithPagination;
 
+  public $q;
   public $teacher, $teacherInfo, $teacherClassInfo, $deleting;
   public $selected_class_id, $teacher_id, $existingClass;
   protected $paginationTheme = 'bootstrap';
+
+  protected $queryString = [
+    // 'active' => ['except' => false],
+    'q' => ['except' => ''],
+    // 'sortBy' => ['except' => 'id'],
+    // 'sortAsc' => ['except' => true],
+  ];
 
   protected $rules = [
     'teacher.firstname' => 'required|string',
@@ -37,10 +45,17 @@ class Teachers extends Component
 
   public function render()
   {
-    $teachers = Teacher::with('classRooms')->Paginate(10);
+    $teachers = Teacher::when($this->q, function ($query) {
+      return $query->search($this->q);
+    })->with('classRooms')->Paginate(10);
     $classes = ClassRoom::whereDoesntHave('teachers')->get();
 
     return view('livewire.principal.teachers', compact('teachers', 'classes'));
+  }
+
+  public function updatingQ()
+  {
+    $this->resetPage();
   }
 
   public function cancel()

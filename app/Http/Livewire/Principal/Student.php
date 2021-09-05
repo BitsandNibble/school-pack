@@ -11,6 +11,7 @@ class Student extends Component
 {
   use WithPagination;
 
+  public $q;
   public $class_id, $parent, $title = 'All Students';
 
   protected $paginationTheme = 'bootstrap';
@@ -30,13 +31,24 @@ class Student extends Component
   {
     if ($this->class_id) {
       $class = ClassRoom::findOrFail($this->class_id);
-      $students = $class->students()->wherePivot('class_room_id', $this->class_id)->Paginate(10);
+
+      $students = $class->students()->wherePivot('class_room_id', $this->class_id)
+        ->when($this->q, function ($query) {
+          return $query->search($this->q);
+        })->Paginate(10);
       $this->title = $class->name;
     } else {
-      $students = ModelsStudent::with('classRooms')->Paginate(10);
+      $students = ModelsStudent::when($this->q, function ($query) {
+        return $query->search($this->q);
+      })->with('classRooms')->Paginate(10);
     }
 
     return view('livewire.principal.student', compact('students'));
+  }
+
+  public function updatingQ()
+  {
+    $this->resetPage();
   }
 
   public function filterStudents($id)

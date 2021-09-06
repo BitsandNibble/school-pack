@@ -88,14 +88,14 @@
         <img src="{{ asset('assets/_images/avatars/avatar-10.png') }}" class="user-img" alt="user avatar">
         <div class="user-info ps-3">
           <p class="user-name mb-0 text-white">
-            {{ auth()->user()->firstname ?? '' }}
-            {{ auth()->user()->lastname ?? ''}}
+            {{ auth()->user()->fullname ?? '' }}
           </p>
           <p class="designattion mb-0">Principal</p>
         </div>
       </a>
       <ul class="dropdown-menu dropdown-menu-end">
-        <li><a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Profile</span></a>
+        <li><a class="dropdown-item" href="{{ route('principal.profile') }}"><i
+              class="bx bx-user"></i><span>Profile</span></a>
         </li>
         <li><a class="dropdown-item" href="{{ route('principal.settings') }}"><i
               class="bx bx-cog"></i><span>Settings</span></a>
@@ -103,7 +103,7 @@
         <li>
           <div class="dropdown-divider mb-0"></div>
         </li>
-        <livewire:component.logout />
+        <livewire:components.logout />
       </ul>
     </div>
   </nav>

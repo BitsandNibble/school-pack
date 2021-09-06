@@ -14,7 +14,8 @@ class Principal extends Authenticatable
   use Notifiable;
 
   protected $fillable = [
-    'fullname', 'email', 'phone_number', 'password',
+    'fullname', 'email', 'phone_number',
+    'password', 'profile_photo'
   ];
 
   protected $hidden = [
@@ -24,9 +25,5 @@ class Principal extends Authenticatable
 
   protected $casts = [
     'email_verified_at' => 'datetime',
-  ];
-
-  protected $appends = [
-    'profile_photo',
   ];
 }

@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Principal\HomeController;
-use App\Http\Livewire\Component\Login;
+use App\Http\Livewire\Components\Login;
+use App\Http\Livewire\Components\Profile;
 use App\Http\Livewire\Pages\Principal\Classes;
 use App\Http\Livewire\Pages\Principal\Settings;
 use App\Http\Livewire\Pages\Principal\Students;
@@ -35,6 +36,7 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::view('result', 'principal.result')->name('.result');
   Route::view('subjects', 'principal.subjects')->name('.subjects');
   Route::get('settings', Settings::class)->name('.settings');
+  Route::get('profile', Profile::class)->name('.profile');
 });
 Route::get('login', Login::class)->middleware('guest:principal')->name('login');
 // Route::view('login', 'auth.login')->name('login');

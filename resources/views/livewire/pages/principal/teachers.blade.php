@@ -88,15 +88,15 @@
               </td>
               <td>
                 <x-button class="px-0" value="" wire:click="showInfo({{ $teacher->id }})"
-                  data-bs-toggle="modal" data-bs-target="#infoModal">
+                          data-bs-toggle="modal" data-bs-target="#infoModal">
                   <i class="bx bxs-show"></i>
                 </x-button>
                 <x-button class="px-0" wire:click="edit({{ $teacher->id }})" value="" data-bs-toggle="modal"
-                  data-bs-target="#teacherModal">
+                          data-bs-target="#teacherModal">
                   <i class="bx bxs-pen"></i>
                 </x-button>
                 <x-button class="px-0" value="" wire:click="openDeleteModal({{ $teacher->id }})"
-                  data-bs-toggle="modal" data-bs-target="#deleteModal">
+                          data-bs-toggle="modal" data-bs-target="#deleteModal">
                   <i class="bx bxs-trash-alt"></i>
                 </x-button>
               </td>
@@ -173,7 +173,7 @@
               <div class="d-flex justify-content">
                 <h6 class="mr-4">{{ $existingClass }}</h6>
                 <a class="text-dark" href="javascript:;"
-                  wire:click.prevent="deleteExistingClass({{ $this->selected_class_id }})">
+                   wire:click.prevent="deleteExistingClass({{ $this->selected_class_id }})">
                   <i class="bx bxs-trash-alt"></i>
                 </a>
               </div>

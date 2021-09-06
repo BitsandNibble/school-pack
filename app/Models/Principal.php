@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class Principal extends Authenticatable
@@ -26,4 +26,12 @@ class Principal extends Authenticatable
   protected $casts = [
     'email_verified_at' => 'datetime',
   ];
+
+  public function getThumbnailAttribute()
+  {
+    if ($this->profile_photo) {
+      return asset('storage/profile-photos/' . $this->profile_photo);
+    }
+    return asset('assets/_images/avatars/avatar-10.png');
+  }
 }

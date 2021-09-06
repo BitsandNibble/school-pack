@@ -4,23 +4,26 @@ namespace App\Http\Livewire\Components;
 
 use App\Models\Principal;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Profile extends Component
 {
-  public $principal;
+  use WithFileUploads;
+
+  public $principal, $profile_photo;
 
   protected $rules = [
     'principal.fullname' => 'required|string',
     'principal.email' => 'sometimes|email',
     'principal.phone_number' => 'sometimes|numeric',
-    'principal.profile_photo' => 'sometimes|image|max:2048',
+    'profile_photo' => 'sometimes|image|max:2048',
   ];
 
   protected $validationAttributes = [
     'principal.fullname' => 'fullname',
     'principal.email' => 'email',
     'principal.phone_number' => 'phone number',
-    'principal.profile_photo' => 'profile photo',
+    'profile_photo' => 'profile photo',
   ];
 
   public function render()
@@ -35,13 +38,21 @@ class Profile extends Component
     $this->validate();
 
     $updatePrincipal = Principal::find(auth()->id());
-    $updatePrincipal->forceFill([
-      'fullname' => $this->principal['fullname'],
-      'email' => $this->principal['email'],
-      'phone_number' => $this->principal['phone_number'],
-      'profile_photo' => $this->principal['profile_photo'] ?? ''
-    ])->save();
+    $updatePrincipal->profile_photo = $this->handleAvatarUpload();
+    $updatePrincipal->fullname = $this->principal['fullname'];
+    $updatePrincipal->email = $this->principal['email'];
+    $updatePrincipal->phone_number = $this->principal['phone_number'];
+    $updatePrincipal->save();
+    $this->reset();
 
     session()->flash('message', 'Profile Updated Successfully');
+  }
+
+  public function handleAvatarUpload()
+  {
+    $photo = $this->profile_photo;
+    $name = mt_rand(1000, 9999) . '_' . $photo->getClientOriginalName();
+    $photo->storeAs('public/profile-photos', $name);
+    return $name;
   }
 }

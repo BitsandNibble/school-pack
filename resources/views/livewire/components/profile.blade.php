@@ -8,8 +8,14 @@
     <div class="col-lg-4">
       <x-card>
         <div class="d-flex flex-column align-items-center text-center">
-          <img src="{{ asset('assets/_images/avatars/avatar-1.png') }}" alt="Admin"
-               class="rounded-circle p-1 bg-primary" width="110">
+          @if($profile_photo)
+            Photo Preview:
+            <img src="{{$profile_photo->temporaryUrl()}}" class="rounded-circle p-1 bg-primary" width="110"
+                 alt="Preview">
+          @else
+            <img src="{{ $principal->thumbnail }}" alt="Admin"
+                 class="rounded-circle p-1 bg-primary" width="110">
+          @endif
           <div class="mt-3">
             <h4>{{ $principal->fullname }}</h4>
             <p class="text-secondary mb-1">Principal</p>
@@ -46,6 +52,15 @@
           <div class="col-sm-9 text-secondary">
             <x-input type="text" wire:model.defer="principal.phone_number" />
             <x-input-error for="principal.phone_number" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-3">
+            <h6>Profile Image</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            <x-input type="file" wire:model.defer="profile_photo" />
+            <x-input-error for="profile_photo" />
           </div>
         </div>
         {{-- <div class="row mb-3">

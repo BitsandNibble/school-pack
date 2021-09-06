@@ -22,7 +22,7 @@
       <div class="position-relative search-bar-box">
         <form>
           <input type="text" class="form-control search-control" autofocus placeholder="Type to search..."> <span
-            class="position-absolute top-50 search-show translate-middle-y"><i class='bx bx-search'></i></span>
+              class="position-absolute top-50 search-show translate-middle-y"><i class='bx bx-search'></i></span>
           <span class="position-absolute top-50 search-close translate-middle-y"><i class='bx bx-x'></i></span>
         </form>
       </div>
@@ -42,7 +42,7 @@
         </li>
         <li class="nav-item dropdown dropdown-large">
           <a class="nav-link dropdown-toggle dropdown-toggle-nocaret text-white" href="#" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false"> <i class='bx bx-category'></i>
+             data-bs-toggle="dropdown" aria-expanded="false"> <i class='bx bx-category'></i>
           </a>
           <div class="dropdown-menu dropdown-menu-end">
             <div class="row row-cols-3 g-3 p-3">
@@ -84,8 +84,8 @@
 
     <div class="user-box dropdown border-light-2">
       <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" role="button"
-        data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="{{ asset('assets/_images/avatars/avatar-10.png') }}" class="user-img" alt="user avatar">
+         data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="{{ auth()->user()->thumbnail }}" class="user-img" alt="avatar">
         <div class="user-info ps-3">
           <p class="user-name mb-0 text-white">
             {{ auth()->user()->fullname ?? '' }}
@@ -95,10 +95,10 @@
       </a>
       <ul class="dropdown-menu dropdown-menu-end">
         <li><a class="dropdown-item" href="{{ route('principal.profile') }}"><i
-              class="bx bx-user"></i><span>Profile</span></a>
+                class="bx bx-user"></i><span>Profile</span></a>
         </li>
         <li><a class="dropdown-item" href="{{ route('principal.settings') }}"><i
-              class="bx bx-cog"></i><span>Settings</span></a>
+                class="bx bx-cog"></i><span>Settings</span></a>
         </li>
         <li>
           <div class="dropdown-divider mb-0"></div>

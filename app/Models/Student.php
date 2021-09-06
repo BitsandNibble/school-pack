@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\WithSearch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-  use HasFactory;
+  use HasFactory, WithSearch;
 
   protected $fillable = [
     'firstname', 'middlename', 'lastname',

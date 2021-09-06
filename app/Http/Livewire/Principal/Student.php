@@ -11,17 +11,23 @@ class Student extends Component
 {
   use WithPagination;
 
+  public $q, $sortBy = 'firstname', $sortAsc = true, $paginate = 10;
   public $class_id, $parent, $title = 'All Students';
-
   protected $paginationTheme = 'bootstrap';
-
   protected $listeners = ['refresh', 'filterStudents', 'fetchAll'];
+
+  protected $queryString = [
+    'q' => ['except' => ''],
+    'sortBy' => ['except' => 'firstname'],
+    'sortAsc' => ['except' => true],
+  ];
 
   public function mount($id, $type)
   {
     $this->class_id = $id;
     $this->parent = $type;
 
+    // fetching from parent component which gets value from coontroller
     // type 1 = student
     // type 2 = class
   }
@@ -30,13 +36,36 @@ class Student extends Component
   {
     if ($this->class_id) {
       $class = ClassRoom::findOrFail($this->class_id);
-      $students = $class->students()->wherePivot('class_room_id', $this->class_id)->Paginate(10);
+
+      $students = $class->students()->wherePivot('class_room_id', $this->class_id)
+        ->when($this->q, function ($query) {
+          return $query->search($this->q);
+        })
+        ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+        ->Paginate($this->paginate);
       $this->title = $class->name;
     } else {
-      $students = ModelsStudent::with('classRooms')->Paginate(10);
+      $students = ModelsStudent::when($this->q, function ($query) {
+        return $query->search($this->q);
+      })->with('classRooms')
+        ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+        ->Paginate($this->paginate);
     }
 
     return view('livewire.principal.student', compact('students'));
+  }
+
+  public function updatingQ()
+  {
+    $this->resetPage();
+  }
+
+  public function sortBy($field)
+  {
+    if ($field == $this->sortBy) {
+      $this->sortAsc = !$this->sortAsc;
+    }
+    $this->sortBy = $field;
   }
 
   public function filterStudents($id)
@@ -53,20 +82,5 @@ class Student extends Component
   public function refresh()
   {
     $this->render();
-  }
-
-  public function edit($id)
-  {
-    $this->emit('edit', $id);
-  }
-
-  public function showInfo($id)
-  {
-    $this->emit('showInfo', $id);
-  }
-
-  public function openDeleteModal($id)
-  {
-    $this->emit('openDeleteModal', $id);
   }
 }

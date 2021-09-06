@@ -12,9 +12,8 @@ class Classes extends Component
 {
   use WithPagination;
 
-  public $name, $deleting;
+  public $name, $deleting, $paginate = 6;
   public $class_id, $existingTeacher, $teacher_id;
-  public $reset = ['name', 'teacher_id', 'class_id']; // fields to reset
 
   protected $paginationTheme = 'bootstrap';
   protected $rules;
@@ -28,7 +27,7 @@ class Classes extends Component
 
   public function render()
   {
-    $classes = ClassRoom::orderBy('name')->with('teachers')->Paginate(6);
+    $classes = ClassRoom::orderBy('name')->with('teachers')->Paginate($this->paginate);
     $teachers = Teacher::whereDoesntHave('classRooms')->get();
 
     return view('livewire.principal.classes', compact('classes', 'teachers'));
@@ -37,7 +36,7 @@ class Classes extends Component
   public function cancel()
   {
     $this->emit('closeModal');
-    $this->reset($this->reset);
+    $this->reset();
   }
 
   public function edit($id)

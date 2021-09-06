@@ -13,16 +13,58 @@
   </x-card>
 
   <x-card>
+    <div class="d-flex align-items-center">
+      <div class="d-flex justify-content-start">
+        Show <span>&nbsp;</span>
+        <select class="form-select form-select-sm" wire:model="paginate">
+          <option value="10" selected>10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+        <span>&nbsp;</span> entries
+      </div>
+
+      <div class="ms-auto d-flex justify-content-end">
+        <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" class="mb-3" />
+      </div>
+    </div>
+
     <div class="table-responsive">
-      <table id="teachrsTable" class="table table-striped table-bordered" style="width:100%">
+      <table class="table table-striped table-bordered" style="width:100%">
         <thead>
           <tr>
             <th>S/N</th>
-            <th>Title</th>
-            <th>Full name</th>
-            <th>Staff ID</th>
-            <th>Email</th>
-            <th>Number</th>
+            <th wire:click="sortBy('title')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Title
+                <x-sort-icon sortField="title" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
+            <th wire:click="sortBy('firstname')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Full Name
+                <x-sort-icon sortField="firstname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
+            <th wire:click="sortBy('staff_id')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Staff ID
+                <x-sort-icon sortField="staff_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
+            <th wire:click="sortBy('email')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Email
+                <x-sort-icon sortField="email" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
+            <th wire:click="sortBy('phone_number')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Number
+                <x-sort-icon sortField="phone_number" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
             <th>Class</th>
             <th></th>
           </tr>
@@ -60,9 +102,9 @@
               </td>
             </tr>
           @empty
-          <tr>
-            <td colspan="5" align="center">No record found</td>
-          </tr>
+            <tr>
+              <td colspan="8" align="center">No record found</td>
+            </tr>
           @endforelse
         </tbody>
       </table>
@@ -86,7 +128,7 @@
             <x-input type="hidden" wire:model="teacher_id" />
             <x-label for="firstname">First name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="firstname" wire:model.defer="teacher.firstname" />
-            <x-input-error for="teacher.firstname" custom-message="The firstname is required" />
+            <x-input-error for="teacher.firstname" />
           </div>
 
           <div class="col-md-4 mt-2">
@@ -97,7 +139,7 @@
           <div class="col-md-4 mt-2">
             <x-label for="lastname">Last name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="lastname" wire:model.defer="teacher.lastname" />
-            <x-input-error for="teacher.lastname" custom-message="The lastname is required" />
+            <x-input-error for="teacher.lastname" />
           </div>
         </div>
 
@@ -113,7 +155,7 @@
               <option value="Asst. Prof">Asst. Prof</option>
               <option value="Dr">Dr</option>
             </x-select>
-            <x-input-error for="teacher.title" custom-message="The title is required" />
+            <x-input-error for="teacher.title" />
           </div>
 
           <div class="col-md-4 mt-2">
@@ -191,7 +233,7 @@
           <th>Subjects</th>
           {{-- <td>{{ $teacherClassInfo ?? '' }}</td> --}}
         </tr>
-    </table>
+      </table>
     </x-slot>
 
     <x-slot name="footer">
@@ -213,25 +255,4 @@
   </x-confirmation-modal>
 
   <x-spinner />
-
-  @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}">
-  @endpush
-
-  @push('scripts')
-    <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
-
-    <script>
-      $(document).ready(function() {
-        var table = $('#teachersTable').DataTable({
-          lengthChange: true,
-          buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-        });
-
-        table.buttons().container()
-          .appendTo('#teachersTable_wrapper .col-md-6:eq(1)');
-      });
-    </script>
-  @endpush
 </div>

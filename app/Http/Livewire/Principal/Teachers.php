@@ -13,9 +13,16 @@ class Teachers extends Component
 {
   use WithPagination;
 
+  public $q, $sortBy = 'firstname', $sortAsc = true, $paginate = 10;
   public $teacher, $teacherInfo, $teacherClassInfo, $deleting;
   public $selected_class_id, $teacher_id, $existingClass;
   protected $paginationTheme = 'bootstrap';
+
+  protected $queryString = [
+    'q' => ['except' => ''],
+    'sortBy' => ['except' => 'firstname'],
+    'sortAsc' => ['except' => true],
+  ];
 
   protected $rules = [
     'teacher.firstname' => 'required|string',
@@ -26,18 +33,45 @@ class Teachers extends Component
     'teacher.class_id' => 'sometimes',
   ];
 
+  protected $validationAttributes = [
+    'teacher.firstname' => 'firstname',
+    'teacher.middlename' => 'middlename',
+    'teacher.lastname' => 'lastname',
+    'teacher.title' => 'title',
+    'teacher.gender' => 'gender',
+    'teacher.class_id' => 'class Id',
+  ];
+
   public function render()
   {
-    $teachers = Teacher::with('classRooms')->Paginate(10);
+    $teachers = Teacher::when($this->q, function ($query) {
+      return $query->search($this->q);
+    })->with('classRooms')
+      ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+      ->Paginate($this->paginate);
+
     $classes = ClassRoom::whereDoesntHave('teachers')->get();
 
     return view('livewire.principal.teachers', compact('teachers', 'classes'));
   }
 
+  public function updatingQ()
+  {
+    $this->resetPage();
+  }
+
+  public function sortBy($field)
+  {
+    if ($field == $this->sortBy) {
+      $this->sortAsc = !$this->sortAsc;
+    }
+    $this->sortBy = $field;
+  }
+
   public function cancel()
   {
     $this->emit('closeModal');
-    $this->reset(['teacher', 'teacher_id', 'selected_class_id', 'teacherInfo', 'teacherClassInfo']);
+    $this->reset();
   }
 
   public function edit($id)
@@ -45,7 +79,7 @@ class Teachers extends Component
     $teacher = Teacher::where('id', $id)->with('classRooms')->first();
     $this->teacher_id = $teacher['id'];
     $this->teacher = $teacher;
-    
+
     foreach ($teacher->classRooms()->get() as $teacherClass) {
       $this->selected_class_id = $teacherClass->id;
       $this->existingClass = $teacherClass->name;

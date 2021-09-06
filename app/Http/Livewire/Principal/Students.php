@@ -20,8 +20,17 @@ class Students extends Component
     'student.middlename' => 'sometimes|string',
     'student.lastname' => 'required|string',
     'student.previous_class' => 'sometimes',
-    'student.current_class_id' => 'required',
+    'student.current_class' => 'required',
     'student.gender' => 'sometimes',
+  ];
+
+  protected $validationAttributes = [
+    'student.firstname' => 'firstname',
+    'student.middlename' => 'middlename',
+    'student.lastname' => 'lastname',
+    'student.previous_class' => 'previous class',
+    'student.current_class' => 'current class',
+    'student.gender' => 'gender',
   ];
 
   public function render()
@@ -44,7 +53,7 @@ class Students extends Component
     $this->student = $student;
 
     foreach ($student->classRooms()->get() as $studentClass) {
-      $this->student['current_class_id'] = $studentClass->id;
+      $this->student['current_class'] = $studentClass->id;
     }
   }
 
@@ -77,8 +86,8 @@ class Students extends Component
       session()->flash('message', 'Student Added Successfully');
     }
 
-    if (!empty($this->student['current_class_id'])) {
-      $student->classRooms()->sync($this->student['current_class_id']);
+    if (!empty($this->student['current_class'])) {
+      $student->classRooms()->sync($this->student['current_class']);
     }
 
     $this->emit('refresh');
@@ -108,15 +117,5 @@ class Students extends Component
     $student->delete();
     $this->emit('refresh');
     $this->cancel();
-  }
-
-  public function filter($id)
-  {
-    $this->emit('filterStudents', $id);
-  }
-
-  public function fetchAll()
-  {
-    $this->emit('fetchAll');
   }
 }

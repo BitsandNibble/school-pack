@@ -16,7 +16,7 @@
   <x-card>
     <div class="row pricing-table">
       <div class="col-md-4">
-        <x-card wire:click="fetchAll" class="cursor-pointer">
+        <x-card wire:click="$emit('fetchAll')" class="cursor-pointer">
           <div class="d-flex align-items-center">
             <h4 class="my-1">All</h4>
             <div class="ms-auto d-flex justify-content-end">
@@ -27,7 +27,7 @@
       </div>
       @foreach ($classes as $class)
         <div class="col-md-4 col-sm-6">
-          <x-card wire:click="filter({{ $class->id }})" class="cursor-pointer">
+          <x-card wire:click="$emit('filterStudents', {{ $class->id }})" class="cursor-pointer">
             <div class="d-flex align-items-center">
               <h4 class="my-1">{{ $class->name }}</h4>
               <div class="ms-auto d-flex justify-content-end">
@@ -50,13 +50,13 @@
         <p><span class="text-danger">*</span> fields are required</p>
 
         <div class="row">
-          {{-- <x-validation-errors /> --}}
+          <x-validation-errors />
 
           <div class="col-md-4">
             <x-input type="hidden" wire:model="student_id" />
             <x-label for="firstname">First name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="firstname" wire:model.defer="student.firstname" />
-            <x-input-error for="student.firstname" custom-message="The firstname is required" />
+            <x-input-error for="student.firstname" />
           </div>
 
           <div class="col-md-4 mt-2">
@@ -67,7 +67,7 @@
           <div class="col-md-4 mt-2">
             <x-label for="lastname">Last name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="lastname" wire:model.defer="student.lastname" />
-            <x-input-error for="student.lastname" custom-message="The lastname is required" />
+            <x-input-error for="student.lastname" />
           </div>
         </div>
 
@@ -82,13 +82,13 @@
           </div>
 
           <div class="col-md-4 mt-2">
-            <x-label for="current_class_id">Current Class <span class="text-danger">*</span></x-label>
-            <x-select id="current_class_id" wire:model.defer="student.current_class_id">
+            <x-label for="current_class">Current Class <span class="text-danger">*</span></x-label>
+            <x-select id="current_class" wire:model.defer="student.current_class">
               @foreach ($classes as $class)
                 <option value="{{ $class->id }}">{{ $class->name }}</option>
               @endforeach
             </x-select>
-            <x-input-error for="student.current_class_id" custom-message="The current class is required" />
+            <x-input-error for="student.current_class" />
           </div>
 
           <div class="col-md-4 mt-2">

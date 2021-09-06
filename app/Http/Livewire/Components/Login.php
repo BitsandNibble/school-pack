@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Component;
+namespace App\Http\Livewire\Components;
 
 use App\Providers\RouteServiceProvider;
 use Livewire\Component;
@@ -16,7 +16,7 @@ class Login extends Component
 
   public function render()
   {
-    return view('livewire.component.login')->layout('layouts.guest');
+    return view('livewire.components.login')->layout('layouts.guest');
   }
 
   public function login()

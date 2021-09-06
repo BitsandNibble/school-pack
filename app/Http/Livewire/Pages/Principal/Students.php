@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Principal;
+namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\ClassRoom;
 use App\Models\Student;
@@ -37,7 +37,7 @@ class Students extends Component
   {
     $classes = ClassRoom::orderBy('name')->with('students')->get();
 
-    return view('livewire.principal.students', compact('classes'));
+    return view('livewire.pages.principal.students', compact('classes'));
   }
 
   public function cancel()

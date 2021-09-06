@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Principal;
+namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\ClassRoom;
 use App\Models\Teacher;
@@ -30,7 +30,7 @@ class Classes extends Component
     $classes = ClassRoom::orderBy('name')->with('teachers')->Paginate($this->paginate);
     $teachers = Teacher::whereDoesntHave('classRooms')->get();
 
-    return view('livewire.principal.classes', compact('classes', 'teachers'));
+    return view('livewire.pages.principal.classes', compact('classes', 'teachers'));
   }
 
   public function cancel()

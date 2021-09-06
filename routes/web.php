@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Principal\HomeController;
-use App\Http\Livewire\Principal\Classes;
-use App\Http\Livewire\Principal\Students;
-use App\Http\Livewire\Principal\Teachers;
+use App\Http\Livewire\Pages\Principal\Classes;
+use App\Http\Livewire\Pages\Principal\Students;
+use App\Http\Livewire\Pages\Principal\Teachers;
 use Illuminate\Support\Facades\Route;
 
 /*

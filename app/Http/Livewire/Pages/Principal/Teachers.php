@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Principal;
+namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\ClassRoom;
 use App\Models\Teacher;
@@ -52,7 +52,7 @@ class Teachers extends Component
 
     $classes = ClassRoom::whereDoesntHave('teachers')->get();
 
-    return view('livewire.principal.teachers', compact('teachers', 'classes'));
+    return view('livewire.pages.principal.teachers', compact('teachers', 'classes'));
   }
 
   public function updatingQ()

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Principal;
+namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\ClassRoom;
 use App\Models\Student as ModelsStudent;
@@ -52,7 +52,7 @@ class Student extends Component
         ->Paginate($this->paginate);
     }
 
-    return view('livewire.principal.student', compact('students'));
+    return view('livewire.pages.principal.student', compact('students'));
   }
 
   public function updatingQ()

@@ -124,27 +124,27 @@
         <div class="row">
           {{-- <x-validation-errors /> --}}
 
-          <div class="col-md-4">
+          <div class="col-md-4 mb-2">
             <x-input type="hidden" wire:model="teacher_id" />
             <x-label for="firstname">First name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="firstname" wire:model.defer="teacher.firstname" />
             <x-input-error for="teacher.firstname" />
           </div>
 
-          <div class="col-md-4 mt-2">
+          <div class="col-md-4 mb-2">
             <x-label for="middlename">Middle name</x-label>
             <x-input type="text" id="middlename" wire:model.defer="teacher.middlename" />
           </div>
 
-          <div class="col-md-4 mt-2">
+          <div class="col-md-4 mb-2">
             <x-label for="lastname">Last name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="lastname" wire:model.defer="teacher.lastname" />
             <x-input-error for="teacher.lastname" />
           </div>
         </div>
 
-        <div class="row mt-2">
-          <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-4 mb-2">
             <x-label for="title">Title <span class="text-danger">*</span></x-label>
             <x-select id="title" wire:model.defer="teacher.title">
               <option value="Mr">Mr</option>
@@ -158,7 +158,7 @@
             <x-input-error for="teacher.title" />
           </div>
 
-          <div class="col-md-4 mt-2">
+          <div class="col-md-4 mb-2">
             <x-label for="gender">Gender</x-label>
             <x-select id="gender" wire:model.defer="teacher.gender">
               <option value="Male">Male</option>
@@ -167,7 +167,7 @@
             </x-select>
           </div>
 
-          <div class="col-md-4 mt-2">
+          <div class="col-md-4 mb-2">
             <x-label for="class_id">Class</x-label>
             @if (isset($this->teacher_id) && $this->selected_class_id != '')
               <div class="d-flex justify-content">

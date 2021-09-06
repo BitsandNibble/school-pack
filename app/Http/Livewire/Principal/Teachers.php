@@ -13,16 +13,15 @@ class Teachers extends Component
 {
   use WithPagination;
 
-  public $q;
+  public $q, $sortBy = 'firstname', $sortAsc = true, $paginate = 10;
   public $teacher, $teacherInfo, $teacherClassInfo, $deleting;
   public $selected_class_id, $teacher_id, $existingClass;
   protected $paginationTheme = 'bootstrap';
 
   protected $queryString = [
-    // 'active' => ['except' => false],
     'q' => ['except' => ''],
-    // 'sortBy' => ['except' => 'id'],
-    // 'sortAsc' => ['except' => true],
+    'sortBy' => ['except' => 'firstname'],
+    'sortAsc' => ['except' => true],
   ];
 
   protected $rules = [
@@ -47,7 +46,10 @@ class Teachers extends Component
   {
     $teachers = Teacher::when($this->q, function ($query) {
       return $query->search($this->q);
-    })->with('classRooms')->Paginate(10);
+    })->with('classRooms')
+      ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+      ->Paginate($this->paginate);
+
     $classes = ClassRoom::whereDoesntHave('teachers')->get();
 
     return view('livewire.principal.teachers', compact('teachers', 'classes'));
@@ -56,6 +58,14 @@ class Teachers extends Component
   public function updatingQ()
   {
     $this->resetPage();
+  }
+
+  public function sortBy($field)
+  {
+    if ($field == $this->sortBy) {
+      $this->sortAsc = !$this->sortAsc;
+    }
+    $this->sortBy = $field;
   }
 
   public function cancel()

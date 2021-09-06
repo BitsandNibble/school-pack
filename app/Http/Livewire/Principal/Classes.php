@@ -12,7 +12,7 @@ class Classes extends Component
 {
   use WithPagination;
 
-  public $name, $deleting;
+  public $name, $deleting, $paginate = 6;
   public $class_id, $existingTeacher, $teacher_id;
 
   protected $paginationTheme = 'bootstrap';
@@ -27,7 +27,7 @@ class Classes extends Component
 
   public function render()
   {
-    $classes = ClassRoom::orderBy('name')->with('teachers')->Paginate(6);
+    $classes = ClassRoom::orderBy('name')->with('teachers')->Paginate($this->paginate);
     $teachers = Teacher::whereDoesntHave('classRooms')->get();
 
     return view('livewire.principal.classes', compact('classes', 'teachers'));

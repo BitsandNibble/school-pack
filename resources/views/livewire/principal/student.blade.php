@@ -5,7 +5,16 @@
 
   <x-card>
     <div class="d-flex align-items-center">
-      {{-- <h4 class="my-1">Class</h4> --}}
+      <div class="d-flex justify-content-start">
+        Show <span>&nbsp;</span>
+        <select class="form-select form-select-sm" wire:model="paginate">
+          <option value="10" selected>10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+        <span>&nbsp;</span> entries
+      </div>
 
       <div class="ms-auto d-flex justify-content-end">
         <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" class="mb-3" />
@@ -17,9 +26,24 @@
         <thead>
           <tr>
             <th>S/N</th>
-            <th>Full name</th>
-            <th>Admission no</th>
-            <th>Gender</th>
+            <th wire:click="sortBy('firstname')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Full Name
+                <x-sort-icon sortField="firstname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
+            <th wire:click="sortBy('admission_no')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Admission No
+                <x-sort-icon sortField="admission_no" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
+            <th wire:click="sortBy('gender')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Gender
+                <x-sort-icon sortField="gender" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
             @if (!$class_id)
               <th>Class</th>
             @endif

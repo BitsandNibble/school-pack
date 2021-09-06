@@ -13,6 +13,18 @@
   </x-card>
 
   <x-card>
+    <div class="d-flex align-items-center mb-2">
+      <div class="d-flex justify-content-start">
+        Show <span>&nbsp;</span>
+        <select class="form-select form-select-sm" wire:model="paginate">
+          <option value="6" selected>6</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+        </select>
+        <span>&nbsp;</span> entries
+      </div>
+    </div>
     <div class="row pricing-table">
       @foreach ($classes as $class)
         <div class="col-md-4 col-sm-6">
@@ -65,7 +77,8 @@
           <li class="mb-1">Click on the <kbd><i class='bx bx-dots-horizontal-rounded font-22'></i></kbd> icon
           </li>
           <li class="mb-1">Click on <kbd><i class="bx bxs-pen"></i> Edit</li></kbd>
-          <li class="mb-1">If teacher already exists, click on the <kbd><i class="bx bxs-trash-alt"></i></kbd> icon to remove the teacher</li>
+          <li class="mb-1">If teacher already exists, click on the <kbd><i class="bx bxs-trash-alt"></i></kbd>
+            icon to remove the teacher</li>
           <li class="mb-0">Now <code>Add</code> or <code>Edit</code> the teacher.</li>
         </ol>
       </li>

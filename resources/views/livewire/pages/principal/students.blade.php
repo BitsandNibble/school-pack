@@ -1,7 +1,7 @@
 <div>
   <x-breadcrumb>Students</x-breadcrumb>
-
   <x-flash />
+  
   <x-card>
     <div class="d-flex align-items-center">
       {{-- <h4 class="my-1">JSS1</h4> --}}
@@ -40,7 +40,7 @@
     </div>
   </x-card>
 
-  <livewire:principal.student :id="null" :type="null" />
+  <livewire:pages.principal.student :id="null" :type="null" />
 
   <x-modal id="studentModal">
     <x-slot name="title">{{ isset($this->student_id) ? 'Edit' : 'Add New' }} Student</x-slot>

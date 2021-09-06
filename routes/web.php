@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Principal\HomeController;
 use App\Http\Livewire\Pages\Principal\Classes;
+use App\Http\Livewire\Pages\Principal\Settings;
 use App\Http\Livewire\Pages\Principal\Students;
 use App\Http\Livewire\Pages\Principal\Teachers;
 use Illuminate\Support\Facades\Route;
@@ -31,5 +32,6 @@ Route::group(['prefix' => 'principal', 'as' => 'principal.'], function () {
   Route::view('results', 'principal.results')->name('results');
   Route::view('result', 'principal.result')->name('result');
   Route::view('subjects', 'principal.subjects')->name('subjects');
+  Route::get('settings', Settings::class)->name('settings');
 });
 Route::view('login', 'auth.login')->name('login');

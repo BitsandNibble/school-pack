@@ -29,6 +29,6 @@ class Student extends Model
 
   public function getFullnameAttribute($value)
   {
-    return ucfirst($value);
+    return ucwords($value);
   }
 }

@@ -50,7 +50,13 @@ class Students extends Component
   {
     $student = Student::where('id', $id)->with('classRooms')->first();
     $this->student_id = $student['id'];
-    $this->student = $student;
+
+    $name = explode(' ', $student['fullname']);
+    $this->student['firstname'] = $name[0];
+    $this->student['middlename']  = $name[1];
+    $this->student['lastname']  = $name[2];
+    $this->student['previous_class']  = $student['previous_class'];
+    $this->student['gender']  = $student['gender'];
 
     foreach ($student->classRooms()->get() as $studentClass) {
       $this->student['current_class'] = $studentClass->id;
@@ -61,7 +67,8 @@ class Students extends Component
   {
     $this->validate();
 
-    $name = $this->student['firstname'] . ' ' . $this->student['middlename'] . ' ' . $this->student['lastname'];
+    $middlename = $this->student['middlename'] ?? '';
+    $name = $this->student['firstname'] . ' ' . $middlename . ' ' . $this->student['lastname'];
 
     if ($this->student_id) {
       $student = Student::find($this->student_id);

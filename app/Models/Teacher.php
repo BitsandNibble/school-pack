@@ -38,6 +38,6 @@ class Teacher extends Model
 
   public function getFullnameAttribute($value)
   {
-    return ucfirst($value);
+    return ucwords($value);
   }
 }

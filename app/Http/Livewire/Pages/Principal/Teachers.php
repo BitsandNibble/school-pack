@@ -25,18 +25,14 @@ class Teachers extends Component
   ];
 
   protected $rules = [
-    'teacher.firstname' => 'required|string',
-    'teacher.middlename' => 'sometimes|string',
-    'teacher.lastname' => 'required|string',
+    'teacher.fullname' => 'sometimes|string',
     'teacher.title' => 'required',
     'teacher.gender' => 'sometimes',
     'teacher.class_id' => 'sometimes',
   ];
 
   protected $validationAttributes = [
-    'teacher.firstname' => 'firstname',
-    'teacher.middlename' => 'middlename',
-    'teacher.lastname' => 'lastname',
+    'teacher.fullname' => 'fullname',
     'teacher.title' => 'title',
     'teacher.gender' => 'gender',
     'teacher.class_id' => 'class Id',
@@ -78,7 +74,13 @@ class Teachers extends Component
   {
     $teacher = Teacher::where('id', $id)->with('classRooms')->first();
     $this->teacher_id = $teacher['id'];
-    $this->teacher = $teacher;
+
+    $name = explode(' ', $teacher['fullname']);
+    $this->teacher['firstname'] = $name[0];
+    $this->teacher['middlename']  = $name[1];
+    $this->teacher['lastname']  = $name[2];
+    $this->teacher['title']  = $teacher['title'];
+    $this->teacher['gender']  = $teacher['gender'];
 
     foreach ($teacher->classRooms()->get() as $teacherClass) {
       $this->selected_class_id = $teacherClass->id;
@@ -90,7 +92,8 @@ class Teachers extends Component
   {
     $this->validate();
 
-    $name = $this->teacher['firstname'] . ' ' . $this->teacher['middlename'] . ' ' . $this->teacher['lastname'];
+    $middlename = $this->teacher['middlename'] ?? '';
+    $name = $this->teacher['firstname'] . ' ' . $middlename . ' ' . $this->teacher['lastname'];
 
     if ($this->teacher_id) {
       $teacher = Teacher::find($this->teacher_id);

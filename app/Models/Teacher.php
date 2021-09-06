@@ -11,9 +11,8 @@ class Teacher extends Model
   use HasFactory, WithSearch;
 
   protected $fillable = [
-    'firstname', 'middlename', 'lastname',
-    'title', 'gender', 'date_of_birth',
-    'staff_id', 'email',
+    'fullname', 'title', 'gender',
+    'date_of_birth','staff_id', 'email',
     'password', 'phone_number', 'profile_photo',
     'slug',
   ];
@@ -37,22 +36,7 @@ class Teacher extends Model
     return $this->belongsToMany(ClassRoom::class);
   }
 
-  public function getFullnameAttribute()
-  {
-    return $this->firstname . ' ' . $this->middlename . ' ' . $this->lastname;
-  }
-
-  public function getFirstnameAttribute($value)
-  {
-    return ucfirst($value);
-  }
-
-  public function getMiddlenameAttribute($value)
-  {
-    return ucfirst($value);
-  }
-
-  public function getLastnameAttribute($value)
+  public function getFullnameAttribute($value)
   {
     return ucfirst($value);
   }

@@ -41,10 +41,10 @@
                 <x-sort-icon sortField="title" :sortBy="$sortBy" :sortAsc="$sortAsc" />
               </div>
             </th>
-            <th wire:click="sortBy('firstname')" class="cursor-pointer">
+            <th wire:click="sortBy('fullname')" class="cursor-pointer">
               <div class="d-flex justify-content-between">
                 Full Name
-                <x-sort-icon sortField="firstname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+                <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
               </div>
             </th>
             <th wire:click="sortBy('staff_id')" class="cursor-pointer">
@@ -202,8 +202,7 @@
       <table class="table table-sm table-borderless table-hover">
         <tr>
           <th>Fullname</th>
-          <td>{{ $teacherInfo['firstname'] ?? '' }} {{ $teacherInfo['middlename'] ?? '' }}
-            {{ $teacherInfo['lastname'] ?? '' }}</td>
+          <td>{{ $teacherInfo['fullname'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Email</th>

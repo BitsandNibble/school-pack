@@ -26,10 +26,10 @@
         <thead>
           <tr>
             <th>S/N</th>
-            <th wire:click="sortBy('firstname')" class="cursor-pointer">
+            <th wire:click="sortBy('fullname')" class="cursor-pointer">
               <div class="d-flex justify-content-between">
                 Full Name
-                <x-sort-icon sortField="firstname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+                <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
               </div>
             </th>
             <th wire:click="sortBy('admission_no')" class="cursor-pointer">

@@ -61,12 +61,12 @@ class Students extends Component
   {
     $this->validate();
 
+    $name = $this->student['firstname'] . ' ' . $this->student['middlename'] . ' ' . $this->student['lastname'];
+
     if ($this->student_id) {
       $student = Student::find($this->student_id);
       $student->update([
-        'firstname' => $this->student['firstname'],
-        'middlename' => $this->student['middlename'] ?? '',
-        'lastname' => $this->student['lastname'],
+        'fullname' => $name,
         'previous_class' => $this->student['previous_class'] ?? '',
         'gender' => $this->student['gender'] ?? '',
         'slug' => Str::slug($this->student['firstname'], '-'),
@@ -74,9 +74,7 @@ class Students extends Component
       session()->flash('message', 'Student Updated Successfully');
     } else {
       $student = Student::create([
-        'firstname' => $this->student['firstname'],
-        'middlename' => $this->student['middlename'] ?? '',
-        'lastname' => $this->student['lastname'],
+        'fullname' => $name,
         'previous_class' => $this->student['previous_class'] ?? '',
         'gender' => $this->student['gender'] ?? '',
         'admission_no' => 'GS_' . mt_rand(500, 1000),

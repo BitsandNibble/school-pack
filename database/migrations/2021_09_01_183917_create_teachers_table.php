@@ -17,9 +17,7 @@ class CreateTeachersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('admin_id')->index()->nullable();
             $table->string('slug');
-            $table->string('firstname');
-            $table->string('middlename')->nullable();
-            $table->string('lastname');
+            $table->string('fullname');
             $table->string('title');
             $table->string('gender')->nullable();
             $table->date('date_of_birth')->nullable();

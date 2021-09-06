@@ -11,14 +11,14 @@ class Student extends Component
 {
   use WithPagination;
 
-  public $q, $sortBy = 'firstname', $sortAsc = true, $paginate = 10;
+  public $q, $sortBy = 'fullname', $sortAsc = true, $paginate = 10;
   public $class_id, $parent, $title = 'All Students';
   protected $paginationTheme = 'bootstrap';
   protected $listeners = ['refresh', 'filterStudents', 'fetchAll'];
 
   protected $queryString = [
     'q' => ['except' => ''],
-    'sortBy' => ['except' => 'firstname'],
+    'sortBy' => ['except' => 'fullname'],
     'sortAsc' => ['except' => true],
   ];
 

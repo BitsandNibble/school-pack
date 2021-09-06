@@ -14,8 +14,7 @@ class Principal extends Authenticatable
   use Notifiable;
 
   protected $fillable = [
-    'firstname', 'middlename', 'lastname',
-    'email', 'phone_number', 'password',
+    'fullname', 'email', 'phone_number', 'password',
   ];
 
   protected $hidden = [

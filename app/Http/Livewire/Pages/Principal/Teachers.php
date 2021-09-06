@@ -13,14 +13,14 @@ class Teachers extends Component
 {
   use WithPagination;
 
-  public $q, $sortBy = 'firstname', $sortAsc = true, $paginate = 10;
+  public $q, $sortBy = 'fullname', $sortAsc = true, $paginate = 10;
   public $teacher, $teacherInfo, $teacherClassInfo, $deleting;
   public $selected_class_id, $teacher_id, $existingClass;
   protected $paginationTheme = 'bootstrap';
 
   protected $queryString = [
     'q' => ['except' => ''],
-    'sortBy' => ['except' => 'firstname'],
+    'sortBy' => ['except' => 'fullname'],
     'sortAsc' => ['except' => true],
   ];
 
@@ -90,12 +90,12 @@ class Teachers extends Component
   {
     $this->validate();
 
+    $name = $this->teacher['firstname'] . ' ' . $this->teacher['middlename'] . ' ' . $this->teacher['lastname'];
+
     if ($this->teacher_id) {
       $teacher = Teacher::find($this->teacher_id);
       $teacher->update([
-        'firstname' => $this->teacher['firstname'],
-        'middlename' => $this->teacher['middlename'] ?? '',
-        'lastname' => $this->teacher['lastname'],
+        'fullname' => $name,
         'title' => $this->teacher['title'],
         'gender' => $this->teacher['gender'] ?? '',
         'slug' => Str::slug($this->teacher['firstname'], '-'),
@@ -103,9 +103,7 @@ class Teachers extends Component
       session()->flash('message', 'Teacher Updated Successfully');
     } else {
       $teacher = Teacher::create([
-        'firstname' => $this->teacher['firstname'],
-        'middlename' => $this->teacher['middlename'] ?? '',
-        'lastname' => $this->teacher['lastname'],
+        'fullname' => $name,
         'title' => $this->teacher['title'],
         'gender' => $this->teacher['gender'] ?? '',
         'staff_id' => 'GS_' . mt_rand(500, 1000),

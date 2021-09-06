@@ -1,6 +1,6 @@
 <div>
   <x-breadcrumb>Profile</x-breadcrumb>
-  <x-flash></x-flash>
+  <x-flash />
 
   <h5 class="mt-5">Personal Information</h5>
 
@@ -16,36 +16,36 @@
             <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
           </div>
         </div>
-        <hr class="my-4"/>
+        <hr class="my-4" />
       </x-card>
     </div>
     <div class="col-lg-8">
       <x-card>
         <div class="row mb-3">
           <div class="col-sm-3">
-            <h6 class="mb-0">Full Name</h6>
+            <h6>Full Name</h6>
           </div>
           <div class="col-sm-9 text-secondary">
-            <x-input type="text" wire:model.defer="principal.fullname"></x-input>
-            <x-input-error for="principal.fullname"></x-input-error>
+            <x-input type="text" wire:model.defer="principal.fullname" />
+            <x-input-error for="principal.fullname" />
           </div>
         </div>
         <div class="row mb-3">
           <div class="col-sm-3">
-            <h6 class="mb-0">Email</h6>
+            <h6>Email</h6>
           </div>
           <div class="col-sm-9 text-secondary">
-            <x-input type="text" wire:model.defer="principal.email"></x-input>
-            <x-input-error for="principal.email"></x-input-error>
+            <x-input type="text" wire:model.defer="principal.email" />
+            <x-input-error for="principal.email" />
           </div>
         </div>
         <div class="row mb-3">
           <div class="col-sm-3">
-            <h6 class="mb-0">Phone</h6>
+            <h6>Phone</h6>
           </div>
           <div class="col-sm-9 text-secondary">
-            <x-input type="text" wire:model.defer="principal.phone_number"></x-input>
-            <x-input-error for="principal.phone_number"></x-input-error>
+            <x-input type="text" wire:model.defer="principal.phone_number" />
+            <x-input-error for="principal.phone_number" />
           </div>
         </div>
         {{-- <div class="row mb-3">
@@ -58,6 +58,8 @@
         </div> --}}
         <x-button class="float-end px-4" value="submit" wire:click="updatePrincipalProfile">Save</x-button>
       </x-card>
+
+      <livewire:components.update-password />
     </div>
   </div>
 </div>

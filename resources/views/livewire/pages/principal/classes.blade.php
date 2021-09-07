@@ -85,7 +85,7 @@
     </ol>
   </x-card>
 
-  <x-modal id="classModal">
+  <x-confirmation-modal id="classModal">
     <x-slot name="title">{{ isset($this->class_id) ? 'Edit' : 'Add New' }} Class</x-slot>
 
     <x-slot name="content">
@@ -95,14 +95,14 @@
         <div class="row">
           {{-- <x-validation-errors /> --}}
 
-          <div class="col-md-4 mb-2">
+          <div class="col mb-2">
             <x-input type="hidden" wire:model="class_id" />
             <x-label for="name">Class name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="name" wire:model.defer="name" />
             <x-input-error for="name" />
           </div>
 
-          <div class="col-md-6 col">
+          <div class="col">
             <x-label for="teacher_id">Class Teacher</x-label>
             @if (isset($this->class_id) && $this->teacher_id != '')
               <div class="d-flex justify-content">
@@ -128,7 +128,7 @@
       <x-button value="dark" wire:click="cancel">Close</x-button>
       <x-button value="submit" wire:click.prevent="store">Save</x-button>
     </x-slot>
-  </x-modal>
+  </x-confirmation-modal>
 
   <x-confirmation-modal id="deleteModal">
     <x-slot name="title">Delete Class</x-slot>

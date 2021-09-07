@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Traits\WithSearch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Teacher extends Model
 {
@@ -31,9 +33,14 @@ class Teacher extends Model
   //   return $this->belongsTo(Principal::class);
   // }
 
-  public function classRooms()
+  public function classRooms(): BelongsToMany
   {
     return $this->belongsToMany(ClassRoom::class);
+  }
+
+  public function subjects(): MorphToMany
+  {
+    return $this->morphToMany(Subject::class, 'subjectable');
   }
 
   public function getFullnameAttribute($value)

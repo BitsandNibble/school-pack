@@ -11,6 +11,10 @@ class HomeController extends Controller
 
   public function getStudentsPerClass(ClassRoom $class)
   {
-    return view('principal.class-student', compact('class'));
+    return view('users.principal.class-student', compact('class'));
+  }
+
+  public function getSubjectsPerClass(ClassRoom $class) {
+    return view('users.principal.class-subject', compact('class'));
   }
 }

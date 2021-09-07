@@ -95,17 +95,15 @@
     <x-slot name="title">{{ isset($this->subject_id) ? 'Edit' : 'Add New' }} Subject</x-slot>
 
     <x-slot name="content">
-      <form>
-        <div class="row">
-          {{-- <x-validation-errors /> --}}
+      <div class="row">
+        {{-- <x-validation-errors /> --}}
 
-          <div class="col mb-2">
-            <x-label for="name">Subject</x-label>
-            <x-input type="text" id="name" wire:model.defer="name" />
-            <x-input-error for="name" />
-          </div>
+        <div class="col mb-2">
+          <x-label for="name">Subject</x-label>
+          <x-input type="text" id="name" wire:model.defer="name" />
+          <x-input-error for="name" />
         </div>
-      </form>
+      </div>
     </x-slot>
 
     <x-slot name="footer">

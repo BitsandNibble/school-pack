@@ -30,22 +30,24 @@
         <tbody>
           @forelse ($subjects as $subject)
             <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ $subject->fullname }} </td>
-              <td>{{ $subject->admission_no }}</td>
               <td>
-                <x-button class="px-0" value="" wire:click="$emit('showInfo', {{ $subject->id }})"
-                          data-bs-toggle="modal" data-bs-target="#infoModal">
-                  <i class="bx bxs-show"></i>
-                </x-button>
-                <x-button class="px-0" wire:click="$emit('edit', {{ $subject->id }})" value=""
-                          data-bs-toggle="modal" data-bs-target="#studentModal">
-                  <i class="bx bxs-pen"></i>
-                </x-button>
-                <x-button class="px-0" value="" wire:click="$emit('openDeleteModal', {{ $subject->id }})"
-                          data-bs-toggle="modal" data-bs-target="#deleteModal">
-                  <i class="bx bxs-trash-alt"></i>
-                </x-button>
+{{--                {{ $loop->iteration }}--}}
+              </td>
+              <td>{{ $subject['name'] }} </td>
+              <td>{{ $subject }}</td>
+              <td>
+{{--                <x-button class="px-0" value="" wire:click="$emit('showInfo', {{ $subject->id }})"--}}
+{{--                          data-bs-toggle="modal" data-bs-target="#infoModal">--}}
+{{--                  <i class="bx bxs-show"></i>--}}
+{{--                </x-button>--}}
+{{--                <x-button class="px-0" wire:click="$emit('edit', {{ $subject->id }})" value=""--}}
+{{--                          data-bs-toggle="modal" data-bs-target="#studentModal">--}}
+{{--                  <i class="bx bxs-pen"></i>--}}
+{{--                </x-button>--}}
+{{--                <x-button class="px-0" value="" wire:click="$emit('openDeleteModal', {{ $subject->id }})"--}}
+{{--                          data-bs-toggle="modal" data-bs-target="#deleteModal">--}}
+{{--                  <i class="bx bxs-trash-alt"></i>--}}
+{{--                </x-button>--}}
               </td>
             </tr>
           @empty
@@ -81,7 +83,7 @@
           <div class="col mb-2">
             <x-label for="current_class">Teacher <span class="text-danger">*</span></x-label>
             <x-select id="current_class" wire:model.defer="teacher">
-              @foreach ($teachers as $teacher)
+              @foreach ($allTeachers as $teacher)
                 <option value="{{ $teacher->id }}">{{ $teacher->fullname }}</option>
               @endforeach
             </x-select>

@@ -25,6 +25,18 @@ class ClassRoom extends Model
     return $this->belongsToMany(Student::class);
   }
 
+  public function subjectTeachers(): BelongsToMany
+  {
+    return $this->belongsToMany(Teacher::class, 'class_room_subject_teacher', 'class_room_id');
+//    return $this->belongsToMany(Teacher::class, 'class_room_subject_teacher', 'class_room_id', 'teacher_id')->withPivot('subject_id');
+  }
+
+  public function subjects(): BelongsToMany
+  {
+    return $this->belongsToMany(Subject::class, 'class_room_subject_teacher', 'class_room_id');
+//    return $this->belongsToMany(Subject::class, 'class_room_subject_teacher', 'class_room_id', 'subject_id')->withPivot('teacher_id');
+  }
+
   public function getNameAttribute($value)
   {
     return strtoupper($value);

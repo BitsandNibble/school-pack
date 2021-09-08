@@ -1,4 +1,6 @@
 <div>
+  <x-flash />
+
   <x-card>
     <div class="d-flex align-items-center">
       <h4 class="my-1">{{ $class->name }}</h4>
@@ -28,26 +30,28 @@
         </thead>
 
         <tbody>
-          @forelse ($subjects as $subject)
+          @forelse($classes as $class)
             <tr>
+              <td>{{ $loop->iteration }}</td>
               <td>
-{{--                {{ $loop->iteration }}--}}
+                @foreach (\App\Models\Subject::where('id', $class->subject_id)->get() as $subject)
+                  {{ $subject->name }}
+                @endforeach
               </td>
-              <td>{{ $subject['name'] }} </td>
-              <td>{{ $subject }}</td>
               <td>
-{{--                <x-button class="px-0" value="" wire:click="$emit('showInfo', {{ $subject->id }})"--}}
-{{--                          data-bs-toggle="modal" data-bs-target="#infoModal">--}}
-{{--                  <i class="bx bxs-show"></i>--}}
-{{--                </x-button>--}}
-{{--                <x-button class="px-0" wire:click="$emit('edit', {{ $subject->id }})" value=""--}}
-{{--                          data-bs-toggle="modal" data-bs-target="#studentModal">--}}
-{{--                  <i class="bx bxs-pen"></i>--}}
-{{--                </x-button>--}}
-{{--                <x-button class="px-0" value="" wire:click="$emit('openDeleteModal', {{ $subject->id }})"--}}
-{{--                          data-bs-toggle="modal" data-bs-target="#deleteModal">--}}
-{{--                  <i class="bx bxs-trash-alt"></i>--}}
-{{--                </x-button>--}}
+                @foreach (\App\Models\Teacher::where('id', $class->teacher_id)->get() as $teacher)
+                  {{ $teacher->fullname }}
+                @endforeach
+              </td>
+              <td>
+                <x-button class="px-0" wire:click="edit({{ $class->id }})" value=""
+                          data-bs-toggle="modal" data-bs-target="#subjectTeacherModal">
+                  <i class="bx bxs-pen"></i>
+                </x-button>
+                <x-button class="px-0" value="" wire:click="openDeleteModal({{ $class->id }})"
+                          data-bs-toggle="modal" data-bs-target="#deleteModal">
+                  <i class="bx bxs-trash-alt"></i>
+                </x-button>
               </td>
             </tr>
           @empty
@@ -68,7 +72,7 @@
         <p><span class="text-danger">*</span> fields are required</p>
 
         <div class="row">
-{{--          <x-validation-errors />--}}
+          {{--          <x-validation-errors />--}}
 
           <div class="col mb-2">
             <x-label for="previous_class">Subject <span class="text-danger">*</span></x-label>
@@ -98,6 +102,19 @@
       <x-button value="submit" wire:click.prevent="store">Save</x-button>
     </x-slot>
   </x-modal>
+
+  <x-confirmation-modal id="deleteModal">
+    <x-slot name="title">Delete Subject Teacher</x-slot>
+
+    <x-slot name="content">
+      Are you sure you want to delete this subject & teacher?
+    </x-slot>
+
+    <x-slot name="footer">
+      <x-button value="dark" wire:click="cancel">Cancel</x-button>
+      <x-button value="danger" wire:click.prevent="delete({{ $deleting }})">Delete</x-button>
+    </x-slot>
+  </x-confirmation-modal>
 
   <x-spinner />
 </div>

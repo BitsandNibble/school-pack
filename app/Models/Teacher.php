@@ -37,6 +37,12 @@ class Teacher extends Model
     return $this->belongsToMany(ClassRoom::class);
   }
 
+  public function subjects(): BelongsToMany
+  {
+//    return $this->belongsToMany(Subject::class, 'class_room_subject_teacher', 'class_room_id');
+    return $this->belongsToMany(Subject::class, 'class_room_subject_teacher', 'class_room_id', 'subject_id')->withPivot('teacher_id');
+  }
+
   public function getFullnameAttribute($value)
   {
     return ucwords($value);

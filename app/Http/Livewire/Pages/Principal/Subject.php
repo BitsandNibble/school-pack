@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\ClassRoom;
+use App\Models\ClassSubjectTeacher;
 use App\Models\Subject as SubjectModel;
 use App\Models\Teacher;
 use Livewire\Component;
@@ -10,7 +11,7 @@ use Livewire\Component;
 class Subject extends Component
 {
   public $q;
-  public $class_id;
+  public $class_id, $deleting;
   public $subject, $teacher;
 
   public $rules = [
@@ -34,23 +35,48 @@ class Subject extends Component
     $allTeachers = Teacher::get();
     $class = ClassRoom::findOrFail($this->class_id);
     $availableSubjects = SubjectModel::get();
+    $classes = ClassSubjectTeacher::where('class_room_id', $this->class_id)->get();
 
-//    $subjects = $class->subject()->wherePivot('class_room_id', $this->class_id)
-//      ->when($this->q, function ($query) {
-//        return $query->search($this->q);
-//      })->get();
-    $subjects = SubjectModel::get();
+//    fetching individual models from pivot table
+//    $class = ClassRoom::with('subjectTeachers', 'subjects')
+//      ->where('id', $this->class_id)
+//      ->first();
+//    $w = $class->subjects()->get();
+//    $z = $class->subjectTeachers()->get();
 
-    $this->title = $class->name;
+    return view('livewire.pages.principal.subject', compact('availableSubjects', 'classes', 'allTeachers', 'class'));
+  }
 
-    return view('livewire.pages.principal.subject', compact('availableSubjects', 'subjects', 'class', 'allTeachers'));
+  public function edit($id)
+  {
+//    $teacher = Teacher::where('id', $id)->with('classRooms')->first();
+//    $class = ClassRoom::find($id);
+//    $class = ClassRoom::with('subjectTeachers', 'subjects')
+    $class = ClassRoom::find($this->class_id);
+
+
+//      ->find($this->class_id);
+//    $this->teacher_id = $teacher['id'];
+
+//    dd($class->subjects()->get());
+    foreach ($class->subjects()->get() as $sub) {
+//      $this->selected_class_id = $teacherClass->id;
+      $this->subject = $sub->id;
+//    dd($this->subject);
+    }
+
+    foreach ($class->subjectTeachers()->get() as $subT) {
+//      $this->selected_class_id = $teacherClass->id;
+      $this->teacher = $subT->id;
+//    dd($this->teacher);
+    }
   }
 
   public function store(): void
   {
     $this->validate();
 
-//    $class = ClassRoom::find($this->class_id);
+    $class = ClassRoom::find($this->class_id);
 
 //    $subject = SubjectModel::find($this->subject);
 //    $teacher = Teacher::find($this->teacher);
@@ -58,10 +84,39 @@ class Subject extends Component
 //    $well = $subject->classes()->sync($this->class_id);
 //    $well2 = $teacher->classes()->sync($this->class_id);
 
-//    $well = $class->subjects()->sync($this->subject);
-//    $well2 = $teacher->subjects()->sync($this->subject);
+    if ($this->class_id) {
+      $well = $class->subjects()->sync($this->subject,
+        [
+//      'subject_id' => $this->subject,
+          'teacher_id' => $this->teacher
+        ]);
+    } else {
 
-    session()->flash('message', 'Teacher Added Successfully');
+      $well = $class->subjects()->attach($this->subject,
+        [
+//      'subject_id' => $this->subject,
+          'teacher_id' => $this->teacher
+        ]);
+//    $well2 = $teacher->subjects()->sync($this->subject);
+    }
+
+    session()->flash('message', 'Added Successfully');
+    $this->cancel();
+  }
+
+  public function openDeleteModal($id)
+  {
+//    dd($id);
+    $del = ClassSubjectTeacher::find($id);
+    $this->deleting = $del['id'];
+  }
+
+  public function delete(ClassSubjectTeacher $cst)
+  {
+//    $cst->subjects()->detach($this->class_id);
+//    dd($cst);
+    $cst->delete();
+    session()->flash('message', 'Deleted Successfully');
     $this->cancel();
   }
 

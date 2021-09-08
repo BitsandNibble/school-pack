@@ -11,9 +11,8 @@
       </div>
     </div>
   </x-card>
-  <h5>All Subjects</h5>
 
-  <h5>Classes</h5>
+  <h5>Subjects Per Class</h5>
   <x-card>
     <div class="row pricing-table">
       @foreach ($classes as $class)
@@ -31,6 +30,8 @@
       @endforeach
     </div>
   </x-card>
+
+  <h5>All Subjects</h5>
 
   <x-card>
     <div class="d-flex align-items-center">

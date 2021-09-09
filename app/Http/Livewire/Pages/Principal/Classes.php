@@ -28,7 +28,7 @@ class Classes extends Component
   public function render()
   {
     $classes = ClassRoom::orderBy('name')->with('teachers')->Paginate($this->paginate);
-    $teachers = Teacher::whereDoesntHave('classRooms')->get();
+    $teachers = Teacher::whereDoesntHave('classes')->get();
 
     return view('livewire.pages.principal.classes', compact('classes', 'teachers'));
   }
@@ -73,10 +73,10 @@ class Classes extends Component
 
   public function deleteExistingTeacher($id)
   {
-    $teacher = Teacher::where('id', $id)->with('classRooms')->first();
+    $teacher = Teacher::where('id', $id)->with('classes')->first();
 
-    foreach ($teacher->classRooms()->get() as $teacherClass) {
-      $teacher->classRooms()->detach($teacherClass->id);
+    foreach ($teacher->classes()->get() as $teacherClass) {
+      $teacher->classes()->detach($teacherClass->id);
     }
 
     $this->cancel();

@@ -80,7 +80,7 @@
               <td>{{ $teacher->email }}</td>
               <td>{{ $teacher->phone_number }}</td>
               <td>
-                @forelse ($teacher->classRooms as $class)
+                @forelse ($teacher->classes as $class)
                   {{ $class->name }}
                 @empty
                   --------

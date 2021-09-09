@@ -62,7 +62,7 @@
               <td>{{ $student->gender }}</td>
               @if (!$class_id)
                 <td>
-                  @forelse ($student->classRooms as $class)
+                  @forelse ($student->classes as $class)
                     {{ $class->name }}
                   @empty
                     --------

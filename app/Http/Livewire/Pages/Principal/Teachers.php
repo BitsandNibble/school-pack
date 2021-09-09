@@ -42,7 +42,7 @@ class Teachers extends Component
   {
     $teachers = Teacher::when($this->q, function ($query) {
       return $query->search($this->q);
-    })->with('classRooms')
+    })->with('classes')
       ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
       ->Paginate($this->paginate);
 
@@ -72,7 +72,7 @@ class Teachers extends Component
 
   public function edit($id)
   {
-    $teacher = Teacher::where('id', $id)->with('classRooms')->first();
+    $teacher = Teacher::where('id', $id)->with('classes')->first();
     $this->teacher_id = $teacher['id'];
 
     $name = explode(' ', $teacher['fullname']);
@@ -82,7 +82,7 @@ class Teachers extends Component
     $this->teacher['title']  = $teacher['title'];
     $this->teacher['gender']  = $teacher['gender'];
 
-    foreach ($teacher->classRooms()->get() as $teacherClass) {
+    foreach ($teacher->classes()->get() as $teacherClass) {
       $this->selected_class_id = $teacherClass->id;
       $this->existingClass = $teacherClass->name;
     }
@@ -117,7 +117,7 @@ class Teachers extends Component
     }
 
     if (!empty($this->teacher['class_id'])) {
-      $teacher->classRooms()->sync($this->teacher['class_id']);
+      $teacher->classes()->sync($this->teacher['class_id']);
     }
 
     $this->cancel();
@@ -125,9 +125,9 @@ class Teachers extends Component
 
   public function showInfo($id)
   {
-    $teacher = Teacher::where('id', $id)->with('classRooms')->first();
+    $teacher = Teacher::where('id', $id)->with('classes')->first();
 
-    foreach ($teacher->classRooms()->get() as $teacherClass) {
+    foreach ($teacher->classes()->get() as $teacherClass) {
       $this->teacherClassInfo = $teacherClass->name;
     }
 
@@ -153,7 +153,7 @@ class Teachers extends Component
 
   public function delete(Teacher $teacher)
   {
-    $teacher->classRooms()->detach($this->teacher_id);
+    $teacher->classes()->detach($this->teacher_id);
     $teacher->delete();
     $this->cancel();
   }

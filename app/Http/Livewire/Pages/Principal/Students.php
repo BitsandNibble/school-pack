@@ -48,7 +48,7 @@ class Students extends Component
 
   public function edit($id)
   {
-    $student = Student::where('id', $id)->with('classRooms')->first();
+    $student = Student::where('id', $id)->with('classes')->first();
     $this->student_id = $student['id'];
 
     $name = explode(' ', $student['fullname']);
@@ -58,7 +58,7 @@ class Students extends Component
     $this->student['previous_class']  = $student['previous_class'];
     $this->student['gender']  = $student['gender'];
 
-    foreach ($student->classRooms()->get() as $studentClass) {
+    foreach ($student->classes()->get() as $studentClass) {
       $this->student['current_class'] = $studentClass->id;
     }
   }
@@ -92,7 +92,7 @@ class Students extends Component
     }
 
     if (!empty($this->student['current_class'])) {
-      $student->classRooms()->sync($this->student['current_class']);
+      $student->classes()->sync($this->student['current_class']);
     }
 
     $this->emit('refresh');
@@ -103,7 +103,7 @@ class Students extends Component
   {
     $student = Student::where('id', $id)->with('classRooms')->first();
 
-    foreach ($student->classRooms()->get() as $studentClass) {
+    foreach ($student->classes()->get() as $studentClass) {
       $this->studentClassInfo = $studentClass->name;
     }
 
@@ -118,7 +118,7 @@ class Students extends Component
 
   public function delete(Student $student)
   {
-    $student->classRooms()->detach($this->student_id);
+    $student->classes()->detach($this->student_id);
     $student->delete();
     $this->emit('refresh');
     $this->cancel();

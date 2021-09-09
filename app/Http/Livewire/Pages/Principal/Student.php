@@ -47,7 +47,8 @@ class Student extends Component
     } else {
       $students = ModelsStudent::when($this->q, function ($query) {
         return $query->search($this->q);
-      })->with('classRooms')
+      })
+        ->with('classes')
         ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
         ->Paginate($this->paginate);
     }

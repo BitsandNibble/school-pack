@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\WithSearch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Student extends Model
 {
@@ -22,9 +23,9 @@ class Student extends Model
     'remember_token',
   ];
 
-  public function classRooms()
+  public function classes(): MorphToMany
   {
-    return $this->belongsToMany(ClassRoom::class);
+    return $this->morphToMany(ClassRoom::class, 'classable');
   }
 
   public function getFullnameAttribute($value)

@@ -10,8 +10,12 @@ class Subjects extends Component
 {
   public $q, $paginate = 15;
   public $name, $subject_id, $deleting;
+  public $i = 1, $inputs = [];
 
-  protected $rules = ['name' => 'required|string'];
+//  protected $rules = [
+//    'name.0' => 'required|string',
+//    'name.*' => 'required|string'
+//  ];
 
   public function render()
   {
@@ -33,19 +37,32 @@ class Subjects extends Component
   {
     $subject = Subject::where('id', $id)->first();
     $this->subject_id = $subject['id'];
-    $this->name = $subject['name'];
+    $this->name = $subject['name.0'];
   }
 
   public function store(): void
   {
-    $validated = $this->validate();
+    $validated = $this->validate([
+      'name.0' => 'required|string',
+      'name.*' => 'required|string'
+    ],
+      [
+        'name.0.required' => 'subject field is required',
+        'name.*.required' => 'subject field is required'
+      ]);
 
     if ($this->subject_id) {
       $subject = Subject::find($this->subject_id);
       $subject->update($validated);
       session()->flash('message', 'Subject Updated Successfully');
     } else {
-      $subject = Subject::create($validated);
+      foreach ($this->name as $key => $value) {
+        $subject = Subject::create([
+          'name' => $this->name[$key],
+        ]);
+      }
+      $this->inputs = [];
+
       session()->flash('message', 'Subject Added Successfully');
     }
 
@@ -63,4 +80,19 @@ class Subjects extends Component
     $subject->delete();
     $this->cancel();
   }
+
+
+  // for dynamic input
+  public function add($i): void
+  {
+    ++$i;
+    $this->i = $i;
+    $this->inputs[] = $i;
+  }
+
+  public function remove($i): void
+  {
+    unset($this->inputs[$i]);
+  }
+
 }

@@ -75,6 +75,7 @@
           {{--          <x-validation-errors />--}}
 
           <div class="col mb-2">
+            <x-input type="hidden" wire:model="class_subject_teacher" />
             <x-label for="previous_class">Subject <span class="text-danger">*</span></x-label>
             <x-select id="previous_class" wire:model.defer="subject">
               @foreach ($availableSubjects as $availableSubject)

@@ -6,7 +6,6 @@ use App\Traits\WithSearch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class ClassRoom extends Model
 {
@@ -26,9 +25,16 @@ class ClassRoom extends Model
     return $this->belongsToMany(Student::class);
   }
 
-  public function subjects(): MorphToMany
+  public function subjectTeachers(): BelongsToMany
   {
-    return $this->morphToMany(Subject::class, 'subjectable');
+    return $this->belongsToMany(Teacher::class, 'class_room_subject_teacher', 'class_room_id');
+//    return $this->belongsToMany(Teacher::class, 'class_room_subject_teacher', 'class_room_id', 'teacher_id')->withPivot('subject_id');
+  }
+
+  public function subjects(): BelongsToMany
+  {
+    return $this->belongsToMany(Subject::class, 'class_room_subject_teacher', 'class_room_id');
+//    return $this->belongsToMany(Subject::class, 'class_room_subject_teacher', 'class_room_id', 'subject_id')->withPivot('teacher_id');
   }
 
   public function getNameAttribute($value)

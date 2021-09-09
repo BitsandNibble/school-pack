@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Traits\WithSearch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Subject extends Model
 {
@@ -17,13 +17,9 @@ class Subject extends Model
       'name',
     ];
 
-  public function teachers(): MorphToMany
+  public function subjectTeachers(): BelongsToMany
   {
-    return $this->morphedByMany(Teacher::class, 'subjectable');
-  }
-
-  public function classes(): MorphToMany
-  {
-    return $this->morphedByMany(ClassRoom::class, 'subjectable');
+    return $this->belongsToMany(Teacher::class, 'class_room_subject_teacher', 'class_room_id');
+//    return $this->belongsToMany(Teacher::class, 'class_room_subject_teacher', 'class_room_id', 'teacher_id')->withPivot('subject_id');
   }
 }

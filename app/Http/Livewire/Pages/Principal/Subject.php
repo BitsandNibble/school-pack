@@ -49,7 +49,7 @@ class Subject extends Component
 
   public function edit($id)
   {
-//    $teacher = Teacher::where('id', $id)->with('classRooms')->first();
+//    $teacher = Teacher::where('id', $id)->with('classes')->first();
 //    $class = ClassRoom::find($id);
 //    $class = ClassRoom::with('subjectTeachers', 'subjects')
     $class = ClassRoom::find($this->class_id);

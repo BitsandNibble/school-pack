@@ -3,10 +3,11 @@
 namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\ClassRoom;
+use App\Models\ClassSubjectTeacher;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Hash;
-use Livewire\Component;
 use Illuminate\Support\Str;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 class Teachers extends Component
@@ -16,6 +17,7 @@ class Teachers extends Component
   public $q, $sortBy = 'fullname', $sortAsc = true, $paginate = 10;
   public $teacher, $teacherInfo, $teacherClassInfo, $deleting;
   public $selected_class_id, $teacher_id, $existingClass;
+  public $assigned_subject_id;
   protected $paginationTheme = 'bootstrap';
 
   protected $queryString = [
@@ -77,10 +79,10 @@ class Teachers extends Component
 
     $name = explode(' ', $teacher['fullname']);
     $this->teacher['firstname'] = $name[0];
-    $this->teacher['middlename']  = $name[1];
-    $this->teacher['lastname']  = $name[2];
-    $this->teacher['title']  = $teacher['title'];
-    $this->teacher['gender']  = $teacher['gender'];
+    $this->teacher['middlename'] = $name[1];
+    $this->teacher['lastname'] = $name[2];
+    $this->teacher['title'] = $teacher['title'];
+    $this->teacher['gender'] = $teacher['gender'];
 
     foreach ($teacher->classes()->get() as $teacherClass) {
       $this->selected_class_id = $teacherClass->id;
@@ -126,6 +128,8 @@ class Teachers extends Component
   public function showInfo($id)
   {
     $teacher = Teacher::where('id', $id)->with('classes')->first();
+//    $assignedSubjects = ClassSubjectTeacher::where('teacher_id', $id)->get();
+    $this->assigned_subject_id = ClassSubjectTeacher::where('teacher_id', $id)->get();
 
     foreach ($teacher->classes()->get() as $teacherClass) {
       $this->teacherClassInfo = $teacherClass->name;

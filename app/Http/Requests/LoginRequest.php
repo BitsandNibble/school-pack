@@ -13,7 +13,19 @@ class LoginRequest extends FormRequest
 
   protected function prepareForValidation()
   {
-    $this->loginField = filter_var($this->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'school_id';
+//    $this->loginField = filter_var($this->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'school_id';
+
+//    login with email or id or phone number
+    if (filter_var($this->input('login'), FILTER_VALIDATE_EMAIL)) {
+      $this->loginField = 'email';
+
+    } elseif (filter_var($this->input('login'), FILTER_VALIDATE_INT)) {
+      $this->loginField = 'phone_number';
+
+    } else {
+      $this->loginField = 'school_id';
+    }
+
     $this->loginValue = $this->input('login');
     $this->merge([$this->loginField => $this->loginValue]);
   }
@@ -36,8 +48,9 @@ class LoginRequest extends FormRequest
   public function rules()
   {
     return [
-      'email' => 'required_without:school_id|string|email|max:255',
-      'school_id' => 'required_without:email|string',
+      'email' => 'required_without_all:school_id,phone_number|string|email|max:255',
+      'school_id' => 'required_without_all:email,phone_number|string',
+      'phone_number' => 'required_without_all:school_id,email',
       'password' => 'required',
 //      'user_type' => 'required'
     ];

@@ -110,14 +110,13 @@
   </x-modal>
 
   <x-modal id="infoModal">
-    <x-slot name="title">Teacher</x-slot>
+    <x-slot name="title">Student</x-slot>
 
     <x-slot name="content">
       <table class="table table-sm table-borderless table-hover">
         <tr>
           <th>Fullname</th>
-          <td>{{ $studentInfo['firstname'] ?? '' }} {{ $studentInfo['middlename'] ?? '' }}
-            {{ $studentInfo['lastname'] ?? '' }}</td>
+          <td>{{ $studentInfo['fullname'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Email</th>

@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Principal\HomeController;
+use App\Http\Controllers\Principal\HomeController as PrincipalHomeController;
+use App\Http\Controllers\Teacher\HomeController as TeacherHomeController;
 use App\Http\Livewire\Pages\Principal\Classes;
 use App\Http\Livewire\Pages\Principal\Profile as PrincipalProfile;
 use App\Http\Livewire\Pages\Principal\Settings;
@@ -33,11 +34,11 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('teachers', Teachers::class)->name('.teachers');
   Route::get('students', Students::class)->name('.students');
   Route::get('classes', Classes::class)->name('.classes');
-  Route::get('classes/{classname:name}', [HomeController::class, 'getStudentsPerClass'])->name('.classes.students');
+  Route::get('classes/{classname:name}', [PrincipalHomeController::class, 'getStudentsPerClass'])->name('.classes.students');
   Route::view('results', 'users.principal.results')->name('.results');
   Route::view('result', 'users.principal.result')->name('.result');
   Route::get('subjects', Subjects::class)->name('.subjects');
-  Route::get('subjects/{classname:name}', [HomeController::class, 'getSubjectsPerClass'])->name('.classes.subjects');
+  Route::get('subjects/{classname:name}', [PrincipalHomeController::class, 'getSubjectsPerClass'])->name('.classes.subjects');
   Route::get('settings', Settings::class)->name('.settings');
   Route::get('profile', PrincipalProfile::class)->name('.profile');
 });
@@ -45,6 +46,7 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
 Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'teacher'], function () {
   Route::view('/', 'users.teacher.index')->name('.home');
   Route::get('profile', TeacherProfile::class)->name('.profile');
+  Route::get('{classname:name}', [TeacherHomeController::class, 'getStudentsPerClass'])->name('.classes.students');
 });
 
 Route::get('login', [AuthController::class, 'create'])->middleware(['guest:principal', 'guest:teacher'])

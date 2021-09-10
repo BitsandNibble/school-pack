@@ -54,4 +54,15 @@
       <div class="menu-title">Dashboard</div>
     </a>
   </li>
+
+  @foreach(auth()->user()->classes as $class)
+    <li>
+      <a href="{{ route('teacher.classes.students', [$class]) }}">
+        <div class="parent-icon"><i class='lni lni-users'></i></div>
+        <div class="menu-title">
+          {{ $class->name }} Students
+        </div>
+      </a>
+    </li>
+  @endforeach
 @endif

@@ -90,21 +90,66 @@
           <p class="user-name mb-0 text-white">
             {{ auth()->user()->fullname ?? '' }}
           </p>
-          <p class="designattion mb-0">Principal</p>
+          <p class="designattion mb-0">
+            @if(auth('principal')->user())
+              Principal
+            @elseif(auth('teacher')->user())
+              Teacher
+            @elseif(auth('student')->user())
+              Student
+            @else
+              --------
+            @endif
+          </p>
         </div>
       </a>
-      <ul class="dropdown-menu dropdown-menu-end">
-        <li><a class="dropdown-item" href="{{ route('principal.profile') }}"><i
-                class="bx bx-user"></i><span>Profile</span></a>
-        </li>
-        <li><a class="dropdown-item" href="{{ route('principal.settings') }}"><i
-                class="bx bx-cog"></i><span>Settings</span></a>
-        </li>
-        <li>
-          <div class="dropdown-divider mb-0"></div>
-        </li>
-        <livewire:components.logout />
-      </ul>
+      @if(auth('principal')->user())
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="{{ route('principal.profile') }}"><i
+                  class="bx bx-user"></i><span>Profile</span></a>
+          </li>
+          <li><a class="dropdown-item" href="{{ route('principal.settings') }}"><i
+                  class="bx bx-cog"></i><span>Settings</span></a>
+          </li>
+          <li>
+            <div class="dropdown-divider mb-0"></div>
+          </li>
+          <li>
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+
+              <a class="dropdown-item cursor-pointer" href="{{ route('logout') }}"
+                 onclick="event.preventDefault(); this.closest('form').submit();">
+                <i class='bx bx-log-out-circle'></i><span>Logout</span>
+              </a>
+            </form>
+          </li>
+        </ul>
+      @endif
+
+      @if(auth('teacher')->user())
+        <ul class="dropdown-menu dropdown-menu-end">
+{{--          <li><a class="dropdown-item" href="{{ route('principal.profile') }}"><i--}}
+{{--                  class="bx bx-user"></i><span>Profile</span></a>--}}
+{{--          </li>--}}
+{{--          <li><a class="dropdown-item" href="{{ route('principal.settings') }}"><i--}}
+{{--                  class="bx bx-cog"></i><span>Settings</span></a>--}}
+{{--          </li>--}}
+          <li>
+            <div class="dropdown-divider mb-0"></div>
+          </li>
+          <li>
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+
+              <a class="dropdown-item cursor-pointer" href="{{ route('logout') }}"
+                 onclick="event.preventDefault(); this.closest('form').submit();">
+                <i class='bx bx-log-out-circle'></i><span>Logout</span>
+              </a>
+            </form>
+          </li>
+        </ul>
+      @endif
     </div>
   </nav>
 </div>

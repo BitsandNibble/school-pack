@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -13,41 +14,29 @@ class AuthController extends Controller
     return view('auth.login');
   }
 
-  public function store(LoginRequest $request)
+  public function store(LoginRequest $request): RedirectResponse
   {
-//    $credentials = $request->only(['username', 'password']);
-
     $credentials = $request->validated();
-//    $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-    switch ($request->user_type) {
-      case 'principal':
-        auth('principal')->attempt($credentials);
-        return redirect()->intended(RouteServiceProvider::PRINCIPALHOME);
-        break;
-
-      case 'teacher':
-        auth('teacher')->attempt($credentials);
-        return redirect()->intended(RouteServiceProvider::TEACHERHOME);
-        break;
-
-      case 'student':
-        auth('student')->attempt($credentials);
-        return redirect()->intended(RouteServiceProvider::STUDENTHOME);
-        break;
-
-      case 'parent':
-        auth('parent')->attempt($credentials);
-        return redirect()->intended(RouteServiceProvider::PARENTHOME);
-        break;
-
-      default:
-        return back()->withErrors([
-          'email' => 'The provided credentials do not match our records.',
-        ]);
-        break;
+    if ($request->user_type === 'principal' && auth('principal')->attempt($credentials)) {
+      return redirect()->intended(RouteServiceProvider::PRINCIPALHOME);
     }
 
+    if ($request->user_type === 'teacher' && auth('teacher')->attempt($credentials)) {
+      return redirect()->intended(RouteServiceProvider::TEACHERHOME);
+    }
+
+    if ($request->user_type === 'student' && auth('student')->attempt($credentials)) {
+      return redirect()->intended(RouteServiceProvider::STUDENTHOME);
+    }
+
+    if ($request->user_type === 'parent' && auth('parent')->attempt($credentials)) {
+      return redirect()->intended(RouteServiceProvider::PARENTHOME);
+    }
+
+    return back()->withErrors([
+      'email' => 'The provided credentials do not match our records.',
+    ]);
   }
 
   public function destroy(Request $request)
@@ -55,10 +44,14 @@ class AuthController extends Controller
     if (auth('principal')->logout()) {
       $request->session()->invalidate();
       $request->session()->regenerateToken();
-    } else if (auth('teacher')->logout()) {
+    }
+
+    if (auth('teacher')->logout()) {
       $request->session()->invalidate();
       $request->session()->regenerateToken();
-    } else if (auth('student')->logout()) {
+    }
+
+    if (auth('student')->logout()) {
       $request->session()->invalidate();
       $request->session()->regenerateToken();
 //    } else if (auth('parent')->logout()) {

@@ -137,7 +137,7 @@
         </tr>
         <tr>
           <th>Admission No.</th>
-          <td>{{ $studentInfo['admission_no'] ?? '' }}</td>
+          <td>{{ $studentInfo['school_id'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Previous Class</th>

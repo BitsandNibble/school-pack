@@ -111,7 +111,7 @@ class Teachers extends Component
         'fullname' => $name,
         'title' => $this->teacher['title'],
         'gender' => $this->teacher['gender'] ?? '',
-        'staff_id' => 'GS_' . mt_rand(500, 1000),
+        'school_id' => 'GS_' . mt_rand(500, 1000),
         'password' => Hash::make('password'),
         'slug' => Str::slug($this->teacher['firstname'], '-'),
       ]);

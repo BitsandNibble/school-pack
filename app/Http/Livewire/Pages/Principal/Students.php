@@ -84,7 +84,7 @@ class Students extends Component
         'fullname' => $name,
         'previous_class' => $this->student['previous_class'] ?? '',
         'gender' => $this->student['gender'] ?? '',
-        'admission_no' => 'GS_' . mt_rand(500, 1000),
+        'school_id' => 'GS_' . mt_rand(500, 1000),
         'password' => Hash::make('password'),
         'slug' => Str::slug($this->student['firstname'], '-'),
       ]);

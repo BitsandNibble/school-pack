@@ -47,10 +47,10 @@
                 <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
               </div>
             </th>
-            <th wire:click="sortBy('staff_id')" class="cursor-pointer">
+            <th wire:click="sortBy('school_id')" class="cursor-pointer">
               <div class="d-flex justify-content-between">
                 Staff ID
-                <x-sort-icon sortField="staff_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+                <x-sort-icon sortField="school_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
               </div>
             </th>
             <th wire:click="sortBy('email')" class="cursor-pointer">
@@ -76,7 +76,7 @@
               <td>{{ $loop->iteration }}</td>
               <td>{{ $teacher->title }}</td>
               <td>{{ $teacher->fullname }} </td>
-              <td>{{ $teacher->staff_id }}</td>
+              <td>{{ $teacher->school_id }}</td>
               <td>{{ $teacher->email }}</td>
               <td>{{ $teacher->phone_number }}</td>
               <td>
@@ -222,7 +222,7 @@
         </tr>
         <tr>
           <th>Staff ID</th>
-          <td>{{ $teacherInfo['staff_id'] ?? '' }}</td>
+          <td>{{ $teacherInfo['school_id'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Class Teacher</th>

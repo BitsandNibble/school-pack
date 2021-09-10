@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Components;
+namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\Principal;
 use Livewire\Component;
@@ -16,7 +16,8 @@ class Profile extends Component
     'principal.fullname' => 'required|string',
     'principal.email' => 'sometimes|email',
     'principal.phone_number' => 'sometimes|numeric',
-    'profile_photo' => 'sometimes|image|max:2048',
+    'profile_photo' => 'sometimes',
+//    'profile_photo' => 'sometimes|image|max:2048',
   ];
 
   protected $validationAttributes = [
@@ -30,19 +31,20 @@ class Profile extends Component
   {
     $this->principal = Principal::where('id', auth()->id())->first();
 
-    return view('livewire.components.profile');
+    return view('livewire.pages.principal.profile');
   }
 
-  public function updatePrincipalProfile()
+  public function updatePrincipalProfile(): void
   {
     $this->validate();
 
     $updatePrincipal = Principal::find(auth()->id());
-    $updatePrincipal->profile_photo = $this->handleAvatarUpload();
-    $updatePrincipal->fullname = $this->principal['fullname'];
-    $updatePrincipal->email = $this->principal['email'];
-    $updatePrincipal->phone_number = $this->principal['phone_number'];
-    $updatePrincipal->save();
+    $updatePrincipal->update([
+      'profile_photo' => $this->handleAvatarUpload(),
+      'fullname' => $this->principal['fullname'],
+      'email' => $this->principal['email'],
+      'phone_number' => $this->principal['phone_number'],
+    ]);
     $this->reset();
 
     session()->flash('message', 'Profile Updated Successfully');

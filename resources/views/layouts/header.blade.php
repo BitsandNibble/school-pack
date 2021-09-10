@@ -129,9 +129,9 @@
 
       @if(auth('teacher')->user())
         <ul class="dropdown-menu dropdown-menu-end">
-{{--          <li><a class="dropdown-item" href="{{ route('principal.profile') }}"><i--}}
-{{--                  class="bx bx-user"></i><span>Profile</span></a>--}}
-{{--          </li>--}}
+          <li><a class="dropdown-item" href="{{ route('teacher.profile') }}"><i
+                  class="bx bx-user"></i><span>Profile</span></a>
+          </li>
 {{--          <li><a class="dropdown-item" href="{{ route('principal.settings') }}"><i--}}
 {{--                  class="bx bx-cog"></i><span>Settings</span></a>--}}
 {{--          </li>--}}

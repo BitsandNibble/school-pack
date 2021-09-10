@@ -2,13 +2,13 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Principal\HomeController;
-use App\Http\Livewire\Components\Login;
-use App\Http\Livewire\Components\Profile;
 use App\Http\Livewire\Pages\Principal\Classes;
+use App\Http\Livewire\Pages\Principal\Profile as PrincipalProfile;
 use App\Http\Livewire\Pages\Principal\Settings;
 use App\Http\Livewire\Pages\Principal\Students;
 use App\Http\Livewire\Pages\Principal\Subjects;
 use App\Http\Livewire\Pages\Principal\Teachers;
+use App\Http\Livewire\Pages\Teacher\Profile as TeacherProfile;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,11 +39,12 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('subjects', Subjects::class)->name('.subjects');
   Route::get('subjects/{classname:name}', [HomeController::class, 'getSubjectsPerClass'])->name('.classes.subjects');
   Route::get('settings', Settings::class)->name('.settings');
-  Route::get('profile', Profile::class)->name('.profile');
+  Route::get('profile', PrincipalProfile::class)->name('.profile');
 });
 
 Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'teacher'], function () {
   Route::view('/', 'users.teacher.index')->name('.home');
+  Route::get('profile', TeacherProfile::class)->name('.profile');
 });
 
 Route::get('login', [AuthController::class, 'create'])->middleware(['guest:principal', 'guest:teacher'])

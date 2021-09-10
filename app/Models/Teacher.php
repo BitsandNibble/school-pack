@@ -4,11 +4,11 @@ namespace App\Models;
 
 use App\Traits\WithSearch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Teacher extends Model
+class Teacher extends Authenticatable
 {
   use HasFactory, WithSearch;
 
@@ -47,5 +47,13 @@ class Teacher extends Model
   public function getFullnameAttribute($value)
   {
     return ucwords($value);
+  }
+
+  public function getThumbnailAttribute()
+  {
+    if ($this->profile_photo) {
+      return asset('storage/profile-photos/' . $this->profile_photo);
+    }
+    return asset('assets/_images/avatars/avatar-10.png');
   }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Principal\HomeController;
 use App\Http\Livewire\Components\Login;
 use App\Http\Livewire\Components\Profile;
@@ -45,5 +46,7 @@ Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'te
   Route::view('/', 'users.teacher.index')->name('.home');
 });
 
-Route::get('login', Login::class)->middleware('guest:principal')->name('login');
-// Route::view('login', 'auth.login')->name('login');
+Route::get('login', [AuthController::class, 'create'])->middleware(['guest:principal', 'guest:teacher'])
+  ->name('login');
+Route::post('login', [AuthController::class, 'store'])->middleware('guest');
+Route::get('logout', [AuthController::class, 'destroy'])->name('logout');

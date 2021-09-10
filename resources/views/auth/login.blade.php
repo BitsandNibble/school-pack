@@ -14,13 +14,13 @@
               <x-validation-errors />
             </div>
             <div class="form-body">
-              <form class="row g-3" method="POST">
-                {{-- <form class="row g-3" method="POST" action="{{ route('login') }}"> --}}
+              {{--              <form class="row g-3" method="POST">--}}
+              <form class="row g-3" method="POST" action="{{ route('login') }}">
                 @csrf
 
                 <div class="col-12">
-                  <x-label for="email">Email Address</x-label>
-                  <x-input type="email" id="email" name="email" :value="old('email')" />
+                  <x-label for="login">Email / ID</x-label>
+                  <x-input type="text" id="login" name="login" :value="old('login')" />
                 </div>
 
                 <div class="col-12">
@@ -34,12 +34,13 @@
                 </div>
 
                 <div class="col-12">
-                  <x-label for="user">Login As</x-label>
-                  <x-select>
-                    <option value="1">Principal</option>
-                    <option value="2">Teacher</option>
-                    <option value="3">Student</option>
-                    <option value="4">Parent</option>
+                  <x-label for="user_type">Login As</x-label>
+                  <x-select id="user_type" name="user_type">
+                    <option value="principal" {{ old('user_type') === 'principal' ? 'selected' : ''  }}>Principal
+                    </option>
+                    <option value="teacher" {{ old('user_type') === 'teacher' ? 'selected' : ''  }}>Teacher</option>
+                    <option value="student" {{ old('user_type') === 'student' ? 'selected' : ''  }}>Student</option>
+                    <option value="parent" {{ old('user_type') === 'parent' ? 'selected' : ''  }}>Parent</option>
                   </x-select>
                 </div>
 
@@ -75,20 +76,20 @@
 
   @push('scripts')
     <script>
-      $(document).ready(function() {
-        $("#show_hide_password a").on('click', function(event) {
-          event.preventDefault();
-          if ($('#show_hide_password input').attr("type") == "text") {
-            $('#show_hide_password input').attr('type', 'password');
-            $('#show_hide_password i').addClass("bx-hide");
-            $('#show_hide_password i').removeClass("bx-show");
-          } else if ($('#show_hide_password input').attr("type") == "password") {
-            $('#show_hide_password input').attr('type', 'text');
-            $('#show_hide_password i').removeClass("bx-hide");
-            $('#show_hide_password i').addClass("bx-show");
-          }
+        $(document).ready(function () {
+            $("#show_hide_password a").on('click', function (event) {
+                event.preventDefault();
+                if ($('#show_hide_password input').attr("type") == "text") {
+                    $('#show_hide_password input').attr('type', 'password');
+                    $('#show_hide_password i').addClass("bx-hide");
+                    $('#show_hide_password i').removeClass("bx-show");
+                } else if ($('#show_hide_password input').attr("type") == "password") {
+                    $('#show_hide_password input').attr('type', 'text');
+                    $('#show_hide_password i').removeClass("bx-hide");
+                    $('#show_hide_password i').addClass("bx-show");
+                }
+            });
         });
-      });
     </script>
   @endpush
 </x-guest-layout>

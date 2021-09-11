@@ -65,4 +65,11 @@
       </a>
     </li>
   @endforeach
+
+  <li>
+    <a href="{{ route('teacher.subjects') }}">
+      <div class="parent-icon"><i class='bx bx-book'></i></div>
+      <div class="menu-title">Subjects</div>
+    </a>
+  </li>
 @endif

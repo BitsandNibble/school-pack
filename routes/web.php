@@ -10,6 +10,7 @@ use App\Http\Livewire\Pages\Principal\Students;
 use App\Http\Livewire\Pages\Principal\Subjects;
 use App\Http\Livewire\Pages\Principal\Teachers;
 use App\Http\Livewire\Pages\Teacher\Profile as TeacherProfile;
+use App\Http\Livewire\Pages\Teacher\Subjects as TeacherSubjects;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +47,7 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
 Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'teacher'], function () {
   Route::view('/', 'users.teacher.index')->name('.home');
   Route::get('profile', TeacherProfile::class)->name('.profile');
+  Route::get('subjects', TeacherSubjects::class)->name('.subjects');
   Route::get('{classname:name}', [TeacherHomeController::class, 'getStudentsPerClass'])->name('.classes.students');
 });
 

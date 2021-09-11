@@ -36,7 +36,8 @@ class Student extends Component
   {
     $class = ClassRoom::findOrFail($this->class_id);
 
-    $students = $class->students()->wherePivot('class_room_id', $this->class_id)
+//    $students = $class->students()->wherePivot('class_room_id', $this->class_id)
+    $students = $class->students()
       ->when($this->q, function ($query) {
         return $query->search($this->q);
       })

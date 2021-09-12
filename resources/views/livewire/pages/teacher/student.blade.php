@@ -53,8 +53,12 @@
               <td>{{ $student->gender }}</td>
               <td>
                 <x-button class="px-0" value="" wire:click="showInfo({{ $student->id }})"
-                          data-bs-toggle="modal" data-bs-target="#infoModal">
+                  data-bs-toggle="modal" data-bs-target="#infoModal">
                   <i class="bx bxs-show"></i>
+                </x-button>
+                <x-button class="px-0" value="" wire:click="showInfo({{ $student->id }})"
+                  data-bs-toggle="modal" data-bs-target="#infoModal">
+                  <i class="bx bxs-plus-circle"></i>
                 </x-button>
               </td>
             </tr>

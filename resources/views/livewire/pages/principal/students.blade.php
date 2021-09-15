@@ -50,7 +50,7 @@
         <p><span class="text-danger">*</span> fields are required</p>
 
         <div class="row">
-          <x-validation-errors />
+{{--          <x-validation-errors />--}}
 
           <div class="col-md-4 mb-2">
             <x-input type="hidden" wire:model="student_id" />

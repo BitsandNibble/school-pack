@@ -3,7 +3,9 @@
 namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\ClassRoom;
-use App\Models\Student as ModelsStudent;
+use App\Models\Student as StudentModel;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -13,8 +15,25 @@ class Student extends Component
 
   public $q, $sortBy = 'fullname', $sortAsc = true, $paginate = 10;
   public $class_id, $parent, $title = 'All Students';
+  public $student, $class;
   protected $paginationTheme = 'bootstrap';
   protected $listeners = ['refresh', 'filterStudents', 'fetchAll'];
+
+  protected $rules = [
+    'student.firstname' => 'required|string',
+    'student.middlename' => 'sometimes|string',
+    'student.lastname' => 'required|string',
+    'student.previous_class' => 'sometimes',
+    'student.gender' => 'sometimes',
+  ];
+
+  protected $validationAttributes = [
+    'student.firstname' => 'firstname',
+    'student.middlename' => 'middlename',
+    'student.lastname' => 'lastname',
+    'student.previous_class' => 'previous class',
+    'student.gender' => 'gender',
+  ];
 
   protected $queryString = [
     'q' => ['except' => ''],
@@ -36,6 +55,7 @@ class Student extends Component
   {
     if ($this->class_id) {
       $class = ClassRoom::findOrFail($this->class_id);
+      $this->class = $class;
 
       $students = $class->students()->wherePivot('class_room_id', $this->class_id)
         ->when($this->q, function ($query) {
@@ -45,7 +65,7 @@ class Student extends Component
         ->Paginate($this->paginate);
       $this->title = $class->name;
     } else {
-      $students = ModelsStudent::when($this->q, function ($query) {
+      $students = StudentModel::when($this->q, function ($query) {
         return $query->search($this->q);
       })
         ->with('classes')
@@ -83,5 +103,32 @@ class Student extends Component
   public function refresh()
   {
     $this->render();
+  }
+
+  public function cancel()
+  {
+    $this->emit('closeModal');
+    $this->reset(['student']);
+  }
+
+  public function store()
+  {
+    $this->validate();
+
+    $middlename = $this->student['middlename'] ?? '';
+    $name = $this->student['firstname'] . ' ' . $middlename . ' ' . $this->student['lastname'];
+
+    $student = StudentModel::create([
+      'fullname' => $name,
+      'previous_class' => $this->student['previous_class'] ?? '',
+      'gender' => $this->student['gender'] ?? '',
+      'school_id' => 'GS_' . random_int(500, 1000),
+      'password' => Hash::make('password'),
+      'slug' => Str::slug($this->student['firstname'], '-'),
+    ]);
+    $student->classes()->sync($this->class);
+    $this->cancel();
+
+    session()->flash('message', 'Student Added Successfully');
   }
 }

@@ -1,6 +1,20 @@
 <div>
+  <x-flash />
+
   @if ($parent != '2')
     <h5>{{ $title }}</h5>
+  @endif
+
+  @if ($parent == '2')
+    <x-card>
+      <div class="d-flex align-items-center">
+        <h4 class="my-1">{{ $class->name }}</h4>
+
+        <div class="ms-auto d-flex justify-content-end">
+          <x-button data-bs-toggle="modal" data-bs-target="#studentModal2">Add New Student</x-button>
+        </div>
+      </div>
+    </x-card>
   @endif
 
   <x-card>
@@ -96,6 +110,54 @@
     </div>
     {{ $students->links() }}
   </x-card>
+
+  <x-confirmation-modal id="studentModal2">
+    <x-slot name="title">Add New Student</x-slot>
+
+    <x-slot name="content">
+      <form>
+        <p><span class="text-danger">*</span> fields are required</p>
+
+        <div class="row">
+          {{--          <x-validation-errors />--}}
+
+          <div class="col-md-6 mb-2">
+            {{--            <x-input type="hidden" wire:model="student_id" />--}}
+            <x-label for="firstname">First name <span class="text-danger">*</span></x-label>
+            <x-input type="text" id="firstname" wire:model.defer="student.firstname" />
+            <x-input-error for="student.firstname" />
+          </div>
+
+          <div class="col-md-6 mb-2">
+            <x-label for="middlename">Middle name</x-label>
+            <x-input type="text" id="middlename" wire:model.defer="student.middlename" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <x-label for="lastname">Last name <span class="text-danger">*</span></x-label>
+            <x-input type="text" id="lastname" wire:model.defer="student.lastname" />
+            <x-input-error for="student.lastname" />
+          </div>
+
+          <div class="col-md-6 mb-2">
+            <x-label for="gender">Gender</x-label>
+            <x-select id="gender" wire:model.defer="student.gender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </x-select>
+          </div>
+        </div>
+      </form>
+    </x-slot>
+
+    <x-slot name="footer">
+      <x-button value="dark" wire:click="cancel">Close</x-button>
+      <x-button value="submit" wire:click.prevent="store">Save</x-button>
+    </x-slot>
+  </x-confirmation-modal>
 
   <x-spinner />
 </div>

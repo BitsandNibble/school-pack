@@ -1,4 +1,6 @@
 <div>
+  <x-breadcrumb>Subjects</x-breadcrumb>
+
   <x-card>
 {{--    <h5 class="card-title"></h5>--}}
 {{--    <hr>--}}

@@ -40,10 +40,10 @@ class Profile extends Component
 
     $updatePrincipal = Principal::find(auth()->id());
     $updatePrincipal->update([
-      'profile_photo' => $this->handleAvatarUpload(),
       'fullname' => $this->principal['fullname'],
       'email' => $this->principal['email'],
       'phone_number' => $this->principal['phone_number'],
+      'profile_photo' => $this->profile_photo ? $this->handleAvatarUpload() : $this->principal['profile_photo'],
     ]);
     $this->reset();
 

@@ -14,7 +14,7 @@ class RegisterStudents extends Component
 {
   use WithPagination, WithSort;
 
-  public $class_id, $subject_id, $subject_name, $fullname;
+  public $class_id, $subject_id, $subject_name, $fullname = [];
   public $q, $sortBy = 'name', $sortAsc = true, $paginate = 10;
   protected $paginationTheme = 'bootstrap';
 
@@ -61,11 +61,14 @@ class RegisterStudents extends Component
   {
     $this->validate();
 
-    ClassStudentSubject::updateOrCreate([
-      'class_room_id' => $this->class_id,
-      'student_id' => $this->fullname,
-      'subject_id' => $this->subject_id,
-    ]);
+    foreach ($this->fullname as $student_id) {
+      ClassStudentSubject::updateOrCreate([
+        'class_room_id' => $this->class_id,
+        'student_id' => $student_id,
+//        'student_id' => $this->fullname,
+        'subject_id' => $this->subject_id,
+      ]);
+    }
 
     session()->flash('message', 'Student Registered Successfully');
     $this->cancel();

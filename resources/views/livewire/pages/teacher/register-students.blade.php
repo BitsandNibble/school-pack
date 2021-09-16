@@ -3,7 +3,7 @@
 
   <h4>Subjects</h4>
 
-  <x-card>
+  <x-card class="border-0 border-start border-5 border-primary">
     <div class="d-flex align-items-center">
       <div class="d-flex justify-content-start">
         Show <span>&nbsp;</span>
@@ -65,7 +65,10 @@
 
     <x-slot name="content">
       <form>
-        <p><span class="text-danger">*</span> fields are required</p>
+        <x-checked-label for="checkAll" class="mb-2 fw-bolder text-dark">
+          <x-checked-input type="checkbox" id="checkAll" />
+          Check All
+        </x-checked-label>
 
         <div class="row">
           {{-- <x-validation-errors /> --}}

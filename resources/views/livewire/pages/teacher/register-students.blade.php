@@ -38,7 +38,7 @@
         </thead>
 
         <tbody>
-          @foreach($subjects as $subject)
+          @forelse($subjects as $subject)
             <tr>
               <td>{{ $loop->iteration }}</td>
               <td>{{ $subject->name }}</td>
@@ -49,7 +49,11 @@
                 </x-button>
               </td>
             </tr>
-          @endforeach
+          @empty
+            <tr>
+              <td colspan="3" align="center">No record found</td>
+            </tr>
+          @endforelse
         </tbody>
 
       </table>

@@ -60,7 +60,7 @@
       <a href="{{ route('teacher.classes.students', [$class]) }}">
         <div class="parent-icon"><i class='lni lni-users'></i></div>
         <div class="menu-title">
-          {{ $class->name }} Students
+          {{ $class->name }}
         </div>
       </a>
     </li>

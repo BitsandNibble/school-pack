@@ -14,6 +14,6 @@ class ClassStudentSubject extends Model
   public $timestamps = false;
 
   protected $fillable = [
-    'class_id', 'student_id', 'subject_id'
+    'class_room_id', 'student_id', 'subject_id'
   ];
 }

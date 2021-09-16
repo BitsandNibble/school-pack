@@ -1,4 +1,6 @@
 <div>
+  <h4>Students</h4>
+
   <x-card>
     <div class="d-flex align-items-center">
       <div class="d-flex justify-content-start">

@@ -12,5 +12,6 @@
     </div>
   </x-card>
 
+  <livewire:pages.teacher.register-students :id="$class->id" />
   <livewire:pages.teacher.student :id="$class->id" />
 </x-app-layout>

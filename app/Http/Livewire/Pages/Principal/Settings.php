@@ -16,17 +16,29 @@ class Settings extends Component
 
   protected $rules = [
     'settings.school_name' => 'required|string',
+    'settings.school_title' => 'required|string',
+    'settings.current_session' => 'required|string',
+    'settings.term_begins' => 'required|date',
+    'settings.term_ends' => 'required|date',
     'settings.address' => 'required|string',
+    'settings.school_mail' => 'sometimes|email',
+    'settings.alt_mail' => 'sometimes|email',
     'settings.phone' => 'required|numeric',
-//    'phone_number2' => 'numeric',
-//    'school_logo' => 'sometimes|image|max:2048',
+    'settings.mobile' => 'numeric',
+    'settings.school_logo' => 'sometimes|image|max:2048',
   ];
 
   protected $validationAttributes = [
     'settings.school_name' => 'school name',
+    'settings.school_title' => 'school title',
+    'settings.current_session' => 'current session',
+    'settings.term_begins' => 'term begins',
+    'settings.term_ends' => 'term ends',
     'settings.address' => 'address',
+    'settings.school_mail' => 'email',
+    'settings.alt_mail' => 'email',
     'settings.phone' => 'phone number',
-    'settings.mobile' => 'phone number',
+    'settings.mobile' => 'mobile number',
     'settings.school_logo' => 'logo',
   ];
 

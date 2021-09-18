@@ -17,5 +17,11 @@
 {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
 
 <script>
-  Livewire.on('closeModal', () => $('.modal').modal('hide'));
+    Livewire.on('closeModal', () => $('.modal').modal('hide'));
+
+    window.setTimeout(function() {
+        $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+            $(this).remove();
+        });
+    }, 2000);
 </script>

@@ -76,8 +76,8 @@
 
           <div class="col mb-2">
             <x-input type="hidden" wire:model="class_subject_teacher" />
-            <x-label for="previous_class">Subject <span class="text-danger">*</span></x-label>
-            <x-select id="previous_class" wire:model.defer="subject">
+            <x-label for="subject">Subject <span class="text-danger">*</span></x-label>
+            <x-select id="subject" wire:model.defer="subject">
               @foreach ($availableSubjects as $availableSubject)
                 <option value="{{ $availableSubject->id }}">{{ $availableSubject->name }}</option>
               @endforeach
@@ -86,8 +86,8 @@
           </div>
 
           <div class="col mb-2">
-            <x-label for="current_class">Teacher <span class="text-danger">*</span></x-label>
-            <x-select id="current_class" wire:model.defer="teacher">
+            <x-label for="teacher">Teacher <span class="text-danger">*</span></x-label>
+            <x-select id="teacher" wire:model.defer="teacher">
               @foreach ($allTeachers as $teacher)
                 <option value="{{ $teacher->id }}">{{ $teacher->fullname }}</option>
               @endforeach

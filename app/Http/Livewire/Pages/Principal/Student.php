@@ -23,7 +23,6 @@ class Student extends Component
     'student.firstname' => 'required|string',
     'student.middlename' => 'sometimes|string',
     'student.lastname' => 'required|string',
-    'student.previous_class' => 'sometimes',
     'student.gender' => 'sometimes',
   ];
 
@@ -31,7 +30,6 @@ class Student extends Component
     'student.firstname' => 'firstname',
     'student.middlename' => 'middlename',
     'student.lastname' => 'lastname',
-    'student.previous_class' => 'previous class',
     'student.gender' => 'gender',
   ];
 
@@ -120,7 +118,6 @@ class Student extends Component
 
     $student = StudentModel::create([
       'fullname' => $name,
-      'previous_class' => $this->student['previous_class'] ?? '',
       'gender' => $this->student['gender'] ?? '',
       'school_id' => 'GS_' . random_int(500, 1000),
       'password' => Hash::make('password'),

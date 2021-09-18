@@ -19,7 +19,6 @@ class Students extends Component
     'student.firstname' => 'required|string',
     'student.middlename' => 'sometimes|string',
     'student.lastname' => 'required|string',
-    'student.previous_class' => 'sometimes',
     'student.current_class' => 'required',
     'student.gender' => 'sometimes',
   ];
@@ -28,7 +27,6 @@ class Students extends Component
     'student.firstname' => 'firstname',
     'student.middlename' => 'middlename',
     'student.lastname' => 'lastname',
-    'student.previous_class' => 'previous class',
     'student.current_class' => 'current class',
     'student.gender' => 'gender',
   ];
@@ -55,7 +53,6 @@ class Students extends Component
     $this->student['firstname'] = $name[0];
     $this->student['middlename']  = $name[1];
     $this->student['lastname']  = $name[2];
-    $this->student['previous_class']  = $student['previous_class'];
     $this->student['gender']  = $student['gender'];
 
     foreach ($student->classes()->get() as $studentClass) {
@@ -74,7 +71,6 @@ class Students extends Component
       $student = Student::find($this->student_id);
       $student->update([
         'fullname' => $name,
-        'previous_class' => $this->student['previous_class'] ?? '',
         'gender' => $this->student['gender'] ?? '',
         'slug' => Str::slug($this->student['firstname'], '-'),
       ]);
@@ -82,7 +78,6 @@ class Students extends Component
     } else {
       $student = Student::create([
         'fullname' => $name,
-        'previous_class' => $this->student['previous_class'] ?? '',
         'gender' => $this->student['gender'] ?? '',
         'school_id' => 'GS_' . mt_rand(500, 1000),
         'password' => Hash::make('password'),

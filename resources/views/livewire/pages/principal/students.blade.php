@@ -72,16 +72,7 @@
         </div>
 
         <div class="row">
-          <div class="col-md-4 mb-2">
-            <x-label for="previous_class">Previous Class</x-label>
-            <x-select id="previous_class" wire:model.defer="student.previous_class">
-              @foreach ($classes as $class)
-                <option value="{{ $class->name }}">{{ $class->name }}</option>
-              @endforeach
-            </x-select>
-          </div>
-
-          <div class="col-md-4 mb-2">
+          <div class="col-md-6 mb-2">
             <x-label for="current_class">Current Class <span class="text-danger">*</span></x-label>
             <x-select id="current_class" wire:model.defer="student.current_class">
               @foreach ($classes as $class)
@@ -91,7 +82,7 @@
             <x-input-error for="student.current_class" />
           </div>
 
-          <div class="col-md-4 mb-2">
+          <div class="col-md-6 mb-2">
             <x-label for="gender">Gender</x-label>
             <x-select id="gender" wire:model.defer="student.gender">
               <option value="Male">Male</option>
@@ -137,10 +128,6 @@
         <tr>
           <th>Admission No.</th>
           <td>{{ $studentInfo['school_id'] ?? '' }}</td>
-        </tr>
-        <tr>
-          <th>Previous Class</th>
-          <td>{{ $studentInfo['previous_class'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Current Class</th>

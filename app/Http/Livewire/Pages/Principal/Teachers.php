@@ -76,13 +76,7 @@ class Teachers extends Component
   {
     $teacher = Teacher::where('id', $id)->with('classes')->first();
     $this->teacher_id = $teacher['id'];
-
-    $name = explode(' ', $teacher['fullname']);
-    $this->teacher['firstname'] = $name[0];
-    $this->teacher['middlename'] = $name[1];
-    $this->teacher['lastname'] = $name[2];
-    $this->teacher['title'] = $teacher['title'];
-    $this->teacher['gender'] = $teacher['gender'];
+    $this->teacher = $teacher;
 
     foreach ($teacher->classes()->get() as $teacherClass) {
       $this->selected_class_id = $teacherClass->id;
@@ -94,26 +88,23 @@ class Teachers extends Component
   {
     $this->validate();
 
-    $middlename = $this->teacher['middlename'] ?? '';
-    $name = $this->teacher['firstname'] . ' ' . $middlename . ' ' . $this->teacher['lastname'];
-
     if ($this->teacher_id) {
       $teacher = Teacher::find($this->teacher_id);
       $teacher->update([
-        'fullname' => $name,
+        'fullname' => $this->teacher['fullname'],
         'title' => $this->teacher['title'],
         'gender' => $this->teacher['gender'] ?? '',
-        'slug' => Str::slug($this->teacher['firstname'], '-'),
+        'slug' => Str::slug($this->teacher['fullname']),
       ]);
       session()->flash('message', 'Teacher Updated Successfully');
     } else {
       $teacher = Teacher::create([
-        'fullname' => $name,
+        'fullname' => $this->teacher['fullname'],
         'title' => $this->teacher['title'],
         'gender' => $this->teacher['gender'] ?? '',
         'school_id' => 'GS_' . mt_rand(500, 1000),
         'password' => Hash::make('password'),
-        'slug' => Str::slug($this->teacher['firstname'], '-'),
+        'slug' => Str::slug($this->teacher['fullname']),
       ]);
       session()->flash('message', 'Teacher Added Successfully');
     }

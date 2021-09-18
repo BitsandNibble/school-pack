@@ -20,16 +20,12 @@ class Student extends Component
   protected $listeners = ['refresh', 'filterStudents', 'fetchAll'];
 
   protected $rules = [
-    'student.firstname' => 'required|string',
-    'student.middlename' => 'sometimes|string',
-    'student.lastname' => 'required|string',
+    'student.fullname' => 'required|string',
     'student.gender' => 'sometimes',
   ];
 
   protected $validationAttributes = [
-    'student.firstname' => 'firstname',
-    'student.middlename' => 'middlename',
-    'student.lastname' => 'lastname',
+    'student.fullname' => 'fullname',
     'student.gender' => 'gender',
   ];
 
@@ -113,15 +109,12 @@ class Student extends Component
   {
     $this->validate();
 
-    $middlename = $this->student['middlename'] ?? '';
-    $name = $this->student['firstname'] . ' ' . $middlename . ' ' . $this->student['lastname'];
-
     $student = StudentModel::create([
-      'fullname' => $name,
+      'fullname' => $this->student['fullname'],
       'gender' => $this->student['gender'] ?? '',
       'school_id' => 'GS_' . random_int(500, 1000),
       'password' => Hash::make('password'),
-      'slug' => Str::slug($this->student['firstname'], '-'),
+      'slug' => Str::slug($this->student['fullname']),
     ]);
     $student->classes()->sync($this->class);
     $this->cancel();

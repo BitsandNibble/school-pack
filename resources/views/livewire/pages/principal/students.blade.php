@@ -54,25 +54,12 @@
 
           <div class="col-md-4 mb-2">
             <x-input type="hidden" wire:model="student_id" />
-            <x-label for="firstname">First name <span class="text-danger">*</span></x-label>
-            <x-input type="text" id="firstname" wire:model.defer="student.firstname" />
-            <x-input-error for="student.firstname" />
+            <x-label for="fullname">Full Name <span class="text-danger">*</span></x-label>
+            <x-input type="text" id="fullname" wire:model.defer="student.fullname" />
+            <x-input-error for="student.fullname" />
           </div>
 
           <div class="col-md-4 mb-2">
-            <x-label for="middlename">Middle name</x-label>
-            <x-input type="text" id="middlename" wire:model.defer="student.middlename" />
-          </div>
-
-          <div class="col-md-4 mb-2">
-            <x-label for="lastname">Last name <span class="text-danger">*</span></x-label>
-            <x-input type="text" id="lastname" wire:model.defer="student.lastname" />
-            <x-input-error for="student.lastname" />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 mb-2">
             <x-label for="current_class">Current Class <span class="text-danger">*</span></x-label>
             <x-select id="current_class" wire:model.defer="student.current_class">
               @foreach ($classes as $class)
@@ -82,7 +69,7 @@
             <x-input-error for="student.current_class" />
           </div>
 
-          <div class="col-md-6 mb-2">
+          <div class="col-md-4 mb-2">
             <x-label for="gender">Gender</x-label>
             <x-select id="gender" wire:model.defer="student.gender">
               <option value="Male">Male</option>

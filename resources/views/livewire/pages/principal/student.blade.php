@@ -123,22 +123,9 @@
 
           <div class="col-md-6 mb-2">
             {{--            <x-input type="hidden" wire:model="student_id" />--}}
-            <x-label for="firstname">First name <span class="text-danger">*</span></x-label>
-            <x-input type="text" id="firstname" wire:model.defer="student.firstname" />
-            <x-input-error for="student.firstname" />
-          </div>
-
-          <div class="col-md-6 mb-2">
-            <x-label for="middlename">Middle name</x-label>
-            <x-input type="text" id="middlename" wire:model.defer="student.middlename" />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 mb-2">
-            <x-label for="lastname">Last name <span class="text-danger">*</span></x-label>
-            <x-input type="text" id="lastname" wire:model.defer="student.lastname" />
-            <x-input-error for="student.lastname" />
+            <x-label for="fullname">Full Name <span class="text-danger">*</span></x-label>
+            <x-input type="text" id="fullname" wire:model.defer="student.fullname" />
+            <x-input-error for="student.fullname" />
           </div>
 
           <div class="col-md-6 mb-2">

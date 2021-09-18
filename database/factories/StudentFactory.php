@@ -24,7 +24,7 @@ class StudentFactory extends Factory
   public function definition()
   {
     return [
-      'firstname' => $this->faker->anme(),
+      'firstname' => $this->faker->name(),
       'previous_class' => $this->faker->randomElement(['JSS1', 'JSS2', 'JSS3']),
       'gender' => $this->faker->randomElement(['Male', 'Female']),
       // 'date_of_birth',

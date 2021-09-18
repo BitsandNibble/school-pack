@@ -13,7 +13,7 @@ class ClassRoom extends Model
   use HasFactory, WithSearch;
 
   protected $fillable = [
-    'name',
+    'name', 'class_type_id'
   ];
 
   public function teachers(): MorphToMany
@@ -36,6 +36,11 @@ class ClassRoom extends Model
   {
     return $this->belongsToMany(Subject::class, 'class_room_subject_teacher', 'class_room_id');
 //    return $this->belongsToMany(Subject::class, 'class_room_subject_teacher', 'class_room_id', 'subject_id')->withPivot('teacher_id');
+  }
+
+  public function class_type()
+  {
+    return $this->belongsTo(ClassType::class);
   }
 
   public function getNameAttribute($value)

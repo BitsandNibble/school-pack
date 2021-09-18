@@ -1,4 +1,5 @@
 <x-app-layout>
+  Current Session : {{ SP::getSetting('current_session') }}
   <hr>
   @forelse(auth()->user()->classes as $class)
     <div class="row">

@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
-use App\Helpers\Helper;
-use App\Models\School;
+use App\Helpers\SP;
 use App\Models\Setting;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -56,11 +55,12 @@ class Settings extends Component
   public function store()
   {
     $credentials = $this->validate();
-    foreach ($credentials as $cred) {}
+    foreach ($credentials as $cred) {
+    }
 
     $keys = array_keys($cred);
     $values = array_values($cred);
-    $iMax = Helper::count($cred);
+    $iMax = SP::count($cred);
 
     for ($i = 0; $i < $iMax; $i++) {
       Setting::where('type', $keys[$i])->update(['description' => $values[$i]]);

@@ -16,6 +16,7 @@ class RegisterStudents extends Component
 
   public $class_id, $subject_id, $subject_name, $fullname = [];
   public $q, $sortBy = 'name', $sortAsc = true, $paginate = 10;
+  public $selectAll = false;
   protected $paginationTheme = 'bootstrap';
 
   protected $rules = [
@@ -76,7 +77,16 @@ class RegisterStudents extends Component
 
   public function cancel(): void
   {
-    $this->reset(['fullname', 'subject_name']);
+    $this->reset(['fullname', 'subject_name', 'selectAll']);
     $this->emit('closeModal');
+  }
+
+  public function updatedSelectAll($value)
+  {
+    if ($value) {
+      $this->fullname = \App\Models\Student::pluck('id');
+    } else {
+      $this->fullname = [];
+    }
   }
 }

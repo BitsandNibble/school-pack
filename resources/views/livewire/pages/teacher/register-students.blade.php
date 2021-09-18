@@ -66,17 +66,18 @@
     <x-slot name="content">
       <form>
         <x-checked-label for="checkAll" class="mb-2 fw-bolder text-dark">
-          <x-checked-input type="checkbox" id="checkAll" />
+          <x-checked-input type="checkbox" id="checkAll" wire:model="selectAll" />
           Check All
         </x-checked-label>
 
+        @json($fullname)
         <div class="row">
           {{-- <x-validation-errors /> --}}
 
           @foreach($students as $student)
             <div class="col-md-6 mb-2">
               <x-checked-label for="student_{{ $student->id }}">
-                <x-checked-input type="checkbox" value="{{ $student->id }}" wire:model.defer="fullname"
+                <x-checked-input type="checkbox" value="{{ $student->id }}" wire:model="fullname"
                                  id="student_{{ $student->id }}" />
                 {{ $student->fullname }}
               </x-checked-label>

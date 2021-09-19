@@ -16,11 +16,6 @@ class ClassRoom extends Model
     'name', 'class_type_id'
   ];
 
-  public function teachers(): MorphToMany
-  {
-    return $this->morphedByMany(Teacher::class, 'classable');
-  }
-
   public function students(): MorphToMany
   {
     return $this->morphedByMany(Student::class, 'classable');

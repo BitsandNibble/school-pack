@@ -13,7 +13,7 @@
   </x-card>
 
   <x-card>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center mb-3">
       <div class="d-flex justify-content-start">
         Show <span>&nbsp;</span>
         <select class="form-select form-select-sm" wire:model="paginate">
@@ -26,7 +26,7 @@
       </div>
 
       <div class="ms-auto d-flex justify-content-end">
-        <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" class="mb-3" />
+        <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" />
       </div>
     </div>
 

@@ -13,7 +13,7 @@
   </x-card>
 
   <x-card>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center mb-3">
       <div class="d-flex justify-content-start">
         Show <span>&nbsp;</span>
         <select class="form-select form-select-sm" wire:model="paginate">
@@ -26,7 +26,7 @@
       </div>
 
       <div class="ms-auto d-flex justify-content-end">
-        <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" class="mb-3" />
+        <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" />
       </div>
     </div>
 
@@ -114,7 +114,7 @@
 
   </x-card>
 
-  <x-modal id="teacherModal">
+  <x-confirmation-modal id="teacherModal">
     <x-slot name="title">{{ isset($this->teacher_id) ? 'Edit' : 'Add New' }} Teacher</x-slot>
 
     <x-slot name="content">
@@ -124,27 +124,14 @@
         <div class="row">
           {{-- <x-validation-errors /> --}}
 
-          <div class="col-md-4 mb-2">
+          <div class="col-md-6 mb-2">
             <x-input type="hidden" wire:model="teacher_id" />
-            <x-label for="firstname">First name <span class="text-danger">*</span></x-label>
-            <x-input type="text" id="firstname" wire:model.defer="teacher.firstname" />
-            <x-input-error for="teacher.firstname" />
+            <x-label for="fullname">Full Name <span class="text-danger">*</span></x-label>
+            <x-input type="text" id="fullname" wire:model.defer="teacher.fullname" />
+            <x-input-error for="teacher.fullname" />
           </div>
 
-          <div class="col-md-4 mb-2">
-            <x-label for="middlename">Middle name</x-label>
-            <x-input type="text" id="middlename" wire:model.defer="teacher.middlename" />
-          </div>
-
-          <div class="col-md-4 mb-2">
-            <x-label for="lastname">Last name <span class="text-danger">*</span></x-label>
-            <x-input type="text" id="lastname" wire:model.defer="teacher.lastname" />
-            <x-input-error for="teacher.lastname" />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-4 mb-2">
+          <div class="col-md-6 mb-2">
             <x-label for="title">Title <span class="text-danger">*</span></x-label>
             <x-select id="title" wire:model.defer="teacher.title">
               <option value="Mr">Mr</option>
@@ -157,8 +144,10 @@
             </x-select>
             <x-input-error for="teacher.title" />
           </div>
+        </div>
 
-          <div class="col-md-4 mb-2">
+        <div class="row">
+          <div class="col-md-6 mb-2">
             <x-label for="gender">Gender</x-label>
             <x-select id="gender" wire:model.defer="teacher.gender">
               <option value="Male">Male</option>
@@ -167,7 +156,7 @@
             </x-select>
           </div>
 
-          <div class="col-md-4 mb-2">
+          <div class="col-md-6 mb-2">
             <x-label for="class_id">Class</x-label>
             @if (isset($this->teacher_id) && $this->selected_class_id != '')
               <div class="d-flex justify-content">
@@ -193,7 +182,7 @@
       <x-button value="dark" wire:click="cancel">Close</x-button>
       <x-button value="submit" wire:click.prevent="store">Save</x-button>
     </x-slot>
-  </x-modal>
+  </x-confirmation-modal>
 
   <x-modal id="infoModal">
     <x-slot name="title">Teacher</x-slot>

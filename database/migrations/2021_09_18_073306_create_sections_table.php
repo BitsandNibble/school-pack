@@ -18,7 +18,6 @@ class CreateSectionsTable extends Migration
       $table->string('name', 100);
       $table->unsignedBigInteger('class_room_id');
       $table->unsignedBigInteger('teacher_id')->nullable();
-      $table->tinyInteger('active')->default(0);
       $table->timestamps();
     });
 

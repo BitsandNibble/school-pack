@@ -17,7 +17,6 @@ class CreateStudentsTable extends Migration
             $table->id();
             $table->string('slug');
             $table->string('fullname');
-            $table->string('previous_class')->nullable();
             $table->string('gender')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('school_id');

@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\ClassRoom;
-use App\Models\Teacher;
+use App\Models\ClassType;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -12,8 +12,8 @@ class Classes extends Component
 {
   use WithPagination;
 
-  public $name, $deleting, $paginate = 6;
-  public $class_id, $existingTeacher, $teacher_id;
+  public $name, $deleting, $paginate = 10;
+  public $class_id, $class_type_id;
 
   protected $paginationTheme = 'bootstrap';
   protected $rules;
@@ -22,15 +22,20 @@ class Classes extends Component
   {
     return [
       'name' => ['required', 'string', Rule::unique('class_rooms')->ignore($this->class_id)],
+      'class_type_id' => ['required'],
     ];
   }
+
+  protected $validationAttributes = [
+    'class_type_id' => 'class type',
+  ];
 
   public function render()
   {
     $classes = ClassRoom::orderBy('name')->with('teachers')->Paginate($this->paginate);
-    $teachers = Teacher::whereDoesntHave('classes')->get();
+    $class_types = ClassType::get();
 
-    return view('livewire.pages.principal.classes', compact('classes', 'teachers'));
+    return view('livewire.pages.principal.classes', compact('classes', 'class_types'));
   }
 
   public function cancel()
@@ -41,14 +46,10 @@ class Classes extends Component
 
   public function edit($id)
   {
-    $class = ClassRoom::where('id', $id)->with('teachers')->first();
+    $class = ClassRoom::whereId($id)->first();
     $this->class_id = $class['id'];
     $this->name = $class->name;
-
-    foreach ($class->teachers()->get() as $classTeacher) {
-      $this->teacher_id = $classTeacher->id;
-      $this->existingTeacher = $classTeacher->title . ' ' . $classTeacher->fullname;
-    }
+    $this->class_type_id = $class->class_type_id;
   }
 
   public function store()
@@ -64,21 +65,6 @@ class Classes extends Component
       session()->flash('message', 'Class Added Successfully');
     }
 
-    if (!empty($this->teacher_id)) {
-      $class->teachers()->sync($this->teacher_id);
-    }
-
-    $this->cancel();
-  }
-
-  public function deleteExistingTeacher($id)
-  {
-    $teacher = Teacher::where('id', $id)->with('classes')->first();
-
-    foreach ($teacher->classes()->get() as $teacherClass) {
-      $teacher->classes()->detach($teacherClass->id);
-    }
-
     $this->cancel();
   }
 
@@ -90,8 +76,8 @@ class Classes extends Component
 
   public function delete(ClassRoom $class)
   {
-    $class->teachers()->detach($this->teacher_id);
     $class->delete();
     $this->cancel();
+    session()->flash('message', 'Class Deleted Successfully');
   }
 }

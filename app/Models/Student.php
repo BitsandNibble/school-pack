@@ -13,9 +13,8 @@ class Student extends Model
 
   protected $fillable = [
     'fullname', 'gender', 'date_of_birth',
-    'school_id', 'email', 'previous_class',
-    'password', 'phone_number', 'profile_photo',
-    'slug',
+    'school_id', 'email', 'password',
+    'phone_number', 'profile_photo', 'slug',
   ];
 
   protected $hidden = [

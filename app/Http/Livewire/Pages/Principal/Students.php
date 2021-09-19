@@ -16,19 +16,13 @@ class Students extends Component
   protected $listeners = ['edit', 'showInfo', 'openDeleteModal'];
 
   protected $rules = [
-    'student.firstname' => 'required|string',
-    'student.middlename' => 'sometimes|string',
-    'student.lastname' => 'required|string',
-    'student.previous_class' => 'sometimes',
+    'student.fullname' => 'required|string',
     'student.current_class' => 'required',
     'student.gender' => 'sometimes',
   ];
 
   protected $validationAttributes = [
-    'student.firstname' => 'firstname',
-    'student.middlename' => 'middlename',
-    'student.lastname' => 'lastname',
-    'student.previous_class' => 'previous class',
+    'student.fullname' => 'fullname',
     'student.current_class' => 'current class',
     'student.gender' => 'gender',
   ];
@@ -50,13 +44,7 @@ class Students extends Component
   {
     $student = Student::where('id', $id)->with('classes')->first();
     $this->student_id = $student['id'];
-
-    $name = explode(' ', $student['fullname']);
-    $this->student['firstname'] = $name[0];
-    $this->student['middlename']  = $name[1];
-    $this->student['lastname']  = $name[2];
-    $this->student['previous_class']  = $student['previous_class'];
-    $this->student['gender']  = $student['gender'];
+    $this->student  = $student;
 
     foreach ($student->classes()->get() as $studentClass) {
       $this->student['current_class'] = $studentClass->id;
@@ -67,26 +55,21 @@ class Students extends Component
   {
     $this->validate();
 
-    $middlename = $this->student['middlename'] ?? '';
-    $name = $this->student['firstname'] . ' ' . $middlename . ' ' . $this->student['lastname'];
-
     if ($this->student_id) {
       $student = Student::find($this->student_id);
       $student->update([
-        'fullname' => $name,
-        'previous_class' => $this->student['previous_class'] ?? '',
+        'fullname' => $this->student['fullname'],
         'gender' => $this->student['gender'] ?? '',
-        'slug' => Str::slug($this->student['firstname'], '-'),
+        'slug' => Str::slug($this->student['fullname']),
       ]);
       session()->flash('message', 'Student Updated Successfully');
     } else {
       $student = Student::create([
-        'fullname' => $name,
-        'previous_class' => $this->student['previous_class'] ?? '',
+        'fullname' => $this->student['fullname'],
         'gender' => $this->student['gender'] ?? '',
         'school_id' => 'GS_' . mt_rand(500, 1000),
         'password' => Hash::make('password'),
-        'slug' => Str::slug($this->student['firstname'], '-'),
+        'slug' => Str::slug($this->student['fullname']),
       ]);
       session()->flash('message', 'Student Added Successfully');
     }

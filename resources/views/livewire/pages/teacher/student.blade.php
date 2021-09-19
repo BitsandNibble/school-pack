@@ -105,10 +105,6 @@
           <td>{{ $studentInfo['school_id'] ?? '' }}</td>
         </tr>
         <tr>
-          <th>Previous Class</th>
-          <td>{{ $studentInfo['previous_class'] ?? '' }}</td>
-        </tr>
-        <tr>
           <th>Current Class</th>
           <td>{{ $studentClassInfo ?? '' }}</td>
         </tr>

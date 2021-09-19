@@ -25,7 +25,6 @@ class StudentFactory extends Factory
   {
     return [
       'fullname' => $this->faker->name(),
-      'previous_class' => $this->faker->randomElement(['JSS1', 'JSS2', 'JSS3']),
       'gender' => $this->faker->randomElement(['Male', 'Female']),
       // 'date_of_birth',
       'school_id' => 'GS' . $this->faker->numerify('#####'),

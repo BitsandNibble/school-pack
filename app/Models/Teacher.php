@@ -33,11 +33,6 @@ class Teacher extends Authenticatable
   //   return $this->belongsTo(Principal::class);
   // }
 
-  public function classes(): MorphToMany
-  {
-    return $this->morphToMany(ClassRoom::class, 'classable');
-  }
-
   public function subjects(): BelongsToMany
   {
 //    return $this->belongsToMany(Subject::class, 'class_room_subject_teacher', 'class_room_id');

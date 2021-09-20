@@ -5,8 +5,9 @@ namespace App\Http\Livewire\Pages\Principal;
 use App\Models\ClassRoom;
 use App\Models\Student;
 use Illuminate\Support\Facades\Hash;
-use Livewire\Component;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+use Livewire\Component;
 
 class Students extends Component
 {
@@ -15,11 +16,16 @@ class Students extends Component
 
   protected $listeners = ['edit', 'showInfo', 'openDeleteModal'];
 
-  protected $rules = [
-    'student.fullname' => 'required|string',
-    'student.current_class' => 'required',
-    'student.gender' => 'sometimes',
-  ];
+  protected $rules;
+
+  protected function rules()
+  {
+    return [
+      'student.fullname' => ['required', 'string', Rule::unique('students', 'fullname')->ignore($this->student_id)],
+      'student.current_class' => 'required',
+      'student.gender' => 'sometimes',
+    ];
+  }
 
   protected $validationAttributes = [
     'student.fullname' => 'fullname',
@@ -44,7 +50,7 @@ class Students extends Component
   {
     $student = Student::where('id', $id)->with('classes')->first();
     $this->student_id = $student['id'];
-    $this->student  = $student;
+    $this->student = $student;
 
     foreach ($student->classes()->get() as $studentClass) {
       $this->student['current_class'] = $studentClass->id;

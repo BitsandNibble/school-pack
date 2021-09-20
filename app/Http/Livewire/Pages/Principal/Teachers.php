@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\ClassRoom;
 use App\Models\ClassSubjectTeacher;
+use App\Models\Section;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -16,7 +17,7 @@ class Teachers extends Component
 
   public $q, $sortBy = 'fullname', $sortAsc = true, $paginate = 10;
   public $teacher, $teacherInfo, $teacherClassInfo, $deleting;
-  public $selected_class_id, $teacher_id, $existingClass;
+  public $teacher_id;
   public $assigned_subject_id;
   protected $paginationTheme = 'bootstrap';
 
@@ -27,38 +28,40 @@ class Teachers extends Component
   ];
 
   protected $rules = [
-    'teacher.fullname' => 'sometimes|string',
     'teacher.title' => 'required',
+    'teacher.fullname' => 'required|string',
+    'teacher.email' => 'sometimes|email',
     'teacher.gender' => 'sometimes',
-    'teacher.class_id' => 'sometimes',
   ];
 
   protected $validationAttributes = [
-    'teacher.fullname' => 'fullname',
     'teacher.title' => 'title',
+    'teacher.fullname' => 'fullname',
+    'teacher.email' => 'email',
     'teacher.gender' => 'gender',
-    'teacher.class_id' => 'class Id',
   ];
 
   public function render()
   {
     $teachers = Teacher::when($this->q, function ($query) {
       return $query->search($this->q);
-    })->with('classes')
-      ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+    })->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
       ->Paginate($this->paginate);
 
-    $classes = ClassRoom::whereDoesntHave('teachers')->get();
+    $classes = ClassRoom::get();
+    if (!empty($this->class)) {
+      $this->sections = Section::where('class_room_id', $this->class)->get();
+    }
 
     return view('livewire.pages.principal.teachers', compact('teachers', 'classes'));
   }
 
-  public function updatingQ()
+  public function updatingQ(): void
   {
     $this->resetPage();
   }
 
-  public function sortBy($field)
+  public function sortBy($field): void
   {
     if ($field == $this->sortBy) {
       $this->sortAsc = !$this->sortAsc;
@@ -66,25 +69,20 @@ class Teachers extends Component
     $this->sortBy = $field;
   }
 
-  public function cancel()
+  public function cancel(): void
   {
     $this->emit('closeModal');
     $this->reset();
   }
 
-  public function edit($id)
+  public function edit($id): void
   {
-    $teacher = Teacher::where('id', $id)->with('classes')->first();
+    $teacher = Teacher::where('id', $id)->first();
     $this->teacher_id = $teacher['id'];
     $this->teacher = $teacher;
-
-    foreach ($teacher->classes()->get() as $teacherClass) {
-      $this->selected_class_id = $teacherClass->id;
-      $this->existingClass = $teacherClass->name;
-    }
   }
 
-  public function store()
+  public function store(): void
   {
     $this->validate();
 
@@ -93,6 +91,7 @@ class Teachers extends Component
       $teacher->update([
         'fullname' => $this->teacher['fullname'],
         'title' => $this->teacher['title'],
+        'email' => $this->teacher['email'] ?? '',
         'gender' => $this->teacher['gender'] ?? '',
         'slug' => Str::slug($this->teacher['fullname']),
       ]);
@@ -101,6 +100,7 @@ class Teachers extends Component
       $teacher = Teacher::create([
         'fullname' => $this->teacher['fullname'],
         'title' => $this->teacher['title'],
+        'email' => $this->teacher['email'] ?? '',
         'gender' => $this->teacher['gender'] ?? '',
         'school_id' => 'GS_' . mt_rand(500, 1000),
         'password' => Hash::make('password'),
@@ -109,27 +109,19 @@ class Teachers extends Component
       session()->flash('message', 'Teacher Added Successfully');
     }
 
-    if (!empty($this->teacher['class_id'])) {
-      $teacher->classes()->sync($this->teacher['class_id']);
-    }
-
     $this->cancel();
   }
 
-  public function showInfo($id)
+  public function showInfo($id): void
   {
-    $teacher = Teacher::where('id', $id)->with('classes')->first();
+    $teacher = Teacher::where('id', $id)->first();
 //    $assignedSubjects = ClassSubjectTeacher::where('teacher_id', $id)->get();
     $this->assigned_subject_id = ClassSubjectTeacher::where('teacher_id', $id)->get();
-
-    foreach ($teacher->classes()->get() as $teacherClass) {
-      $this->teacherClassInfo = $teacherClass->name;
-    }
 
     $this->teacherInfo = $teacher;
   }
 
-  public function deleteExistingClass($id)
+  public function deleteExistingClass($id): void
   {
     $class = ClassRoom::where('id', $id)->with('teachers')->first();
 
@@ -140,13 +132,13 @@ class Teachers extends Component
     $this->cancel();
   }
 
-  public function openDeleteModal($id)
+  public function openDeleteModal($id): void
   {
     $del = Teacher::find($id);
     $this->deleting = $del['id'];
   }
 
-  public function delete(Teacher $teacher)
+  public function delete(Teacher $teacher): void
   {
     $teacher->classes()->detach($this->teacher_id);
     $teacher->delete();

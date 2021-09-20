@@ -65,7 +65,6 @@
                 <x-sort-icon sortField="phone_number" :sortBy="$sortBy" :sortAsc="$sortAsc" />
               </div>
             </th>
-            <th>Class</th>
             <th></th>
           </tr>
         </thead>
@@ -79,13 +78,6 @@
               <td>{{ $teacher->school_id }}</td>
               <td>{{ $teacher->email }}</td>
               <td>{{ $teacher->phone_number }}</td>
-              <td>
-                @forelse ($teacher->classes as $class)
-                  {{ $class->name }}
-                @empty
-                  --------
-                @endforelse
-              </td>
               <td>
                 <x-button class="px-0" value="" wire:click="showInfo({{ $teacher->id }})"
                           data-bs-toggle="modal" data-bs-target="#infoModal">
@@ -124,14 +116,7 @@
         <div class="row">
           {{-- <x-validation-errors /> --}}
 
-          <div class="col-md-6 mb-2">
-            <x-input type="hidden" wire:model="teacher_id" />
-            <x-label for="fullname">Full Name <span class="text-danger">*</span></x-label>
-            <x-input type="text" id="fullname" wire:model.defer="teacher.fullname" />
-            <x-input-error for="teacher.fullname" />
-          </div>
-
-          <div class="col-md-6 mb-2">
+          <div class="col-md-4 mb-2">
             <x-label for="title">Title <span class="text-danger">*</span></x-label>
             <x-select id="title" wire:model.defer="teacher.title">
               <option value="Mr">Mr</option>
@@ -144,9 +129,21 @@
             </x-select>
             <x-input-error for="teacher.title" />
           </div>
+
+          <div class="col-md-8 mb-2">
+            <x-label for="fullname">Full Name <span class="text-danger">*</span></x-label>
+            <x-input type="text" id="fullname" wire:model.defer="teacher.fullname" />
+            <x-input-error for="teacher.fullname" />
+          </div>
         </div>
 
         <div class="row">
+          <div class="col-md-6 mb-2">
+            <x-label for="email">Email</x-label>
+            <x-input type="email" id="email" wire:model.defer="teacher.email" />
+            <x-input-error for="teacher.email" />
+          </div>
+
           <div class="col-md-6 mb-2">
             <x-label for="gender">Gender</x-label>
             <x-select id="gender" wire:model.defer="teacher.gender">
@@ -154,25 +151,6 @@
               <option value="Female">Female</option>
               <option value="Other">Other</option>
             </x-select>
-          </div>
-
-          <div class="col-md-6 mb-2">
-            <x-label for="class_id">Class</x-label>
-            @if (isset($this->teacher_id) && $this->selected_class_id != '')
-              <div class="d-flex justify-content">
-                <h6 class="mr-4">{{ $existingClass }}</h6>
-                <a class="text-dark" href="javascript:;"
-                   wire:click.prevent="deleteExistingClass({{ $this->selected_class_id }})">
-                  <i class="bx bxs-trash-alt"></i>
-                </a>
-              </div>
-            @else
-              <x-select id="class_id" wire:model.defer="teacher.class_id">
-                @foreach ($classes as $class)
-                  <option value="{{ $class->id }}">{{ $class->name }}</option>
-                @endforeach
-              </x-select>
-            @endif
           </div>
         </div>
       </form>

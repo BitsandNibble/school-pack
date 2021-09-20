@@ -23,7 +23,7 @@ class Sections extends Component
 
   public function render()
   {
-    $classes = ClassRoom::orderBy('name')->with('teachers')->get();
+    $classes = ClassRoom::orderBy('name')->get();
     $teachers = Teacher::get();
     $sections = Section::paginate($this->paginate);
 
@@ -54,7 +54,7 @@ class Sections extends Component
       $section->update([
         'name' => $this->name,
         'class_room_id' => $this->class,
-        'teacher_id' => $this->teacher_id
+        'teacher_id' => $this->teacher_id !== "" ? $this->teacher_id : null,
       ]);
       session()->flash('message', 'Section Updated Successfully');
     } else {

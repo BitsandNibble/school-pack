@@ -32,7 +32,7 @@ class Classes extends Component
 
   public function render()
   {
-    $classes = ClassRoom::orderBy('name')->with('teachers')->Paginate($this->paginate);
+    $classes = ClassRoom::orderBy('name')->Paginate($this->paginate);
     $class_types = ClassType::get();
 
     return view('livewire.pages.principal.classes', compact('classes', 'class_types'));

@@ -8,6 +8,7 @@ use App\Models\Section;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,12 +28,16 @@ class Teachers extends Component
     'sortAsc' => ['except' => true],
   ];
 
-  protected $rules = [
-    'teacher.title' => 'required',
-    'teacher.fullname' => 'required|string',
-    'teacher.email' => 'sometimes|email',
-    'teacher.gender' => 'sometimes',
-  ];
+  protected $rules;
+  protected function rules()
+  {
+    return [
+      'teacher.title' => 'required',
+      'teacher.fullname' => ['required', 'string', Rule::unique('teachers', 'fullname')->ignore($this->teacher_id)],
+      'teacher.email' => ['sometimes', 'email', Rule::unique('teachers', 'email')->ignore($this->teacher_id)],
+      'teacher.gender' => 'sometimes',
+    ];
+  }
 
   protected $validationAttributes = [
     'teacher.title' => 'title',

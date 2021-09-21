@@ -29,6 +29,7 @@ class Teachers extends Component
   ];
 
   protected $rules;
+
   protected function rules()
   {
     return [

@@ -76,14 +76,10 @@
               <td>{{ $student->gender }}</td>
               @if (!$class_id)
                 <td>
-                  @forelse ($student->sections as $section)
-                    {{ $current_class = $section->class_room->name . ' ' . $section->name }}
-                  @empty
-                    {{ '--------' }}
-                  @endforelse
+                  {{ $student->class_room->name ?? '' }} {{ $student->section->name ?? '' }}
                 </td>
               @endif
-              @if ($parent != '2')
+              @if ($parent !== '2')
                 <td>
                   <x-button class="px-0" value="" wire:click="$emit('showInfo', {{ $student->id }})"
                             data-bs-toggle="modal" data-bs-target="#infoModal">

@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Section extends Model
 {
@@ -23,10 +22,5 @@ class Section extends Model
   public function teacher(): BelongsTo
   {
     return $this->belongsTo(Teacher::class);
-  }
-
-  public function students(): MorphToMany
-  {
-    return $this->morphedByMany(Student::class, 'sectionable');
   }
 }

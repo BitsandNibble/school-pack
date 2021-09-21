@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Pages\Principal;
 use App\Models\ClassRoom;
 use App\Models\Section;
 use App\Models\Student;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -26,7 +25,7 @@ class Students extends Component
     return [
       'student.fullname' => ['required', 'string', Rule::unique('students', 'fullname')->ignore($this->student_id)],
       'class' => 'required',
-      'section' => 'required_with:class',
+      'section' => 'required',
       'student.gender' => 'sometimes',
     ];
   }
@@ -54,15 +53,9 @@ class Students extends Component
 
   public function edit($id): void
   {
-    $student = Student::with('sections')->find($id);
+    $student = Student::find($id);
     $this->student_id = $student['id'];
     $this->student = $student;
-
-    $section_id = $student->sections;
-    foreach ($section_id as $s_id) {
-      $this->class = $s_id->class_room->id ?? '';
-      $this->section = $s_id->id ?? '';
-    }
   }
 
   public function store(): void
@@ -73,23 +66,23 @@ class Students extends Component
       $student = Student::find($this->student_id);
       $student->update([
         'fullname' => $this->student['fullname'],
+        'class_room_id' => $this->class ?? '',
+        'section_id' => $this->section ?? '',
         'gender' => $this->student['gender'] ?? '',
         'slug' => Str::slug($this->student['fullname']),
       ]);
       session()->flash('message', 'Student Updated Successfully');
     } else {
-      $student = Student::create([
+      Student::create([
         'fullname' => $this->student['fullname'],
+        'class_room_id' => $this->class,
+        'section_id' => $this->section,
         'gender' => $this->student['gender'] ?? '',
         'school_id' => 'GS_' . mt_rand(500, 1000),
         'password' => Hash::make('password'),
         'slug' => Str::slug($this->student['fullname']),
       ]);
       session()->flash('message', 'Student Added Successfully');
-    }
-
-    if (!empty($this->class)) {
-      $student->sections()->sync($this->section);
     }
 
     $this->emit('refresh');
@@ -99,14 +92,8 @@ class Students extends Component
   public function showInfo($id): void
   {
     $student = Student::findOrFail($id);
-    $section_id = $student->sections;
-
-    foreach ($section_id as $s_id) {
-      $current_class = $s_id->class_room->name . ' ' . $s_id->name;
-    }
-
-    $this->current_class = $current_class ?? '';
     $this->studentInfo = $student;
+    $this->current_class = $student->class_room->name . ' ' . $student->section->name ?? '';
   }
 
   public function openDeleteModal($id): void
@@ -117,7 +104,6 @@ class Students extends Component
 
   public function delete(Student $student): void
   {
-    DB::table('sectionables')->where('sectionable_id', $student->id)->delete();
     $student->delete();
     $this->emit('refresh');
     $this->cancel();

@@ -22,9 +22,9 @@ class Student extends Model
     'remember_token',
   ];
 
-  public function classes(): MorphToMany
+  public function sections(): MorphToMany
   {
-    return $this->morphToMany(ClassRoom::class, 'classable');
+    return $this->morphToMany(Section::class, 'sectionable');
   }
 
   public function getFullnameAttribute($value)

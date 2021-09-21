@@ -50,7 +50,7 @@
         <p><span class="text-danger">*</span> fields are required</p>
 
         <div class="row">
-{{--          <x-validation-errors />--}}
+          {{--          <x-validation-errors />--}}
 
           <div class="col-md-4 mb-2">
             <x-input type="hidden" wire:model="student_id" />
@@ -61,14 +61,28 @@
 
           <div class="col-md-4 mb-2">
             <x-label for="current_class">Current Class <span class="text-danger">*</span></x-label>
-            <x-select id="current_class" wire:model.defer="student.current_class">
+            <x-select id="current_class" wire:model="class">
               @foreach ($classes as $class)
                 <option value="{{ $class->id }}">{{ $class->name }}</option>
               @endforeach
             </x-select>
-            <x-input-error for="student.current_class" />
+            <x-input-error for="class" />
           </div>
 
+          @if(count($sections) > 0)
+            <div class="col-md-4 mb-2">
+              <x-label for="section">Section</x-label>
+              <x-select id="section" wire:model="section">
+                @foreach ($sections as $section)
+                  <option value="{{ $section->id }}">{{ $section->name }}</option>
+                @endforeach
+              </x-select>
+              <x-input-error for="section" />
+            </div>
+          @endif
+        </div>
+
+        <div class="row">
           <div class="col-md-4 mb-2">
             <x-label for="gender">Gender</x-label>
             <x-select id="gender" wire:model.defer="student.gender">
@@ -118,7 +132,9 @@
         </tr>
         <tr>
           <th>Current Class</th>
-          <td>{{ $studentClassInfo ?? '' }}</td>
+          <td>
+            {{ $current_class }}
+          </td>
         </tr>
         <tr>
           <th>Subjects</th>

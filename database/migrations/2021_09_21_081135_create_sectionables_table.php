@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClassablesTable extends Migration
+class CreateSectionablesTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,11 +13,10 @@ class CreateClassablesTable extends Migration
    */
   public function up()
   {
-    Schema::create('classables', function (Blueprint $table) {
+    Schema::create('sectionables', function (Blueprint $table) {
       $table->id();
-      $table->integer('class_room_id')->unsigned()->index();
-      $table->morphs('classable');
-
+      $table->integer('section_id')->unsigned()->index();
+      $table->morphs('sectionable');
       $table->timestamps();
     });
   }
@@ -29,6 +28,6 @@ class CreateClassablesTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('classables');
+    Schema::dropIfExists('sectionables');
   }
 }

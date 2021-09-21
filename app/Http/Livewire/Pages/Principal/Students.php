@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\ClassRoom;
+use App\Models\Section;
 use App\Models\Student;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -12,7 +13,8 @@ use Livewire\Component;
 class Students extends Component
 {
   public $student, $studentInfo, $studentClassInfo, $deleting;
-  public $student_id;
+  public $student_id, $current_class;
+  public $class, $sections = [], $section;
 
   protected $listeners = ['edit', 'showInfo', 'openDeleteModal'];
 
@@ -22,20 +24,23 @@ class Students extends Component
   {
     return [
       'student.fullname' => ['required', 'string', Rule::unique('students', 'fullname')->ignore($this->student_id)],
-      'student.current_class' => 'required',
+      'class' => 'required',
+      'section' => 'required_if:class,required',
       'student.gender' => 'sometimes',
     ];
   }
 
   protected $validationAttributes = [
     'student.fullname' => 'fullname',
-    'student.current_class' => 'current class',
     'student.gender' => 'gender',
   ];
 
   public function render()
   {
-    $classes = ClassRoom::orderBy('name')->with('students')->get();
+    if (!empty($this->class)) {
+      $this->sections = Section::where('class_room_id', $this->class)->get();
+    }
+    $classes = ClassRoom::orderBy('name')->get();
 
     return view('livewire.pages.principal.students', compact('classes'));
   }
@@ -48,13 +53,9 @@ class Students extends Component
 
   public function edit($id)
   {
-    $student = Student::where('id', $id)->with('classes')->first();
+    $student = Student::where('id', $id)->first();
     $this->student_id = $student['id'];
     $this->student = $student;
-
-    foreach ($student->classes()->get() as $studentClass) {
-      $this->student['current_class'] = $studentClass->id;
-    }
   }
 
   public function store()
@@ -80,32 +81,34 @@ class Students extends Component
       session()->flash('message', 'Student Added Successfully');
     }
 
-    if (!empty($this->student['current_class'])) {
-      $student->classes()->sync($this->student['current_class']);
+    if (!empty($this->class)) {
+      $student->sections()->sync($this->class);
     }
 
     $this->emit('refresh');
     $this->cancel();
   }
 
-  public function showInfo($id)
+  public function showInfo($id): void
   {
-    $student = Student::where('id', $id)->with('classes')->first();
+    $student = Student::findOrFail($id);
+    $section_id = $student->sections;
 
-    foreach ($student->classes()->get() as $studentClass) {
-      $this->studentClassInfo = $studentClass->name;
+    foreach ($section_id as $s_id) {
+      $current_class = $s_id->class_room->name . ' ' . $s_id->name;
     }
 
+    $this->current_class = $current_class ?? '';
     $this->studentInfo = $student;
   }
 
-  public function openDeleteModal($id)
+  public function openDeleteModal($id): void
   {
     $del = Student::find($id);
     $this->deleting = $del['id'];
   }
 
-  public function delete(Student $student)
+  public function delete(Student $student): void
   {
     $student->classes()->detach($this->student_id);
     $student->delete();

@@ -62,7 +62,6 @@ class Student extends Component
       $students = StudentModel::when($this->q, function ($query) {
         return $query->search($this->q);
       })
-        ->with('classes')
         ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
         ->Paginate($this->paginate);
     }

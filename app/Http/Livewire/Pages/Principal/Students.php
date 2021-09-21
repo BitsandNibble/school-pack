@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Pages\Principal;
 use App\Models\ClassRoom;
 use App\Models\Section;
 use App\Models\Student;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -116,7 +117,7 @@ class Students extends Component
 
   public function delete(Student $student): void
   {
-    $student->classes()->detach($this->student_id);
+    DB::table('sectionables')->where('sectionable_id', $student->id)->delete();
     $student->delete();
     $this->emit('refresh');
     $this->cancel();

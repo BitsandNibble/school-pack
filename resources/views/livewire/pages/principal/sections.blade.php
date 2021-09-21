@@ -59,11 +59,11 @@
               <td>{{ $section->teacher->fullname ?? '' }}</td>
               <td>
                 <x-button class="px-0" wire:click="edit({{ $section->id }})" value="" data-bs-toggle="modal"
-                  data-bs-target="#sectionModal">
+                          data-bs-target="#sectionModal">
                   <i class="bx bxs-pen"></i>
                 </x-button>
                 <x-button class="px-0" value="" wire:click="openDeleteModal({{ $section->id }})"
-                  data-bs-toggle="modal" data-bs-target="#deleteModal">
+                          data-bs-toggle="modal" data-bs-target="#deleteModal">
                   <i class="bx bxs-trash-alt"></i>
                 </x-button>
               </td>
@@ -112,7 +112,7 @@
             <div class="d-flex justify-content">
               <h6 class="mr-4">{{ $existingTeacher }}</h6>
               <a class="text-dark" href="javascript:"
-                wire:click.prevent="deleteExistingTeacher({{ $this->teacher_id }})">
+                 wire:click.prevent="deleteExistingTeacher({{ $this->teacher_id }})">
                 <i class="bx bxs-trash-alt"></i>
               </a>
             </div>

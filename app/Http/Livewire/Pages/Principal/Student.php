@@ -35,7 +35,7 @@ class Student extends Component
     'sortAsc' => ['except' => true],
   ];
 
-  public function mount($id, $type)
+  public function mount($id, $type): void
   {
     $this->class_id = $id;
     $this->parent = $type;
@@ -63,48 +63,49 @@ class Student extends Component
         return $query->search($this->q);
       })
         ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+        ->with('sections')
         ->Paginate($this->paginate);
     }
 
     return view('livewire.pages.principal.student', compact('students'));
   }
 
-  public function updatingQ()
+  public function updatingQ(): void
   {
     $this->resetPage();
   }
 
-  public function sortBy($field)
+  public function sortBy($field): void
   {
-    if ($field == $this->sortBy) {
+    if ($field === $this->sortBy) {
       $this->sortAsc = !$this->sortAsc;
     }
     $this->sortBy = $field;
   }
 
-  public function filterStudents($id)
+  public function filterStudents($id): void
   {
     $this->class_id = $id;
   }
 
-  public function fetchAll()
+  public function fetchAll(): void
   {
     $this->class_id = '';
     $this->title = 'All Students';
   }
 
-  public function refresh()
+  public function refresh(): void
   {
     $this->render();
   }
 
-  public function cancel()
+  public function cancel(): void
   {
     $this->emit('closeModal');
     $this->reset(['student']);
   }
 
-  public function store()
+  public function store(): void
   {
     $this->validate();
 

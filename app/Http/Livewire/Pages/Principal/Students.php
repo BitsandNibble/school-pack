@@ -45,20 +45,20 @@ class Students extends Component
     return view('livewire.pages.principal.students', compact('classes'));
   }
 
-  public function cancel()
+  public function cancel(): void
   {
     $this->emit('closeModal');
     $this->reset(['student', 'student_id', 'studentInfo', 'studentClassInfo']);
   }
 
-  public function edit($id)
+  public function edit($id): void
   {
     $student = Student::where('id', $id)->first();
     $this->student_id = $student['id'];
     $this->student = $student;
   }
 
-  public function store()
+  public function store(): void
   {
     $this->validate();
 
@@ -82,7 +82,7 @@ class Students extends Component
     }
 
     if (!empty($this->class)) {
-      $student->sections()->sync($this->class);
+      $student->sections()->sync($this->section);
     }
 
     $this->emit('refresh');

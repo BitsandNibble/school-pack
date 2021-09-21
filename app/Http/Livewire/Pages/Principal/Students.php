@@ -25,7 +25,7 @@ class Students extends Component
     return [
       'student.fullname' => ['required', 'string', Rule::unique('students', 'fullname')->ignore($this->student_id)],
       'class' => 'required',
-      'section' => 'required_if:class,required',
+      'section' => 'required_with:class',
       'student.gender' => 'sometimes',
     ];
   }
@@ -48,14 +48,20 @@ class Students extends Component
   public function cancel(): void
   {
     $this->emit('closeModal');
-    $this->reset(['student', 'student_id', 'studentInfo', 'studentClassInfo']);
+    $this->reset();
   }
 
   public function edit($id): void
   {
-    $student = Student::where('id', $id)->first();
+    $student = Student::with('sections')->find($id);
     $this->student_id = $student['id'];
     $this->student = $student;
+
+    $section_id = $student->sections;
+    foreach ($section_id as $s_id) {
+      $this->class = $s_id->class_room->id ?? '';
+      $this->section = $s_id->id ?? '';
+    }
   }
 
   public function store(): void

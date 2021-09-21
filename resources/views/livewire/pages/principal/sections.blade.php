@@ -70,7 +70,7 @@
             </tr>
           @empty
             <tr>
-              <td colspan="5" align="center">No record found</td>
+              <td colspan="5" class="text-center">No record found</td>
             </tr>
           @endforelse
         </tbody>
@@ -90,12 +90,6 @@
       <div class="row">
         {{-- <x-validation-errors /> --}}
 
-        <div class="col mb-2">
-          <x-label for="name">Name <span class="text-danger">*</span></x-label>
-          <x-input type="text" id="name" wire:model.defer="name" />
-          <x-input-error for="name" />
-        </div>
-
         <div class="col">
           <x-label for="class">Class <span class="text-danger">*</span></x-label>
           <x-select id="class" wire:model.defer="class">
@@ -106,9 +100,15 @@
           <x-input-error for="class" />
         </div>
 
+        <div class="col mb-2">
+          <x-label for="name">Name <span class="text-danger">*</span></x-label>
+          <x-input type="text" id="name" wire:model.defer="name" />
+          <x-input-error for="name" />
+        </div>
+
         <div class="col">
           <x-label for="teacher_id">Class Teacher</x-label>
-          @if (isset($this->class_id) && $this->teacher_id != '')
+          @if (isset($this->class_id) && $this->teacher_id !== '')
             <div class="d-flex justify-content">
               <h6 class="mr-4">{{ $existingTeacher }}</h6>
               <a class="text-dark" href="javascript:"

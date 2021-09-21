@@ -79,7 +79,7 @@
                   @forelse ($student->sections as $section)
                     {{ $current_class = $section->class_room->name . ' ' . $section->name }}
                   @empty
-                    <p class="mb-0 text-center">{{ '--------' }}</p>
+                    {{ '--------' }}
                   @endforelse
                 </td>
               @endif

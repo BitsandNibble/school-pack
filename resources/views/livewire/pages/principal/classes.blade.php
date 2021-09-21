@@ -38,8 +38,18 @@
         <thead>
           <tr>
             <th>S/N</th>
-            <th>Name</th>
-            <th>Class Type</th>
+            <th wire:click="sortBy('name')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Name
+                <x-sort-icon sortField="name" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
+            <th wire:click="sortBy('class_type_id')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Class Type
+                <x-sort-icon sortField="class_type_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
             <th></th>
           </tr>
         </thead>

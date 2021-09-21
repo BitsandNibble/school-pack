@@ -12,11 +12,16 @@ class Classes extends Component
 {
   use WithPagination;
 
-  public $name, $deleting, $paginate = 10;
+  public $name, $deleting;
   public $class_id, $class_type_id;
-
+  public $sortBy = 'name', $sortAsc = true, $paginate = 10;
   protected $paginationTheme = 'bootstrap';
   protected $rules;
+
+  protected $queryString = [
+    'sortBy' => ['except' => 'name'],
+    'sortAsc' => ['except' => true],
+  ];
 
   protected function rules()
   {
@@ -32,19 +37,28 @@ class Classes extends Component
 
   public function render()
   {
-    $classes = ClassRoom::orderBy('name')->Paginate($this->paginate);
+    $classes = ClassRoom::orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+      ->Paginate($this->paginate);
     $class_types = ClassType::get();
 
     return view('livewire.pages.principal.classes', compact('classes', 'class_types'));
   }
 
-  public function cancel()
+  public function sortBy($field): void
+  {
+    if ($field === $this->sortBy) {
+      $this->sortAsc = !$this->sortAsc;
+    }
+    $this->sortBy = $field;
+  }
+
+  public function cancel(): void
   {
     $this->emit('closeModal');
     $this->reset();
   }
 
-  public function edit($id)
+  public function edit($id): void
   {
     $class = ClassRoom::whereId($id)->first();
     $this->class_id = $class['id'];
@@ -52,7 +66,7 @@ class Classes extends Component
     $this->class_type_id = $class->class_type_id;
   }
 
-  public function store()
+  public function store(): void
   {
     $validated = $this->validate();
 
@@ -68,13 +82,13 @@ class Classes extends Component
     $this->cancel();
   }
 
-  public function openDeleteModal($id)
+  public function openDeleteModal($id): void
   {
     $del = ClassRoom::find($id);
     $this->deleting = $del['id'];
   }
 
-  public function delete(ClassRoom $class)
+  public function delete(ClassRoom $class): void
   {
     $class->delete();
     $this->cancel();

@@ -38,7 +38,12 @@
         <thead>
           <tr>
             <th>S/N</th>
-            <th>Name</th>
+            <th wire:click="sortBy('name')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Name
+                <x-sort-icon sortField="name" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
             <th>Class</th>
             <th>Teacher</th>
             <th></th>

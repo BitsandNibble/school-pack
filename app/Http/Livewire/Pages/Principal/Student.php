@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
-use App\Models\ClassRoom;
 use App\Models\Student as StudentModel;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -15,7 +14,7 @@ class Student extends Component
 
   public $q, $sortBy = 'fullname', $sortAsc = true, $paginate = 10;
   public $class_id, $parent, $title = 'All Students';
-  public $student, $class;
+  public $student, $class_name;
   protected $paginationTheme = 'bootstrap';
   protected $listeners = ['refresh', 'filterStudents', 'fetchAll'];
 
@@ -40,7 +39,7 @@ class Student extends Component
     $this->class_id = $id;
     $this->parent = $type;
 
-    // fetching from parent component which gets value from coontroller
+    // fetching from parent component which gets value from controller
     // type 1 = student
     // type 2 = class
   }
@@ -48,16 +47,16 @@ class Student extends Component
   public function render()
   {
     if ($this->class_id) {
-      $class = ClassRoom::findOrFail($this->class_id);
-      $this->class = $class;
-
-      $students = $class->students()->wherePivot('class_room_id', $this->class_id)
+      $students = StudentModel::where('class_room_id', $this->class_id)
         ->when($this->q, function ($query) {
           return $query->search($this->q);
         })
         ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-        ->Paginate($this->paginate);
-      $this->title = $class->name;
+        ->paginate(10);
+      foreach ($students as $student) {
+        $this->class_name = $student->class_room->name;
+        $this->title = $student->class_room->name;
+      }
     } else {
       $students = StudentModel::when($this->q, function ($query) {
         return $query->search($this->q);

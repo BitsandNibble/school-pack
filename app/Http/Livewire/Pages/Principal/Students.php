@@ -20,7 +20,7 @@ class Students extends Component
 
   protected $rules;
 
-  protected function rules()
+  protected function rules(): array
   {
     return [
       'student.fullname' => ['required', 'string', Rule::unique('students', 'fullname')->ignore($this->student_id)],
@@ -56,6 +56,8 @@ class Students extends Component
     $student = Student::find($id);
     $this->student_id = $student['id'];
     $this->student = $student;
+    $this->class = $student->class_room->id;
+    $this->section = $student->section->id;
   }
 
   public function store(): void
@@ -78,7 +80,7 @@ class Students extends Component
         'class_room_id' => $this->class,
         'section_id' => $this->section,
         'gender' => $this->student['gender'] ?? '',
-        'school_id' => 'GS_' . mt_rand(500, 1000),
+        'school_id' => 'GS_' . random_int(500, 1000),
         'password' => Hash::make('password'),
         'slug' => Str::slug($this->student['fullname']),
       ]);

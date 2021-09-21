@@ -43,7 +43,7 @@
             </th>
             <th wire:click="sortBy('fullname')" class="cursor-pointer">
               <div class="d-flex justify-content-between">
-                Full Name
+                Name
                 <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
               </div>
             </th>
@@ -95,7 +95,7 @@
             </tr>
           @empty
             <tr>
-              <td colspan="8" align="center">No record found</td>
+              <td colspan="8" class="text-center">No record found</td>
             </tr>
           @endforelse
         </tbody>

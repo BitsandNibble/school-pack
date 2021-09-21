@@ -1,14 +1,14 @@
 <div>
   <x-flash />
 
-  @if ($parent != '2')
+  @if ($parent !== '2')
     <h5>{{ $title }}</h5>
   @endif
 
-  @if ($parent == '2')
+  @if ($parent === '2')
     <x-card>
       <div class="d-flex align-items-center">
-        <h4 class="my-1">{{ $class->name }}</h4>
+        <h4 class="my-1">{{ $class_name }}</h4>
 
         <div class="ms-auto d-flex justify-content-end">
           <x-button data-bs-toggle="modal" data-bs-target="#studentModal2">Add New Student</x-button>
@@ -42,13 +42,13 @@
             <th>S/N</th>
             <th wire:click="sortBy('fullname')" class="cursor-pointer">
               <div class="d-flex justify-content-between">
-                Full Name
+                Name
                 <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
               </div>
             </th>
             <th wire:click="sortBy('school_id')" class="cursor-pointer">
               <div class="d-flex justify-content-between">
-                Admission No
+                Adm. No
                 <x-sort-icon sortField="school_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
               </div>
             </th>
@@ -59,9 +59,21 @@
               </div>
             </th>
             @if (!$class_id)
-              <th>Class</th>
+              <th wire:click="sortBy('class_room_id')" class="cursor-pointer">
+                <div class="d-flex justify-content-between">
+                  Class
+                  <x-sort-icon sortField="class_room_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+                </div>
+              </th>
+            @else
+              <th wire:click="sortBy('section_id')" class="cursor-pointer">
+                <div class="d-flex justify-content-between">
+                  Section
+                  <x-sort-icon sortField="section_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+                </div>
+              </th>
             @endif
-            @if ($parent != '2')
+            @if ($parent !== '2')
               <th></th>
             @endif
           </tr>
@@ -77,6 +89,10 @@
               @if (!$class_id)
                 <td>
                   {{ $student->class_room->name ?? '' }} {{ $student->section->name ?? '' }}
+                </td>
+              @else
+                <td>
+                  {{ $student->section->name ?? '' }}
                 </td>
               @endif
               @if ($parent !== '2')
@@ -98,7 +114,7 @@
             </tr>
           @empty
             <tr>
-              <td colspan="5" align="center">No record found</td>
+              <td colspan="5" class="text-center">No record found</td>
             </tr>
           @endforelse
         </tbody>

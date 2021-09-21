@@ -63,7 +63,6 @@ class Student extends Component
         return $query->search($this->q);
       })
         ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-        ->with('sections')
         ->Paginate($this->paginate);
     }
 

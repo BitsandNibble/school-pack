@@ -17,6 +17,8 @@ class CreateStudentsTable extends Migration
       $table->id();
       $table->string('slug');
       $table->string('fullname')->unique();
+      $table->unsignedBigInteger('class_room_id')->nullable();
+      $table->unsignedBigInteger('section_id')->nullable();
       $table->string('gender')->nullable();
       $table->date('date_of_birth')->nullable();
       $table->string('school_id');

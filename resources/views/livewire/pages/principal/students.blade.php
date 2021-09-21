@@ -53,7 +53,6 @@
           {{--          <x-validation-errors />--}}
 
           <div class="col-md-4 mb-2">
-            <x-input type="hidden" wire:model="student_id" />
             <x-label for="fullname">Full Name <span class="text-danger">*</span></x-label>
             <x-input type="text" id="fullname" wire:model.defer="student.fullname" />
             <x-input-error for="student.fullname" />
@@ -69,17 +68,17 @@
             <x-input-error for="class" />
           </div>
 
-          @if(count($sections) > 0)
-            <div class="col-md-4 mb-2">
-              <x-label for="section">Section</x-label>
-              <x-select id="section" wire:model="section">
+          <div class="col-md-4 mb-2">
+            <x-label for="section">Section <span class="text-danger">*</span></x-label>
+            <x-select id="section" wire:model.defer="section">
+              @if(count($sections) > 0)
                 @foreach ($sections as $section)
                   <option value="{{ $section->id }}">{{ $section->name }}</option>
                 @endforeach
-              </x-select>
-              <x-input-error for="section" />
-            </div>
-          @endif
+              @endif
+            </x-select>
+            <x-input-error for="section" />
+          </div>
         </div>
 
         <div class="row">

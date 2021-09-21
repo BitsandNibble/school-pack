@@ -12,7 +12,8 @@ class Sections extends Component
 {
   use WithPagination;
 
-  public $name, $class, $deleting, $paginate = 10;
+  public $name, $class, $deleting;
+  public $sortBy = 'name', $sortAsc = true, $paginate = 10;
   public $section_id, $teacher_id;
 
   protected $paginationTheme = 'bootstrap';
@@ -25,18 +26,27 @@ class Sections extends Component
   {
     $classes = ClassRoom::orderBy('name')->get();
     $teachers = Teacher::get();
-    $sections = Section::paginate($this->paginate);
+    $sections = Section::orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+      ->paginate($this->paginate);
 
     return view('livewire.pages.principal.sections', compact('classes', 'teachers', 'sections'));
   }
 
-  public function cancel()
+  public function sortBy($field): void
+  {
+    if ($field === $this->sortBy) {
+      $this->sortAsc = !$this->sortAsc;
+    }
+    $this->sortBy = $field;
+  }
+
+  public function cancel(): void
   {
     $this->emit('closeModal');
     $this->reset();
   }
 
-  public function edit($id)
+  public function edit($id): void
   {
     $section = Section::where('id', $id)->first();
     $this->section_id = $section['id'];
@@ -45,7 +55,7 @@ class Sections extends Component
     $this->teacher_id = $section->teacher_id;
   }
 
-  public function store()
+  public function store(): void
   {
     $this->validate();
 
@@ -69,7 +79,7 @@ class Sections extends Component
     $this->cancel();
   }
 
-  public function deleteExistingTeacher($id)
+  public function deleteExistingTeacher($id): void
   {
     $teacher = Teacher::where('id', $id)->with('classes')->first();
 
@@ -80,13 +90,13 @@ class Sections extends Component
     $this->cancel();
   }
 
-  public function openDeleteModal($id)
+  public function openDeleteModal($id): void
   {
     $del = Section::find($id);
     $this->deleting = $del['id'];
   }
 
-  public function delete(Section $section)
+  public function delete(Section $section): void
   {
     $section->delete();
     $this->cancel();

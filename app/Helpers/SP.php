@@ -3,6 +3,8 @@
 namespace App\Helpers;
 
 use App\Models\Setting;
+use App\Models\Student;
+use App\Models\Teacher;
 
 class SP
 {
@@ -19,5 +21,15 @@ class SP
   public static function getFirstWord(String $string): String
   {
     return explode(' ', ucfirst(trim($string)))[0];
+  }
+
+  public static function totalStudents()
+  {
+    return Student::get()->count();
+  }
+
+  public static function totalTeachers()
+  {
+    return Teacher::get()->count();
   }
 }

@@ -59,8 +59,8 @@
           </div>
 
           <div class="col-md-4 mb-2">
-            <x-label for="current_class">Current Class <span class="text-danger">*</span></x-label>
-            <x-select id="current_class" wire:model="class">
+            <x-label for="class">Class <span class="text-danger">*</span></x-label>
+            <x-select id="class" wire:model="class">
               @foreach ($classes as $class)
                 <option value="{{ $class->id }}">{{ $class->name }}</option>
               @endforeach

@@ -15,8 +15,8 @@ class CreateClassRoomsTable extends Migration
   {
     Schema::create('class_rooms', function (Blueprint $table) {
       $table->id();
-      $table->string('slug');
       $table->string('name', 100);
+      $table->string('slug');
       $table->unsignedBigInteger('class_type_id')->nullable();
       $table->timestamps();
     });

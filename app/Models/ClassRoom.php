@@ -12,7 +12,7 @@ class ClassRoom extends Model
   use HasFactory, WithSearch;
 
   protected $fillable = [
-    'name', 'class_type_id'
+    'name', 'class_type_id', 'slug'
   ];
 
   public function subjectTeachers(): BelongsToMany

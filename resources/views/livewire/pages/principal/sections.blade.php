@@ -65,7 +65,7 @@
             <tr>
               <td>{{ $loop->iteration }}</td>
               <td style="transform: rotate(0);">
-                <a href="{{ route('principal.classes.students', [$section->class_room->name]) }}"
+                <a href="{{ route('principal.classes.students', [$section->class_room->slug]) }}"
                    class="stretched-link">
                   {{ $section->class_room->name }}
                 </a>

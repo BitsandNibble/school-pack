@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\ClassRoom;
 use App\Models\ClassType;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -68,14 +69,23 @@ class Classes extends Component
 
   public function store(): void
   {
-    $validated = $this->validate();
+    $this->validate();
 
     if ($this->class_id) {
       $class = ClassRoom::find($this->class_id);
-      $class->update($validated);
+      $class->update([
+        'name' => $this->name,
+        'class_type_id' => $this->class_id,
+        'slug' => Str::slug($this->name)
+      ]);
       session()->flash('message', 'Class Updated Successfully');
     } else {
-      $class = ClassRoom::create($validated);
+      ClassRoom::create([
+        'name' => $this->name,
+        'class_type_id' => $this->class_id,
+        'slug' => Str::slug($this->name)
+      ]);
+
       session()->flash('message', 'Class Added Successfully');
     }
 

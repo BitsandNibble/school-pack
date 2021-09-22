@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('students', Students::class)->name('.students');
   Route::get('classes', Classes::class)->name('.classes');
   Route::get('sections', Sections::class)->name('.sections');
-  Route::get('classes/{classname:name}', [PrincipalHomeController::class, 'getStudentsPerClass'])->name('.classes.students');
+  Route::get('classes/{classname:slug}', [PrincipalHomeController::class, 'getStudentsPerClass'])->name('.classes.students');
   Route::view('results', 'users.principal.results')->name('.results');
   Route::view('result', 'users.principal.result')->name('.result');
   Route::get('subjects', Subjects::class)->name('.subjects');

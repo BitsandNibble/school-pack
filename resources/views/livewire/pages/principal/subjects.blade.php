@@ -19,7 +19,7 @@
         <div class="col-md-4 col-sm-6">
           <x-card>
             <div class="d-flex align-items-center">
-              <a class="stretched-link" href="{{ route('principal.classes.subjects', [$class]) }}"></a>
+              <a class="stretched-link" href="{{ route('principal.classes.subjects', [$class->slug]) }}"></a>
               <h4 class="text-uppercase">{{ $class->name }}</h4>
               <div class="ms-auto d-flex justify-content-end">
                 <i class='bx bxs-right-arrow-circle font-22'></i>

@@ -34,14 +34,10 @@
             <tr>
               <td>{{ $loop->iteration }}</td>
               <td>
-                @foreach (\App\Models\Subject::where('id', $class->subject_id)->get() as $subject)
-                  {{ $subject->name }}
-                @endforeach
+                {{ $class->subject->name ?? '' }}
               </td>
               <td>
-                @foreach (\App\Models\Teacher::where('id', $class->teacher_id)->get() as $teacher)
-                  {{ $teacher->fullname }}
-                @endforeach
+                {{ $class->teacher->fullname ?? '' }}
               </td>
               <td>
                 <x-button class="px-0" wire:click="edit({{ $class->id }})" value=""
@@ -64,7 +60,7 @@
     </div>
   </x-card>
 
-  <x-modal id="subjectTeacherModal">
+  <x-confirmation-modal id="subjectTeacherModal">
     <x-slot name="title">{{ isset($this->subject_id) ? 'Edit' : 'Add ' }} Subject & Teacher</x-slot>
 
     <x-slot name="content">
@@ -102,7 +98,7 @@
       <x-button value="dark" wire:click="cancel">Close</x-button>
       <x-button value="submit" wire:click.prevent="store">Save</x-button>
     </x-slot>
-  </x-modal>
+  </x-confirmation-modal>
 
   <x-confirmation-modal id="deleteModal">
     <x-slot name="title">Delete Subject Teacher</x-slot>

@@ -14,7 +14,7 @@ class Subject extends Model
     public $timestamps = false;
 
     protected $fillable = [
-      'name',
+      'name', 'slug',
     ];
 
   public function subjectTeachers(): BelongsToMany

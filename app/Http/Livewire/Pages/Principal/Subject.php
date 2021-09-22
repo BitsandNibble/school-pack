@@ -35,20 +35,20 @@ class Subject extends Component
     $allTeachers = Teacher::get();
     $class = ClassRoom::findOrFail($this->class_id);
     $availableSubjects = SubjectModel::get();
-    $classes = ClassSubjectTeacher::where('class_room_id', $this->class_id)->get();
+    $classes = ClassSubjectTeacher::where('class_room_id', $this->class_id)
+      ->with('subject', 'teacher')
+      ->get();
 
     return view('livewire.pages.principal.subject', compact('availableSubjects', 'classes', 'allTeachers', 'class'));
   }
 
   public function edit($id)
   {
-    $classes = ClassSubjectTeacher::where('id', $id)->get();
+    $class = ClassSubjectTeacher::find($id);
     $this->class_subject_teacher = $id;
 
-    foreach ($classes as $class) {
-      $this->subject = $class->subject_id;
-      $this->teacher = $class->teacher_id;
-    }
+    $this->subject = $class->subject->id;
+    $this->teacher = $class->teacher->id;
   }
 
   public function store(): void

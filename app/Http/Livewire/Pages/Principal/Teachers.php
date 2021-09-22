@@ -146,7 +146,6 @@ class Teachers extends Component
 
   public function delete(Teacher $teacher): void
   {
-    $teacher->classes()->detach($this->teacher_id);
     $teacher->delete();
     $this->cancel();
   }

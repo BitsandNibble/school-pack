@@ -62,7 +62,7 @@ class Classes extends Component
   public function edit($id): void
   {
     $class = ClassRoom::whereId($id)->first();
-    $this->class_id = $class['id'];
+    $this->class_id = $id;
     $this->name = $class->name;
     $this->class_type_id = $class->class_type_id;
   }
@@ -75,7 +75,7 @@ class Classes extends Component
       $class = ClassRoom::find($this->class_id);
       $class->update([
         'name' => $this->name,
-        'class_type_id' => $this->class_id,
+        'class_type_id' => $this->class_type_id,
         'slug' => Str::slug($this->name)
       ]);
       session()->flash('message', 'Class Updated Successfully');

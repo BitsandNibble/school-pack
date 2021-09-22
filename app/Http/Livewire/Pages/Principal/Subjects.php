@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
+use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\Subject;
 use Livewire\Component;
@@ -57,8 +58,9 @@ class Subjects extends Component
       session()->flash('message', 'Subject Updated Successfully');
     } else {
       foreach ($this->name as $key => $value) {
-        $subject = Subject::create([
+        Subject::create([
           'name' => $this->name[$key],
+          'slug' => SP::getFirstWord($this->name[$key]),
         ]);
       }
       $this->inputs = [];

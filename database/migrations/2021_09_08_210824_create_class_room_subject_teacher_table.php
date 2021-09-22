@@ -15,9 +15,9 @@ class CreateClassRoomSubjectTeacherTable extends Migration
   {
     Schema::create('class_room_subject_teacher', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('class_room_id')->constrained();
-      $table->foreignId('subject_id')->constrained();
-      $table->foreignId('teacher_id')->constrained();
+      $table->unsignedBigInteger('class_room_id');
+      $table->unsignedBigInteger('subject_id');
+      $table->unsignedBigInteger('teacher_id')->nullable();
     });
   }
 

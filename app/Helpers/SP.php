@@ -15,4 +15,9 @@ class SP
   {
     return Setting::where('type', $type)->first()->description;
   }
+
+  public static function getFirstWord(String $string): String
+  {
+    return explode(' ', ucfirst(trim($string)))[0];
+  }
 }

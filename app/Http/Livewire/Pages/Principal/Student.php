@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
+use App\Models\ClassRoom;
 use App\Models\Student as StudentModel;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -47,6 +48,8 @@ class Student extends Component
   public function render()
   {
     if ($this->class_id) {
+      $this->title = ClassRoom::whereId($this->class_id)->first()->name;
+
       $students = StudentModel::where('class_room_id', $this->class_id)
         ->when($this->q, function ($query) {
           return $query->search($this->q);
@@ -55,7 +58,6 @@ class Student extends Component
         ->paginate(10);
       foreach ($students as $student) {
         $this->class_name = $student->class_room->name;
-        $this->title = $student->class_room->name;
       }
     } else {
       $students = StudentModel::when($this->q, function ($query) {

@@ -38,14 +38,24 @@
         <thead>
           <tr>
             <th>S/N</th>
-            <th>Class</th>
+            <th wire:click="sortBy('class_room_id')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Class
+                <x-sort-icon sortField="class_room_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
             <th wire:click="sortBy('name')" class="cursor-pointer">
               <div class="d-flex justify-content-between">
                 Section
                 <x-sort-icon sortField="name" :sortBy="$sortBy" :sortAsc="$sortAsc" />
               </div>
             </th>
-            <th>Teacher</th>
+            <th wire:click="sortBy('teacher_id')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Teacher
+                <x-sort-icon sortField="teacher_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
             <th></th>
           </tr>
         </thead>
@@ -54,8 +64,15 @@
           @forelse($sections as $section)
             <tr>
               <td>{{ $loop->iteration }}</td>
-              <td>{{ $section->class_room->name }}</td>
-              <td>{{ $section->name }}</td>
+              <td style="transform: rotate(0);">
+                <a href="{{ route('principal.classes.students', [$section->class_room->name]) }}"
+                   class="stretched-link">
+                  {{ $section->class_room->name }}
+                </a>
+              </td>
+              <td>
+                {{ $section->name }}
+              </td>
               <td>{{ $section->teacher->fullname ?? '' }}</td>
               <td>
                 <x-button class="px-0" wire:click="edit({{ $section->id }})" value="" data-bs-toggle="modal"

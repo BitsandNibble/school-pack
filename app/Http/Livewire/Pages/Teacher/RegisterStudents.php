@@ -6,13 +6,12 @@ use App\Models\ClassStudentSubject;
 use App\Models\ClassSubjectTeacher;
 use App\Models\Student as StudentModel;
 use App\Models\Subject;
-use App\Traits\WithSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class RegisterStudents extends Component
 {
-  use WithPagination, WithSort;
+  use WithPagination;
 
   public $class_id, $subject_id, $subject_name, $fullname = [];
   public $q, $sortBy = 'name', $sortAsc = true, $paginate = 10;

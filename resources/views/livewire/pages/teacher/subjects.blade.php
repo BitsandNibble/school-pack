@@ -11,13 +11,7 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#flush-collapse{{ $s->id }}" aria-expanded="false"
                     aria-controls="flush-collapse{{ $s->id }}">
-              @foreach (\App\Models\Subject::where('id', $s->subject_id)->get() as $subject)
-                {{ $subject->name }} -
-              @endforeach
-              @foreach (\App\Models\ClassRoom::where('id', $s->class_room_id)->get() as $class_room)
-                @php($name1[] = $subject->name . ' - ' . $class_room->name)
-                {{ $class_room->name }}
-              @endforeach
+              {{ $s->subject->name . ' - ' . $s->class_room->name}}
             </button>
           </h2>
           <div id="flush-collapse{{ $s->id }}" class="accordion-collapse collapse"
@@ -34,12 +28,10 @@
 
                   <tbody>
                     @forelse(\App\Models\ClassStudentSubject::where(['class_room_id' => $s->class_room_id, 'subject_id' => $s->subject_id])->get(['student_id']) as $cst)
-                      @foreach(\App\Models\Student::where('id', $cst->student_id)->get() as $stud)
-                        <tr>
-                          <td>{{ $i++ }}</td>
-                          <td>{{ $stud->fullname }}</td>
-                        </tr>
-                      @endforeach
+                      <tr>
+                        <td>{{ $i++ }}</td>
+                        <td>{{ $cst->student->fullname }}</td>
+                      </tr>
                     @empty
                       <tr>
                         <td colspan="2" align="center">No record found</td>

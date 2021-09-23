@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
 });
 
 Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'teacher'], function () {
-  Route::view('/', 'users.teacher.index')->name('.home');
+  Route::get('/', [TeacherHomeController::class, 'index'])->name('.home');
   Route::get('profile', TeacherProfile::class)->name('.profile');
   Route::get('subjects', TeacherSubjects::class)->name('.subjects');
   Route::get('{classname:name}', [TeacherHomeController::class, 'getStudentsPerClass'])->name('.classes.students');

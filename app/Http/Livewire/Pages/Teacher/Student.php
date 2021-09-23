@@ -11,7 +11,7 @@ class Student extends Component
   use WithPagination;
 
   public $q, $sortBy = 'fullname', $sortAsc = true, $paginate = 10;
-  public $class_id, $studentInfo, $studentClassInfo;
+  public $section_id, $studentInfo, $studentClassInfo;
   protected $paginationTheme = 'bootstrap';
 
   protected $queryString = [
@@ -22,7 +22,7 @@ class Student extends Component
 
   public function mount($id): void
   {
-    $this->class_id = $id;
+    $this->section_id = $id;
   }
 
   public function cancel(): void
@@ -33,7 +33,7 @@ class Student extends Component
 
   public function render()
   {
-    $students = StudentModel::where('class_room_id', $this->class_id)
+    $students = StudentModel::where('section_id', $this->section_id)
       ->when($this->q, function ($query) {
         return $query->search($this->q);
       })

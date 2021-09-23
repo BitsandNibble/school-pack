@@ -20,7 +20,9 @@ class HomeController extends Controller
 
   public function getStudentsPerClass(ClassRoom $class)
   {
-    return view('users.teacher.class-student', compact('class'));
+    $section = Section::where('teacher_id', auth('teacher')->id())
+        ->with('class_room', 'teacher')->first();
+    return view('users.teacher.class-student', compact('class', 'section'));
   }
 
 //  public function getSubjectsPerClass(ClassRoom $class) {

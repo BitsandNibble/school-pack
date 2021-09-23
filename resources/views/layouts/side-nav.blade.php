@@ -63,16 +63,17 @@
     </a>
   </li>
 
-  @foreach(auth()->user()->classes as $class)
+  @if(is_null($sec))
+  @else
     <li>
-      <a href="{{ route('teacher.classes.students', [$class]) }}">
+      <a href="{{ route('teacher.classes.students', [$class ?? '']) }}">
         <div class="parent-icon"><i class='lni lni-users'></i></div>
         <div class="menu-title">
-          {{ $class->name }}
+          {{ $sec->class_room->name . ' ' . $sec->name }}
         </div>
       </a>
     </li>
-  @endforeach
+  @endif
 
   <li>
     <a href="{{ route('teacher.subjects') }}">

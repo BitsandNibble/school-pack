@@ -66,7 +66,7 @@
   @if(is_null($sec))
   @else
     <li>
-      <a href="{{ route('teacher.classes.students', [$class ?? '']) }}">
+      <a href="{{ route('teacher.classes.students', [$sec->class_room->slug]) }}">
         <div class="parent-icon"><i class='lni lni-users'></i></div>
         <div class="menu-title">
           {{ $sec->class_room->name . ' ' . $sec->name }}

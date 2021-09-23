@@ -50,7 +50,7 @@ Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'te
   Route::get('/', [TeacherHomeController::class, 'index'])->name('.home');
   Route::get('profile', TeacherProfile::class)->name('.profile');
   Route::get('subjects', TeacherSubjects::class)->name('.subjects');
-  Route::get('{classname:name}', [TeacherHomeController::class, 'getStudentsPerClass'])->name('.classes.students');
+  Route::get('{classname:slug}', [TeacherHomeController::class, 'getStudentsPerClass'])->name('.classes.students');
 });
 
 Route::get('login', [AuthController::class, 'create'])->middleware(['guest:principal', 'guest:teacher'])

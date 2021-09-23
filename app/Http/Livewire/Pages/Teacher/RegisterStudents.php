@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Pages\Teacher;
 use App\Models\ClassRoom;
 use App\Models\ClassStudentSubject;
 use App\Models\ClassSubjectTeacher;
+use App\Models\Student as StudentModel;
 use App\Models\Subject;
 use App\Traits\WithSort;
 use Livewire\Component;
@@ -35,23 +36,23 @@ class RegisterStudents extends Component
       ->when($this->q, function ($query) {
         return $query->search($this->q);
       })
+      ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
       ->Paginate($this->paginate);
 
-    $class = ClassRoom::findOrFail($this->class_id);
-    $students = $class->students()->get();
+    $students = StudentModel::where('class_room_id', $this->class_id)->get();
 
     return view('livewire.pages.teacher.register-students', compact('subjects', 'students'));
   }
 
-//  public function sortBy($field): void
-//  {
-//    if ($field === $this->sortBy) {
-//      $this->sortAsc = !$this->sortAsc;
-//    }
-//    $this->sortBy = $field;
-//  }
+  public function sortBy($field): void
+  {
+    if ($field === $this->sortBy) {
+      $this->sortAsc = !$this->sortAsc;
+    }
+    $this->sortBy = $field;
+  }
 
-  public function subjectName($value)
+  public function subjectName($value): void
   {
     $this->subject_id = $value;
     $sub = Subject::find($this->subject_id);
@@ -81,10 +82,10 @@ class RegisterStudents extends Component
     $this->emit('closeModal');
   }
 
-  public function updatedSelectAll($value)
+  public function updatedSelectAll($value): void
   {
     if ($value) {
-      $this->fullname = \App\Models\Student::pluck('id');
+      $this->fullname = StudentModel::pluck('id');
     } else {
       $this->fullname = [];
     }

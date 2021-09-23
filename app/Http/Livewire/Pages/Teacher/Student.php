@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Pages\Teacher;
 
-use App\Models\ClassRoom;
 use App\Models\Student as StudentModel;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -34,15 +33,12 @@ class Student extends Component
 
   public function render()
   {
-    $class = ClassRoom::findOrFail($this->class_id);
-
-//    $students = $class->students()->wherePivot('class_room_id', $this->class_id)
-    $students = $class->students()
+    $students = StudentModel::where('class_room_id', $this->class_id)
       ->when($this->q, function ($query) {
         return $query->search($this->q);
       })
       ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-      ->Paginate($this->paginate);
+      ->paginate(10);
 
     return view('livewire.pages.teacher.student', compact('students'));
   }
@@ -62,12 +58,8 @@ class Student extends Component
 
   public function showInfo($id): void
   {
-    $student = StudentModel::where('id', $id)->with('classes')->first();
-
-    foreach ($student->classes()->get() as $studentClass) {
-      $this->studentClassInfo = $studentClass->name;
-    }
-
+    $student = StudentModel::where('id', $id)->with('class_room', 'section')->first();
     $this->studentInfo = $student;
+    $this->studentClassInfo = is_null($student) ? null : $student->class_room->name . ' ' . $student->section->name;
   }
 }

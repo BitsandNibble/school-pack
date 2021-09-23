@@ -33,5 +33,15 @@ class AppServiceProvider extends ServiceProvider
           );
         }
       );
+
+      view()->composer(
+        'users.teacher.class-student',
+        function ($view) {
+          $view->with('sec',
+            Section::where('teacher_id', auth('teacher')->id())
+              ->with('class_room', 'teacher')->first()->name
+          );
+        }
+      );
     }
 }

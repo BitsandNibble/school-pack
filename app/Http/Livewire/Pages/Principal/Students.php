@@ -56,8 +56,8 @@ class Students extends Component
     $student = Student::find($id);
     $this->student_id = $student['id'];
     $this->student = $student;
-    $this->class = $student->class_room->id;
-    $this->section = $student->section->id;
+    $this->class = $student->class_room->id ?? '';
+    $this->section = $student->section->id ?? '';
   }
 
   public function store(): void

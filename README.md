@@ -4,7 +4,7 @@
 
 <br>
 
-## Install this project using the steps below
+### Install this project using the steps below
 
 <br>
 

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method static updateOrCreate(array $array)
+ * @method static select(string $string)
+ * @method static where(string $string, $value)
  */
 class ClassStudentSubject extends Model
 {

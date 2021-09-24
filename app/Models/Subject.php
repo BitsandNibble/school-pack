@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static where(string $string, $id)
  * @method static find($subject_id)
  * @method static create(array $array)
+ * @method static whereIn(string $string, $cst)
  */
 class Subject extends Model
 {

@@ -17,7 +17,6 @@ class RegisterStudents extends Component
   use WithPagination;
 
   public $class_id;
-  public $subject_id;
   public $subject_name;
   public $fullname = [];
   public $q;
@@ -39,7 +38,7 @@ class RegisterStudents extends Component
 
   public function render(): Factory|View|Application
   {
-    $cst = ClassSubjectTeacher::select('subject_id')->whereClassRoomId($this->class_id)->get();
+    $cst = ClassSubjectTeacher::select('subject_id')->where('class_room_id', $this->class_id)->get();
     $subjects = Subject::whereIn('id', $cst)
       ->when($this->q, function ($query) {
         return $query->search($this->q);
@@ -79,11 +78,12 @@ class RegisterStudents extends Component
     $this->sortBy = $field;
   }
 
-  public function subjectName($value): void
+  public function registerStudents($value): void
   {
-    $this->subject_id = $value;
-    $sub = Subject::find($this->subject_id);
+    $sub = Subject::find($value);
     $this->subject_name = $sub['name'];
+    $css = ClassStudentSubject::where('subject_id', $value)->pluck('student_id')->toArray();
+    $this->fullname = StudentModel::whereIn('id', $css)->get()->pluck('id')->toArray();
   }
 
   public function store(): void

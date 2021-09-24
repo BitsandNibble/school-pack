@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static where(string $string, $id)
  * @method static find($id)
  * @method static create(array $array)
+ * @method static select(string $string)
  */
 class ClassSubjectTeacher extends Model
 {

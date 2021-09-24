@@ -43,10 +43,15 @@
               <td>{{ $loop->iteration }}</td>
               <td>{{ $subject->name }}</td>
               <td>
-                <x-button class="px-0" value="" wire:click="subjectName({{ $subject->id }})" data-bs-toggle="modal"
+                <x-button class="px-0" value="" wire:click="registerStudents({{ $subject->id }})" data-bs-toggle="modal"
                           data-bs-target="#registerStudentModal">
                   <i class="bx bxs-plus-circle"></i>
                 </x-button>
+                {{--                <x-button class="px-0" value="" wire:click="editRegisteredStudents({{ $subject->id }})"--}}
+                {{--                          data-bs-toggle="modal"--}}
+                {{--                          data-bs-target="#registerStudentModal">--}}
+                {{--                  <i class="bx bxs-pen"></i>--}}
+                {{--                </x-button>--}}
               </td>
             </tr>
           @empty
@@ -81,7 +86,6 @@
                                  id="student_{{ $student->id }}" />
                 {{ $student->fullname }}
               </x-checked-label>
-              {{--            <x-input type="hidden" wire:model="teacher_id" />--}}
               <x-input-error for="fullname" />
             </div>
           @endforeach

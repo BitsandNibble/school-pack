@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static when($q, \Closure $param)
  * @method static create(array $array)
  * @method static find($id)
+ * @method static whereIn(string $string, $css)
  */
 class Student extends Model
 {

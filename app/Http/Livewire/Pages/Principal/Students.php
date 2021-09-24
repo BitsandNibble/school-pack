@@ -5,6 +5,10 @@ namespace App\Http\Livewire\Pages\Principal;
 use App\Models\ClassRoom;
 use App\Models\Section;
 use App\Models\Student;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -12,12 +16,17 @@ use Livewire\Component;
 
 class Students extends Component
 {
-  public $student, $studentInfo, $studentClassInfo, $deleting;
-  public $student_id, $current_class;
-  public $class, $sections = [], $section;
+  public $student;
+  public $studentInfo;
+  public $studentClassInfo;
+  public $deleting;
+  public $student_id;
+  public $current_class;
+  public $class;
+  public $section;
+  public $sections = [];
 
   protected $listeners = ['edit', 'showInfo', 'openDeleteModal'];
-
   protected $rules;
 
   protected function rules(): array
@@ -30,17 +39,17 @@ class Students extends Component
     ];
   }
 
-  protected $validationAttributes = [
+  protected array $validationAttributes = [
     'student.fullname' => 'fullname',
     'student.gender' => 'gender',
   ];
 
-  public function render()
+  public function render(): Factory|View|Application
   {
     if (!empty($this->class)) {
       $this->sections = Section::where('class_room_id', $this->class)->get();
     }
-    $classes = ClassRoom::orderBy('name')->get();
+    $classes = ClassRoom::orderBy('name', 'ASC')->get();
 
     return view('livewire.pages.principal.students', compact('classes'));
   }
@@ -60,6 +69,9 @@ class Students extends Component
     $this->section = $student->section->id ?? '';
   }
 
+  /**
+   * @throws Exception
+   */
   public function store(): void
   {
     $this->validate();
@@ -93,7 +105,7 @@ class Students extends Component
 
   public function showInfo($id): void
   {
-    $student = Student::findOrFail($id);
+    $student = Student::find($id);
     $this->studentInfo = $student;
     $this->current_class = $student->class_room->name . ' ' . $student->section->name ?? '';
   }

@@ -5,22 +5,29 @@ namespace App\Http\Livewire\Pages\Principal;
 use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\Subject;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class Subjects extends Component
 {
-  public $q, $paginate = 15;
-  public $name, $subject_id, $deleting;
-  public $i = 1, $inputs = [];
+  public $q;
+  public $paginate = 15;
+  public $name;
+  public $subject_id;
+  public $deleting;
+  public $i = 1;
+  public $inputs = [];
 
 //  protected $rules = [
 //    'name.0' => 'required|string',
 //    'name.*' => 'required|string'
 //  ];
 
-  public function render()
+  public function render(): Factory|View|Application
   {
-    $classes = ClassRoom::orderBy('name')->get();
+    $classes = ClassRoom::orderBy('name', 'ASC')->get();
     $subjects = Subject::when($this->q, function ($query) {
       return $query->search($this->q);
     })->Paginate($this->paginate);

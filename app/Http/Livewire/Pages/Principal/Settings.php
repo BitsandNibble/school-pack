@@ -4,6 +4,9 @@ namespace App\Http\Livewire\Pages\Principal;
 
 use App\Helpers\SP;
 use App\Models\Setting;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -13,7 +16,7 @@ class Settings extends Component
 
   public $settings;
 
-  protected $rules = [
+  protected array $rules = [
     'settings.school_name' => 'required|string',
     'settings.school_title' => 'required|string',
     'settings.current_session' => 'required|string',
@@ -27,7 +30,7 @@ class Settings extends Component
     'settings.school_logo' => 'sometimes|image|max:2048',
   ];
 
-  protected $validationAttributes = [
+  protected array $validationAttributes = [
     'settings.school_name' => 'school name',
     'settings.school_title' => 'school title',
     'settings.current_session' => 'current session',
@@ -41,7 +44,7 @@ class Settings extends Component
     'settings.school_logo' => 'logo',
   ];
 
-  public function render()
+  public function render(): Factory|View|Application
   {
     $sets = Setting::get();
     $s['set'] = $sets->flatMap(function ($sets) {
@@ -52,7 +55,7 @@ class Settings extends Component
     return view('livewire.pages.principal.settings', $s);
   }
 
-  public function store()
+  public function store(): void
   {
     $credentials = $this->validate();
     foreach ($credentials as $cred) {

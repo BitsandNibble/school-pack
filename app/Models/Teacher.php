@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @method static where(string $string, $id)
+ * @method static find($id)
+ * @method static create(array $array)
+ * @method static get()
+ * @method static when($q, \Closure $param)
+ */
 class Teacher extends Authenticatable
 {
   use HasFactory, WithSearch;

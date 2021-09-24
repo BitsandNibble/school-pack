@@ -3,6 +3,9 @@
 namespace App\Http\Livewire\Pages\Teacher;
 
 use App\Models\Student as StudentModel;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -10,9 +13,15 @@ class Student extends Component
 {
   use WithPagination;
 
-  public $q, $sortBy = 'fullname', $sortAsc = true, $paginate = 10;
-  public $section_id, $studentInfo, $studentClassInfo;
-  protected $paginationTheme = 'bootstrap';
+  public $q;
+  public $sortBy = 'fullname';
+  public $sortAsc = true;
+  public $paginate = 10;
+  public $section_id;
+  public $studentInfo;
+  public $studentClassInfo;
+
+  protected string $paginationTheme = 'bootstrap';
 
   protected $queryString = [
     'q' => ['except' => ''],
@@ -31,7 +40,7 @@ class Student extends Component
     $this->reset(['studentInfo', 'studentClassInfo']);
   }
 
-  public function render()
+  public function render(): Factory|View|Application
   {
     $students = StudentModel::where('section_id', $this->section_id)
       ->when($this->q, function ($query) {

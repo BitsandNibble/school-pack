@@ -4,6 +4,10 @@ namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\ClassRoom;
 use App\Models\Student as StudentModel;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -13,18 +17,25 @@ class Student extends Component
 {
   use WithPagination;
 
-  public $q, $sortBy = 'fullname', $sortAsc = true, $paginate = 10;
-  public $class_id, $parent, $title = 'All Students';
-  public $student, $class_name;
-  protected $paginationTheme = 'bootstrap';
+  public $q;
+  public $sortBy = 'fullname';
+  public $sortAsc = true;
+  public $paginate = 10;
+  public $class_id;
+  public $parent;
+  public $title = 'All Students';
+  public $student;
+  public $class_name;
+
+  protected string $paginationTheme = 'bootstrap';
   protected $listeners = ['refresh', 'filterStudents', 'fetchAll'];
 
-  protected $rules = [
+  protected array $rules = [
     'student.fullname' => 'required|string',
     'student.gender' => 'sometimes',
   ];
 
-  protected $validationAttributes = [
+  protected array $validationAttributes = [
     'student.fullname' => 'fullname',
     'student.gender' => 'gender',
   ];
@@ -45,10 +56,10 @@ class Student extends Component
     // type 2 = class
   }
 
-  public function render()
+  public function render(): Factory|View|Application
   {
     if ($this->class_id) {
-      $this->title = ClassRoom::whereId($this->class_id)->first()->name;
+      $this->title = ClassRoom::where('id', $this->class_id)->first()->name;
 
       $students = StudentModel::where('class_room_id', $this->class_id)
         ->when($this->q, function ($query) {
@@ -105,6 +116,9 @@ class Student extends Component
     $this->reset(['student']);
   }
 
+  /**
+   * @throws Exception
+   */
   public function store(): void
   {
     $this->validate();

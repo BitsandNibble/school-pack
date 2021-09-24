@@ -7,6 +7,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @method static where(string $string, int|string|null $id)
+ * @method static find(int|string|null $id)
+ */
 class Principal extends Authenticatable
 {
   use HasApiTokens;

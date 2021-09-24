@@ -4,6 +4,9 @@ namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\ClassRoom;
 use App\Models\ClassType;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -13,10 +16,15 @@ class Classes extends Component
 {
   use WithPagination;
 
-  public $name, $deleting;
-  public $class_id, $class_type_id;
-  public $sortBy = 'name', $sortAsc = true, $paginate = 10;
-  protected $paginationTheme = 'bootstrap';
+  public $name;
+  public $deleting;
+  public $class_id;
+  public $class_type_id;
+  public $sortBy = 'name';
+  public $sortAsc = true;
+  public $paginate = 10;
+
+  protected string $paginationTheme = 'bootstrap';
   protected $rules;
 
   protected $queryString = [
@@ -32,11 +40,11 @@ class Classes extends Component
     ];
   }
 
-  protected $validationAttributes = [
+  protected array $validationAttributes = [
     'class_type_id' => 'class type',
   ];
 
-  public function render()
+  public function render(): Factory|View|Application
   {
     $classes = ClassRoom::orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
       ->Paginate($this->paginate);
@@ -61,7 +69,7 @@ class Classes extends Component
 
   public function edit($id): void
   {
-    $class = ClassRoom::whereId($id)->first();
+    $class = ClassRoom::where('id', $id)->first();
     $this->class_id = $id;
     $this->name = $class->name;
     $this->class_type_id = $class->class_type_id;

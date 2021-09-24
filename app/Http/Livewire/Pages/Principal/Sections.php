@@ -5,6 +5,9 @@ namespace App\Http\Livewire\Pages\Principal;
 use App\Models\ClassRoom;
 use App\Models\Section;
 use App\Models\Teacher;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,19 +15,25 @@ class Sections extends Component
 {
   use WithPagination;
 
-  public $name, $class, $deleting;
-  public $sortBy = 'name', $sortAsc = true, $paginate = 10;
-  public $section_id, $teacher_id;
+  public $name;
+  public $class;
+  public $deleting;
+  public $sortBy = 'name';
+  public $sortAsc = true;
+  public $paginate = 10;
+  public $section_id;
+  public $teacher_id;
 
-  protected $paginationTheme = 'bootstrap';
-  protected $rules = [
+  protected string $paginationTheme = 'bootstrap';
+
+  protected array $rules = [
     'name' => 'required|string',
     'class' => 'required',
   ];
 
-  public function render()
+  public function render(): Factory|View|Application
   {
-    $classes = ClassRoom::orderBy('name')->get();
+    $classes = ClassRoom::get();
     $teachers = Teacher::get();
     $sections = Section::orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
       ->paginate($this->paginate);

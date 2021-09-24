@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @method static orderBy(string $sortBy, string $param)
+ * @method static where(string $string, $id)
+ * @method static find($section_id)
+ * @method static create(array $array)
+ */
 class Section extends Model
 {
   use HasFactory;

@@ -6,6 +6,10 @@ use App\Models\ClassRoom;
 use App\Models\ClassSubjectTeacher;
 use App\Models\Section;
 use App\Models\Teacher;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -16,19 +20,26 @@ class Teachers extends Component
 {
   use WithPagination;
 
-  public $q, $sortBy = 'fullname', $sortAsc = true, $paginate = 10;
-  public $teacher, $teacherInfo, $teacherClassInfo, $deleting;
+  public $q;
+  public $sortBy = 'fullname';
+  public $sortAsc = true;
+  public $paginate = 10;
+  public $teacher;
+  public $teacherInfo;
+  public $teacherClassInfo;
+  public $deleting;
   public $teacher_id;
   public $assigned_subject_id;
-  protected $paginationTheme = 'bootstrap';
+  public $section;
+
+  protected string $paginationTheme = 'bootstrap';
+  protected $rules;
 
   protected $queryString = [
     'q' => ['except' => ''],
     'sortBy' => ['except' => 'fullname'],
     'sortAsc' => ['except' => true],
   ];
-
-  protected $rules;
 
   protected function rules()
   {
@@ -40,26 +51,21 @@ class Teachers extends Component
     ];
   }
 
-  protected $validationAttributes = [
+  protected array $validationAttributes = [
     'teacher.title' => 'title',
     'teacher.fullname' => 'fullname',
     'teacher.email' => 'email',
     'teacher.gender' => 'gender',
   ];
 
-  public function render()
+  public function render(): Factory|View|Application
   {
     $teachers = Teacher::when($this->q, function ($query) {
       return $query->search($this->q);
     })->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
       ->Paginate($this->paginate);
 
-    $classes = ClassRoom::get();
-    if (!empty($this->class)) {
-      $this->sections = Section::where('class_room_id', $this->class)->get();
-    }
-
-    return view('livewire.pages.principal.teachers', compact('teachers', 'classes'));
+    return view('livewire.pages.principal.teachers', compact('teachers'));
   }
 
   public function updatingQ(): void
@@ -69,7 +75,7 @@ class Teachers extends Component
 
   public function sortBy($field): void
   {
-    if ($field == $this->sortBy) {
+    if ($field === $this->sortBy) {
       $this->sortAsc = !$this->sortAsc;
     }
     $this->sortBy = $field;
@@ -88,6 +94,9 @@ class Teachers extends Component
     $this->teacher = $teacher;
   }
 
+  /**
+   * @throws Exception
+   */
   public function store(): void
   {
     $this->validate();
@@ -103,12 +112,12 @@ class Teachers extends Component
       ]);
       session()->flash('message', 'Teacher Updated Successfully');
     } else {
-      $teacher = Teacher::create([
+      Teacher::create([
         'fullname' => $this->teacher['fullname'],
         'title' => $this->teacher['title'],
         'email' => $this->teacher['email'] ?? '',
         'gender' => $this->teacher['gender'] ?? '',
-        'school_id' => 'GS_' . mt_rand(500, 1000),
+        'school_id' => 'GS_' . random_int(500, 1000),
         'password' => Hash::make('password'),
         'slug' => Str::slug($this->teacher['fullname']),
       ]);
@@ -121,9 +130,12 @@ class Teachers extends Component
   public function showInfo($id): void
   {
     $teacher = Teacher::where('id', $id)->first();
-//    $assignedSubjects = ClassSubjectTeacher::where('teacher_id', $id)->get();
-    $this->assigned_subject_id = ClassSubjectTeacher::where('teacher_id', $id)->get();
+    $sec = Section::with('class_room')->where('teacher_id', $id)->first();
 
+    $this->assigned_subject_id = ClassSubjectTeacher::where('teacher_id', $id)->get();
+    $this->teacherClassInfo = is_null($sec) ? '' : $sec->class_room->name;
+
+    $this->section = is_null($sec) ? '' : $sec->name;
     $this->teacherInfo = $teacher;
   }
 

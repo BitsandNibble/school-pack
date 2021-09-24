@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @method static where(string $string, $class_id)
+ * @method static when($q, \Closure $param)
+ * @method static create(array $array)
+ * @method static find($id)
+ */
 class Student extends Model
 {
   use HasFactory, WithSearch;

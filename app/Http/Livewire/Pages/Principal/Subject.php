@@ -6,20 +6,26 @@ use App\Models\ClassRoom;
 use App\Models\ClassSubjectTeacher;
 use App\Models\Subject as SubjectModel;
 use App\Models\Teacher;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class Subject extends Component
 {
   public $q;
-  public $class_id, $deleting, $class_subject_teacher;
-  public $subject, $teacher;
+  public $class_id;
+  public $deleting;
+  public $class_subject_teacher;
+  public $subject;
+  public $teacher;
 
-  public $rules = [
+  public array $rules = [
     'subject' => 'required',
     'teacher' => 'required'
   ];
 
-  public function cancel()
+  public function cancel(): void
   {
     $this->emit('closeModal');
     $this->reset(['teacher', 'subject']);
@@ -30,10 +36,10 @@ class Subject extends Component
     $this->class_id = $id;
   }
 
-  public function render()
+  public function render(): Factory|View|Application
   {
     $allTeachers = Teacher::get();
-    $class = ClassRoom::findOrFail($this->class_id);
+    $class = ClassRoom::find($this->class_id);
     $availableSubjects = SubjectModel::get();
     $classes = ClassSubjectTeacher::where('class_room_id', $this->class_id)
       ->with('subject', 'teacher')
@@ -42,7 +48,7 @@ class Subject extends Component
     return view('livewire.pages.principal.subject', compact('availableSubjects', 'classes', 'allTeachers', 'class'));
   }
 
-  public function edit($id)
+  public function edit($id): void
   {
     $class = ClassSubjectTeacher::find($id);
     $this->class_subject_teacher = $id;
@@ -74,17 +80,16 @@ class Subject extends Component
     $this->cancel();
   }
 
-  public function openDeleteModal($id)
+  public function openDeleteModal($id): void
   {
     $del = ClassSubjectTeacher::find($id);
     $this->deleting = $del['id'];
   }
 
-  public function delete(ClassSubjectTeacher $cst)
+  public function delete(ClassSubjectTeacher $cst): void
   {
     $cst->delete();
     session()->flash('message', 'Deleted Successfully');
     $this->cancel();
   }
-
 }

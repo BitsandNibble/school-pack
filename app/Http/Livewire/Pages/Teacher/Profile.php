@@ -3,6 +3,9 @@
 namespace App\Http\Livewire\Pages\Teacher;
 
 use App\Models\Teacher;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -10,9 +13,10 @@ class Profile extends Component
 {
   use WithFileUploads;
 
-  public $teacher, $profile_photo;
+  public $teacher;
+  public $profile_photo;
 
-  protected $rules = [
+  protected array $rules = [
     'teacher.fullname' => 'required|string',
     'teacher.email' => 'sometimes|email',
     'teacher.phone_number' => 'sometimes|numeric',
@@ -23,7 +27,7 @@ class Profile extends Component
 //    'profile_photo' => 'sometimes|image|max:2048',
   ];
 
-  protected $validationAttributes = [
+  protected array $validationAttributes = [
     'teacher.fullname' => 'fullname',
     'teacher.email' => 'email',
     'teacher.phone_number' => 'phone number',
@@ -33,7 +37,7 @@ class Profile extends Component
     'profile_photo' => 'profile photo',
   ];
 
-  public function render()
+  public function render(): Factory|View|Application
   {
     $this->teacher = Teacher::where('id', auth()->id())->first();
 
@@ -61,7 +65,7 @@ class Profile extends Component
 
   }
 
-  public function handleAvatarUpload()
+  public function handleAvatarUpload(): string
   {
     $photo = $this->profile_photo;
     $name = $this->teacher['slug'] . '.' . $photo->getClientOriginalExtension();

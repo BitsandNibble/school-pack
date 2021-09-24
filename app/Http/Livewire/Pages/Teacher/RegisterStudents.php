@@ -6,6 +6,9 @@ use App\Models\ClassStudentSubject;
 use App\Models\ClassSubjectTeacher;
 use App\Models\Student as StudentModel;
 use App\Models\Subject;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -13,12 +16,19 @@ class RegisterStudents extends Component
 {
   use WithPagination;
 
-  public $class_id, $subject_id, $subject_name, $fullname = [];
-  public $q, $sortBy = 'name', $sortAsc = true, $paginate = 10;
+  public $class_id;
+  public $subject_id;
+  public $subject_name;
+  public $fullname = [];
+  public $q;
+  public $sortBy = 'name';
+  public $sortAsc = true;
+  public $paginate = 10;
   public $selectAll = false;
-  protected $paginationTheme = 'bootstrap';
 
-  protected $rules = [
+  protected string $paginationTheme = 'bootstrap';
+
+  protected array $rules = [
     'fullname' => 'required',
   ];
 
@@ -27,7 +37,7 @@ class RegisterStudents extends Component
     $this->class_id = $id;
   }
 
-  public function render()
+  public function render(): Factory|View|Application
   {
     $cst = ClassSubjectTeacher::select('subject_id')->whereClassRoomId($this->class_id)->get();
     $subjects = Subject::whereIn('id', $cst)

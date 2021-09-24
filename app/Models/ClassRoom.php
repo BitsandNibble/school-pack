@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @method static where(string $string, $id)
+ * @method static orderBy(string $sortBy, string $param)
+ * @method static find($class_id)
+ * @method static create(array $array)
+ * @method static get()
+ */
 class ClassRoom extends Model
 {
   use HasFactory, WithSearch;

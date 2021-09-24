@@ -193,21 +193,15 @@
         </tr>
         <tr>
           <th>Class Teacher</th>
-          <td>{{ $teacherClassInfo ?? '' }}</td>
+          <td>{{ $teacherClassInfo . ' - ' . $section }}</td>
         </tr>
         <tr>
           <th>Subjects</th>
           <td>
             @if(isset($assigned_subject_id))
               @foreach($assigned_subject_id as $sub)
-                @foreach (\App\Models\Subject::where('id', $sub->subject_id)->get() as $subject)
-                  @php($name[] = $subject->name)
-                @endforeach
-                @foreach (\App\Models\ClassRoom::where('id', $sub->class_room_id)->get() as $class_room)
-                  @php($name1[] = $subject->name . ' - ' . $class_room->name)
-                @endforeach
+                {{ $sub->subject->name . ' - ' . $sub->class_room->name }} <br>
               @endforeach
-              {{ implode(', ', $name1 ?? []) }}
             @endif
           </td>
         </tr>

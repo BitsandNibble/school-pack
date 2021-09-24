@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @method static where(string $string, $id)
+ * @method static find($id)
+ * @method static create(array $array)
+ */
 class ClassSubjectTeacher extends Model
 {
   use HasFactory;

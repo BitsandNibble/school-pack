@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @method static get()
+ * @method static when($q, \Closure $param)
+ * @method static where(string $string, $id)
+ * @method static find($subject_id)
+ * @method static create(array $array)
+ */
 class Subject extends Model
 {
     use HasFactory, WithSearch;

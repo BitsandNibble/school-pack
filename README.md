@@ -2,6 +2,8 @@
 
 ## How to Install
 
+<br>
+
 ### Install this project using the steps below
 
 <br>

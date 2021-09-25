@@ -132,11 +132,13 @@ class Teachers extends Component
     $teacher = Teacher::where('id', $id)->first();
     $sec = Section::with('class_room')->where('teacher_id', $id)->first();
 
-    $this->assigned_subject_id = ClassSubjectTeacher::where('teacher_id', $id)->get();
-    $this->teacherClassInfo = is_null($sec) ? '' : $sec->class_room->name;
+    $this->assigned_subject_id = ClassSubjectTeacher::where('teacher_id', $id)
+      ->with('class_room', 'subject')
+      ->get();
+    $this->teacher_class_info = is_null($sec) ? '' : $sec->class_room->name;
 
-    $this->section = is_null($sec) ? '' : $sec->name;
-    $this->teacherInfo = $teacher;
+    $this->section = is_null($sec) ? '' : ' - ' . $sec->name;
+    $this->teacher_info = $teacher;
   }
 
   public function deleteExistingClass($id): void

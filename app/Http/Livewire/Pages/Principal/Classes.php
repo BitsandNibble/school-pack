@@ -47,6 +47,7 @@ class Classes extends Component
   public function render(): Factory|View|Application
   {
     $classes = ClassRoom::orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+      ->with('class_type')
       ->Paginate($this->paginate);
     $class_types = ClassType::get();
 

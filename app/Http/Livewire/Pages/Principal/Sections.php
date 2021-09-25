@@ -36,6 +36,7 @@ class Sections extends Component
     $classes = ClassRoom::get();
     $teachers = Teacher::get();
     $sections = Section::orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+      ->with('class_room')
       ->paginate($this->paginate);
 
     return view('livewire.pages.principal.sections', compact('classes', 'teachers', 'sections'));

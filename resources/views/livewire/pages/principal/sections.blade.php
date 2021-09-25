@@ -70,8 +70,11 @@
                   {{ $section->class_room->name }}
                 </a>
               </td>
-              <td>
-                {{ $section->name }}
+              <td style="transform: rotate(0);">
+                <a href="{{ route('principal.sections.students', [$section->class_room->slug, $section->name]) }}"
+                   class="stretched-link">
+                  {{ $section->name }}
+                </a>
               </td>
               <td>{{ $section->teacher->fullname ?? '' }}</td>
               <td>

@@ -58,15 +58,20 @@
           @forelse($classes as $class)
             <tr>
               <td>{{ $loop->iteration }}</td>
-              <td>{{ $class->name }}</td>
+              <td style="transform: rotate(0);">
+                <a href="{{ route('principal.classes.students', [$class->slug]) }}"
+                   class="stretched-link">
+                  {{ $class->name }}
+                </a>
+              </td>
               <td>{{ $class->class_type->name ?? '' }}</td>
               <td>
                 <x-button class="px-0" wire:click="edit({{ $class->id }})" value="" data-bs-toggle="modal"
-                  data-bs-target="#classModal">
+                          data-bs-target="#classModal">
                   <i class="bx bxs-pen"></i>
                 </x-button>
                 <x-button class="px-0" value="" wire:click="openDeleteModal({{ $class->id }})"
-                  data-bs-toggle="modal" data-bs-target="#deleteModal">
+                          data-bs-toggle="modal" data-bs-target="#deleteModal">
                   <i class="bx bxs-trash-alt"></i>
                 </x-button>
               </td>

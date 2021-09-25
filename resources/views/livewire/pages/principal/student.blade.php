@@ -1,11 +1,11 @@
 <div>
   <x-flash />
 
-  @if ($parent !== '2')
+  @if ($parent !== 2)
     <h5>{{ $title }}</h5>
   @endif
 
-  @if ($parent === '2')
+  @if ($parent === 2)
     <x-card>
       <div class="d-flex align-items-center">
         <h4 class="my-1">{{ $class_name }}</h4>
@@ -73,7 +73,7 @@
                 </div>
               </th>
             @endif
-            @if ($parent !== '2')
+            @if ($parent === null)
               <th></th>
             @endif
           </tr>
@@ -95,7 +95,7 @@
                   {{ $student->section->name ?? '' }}
                 </td>
               @endif
-              @if ($parent !== '2')
+              @if ($parent === null)
                 <td>
                   <x-button class="px-0" value="" wire:click="$emit('showInfo', {{ $student->id }})"
                             data-bs-toggle="modal" data-bs-target="#infoModal">

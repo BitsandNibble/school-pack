@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\ClassRoom;
+use App\Models\Section;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -55,6 +56,10 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('classname', function ($value) {
           return ClassRoom::where('slug', $value)->firstOrFail();
+        });
+
+        Route::bind('section', function ($value) {
+          return Section::where('name', $value)->firstOrFail();
         });
     }
 

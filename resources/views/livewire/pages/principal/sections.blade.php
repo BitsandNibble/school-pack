@@ -128,21 +128,11 @@
 
         <div class="col">
           <x-label for="teacher_id">Class Teacher</x-label>
-          @if (isset($this->class_id) && $this->teacher_id !== '')
-            <div class="d-flex justify-content">
-              <h6 class="mr-4">{{ $existingTeacher }}</h6>
-              <a class="text-dark" href="javascript:"
-                 wire:click.prevent="deleteExistingTeacher({{ $this->teacher_id }})">
-                <i class="bx bxs-trash-alt"></i>
-              </a>
-            </div>
-          @else
-            <x-select id="teacher_id" wire:model.defer="teacher_id">
-              @foreach ($teachers as $teacher)
-                <option value="{{ $teacher->id }}">{{ $teacher->fullname }}</option>
-              @endforeach
-            </x-select>
-          @endif
+          <x-select id="teacher_id" wire:model.defer="teacher_id">
+            @foreach ($teachers as $teacher)
+              <option value="{{ $teacher->id }}">{{ $teacher->fullname }}</option>
+            @endforeach
+          </x-select>
         </div>
       </div>
     </x-slot>

@@ -89,17 +89,6 @@ class Sections extends Component
     $this->cancel();
   }
 
-  public function deleteExistingTeacher($id): void
-  {
-    $teacher = Teacher::where('id', $id)->with('classes')->first();
-
-    foreach ($teacher->classes()->get() as $teacherClass) {
-      $teacher->classes()->detach($teacherClass->id);
-    }
-
-    $this->cancel();
-  }
-
   public function openDeleteModal($id): void
   {
     $del = Section::find($id);

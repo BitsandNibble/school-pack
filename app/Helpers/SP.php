@@ -13,22 +13,22 @@ class SP
     return count($value);
   }
 
-  public static function getSetting($type)
+  public static function get_setting($type)
   {
     return Setting::where('type', $type)->first()->description;
   }
 
-  public static function getFirstWord(String $string): String
+  public static function get_first_word(String $string): String
   {
     return explode(' ', ucfirst(trim($string)))[0];
   }
 
-  public static function totalStudents()
+  public static function total_students()
   {
     return Student::get()->count();
   }
 
-  public static function totalTeachers()
+  public static function total_teachers()
   {
     return Teacher::get()->count();
   }

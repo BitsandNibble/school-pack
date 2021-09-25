@@ -1,5 +1,5 @@
 <x-app-layout>
-  Current Session : {{ \App\Helpers\SP::getSetting('current_session') }}
+  Current Session : {{ \App\Helpers\SP::get_setting('current_session') }}
   <hr>
   <div class="row">
     <div class="col-4">

@@ -107,37 +107,45 @@
       <table class="table table-sm table-borderless table-hover">
         <tr>
           <th>Fullname</th>
-          <td>{{ $studentInfo['fullname'] ?? '' }}</td>
+          <td>{{ $student_info['fullname'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Email</th>
-          <td>{{ $studentInfo['email'] ?? '' }}</td>
+          <td>{{ $student_info['email'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Phone Number</th>
-          <td>{{ $studentInfo['phone_number'] ?? '' }}</td>
+          <td>{{ $student_info['phone_number'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Gender</th>
-          <td>{{ $studentInfo['gender'] ?? '' }}</td>
+          <td>{{ $student_info['gender'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Date of Birth</th>
-          <td>{{ $studentInfo['date_of_birth'] ?? '' }}</td>
+          <td>{{ $student_info['date_of_birth'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Admission No.</th>
-          <td>{{ $studentInfo['school_id'] ?? '' }}</td>
+          <td>{{ $student_info['school_id'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Current Class</th>
           <td>
-            {{ $current_class }}
+            {{ $current_class . ' ' . $current_section }}
           </td>
         </tr>
         <tr>
           <th>Subjects</th>
-          {{-- <td>{{ $teacherClassInfo ?? '' }}</td> --}}
+          <td>
+            @if(isset($offered_subjects))
+              <ul>
+                @foreach($offered_subjects as $sub)
+                  <li>{{ $sub->subject->name }}</li>
+                @endforeach
+              </ul>
+            @endif
+          </td>
         </tr>
       </table>
     </x-slot>

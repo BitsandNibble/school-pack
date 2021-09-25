@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Pages\Teacher;
 
+use App\Models\ClassStudentSubject;
 use App\Models\Student as StudentModel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -19,6 +20,7 @@ class Student extends Component
   public $paginate = 10;
   public $section_id;
   public $student_info;
+  public $offered_subjects;
   public $student_class_info;
 
   protected string $paginationTheme = 'bootstrap';
@@ -70,5 +72,6 @@ class Student extends Component
     $student = StudentModel::where('id', $id)->with('class_room', 'section')->first();
     $this->student_info = $student;
     $this->student_class_info = is_null($student) ? null : $student->class_room->name . ' ' . $student->section->name;
+    $this->offered_subjects = ClassStudentSubject::where('student_id', $id)->get();
   }
 }

@@ -18,8 +18,8 @@ class Student extends Component
   public $sortAsc = true;
   public $paginate = 10;
   public $section_id;
-  public $studentInfo;
-  public $studentClassInfo;
+  public $student_info;
+  public $student_class_info;
 
   protected string $paginationTheme = 'bootstrap';
 
@@ -37,7 +37,7 @@ class Student extends Component
   public function cancel(): void
   {
     $this->emit('closeModal');
-    $this->reset(['studentInfo', 'studentClassInfo']);
+    $this->reset(['student_info', 'student_class_info']);
   }
 
   public function render(): Factory|View|Application
@@ -68,7 +68,7 @@ class Student extends Component
   public function showInfo($id): void
   {
     $student = StudentModel::where('id', $id)->with('class_room', 'section')->first();
-    $this->studentInfo = $student;
-    $this->studentClassInfo = is_null($student) ? null : $student->class_room->name . ' ' . $student->section->name;
+    $this->student_info = $student;
+    $this->student_class_info = is_null($student) ? null : $student->class_room->name . ' ' . $student->section->name;
   }
 }

@@ -18,6 +18,7 @@ class RegisterStudents extends Component
 
   public $class_id;
   public $subject_name;
+  public $subject_id;
   public $fullname = [];
   public $q;
   public $sortBy = 'name';
@@ -80,6 +81,7 @@ class RegisterStudents extends Component
 
   public function registerStudents($value): void
   {
+    $this->subject_id = $value;
     $sub = Subject::find($value);
     $this->subject_name = $sub['name'];
     $css = ClassStudentSubject::where('subject_id', $value)->pluck('student_id')->toArray();

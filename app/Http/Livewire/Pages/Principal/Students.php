@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\ClassRoom;
+use App\Models\ClassStudentSubject;
 use App\Models\Section;
 use App\Models\Student;
 use Exception;
@@ -17,11 +18,12 @@ use Livewire\Component;
 class Students extends Component
 {
   public $student;
-  public $studentInfo;
-  public $studentClassInfo;
+  public $student_info;
+  public $offered_subjects;
   public $deleting;
   public $student_id;
   public $current_class;
+  public $current_section;
   public $class;
   public $section;
   public $sections = [];
@@ -105,9 +107,12 @@ class Students extends Component
 
   public function showInfo($id): void
   {
-    $student = Student::find($id);
-    $this->studentInfo = $student;
-    $this->current_class = $student->class_room->name . ' ' . $student->section->name ?? '';
+//    $student = Student::find($id);
+    $student = Student::where('id', $id)->with('class_room', 'section')->first();
+    $this->student_info = $student;
+    $this->current_class = $student->class_room->name ?? null;
+    $this->current_section = $student->section->name ?? null;
+    $this->offered_subjects = ClassStudentSubject::where('student_id', $id)->get();
   }
 
   public function openDeleteModal($id): void

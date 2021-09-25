@@ -25,8 +25,8 @@ class Teachers extends Component
   public $sortAsc = true;
   public $paginate = 10;
   public $teacher;
-  public $teacherInfo;
-  public $teacherClassInfo;
+  public $teacher_info;
+  public $teacher_class_info;
   public $deleting;
   public $teacher_id;
   public $assigned_subject_id;

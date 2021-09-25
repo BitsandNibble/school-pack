@@ -169,39 +169,41 @@
       <table class="table table-sm table-borderless table-hover">
         <tr>
           <th>Fullname</th>
-          <td>{{ $teacherInfo['fullname'] ?? '' }}</td>
+          <td>{{ $teacher_info['fullname'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Email</th>
-          <td>{{ $teacherInfo['email'] ?? '' }}</td>
+          <td>{{ $teacher_info['email'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Phone Number</th>
-          <td>{{ $teacherInfo['phone_number'] ?? '' }}</td>
+          <td>{{ $teacher_info['phone_number'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Gender</th>
-          <td>{{ $teacherInfo['gender'] ?? '' }}</td>
+          <td>{{ $teacher_info['gender'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Date of Birth</th>
-          <td>{{ $teacherInfo['date_of_birth'] ?? '' }}</td>
+          <td>{{ $teacher_info['date_of_birth'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Staff ID</th>
-          <td>{{ $teacherInfo['school_id'] ?? '' }}</td>
+          <td>{{ $teacher_info['school_id'] ?? '' }}</td>
         </tr>
         <tr>
           <th>Class Teacher</th>
-          <td>{{ $teacherClassInfo . ' - ' . $section }}</td>
+          <td>{{ $teacher_class_info . $section }}</td>
         </tr>
         <tr>
           <th>Subjects</th>
           <td>
             @if(isset($assigned_subject_id))
-              @foreach($assigned_subject_id as $sub)
-                {{ $sub->subject->name . ' - ' . $sub->class_room->name }} <br>
-              @endforeach
+              <ul>
+                @foreach($assigned_subject_id as $sub)
+                  <li>{{ $sub->subject->name . ' - ' . $sub->class_room->name }}</li>
+                @endforeach
+              </ul>
             @endif
           </td>
         </tr>

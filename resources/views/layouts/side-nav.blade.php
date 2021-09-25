@@ -47,7 +47,7 @@
 
   <li>
     <a href="javascript:" class="has-arrow" aria-expanded="false">
-      <div class="parent-icon"><i class='bx bx-home-circle'></i></div>
+      <div class="parent-icon"><i class='bx bx-note'></i></div>
       <div class="menu-title">Exams</div>
     </a>
     <ul class="mm-collapse">

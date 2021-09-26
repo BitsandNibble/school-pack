@@ -14,17 +14,14 @@ class HomeController extends Controller
 
   public function index(): Factory|View|Application
   {
-    $section = Section::where('teacher_id', auth('teacher')->id())
-      ->with('class_room', 'teacher')->first();
-    $sec = is_null($section) ? null : $section->class_room->name . ' ' . $section->name;
+    $sections = Section::where('teacher_id', auth('teacher')->id())
+      ->with('class_room', 'teacher')->get();
 
-    return view('users.teacher.index', compact('sec'));
+    return view('users.teacher.index', compact('sections'));
   }
 
-  public function getStudentsPerClass(ClassRoom $class): Factory|View|Application
+  public function getStudentsPerClassOrSection(ClassRoom $class, Section $section): Factory|View|Application
   {
-    $section = Section::where('teacher_id', auth('teacher')->id())
-        ->with('class_room', 'teacher')->first();
     return view('users.teacher.class-student', compact('class', 'section'));
   }
 }

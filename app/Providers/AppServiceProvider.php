@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         function ($view) {
           $view->with('sec',
             Section::where('teacher_id', auth('teacher')->id())
-              ->with('class_room', 'teacher')->first()
+              ->with('class_room', 'teacher')->get()
           );
         }
       );

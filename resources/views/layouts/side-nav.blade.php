@@ -78,16 +78,16 @@
     </a>
   </li>
 
-  @if(!is_null($sec))
+  @foreach($sec as $section)
     <li>
-      <a href="{{ route('teacher.classes.students', [$sec->class_room->slug]) }}">
+      <a href="{{ route('teacher.classes.students', [$section->class_room->slug, $section->name]) }}">
         <div class="parent-icon"><i class='lni lni-users'></i></div>
         <div class="menu-title">
-          {{ $sec->class_room->name . ' ' . $sec->name }}
+          {{ $section->class_room->name . ' ' . $section->name }}
         </div>
       </a>
     </li>
-  @endif
+  @endforeach
 
   <li>
     <a href="{{ route('teacher.subjects') }}">

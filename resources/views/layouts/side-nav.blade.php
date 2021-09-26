@@ -54,9 +54,9 @@
       <li>
         <a href="{{ route('principal.grades') }}"><i class="bx bx-right-arrow-alt"></i>Grades</a>
       </li>
-{{--      <li>--}}
-{{--        <a href="{{ route('principal.sections') }}"><i class="bx bx-right-arrow-alt"></i>Sections</a>--}}
-{{--      </li>--}}
+      {{--      <li>--}}
+      {{--        <a href="{{ route('principal.sections') }}"><i class="bx bx-right-arrow-alt"></i>Sections</a>--}}
+      {{--      </li>--}}
     </ul>
   </li>
 
@@ -78,8 +78,7 @@
     </a>
   </li>
 
-  @if(is_null($sec))
-  @else
+  @if(!is_null($sec))
     <li>
       <a href="{{ route('teacher.classes.students', [$sec->class_room->slug]) }}">
         <div class="parent-icon"><i class='lni lni-users'></i></div>

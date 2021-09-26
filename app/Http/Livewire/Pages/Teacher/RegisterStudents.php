@@ -17,6 +17,7 @@ class RegisterStudents extends Component
   use WithPagination;
 
   public $class_id;
+  public $section_id;
   public $subject_name;
   public $subject_id;
   public $fullname = [];
@@ -34,7 +35,8 @@ class RegisterStudents extends Component
 
   public function mount($id): void
   {
-    $this->class_id = $id;
+    $this->class_id = $id[0] ?? $id;
+    $this->section_id = $id[1] ?? null;
   }
 
   public function render(): Factory|View|Application
@@ -63,7 +65,9 @@ class RegisterStudents extends Component
 
   public function getStudentsProperty()
   {
-    return StudentModel::where('class_room_id', $this->class_id)->get();
+    return StudentModel::where('class_room_id', $this->class_id)
+      ->where('section_id', $this->section_id)
+      ->get();
   }
 
   public function updatedFullname(): void
@@ -96,7 +100,6 @@ class RegisterStudents extends Component
       ClassStudentSubject::updateOrCreate([
         'class_room_id' => $this->class_id,
         'student_id' => $student_id,
-//        'student_id' => $this->fullname,
         'subject_id' => $this->subject_id,
       ]);
     }

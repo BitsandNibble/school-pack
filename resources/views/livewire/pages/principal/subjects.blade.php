@@ -97,8 +97,6 @@
 
     <x-slot name="content">
       <div class="row">
-        {{-- <x-validation-errors /> --}}
-
         <div class="col-10 mb-2">
           <x-label for="name">Subject</x-label>
           <x-input type="text" id="name" wire:model.defer="name.0" />
@@ -107,7 +105,7 @@
 
         <div class="col">
           <br>
-          <x-button class="mt-2 float-end" wire:click="add({{ $i }})">Add</x-button>
+          <x-button class="mt-2 float-end" wire:click="addInput">Add</x-button>
         </div>
       </div>
 
@@ -121,7 +119,9 @@
 
           <div class="col">
             <br>
-            <x-button value="danger" class="mt-2 float-end" wire:click.prevent="remove({{ $key }})">Remove</x-button>
+            <x-button value="danger" class="mt-2 float-end" wire:click.prevent="removeInput({{ $key }})">
+              Remove
+            </x-button>
           </div>
         </div>
       @endforeach

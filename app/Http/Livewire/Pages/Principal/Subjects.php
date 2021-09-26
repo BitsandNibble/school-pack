@@ -20,11 +20,6 @@ class Subjects extends Component
   public $i = 1;
   public $inputs = [];
 
-//  protected $rules = [
-//    'name.0' => 'required|string',
-//    'name.*' => 'required|string'
-//  ];
-
   public function render(): Factory|View|Application
   {
     $classes = ClassRoom::orderBy('name', 'ASC')->get();
@@ -70,8 +65,8 @@ class Subjects extends Component
           'slug' => SP::get_first_word($this->name[$key]),
         ]);
       }
-      $this->inputs = [];
 
+      $this->inputs = [];
       session()->flash('message', 'Subject Added Successfully');
     }
 
@@ -90,18 +85,15 @@ class Subjects extends Component
     $this->cancel();
   }
 
-
   // for dynamic input
-  public function add($i): void
+  public function addInput(): void
   {
-    ++$i;
-    $this->i = $i;
-    $this->inputs[] = $i;
+    $this->inputs[] = $this->i++;
   }
 
-  public function remove($i): void
+  public function removeInput($index): void
   {
-    unset($this->inputs[$i]);
+    unset($this->inputs[$index]);
   }
 
 }

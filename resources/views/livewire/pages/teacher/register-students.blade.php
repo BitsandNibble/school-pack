@@ -75,7 +75,6 @@
           Check All
         </x-checked-label>
 
-        @json($fullname)
         <div class="row">
           {{-- <x-validation-errors /> --}}
 
@@ -98,4 +97,6 @@
       <x-button value="submit" wire:click.prevent="store">Save</x-button>
     </x-slot>
   </x-modal>
+
+  <x-spinner />
 </div>

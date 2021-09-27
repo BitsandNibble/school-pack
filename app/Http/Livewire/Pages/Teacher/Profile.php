@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Pages\Teacher;
 
+use App\Actions\UpdateProfile;
 use App\Models\Teacher;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -44,32 +46,15 @@ class Profile extends Component
     return view('livewire.pages.teacher.profile');
   }
 
-  public function updateTeacherProfile(): void
+  /**
+   * @throws Exception
+   */
+  public function update(UpdateProfile $updateProfile): void
   {
-    $this->validate();
+    $val = $this->validate();
+    $updateProfile->updateTeacherProfile($val, $this->profile_photo);
 
-    $updateTeacher = Teacher::find(auth()->id());
-    $updateTeacher->update([
-      'fullname' => $this->teacher['fullname'],
-      'email' => $this->teacher['email'],
-      'phone_number' => $this->teacher['phone_number'],
-      'gender' => $this->teacher['gender'],
-      'date_of_birth' => $this->teacher['date_of_birth'],
-      'title' => $this->teacher['title'],
-      'profile_photo' => $this->profile_photo ? $this->handleAvatarUpload() : $this->teacher['profile_photo'],
-    ]);
     $this->reset();
-
     session()->flash('message', 'Profile Updated Successfully');
-    $this->reset();
-
-  }
-
-  public function handleAvatarUpload(): string
-  {
-    $photo = $this->profile_photo;
-    $name = $this->teacher['slug'] . '.' . $photo->getClientOriginalExtension();
-    $photo->storeAs('public/profile-photos', $name);
-    return $name;
   }
 }

@@ -118,7 +118,7 @@
             <input type="text" class="form-control" value="Bay Area, San Francisco, CA" />
           </div>
         </div> --}}
-        <x-button class="float-end px-4" value="submit" wire:click="updateTeacherProfile">Save</x-button>
+        <x-button class="float-end px-4" value="submit" wire:click="update">Save</x-button>
       </x-card>
 
       <livewire:components.update-password />

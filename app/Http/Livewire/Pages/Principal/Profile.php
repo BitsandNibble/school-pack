@@ -9,9 +9,12 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Profile extends Component
 {
+  use WithFileUploads;
+
   public $principal;
   public $profile_photo;
 
@@ -35,8 +38,8 @@ class Profile extends Component
    */
   public function update(UpdateProfile $updateProfile): void
   {
-    $val = $this->validate();
-    $updateProfile->updatePrincipalProfile($val, $this->profile_photo);
+    $this->validate();
+    $updateProfile->updatePrincipalProfile($this->principal->toArray(), $this->profile_photo);
 
     $this->reset();
     session()->flash('message', 'Profile Updated Successfully');

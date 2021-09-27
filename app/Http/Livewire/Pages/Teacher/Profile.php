@@ -51,8 +51,8 @@ class Profile extends Component
    */
   public function update(UpdateProfile $updateProfile): void
   {
-    $val = $this->validate();
-    $updateProfile->updateTeacherProfile($val, $this->profile_photo);
+    $this->validate();
+    $updateProfile->updateTeacherProfile($this->teacher->toArray(), $this->profile_photo);
 
     $this->reset();
     session()->flash('message', 'Profile Updated Successfully');

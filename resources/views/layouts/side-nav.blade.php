@@ -48,9 +48,12 @@
   <li>
     <a href="javascript:" class="has-arrow" aria-expanded="false">
       <div class="parent-icon"><i class='bx bx-note'></i></div>
-      <div class="menu-title">Exams</div>
+      <div class="menu-title">Grading</div>
     </a>
     <ul class="mm-collapse">
+      <li>
+        <a href="{{ route('principal.exams') }}"><i class="bx bx-right-arrow-alt"></i>Exam</a>
+      </li>
       <li>
         <a href="{{ route('principal.grades') }}"><i class="bx bx-right-arrow-alt"></i>Grades</a>
       </li>

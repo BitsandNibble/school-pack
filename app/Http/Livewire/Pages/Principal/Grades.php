@@ -29,7 +29,6 @@ class Grades extends Component
     'grade.mark_to' => 'mark to',
   ];
 
-
   public function render(): Factory|View|Application
   {
     $class_type = ClassType::get();

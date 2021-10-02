@@ -1,6 +1,6 @@
 <div>
   <x-breadcrumb>
-    Exams
+    Grading
     <li class="breadcrumb-item active" aria-current="page">Grades</li>
   </x-breadcrumb>
   <x-flash />
@@ -131,4 +131,6 @@
       <x-button value="danger" wire:click.prevent="delete({{ $deleting }})">Delete</x-button>
     </x-slot>
   </x-confirmation-modal>
+
+  <x-spinner />
 </div>

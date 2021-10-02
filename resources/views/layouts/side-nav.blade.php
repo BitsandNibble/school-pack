@@ -57,9 +57,6 @@
       <li>
         <a href="{{ route('principal.grades') }}"><i class="bx bx-right-arrow-alt"></i>Grades</a>
       </li>
-      {{--      <li>--}}
-      {{--        <a href="{{ route('principal.sections') }}"><i class="bx bx-right-arrow-alt"></i>Sections</a>--}}
-      {{--      </li>--}}
     </ul>
   </li>
 
@@ -97,5 +94,17 @@
       <div class="parent-icon"><i class='bx bx-book'></i></div>
       <div class="menu-title">Subjects</div>
     </a>
+  </li>
+
+  <li>
+    <a href="javascript:" class="has-arrow" aria-expanded="false">
+      <div class="parent-icon"><i class='bx bx-note'></i></div>
+      <div class="menu-title">Grading</div>
+    </a>
+    <ul class="mm-collapse">
+      <li>
+        <a href="{{ route('teacher.exams') }}"><i class="bx bx-right-arrow-alt"></i>Exam</a>
+      </li>
+    </ul>
   </li>
 @endif

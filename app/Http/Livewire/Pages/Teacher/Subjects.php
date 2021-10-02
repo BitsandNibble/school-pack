@@ -10,8 +10,6 @@ use Livewire\Component;
 
 class Subjects extends Component
 {
-  public $i = 1;
-
   public function render(): Factory|View|Application
   {
     $sub = ClassSubjectTeacher::where('teacher_id', auth()->id())

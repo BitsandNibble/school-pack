@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Pages\Teacher;
 
-use App\Models\ClassRoom;
 use App\Models\ClassSubjectTeacher;
 use App\Models\Exam;
 use Illuminate\Contracts\Foundation\Application;

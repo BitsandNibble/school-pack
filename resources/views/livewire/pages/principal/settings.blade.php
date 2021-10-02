@@ -4,9 +4,6 @@
 
   <h5 class="mt-5">School Information</h5>
   <x-card class="border-0 border-dark border-5 border-end">
-    <form>
-      {{-- <x-validation-errors /> --}}
-
       <div class="row">
         <div class="col-md-6 mb-2">
           <x-label for="name">School Name <span class="text-danger">*</span></x-label>
@@ -82,6 +79,7 @@
       </div>
 
       <x-button value="submit" class="float-end px-4" wire:click.prevent="store">Save</x-button>
-    </form>
   </x-card>
+
+  <livewire:pages.principal.grade-settings />
 </div>

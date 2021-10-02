@@ -12,9 +12,9 @@
             <th>S/N</th>
             <th>Name</th>
             <th>Adm. No</th>
-            <th>1st CA (15)</th>
-            <th>2nd CA (15)</th>
-            <th>Exam (60)</th>
+            <th>1st CA ({{ \App\Helpers\SP::get_setting('ca1') }})</th>
+            <th>2nd CA ({{ \App\Helpers\SP::get_setting('ca2') }})</th>
+            <th>Exam ({{ \App\Helpers\SP::get_setting('exam') }})</th>
           </tr>
         </thead>
 

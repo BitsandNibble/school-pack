@@ -68,16 +68,7 @@ class Settings extends Component
     for ($i = 0; $i < $iMax; $i++) {
       Setting::where('type', $keys[$i])->update(['description' => $values[$i]]);
     }
-//    School::updateOrCreate(
-//      [$this->school['name']],
-//      [
-//      'name' => $this->school['name'],
-//      'address' => $this->school['address'],
-//      'phone_number1' => $this->school['phone_number1'],
-//      'phone_number2' => $this->school['phone_number2'] ?? '',
-//      'school_logo' => $this->school['school_logo'] ?? '',
-//    ]);
 
-    session()->flash('message', 'School Details Updated Successfully');
+    session()->flash('message', 'School Settings Updated Successfully');
   }
 }

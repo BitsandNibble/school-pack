@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Principal\HomeController as PrincipalHomeController;
 use App\Http\Controllers\Teacher\HomeController as TeacherHomeController;
 use App\Http\Livewire\Pages\Principal\Classes;
+use App\Http\Livewire\Pages\Principal\Exams;
 use App\Http\Livewire\Pages\Principal\Grades;
 use App\Http\Livewire\Pages\Principal\Profile as PrincipalProfile;
 use App\Http\Livewire\Pages\Principal\Sections;
@@ -46,6 +47,7 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('subjects/{classname:name}', [PrincipalHomeController::class, 'getSubjectsPerClass'])->name('.classes.subjects');
   Route::get('settings', Settings::class)->name('.settings');
   Route::get('profile', PrincipalProfile::class)->name('.profile');
+  Route::get('exams', Exams::class)->name('.exams');
   Route::get('grades', Grades::class)->name('.grades');
 });
 

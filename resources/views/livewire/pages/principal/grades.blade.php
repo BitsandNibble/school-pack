@@ -105,7 +105,7 @@
         <div class="col">
           <x-label for="remark">Remark</x-label>
           <x-select id="remark" wire:model.defer="remark">
-            @foreach(\App\Helpers\GR::get_remarks() as $remark)
+            @foreach(\App\Helpers\GR::getRemarks() as $remark)
               <option value="{{ $remark }}">{{ $remark }}</option>
             @endforeach
           </x-select>

@@ -62,7 +62,7 @@ class Subjects extends Component
       foreach ($this->name as $key => $value) {
         Subject::create([
           'name' => $this->name[$key],
-          'slug' => SP::get_first_word($this->name[$key]),
+          'slug' => SP::getFirstWord($this->name[$key]),
         ]);
       }
 

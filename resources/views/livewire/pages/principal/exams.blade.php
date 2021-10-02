@@ -34,7 +34,7 @@
               <td>{{ $loop->iteration }}</td>
               <td>{{ $exam->name }}</td>
               <td>{{ $exam->term }}</td>
-              <td>{{ \App\Helpers\SP::get_setting('current_session') }}</td>
+              <td>{{ \App\Helpers\SP::getSetting('current_session') }}</td>
               <td>
                 <x-button class="px-0" wire:click="edit({{ $exam->id }})" value="" data-bs-toggle="modal"
                           data-bs-target="#examModal">
@@ -62,7 +62,7 @@
 
     <x-slot name="content">
       <p><span class="text-danger">*</span> fields are required</p>
-      <p>You're creating an exam for the current session {{ \App\Helpers\SP::get_setting('current_session') }}</p>
+      <p>You're creating an exam for the current session {{ \App\Helpers\SP::getSetting('current_session') }}</p>
 
       <div class="row">
         <div class="col-md-6 mb-2">
@@ -74,7 +74,7 @@
         <div class="col-md-6 mb-2">
           <x-label for="exam.term">Term <span class="text-danger">*</span></x-label>
           <x-select id="exam.term" wire:model.defer="exam.term">
-            @foreach (\App\Helpers\GR::get_terms() as $term)
+            @foreach (\App\Helpers\GR::getTerms() as $term)
               <option value="{{ $term }}">{{ $term }}</option>
             @endforeach
           </x-select>

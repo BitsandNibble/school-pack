@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class GR
 {
-  public static function get_remarks(): array
+  public static function getRemarks(): array
   {
     return [
       'Average', 'Credit', 'Distinction', 'Excellent', 'Fail',
@@ -12,7 +12,7 @@ class GR
     ];
   }
 
-  public static function get_terms(): array
+  public static function getTerms(): array
   {
    return [
      'First Term', 'Second Term', 'Third Term',

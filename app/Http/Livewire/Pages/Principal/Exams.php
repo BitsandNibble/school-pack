@@ -54,14 +54,14 @@ class Exams extends Component
       $exam->update([
         'name' => $this->exam['name'],
         'term' => $this->exam['term'],
-        'session' => SP::get_setting('current_session'),
+        'session' => SP::getSetting('current_session'),
       ]);
       session()->flash('message', 'Exam Updated Successfully');
     } else {
       Exam::create([
         'name' => $this->exam['name'],
         'term' => $this->exam['term'],
-        'session' => SP::get_setting('current_session'),
+        'session' => SP::getSetting('current_session'),
       ]);
       session()->flash('message', 'Exam Added Successfully');
     }

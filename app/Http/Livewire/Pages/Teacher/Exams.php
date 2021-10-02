@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Pages\Teacher;
 
+use App\Models\ClassRoom;
 use App\Models\ClassSubjectTeacher;
 use App\Models\Exam;
 use Illuminate\Contracts\Foundation\Application;
@@ -16,7 +17,6 @@ class Exams extends Component
   public $subject;
   public $classes = [];
   public $subjects = [];
-  public $value;
 
   protected array $rules = [
     'exam' => 'required',
@@ -49,8 +49,9 @@ class Exams extends Component
     return view('livewire.pages.teacher.exams', compact('exams'));
   }
 
-//  public function manage(): void
-//  {
-//    $this->value = $this->validate();
-//  }
+  public function manage(): void
+  {
+    $value = $this->validate();
+    $this->emit('getValues', $value);
+  }
 }

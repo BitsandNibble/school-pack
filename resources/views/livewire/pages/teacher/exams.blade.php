@@ -31,7 +31,7 @@
 
       <div class="col-md-4 mb-2">
         <x-label for="subject">Subject</x-label>
-        <x-select id="subject" wire:model="subject_id">
+        <x-select id="subject" wire:model.defer="subject_id">
           @if(count($subjects) > 0)
             @foreach($subjects as $subject)
               <option value="{{ $subject->subject->id }}">{{ $subject->subject->name }}</option>

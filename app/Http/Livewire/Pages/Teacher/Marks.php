@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Pages\Teacher;
 use App\Helpers\GR;
 use App\Helpers\SP;
 use App\Models\ClassRoom;
-use App\Models\ClassStudentSubject;
 use App\Models\ClassType;
 use App\Models\Exam;
 use App\Models\Mark;
@@ -23,8 +22,12 @@ class Marks extends Component
   public $exam_id;
   public $class_id;
   public $subject_id;
-  public $class_room;
   public $marks;
+  public $get_marks;
+  public $data;
+  public $ca1_limit;
+  public $ca2_limit;
+  public $exam_limit;
 
   protected $listeners = ['getValues'];
   protected array $rules;
@@ -36,9 +39,9 @@ class Marks extends Component
 ////    'marks.subject_id' => 'required|exists:subjects,id',
 ////    'marks.class_room_id' => 'required|exists:class_rooms,id',
 ////    'marks.exam_id' => 'required|exists:exams,id',
-      'marks.ca1' => 'sometimes|numeric|max:' . SP::getSetting('ca1'),
-      'marks.ca2' => 'sometimes|numeric|max:' . SP::getSetting('ca2'),
-      'marks.exam_score' => 'sometimes|numeric|max:' . SP::getSetting('exam'),
+      'marks.ca1' => 'sometimes|numeric|max:' . $this->ca1_limit,
+      'marks.ca2' => 'sometimes|numeric|max:' . $this->ca2_limit,
+      'marks.exam_score' => 'sometimes|numeric|max:' . $this->exam_limit,
     ];
   }
 
@@ -50,6 +53,9 @@ class Marks extends Component
 
   public function render(): Factory|View|Application
   {
+    $this->ca1_limit = SP::getSetting('ca1');
+    $this->ca2_limit = SP::getSetting('ca2');
+    $this->exam_limit = SP::getSetting('exam');
 //    show students based on selected class and subject from grading
     if ($this->class_id) {
       $this->class_room = ClassStudentSubject::where('class_room_id', $this->class_id)
@@ -67,6 +73,13 @@ class Marks extends Component
     $this->subject_id = $value['subject_id'];
     $this->exam_id = $value['exam_id'];
 
+//    use this for where clause to avoid duplicates
+    $this->data = [
+      'exam_id' => $this->exam_id,
+      'class_room_id' => $this->class_id,
+      'subject_id' => $this->subject_id,
+    ];
+
     $this->subject = Subject::where('id', $value['subject_id'])->first()->name;
     $this->class = ClassRoom::where('id', $value['class_id'])->first()->name;
     $this->exam = Exam::where('id', $value['exam_id'])->first()->name;
@@ -83,13 +96,7 @@ class Marks extends Component
     $year = SP::getSetting('current_session');
 
 //    fetch data from mark table so that data can be inserted to specific students
-    $data = [
-      'exam_id' => $this->exam_id,
-      'class_room_id' => $this->class_id,
-      'subject_id' => $this->subject_id,
-    ];
-
-    $marks = Mark::where($data)->with('grade')->get();
+    $marks = Mark::where($this->data)->with('grade')->get();
 
 //    update records in mark table
     foreach ($marks as $mark) {

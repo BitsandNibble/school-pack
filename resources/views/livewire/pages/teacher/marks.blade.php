@@ -6,7 +6,7 @@
       <div class="col"><p>Subject: {{ $subject }}</p></div>
       <div class="col"><p>Class: {{ $class }}</p></div>
       <div class="col">
-        <p>Exam: {{ $exam }} @if($class_room) ({{ \App\Helpers\SP::getSetting('current_session') }}) @endif</p>
+        <p>Exam: {{ $exam }} @if($get_marks) ({{ \App\Helpers\SP::getSetting('current_session') }}) @endif</p>
       </div>
     </div>
     <div class="table-responsive">
@@ -17,19 +17,20 @@
             <th>S/N</th>
             <th>Name</th>
             <th>Adm. No</th>
-            <th>1st CA ({{ \App\Helpers\SP::getSetting('ca1') }})</th>
-            <th>2nd CA ({{ \App\Helpers\SP::getSetting('ca2') }})</th>
-            <th>Exam ({{ \App\Helpers\SP::getSetting('exam') }})</th>
+            <th>1st CA ({{ $ca1_limit }})</th>
+            <th>2nd CA ({{ $ca2_limit }})</th>
+            <th>Exam ({{ $exam_limit }})</th>
           </tr>
         </thead>
 
         <tbody>
-          @if($class_room)
-            @forelse($class_room as $class)
+          @if($get_marks)
+          @json($get_marks)
+          @forelse($get_marks as $markk)
               <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $class->student->fullname }}</td>
-                <td>{{ $class->student->school_id }}</td>
+                <td>{{ $mark->student->fullname ?? '' }}</td>
+                <td>{{ $mark->student->school_id ?? '' }}</td>
 
                 {{--                CA and exam score--}}
                 <td class="px-5">
@@ -52,7 +53,7 @@
         </tbody>
       </table>
 
-      @if($class_room)
+      @if($get_marks)
         <div class="d-grid gap-2">
           <x-button wire:click.prevent="store">Update Marks</x-button>
         </div>

@@ -1,11 +1,16 @@
 <div>
+  <x-flash />
+
   <x-card>
     <div class="row fw-bolder">
       <div class="col"><p>Subject: {{ $subject }}</p></div>
       <div class="col"><p>Class: {{ $class }}</p></div>
-      <div class="col"><p>Exam: {{ $exam }}</p></div>
+      <div class="col">
+        <p>Exam: {{ $exam }} @if($class_room) ({{ \App\Helpers\SP::getSetting('current_session') }}) @endif</p>
+      </div>
     </div>
     <div class="table-responsive">
+      <x-validation-errors />
       <table class="table table-striped table-sm" style="width:100%">
         <thead>
           <tr>

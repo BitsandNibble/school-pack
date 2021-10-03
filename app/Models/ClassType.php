@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static get()
+ * @method static find($get_class_id)
  */
 class ClassType extends Model
 {

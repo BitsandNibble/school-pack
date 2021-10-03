@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @method static create(string[] $array)
+ * @method static firstOrCreate(array $array)
+ * @method static where(array $data)
+ */
 class Mark extends Model
 {
   use HasFactory;

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static create(array $credentials)
  * @method static where(string $string, $id)
  * @method static find($id)
+ * @method static whereNull(string $string)
  */
 class Grade extends Model
 {

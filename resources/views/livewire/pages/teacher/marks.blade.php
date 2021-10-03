@@ -30,18 +30,33 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $class->student->fullname }}</td>
                 <td>{{ $class->student->school_id }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
+
+                {{--                CA and exam score--}}
+                <td class="px-5">
+                  <x-input class="form-control-sm" type="number" wire:model.defer="marks.ca1" />
+                </td>
+                <td class="px-5">
+                  <x-input class="form-control-sm" type="number" wire:model.defer="marks.ca2" />
+                </td>
+                <td class="px-5">
+                  <x-input class="form-control-sm" type="number" wire:model.defer="marks.exam_score" />
+                </td>
               </tr>
             @empty
               <tr>
                 <td colspan="6" class="text-center">No record found</td>
               </tr>
             @endforelse
+
           @endif
         </tbody>
       </table>
+
+      @if($class_room)
+        <div class="d-grid gap-2">
+          <x-button wire:click.prevent="store">Update Marks</x-button>
+        </div>
+      @endif
     </div>
   </x-card>
 </div>

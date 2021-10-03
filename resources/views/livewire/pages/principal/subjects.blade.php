@@ -98,14 +98,15 @@
             <x-label for="name">Subject</x-label>
             <div class="input-group">
               <x-input type="text" id="name" wire:model.defer="names.{{ $key }}.name" />
-
-              @if($loop->index === 0)
-                <x-button wire:click="addInput"><i class="bx bx-plus"></i></x-button>
-              @else
-                <x-button value="danger" wire:click.prevent="removeInput({{ $key }})">
-                  <i class="bx bx-minus"></i>
-                </x-button>
-              @endif
+              @unless($this->subject_id)
+                @if($loop->index === 0)
+                  <x-button wire:click="addInput"><i class="bx bx-plus"></i></x-button>
+                @else
+                  <x-button value="danger" wire:click.prevent="removeInput({{ $key }})">
+                    <i class="bx bx-minus"></i>
+                  </x-button>
+                @endif
+              @endunless
             </div>
             <x-input-error for="names.{{ $key }}.name" />
           </div>

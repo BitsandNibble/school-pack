@@ -9,36 +9,36 @@
     <div class="row">
       <div class="col-md-4 mb-2">
         <x-label for="exam">Exam</x-label>
-        <x-select id="exam" wire:model="exam">
+        <x-select id="exam" wire:model="exam_id">
           @foreach($exams as $exam)
             <option value="{{ $exam->id }}">{{ $exam->name }}</option>
           @endforeach
         </x-select>
-        <x-input-error for="exam" />
+        <x-input-error for="exam_id" />
       </div>
 
       <div class="col-md-4 mb-2">
         <x-label for="class">Class</x-label>
-        <x-select id="class" wire:model="class">
+        <x-select id="class" wire:model="class_id">
           @if(count($classes) > 0)
             @foreach($classes as $class)
               <option value="{{ $class->class_room_id }}">{{ $class->class_room->name }}</option>
             @endforeach
           @endif
         </x-select>
-        <x-input-error for="class" />
+        <x-input-error for="class_id" />
       </div>
 
       <div class="col-md-4 mb-2">
         <x-label for="subject">Subject</x-label>
-        <x-select id="subject" wire:model="subject">
+        <x-select id="subject" wire:model="subject_id">
           @if(count($subjects) > 0)
             @foreach($subjects as $subject)
               <option value="{{ $subject->subject->id }}">{{ $subject->subject->name }}</option>
             @endforeach
           @endif
         </x-select>
-        <x-input-error for="subject" />
+        <x-input-error for="subject_id" />
       </div>
 
       <div class="d-grid gap-2">

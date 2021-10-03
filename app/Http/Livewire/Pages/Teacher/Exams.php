@@ -11,16 +11,23 @@ use Livewire\Component;
 
 class Exams extends Component
 {
-  public $exam;
-  public $class;
-  public $subject;
+  public $exam_id;
+  public $class_id;
+  public $subject_id;
   public $classes = [];
   public $subjects = [];
 
+  protected $listeners = ['create_marks'];
   protected array $rules = [
-    'exam' => 'required',
-    'class' => 'required',
-    'subject' => 'required',
+    'exam_id' => 'required',
+    'class_id' => 'required',
+    'subject_id' => 'required',
+  ];
+
+  protected array $validationAttributes = [
+    'exam_id' =>'exam',
+    'class_id' =>'class',
+    'subject_id' =>'subject',
   ];
 
   public function render(): Factory|View|Application
@@ -29,7 +36,7 @@ class Exams extends Component
     $exams = Exam::get();
 
     // show classes only when user has selected an exam
-    if (!empty($this->exam)) {
+    if (!empty($this->exam_id)) {
       $this->classes = ClassSubjectTeacher::where('teacher_id', auth()->id())
         ->with('subject', 'class_room')
         ->select('class_room_id')
@@ -38,9 +45,9 @@ class Exams extends Component
     }
 
 //    show subjects specific to a class
-    if (!empty($this->class)) {
+    if (!empty($this->class_id)) {
       $this->subjects = ClassSubjectTeacher::where('teacher_id', auth()->id())
-        ->where('class_room_id', $this->class)
+        ->where('class_room_id', $this->class_id)
         ->with('subject')
         ->get();
     }

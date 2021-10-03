@@ -66,10 +66,6 @@
               <td>{{ $loop->iteration }}</td>
               <td>{{ $subject->name }}</td>
               <td>
-                <x-button class="px-0" value="" wire:click="showInfo({{ $subject->id }})"
-                          data-bs-toggle="modal" data-bs-target="#infoModal">
-                  <i class="bx bxs-show"></i>
-                </x-button>
                 <x-button class="px-0" wire:click="edit({{ $subject->id }})" value="" data-bs-toggle="modal"
                           data-bs-target="#subjectModal">
                   <i class="bx bxs-pen"></i>
@@ -96,32 +92,22 @@
     <x-slot name="title">{{ isset($this->subject_id) ? 'Edit' : 'Add New' }} Subject</x-slot>
 
     <x-slot name="content">
-      <div class="row">
-        <div class="col-10 mb-2">
-          <x-label for="name">Subject</x-label>
-          <x-input type="text" id="name" wire:model.defer="name.0" />
-          <x-input-error for="name.0" />
-        </div>
-
-        <div class="col">
-          <br>
-          <x-button class="mt-2 float-end" wire:click="addInput">Add</x-button>
-        </div>
-      </div>
-
-      @foreach($inputs as $key => $value)
-        <div class="row">
-          <div class="col-10 mb-2">
+      @foreach($names as $key => $value)
+        <div class="row" wire:key="name-{{$key}}">
+          <div class="col mb-2">
             <x-label for="name">Subject</x-label>
-            <x-input type="text" id="name" wire:model.defer="name.{{ $value }}" />
-            <x-input-error for="name.{{ $value }}" />
-          </div>
+            <div class="input-group">
+              <x-input type="text" id="name" wire:model.defer="names.{{ $key }}.name" />
 
-          <div class="col">
-            <br>
-            <x-button value="danger" class="mt-2 float-end" wire:click.prevent="removeInput({{ $key }})">
-              Remove
-            </x-button>
+              @if($loop->index === 0)
+                <x-button wire:click="addInput"><i class="bx bx-plus"></i></x-button>
+              @else
+                <x-button value="danger" wire:click.prevent="removeInput({{ $key }})">
+                  <i class="bx bx-minus"></i>
+                </x-button>
+              @endif
+            </div>
+            <x-input-error for="names.{{ $key }}.name" />
           </div>
         </div>
       @endforeach

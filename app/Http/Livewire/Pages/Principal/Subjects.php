@@ -14,11 +14,18 @@ class Subjects extends Component
 {
   public $q;
   public $paginate = 15;
-  public $name;
+  public $names = [0];
   public $subject_id;
   public $deleting;
   public $i = 1;
-  public $inputs = [];
+
+  protected array $rules = [
+    'names.*.name' => 'required|string|min:6'
+  ];
+
+  protected array $validationAttributes = [
+    'names.*.name' => 'subject'
+  ];
 
   public function render(): Factory|View|Application
   {
@@ -38,36 +45,36 @@ class Subjects extends Component
 
   public function edit($id): void
   {
-    $subject = Subject::where('id', $id)->first();
-    $this->subject_id = $subject['id'];
-    $this->name = $subject['name.0'];
+    $subject = Subject::where('id', $id)->get();
+    $this->subject_id = $subject->first()->id;
+
+    $this->names = [];
+    foreach ($subject as $key => $value) {
+      $this->names[$key]['name'] = $value->name;
+    }
   }
 
   public function store(): void
   {
-    $validated = $this->validate([
-      'name.0' => 'required|string',
-      'name.*' => 'required|string'
-    ],
-      [
-        'name.0.required' => 'subject field is required',
-        'name.*.required' => 'subject field is required'
-      ]);
+    $this->validate();
 
-    if ($this->subject_id) {
-      $subject = Subject::find($this->subject_id);
-      $subject->update($validated);
-      session()->flash('message', 'Subject Updated Successfully');
-    } else {
-      foreach ($this->name as $key => $value) {
-        Subject::create([
-          'name' => $this->name[$key],
-          'slug' => SP::getFirstWord($this->name[$key]),
+    foreach ($this->names as $key => $value) {
+      if ($this->subject_id) {
+        $subject = Subject::find($this->subject_id);
+        $subject->update([
+          'name' => $this->names[$key]['name'],
+          'slug' => SP::getFirstWord($this->names[$key]['name']),
         ]);
+        session()->flash('message', 'Subject Updated Successfully');
+      } else {
+        Subject::create([
+          'name' => $this->names[$key]['name'],
+          'slug' => SP::getFirstWord($this->names[$key]['name']),
+        ]);
+        session()->flash('message', 'Subject Added Successfully');
       }
 
-      $this->inputs = [];
-      session()->flash('message', 'Subject Added Successfully');
+      $this->names = [];
     }
 
     $this->cancel();
@@ -88,12 +95,12 @@ class Subjects extends Component
   // for dynamic input
   public function addInput(): void
   {
-    $this->inputs[] = $this->i++;
+    $this->names[] = $this->i++;
   }
 
   public function removeInput($index): void
   {
-    unset($this->inputs[$index]);
+    unset($this->names[$index]);
   }
 
 }

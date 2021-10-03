@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire\Pages\Teacher;
 
+use App\Helpers\SP;
+use App\Models\ClassStudentSubject;
 use App\Models\ClassSubjectTeacher;
 use App\Models\Exam;
+use App\Models\Mark;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -55,9 +58,29 @@ class Exams extends Component
     return view('livewire.pages.teacher.exams', compact('exams'));
   }
 
+//  get values from select box
   public function manage(): void
   {
     $value = $this->validate();
     $this->emit('getValues', $value);
+    $this->emit('create_marks', $value);
+  }
+
+//  add records to mark table
+  public function create_marks($value): void
+  {
+    $student_id = ClassStudentSubject::where('subject_id', $value['subject_id'])
+      ->where('class_room_id', $value['class_id'])
+      ->get('student_id');
+
+    foreach ($student_id as $id) {
+      Mark::firstOrCreate([
+        'student_id' => $id->student_id,
+        'subject_id' => $value['subject_id'],
+        'class_room_id' => $value['class_id'],
+        'exam_id' => $value['exam_id'],
+        'year' => SP::getSetting('current_session'),
+      ]);
+    }
   }
 }

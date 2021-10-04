@@ -25,23 +25,28 @@
 
         <tbody>
           @if($get_marks)
-          @json($get_marks)
-          @forelse($get_marks as $markk)
+            @forelse($get_marks as $mark)
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $mark->student->fullname ?? '' }}</td>
                 <td>{{ $mark->student->school_id ?? '' }}</td>
 
                 {{--                CA and exam score--}}
-                <td class="px-5">
-                  <x-input class="form-control-sm" type="number" wire:model.defer="marks.ca1" />
-                </td>
-                <td class="px-5">
-                  <x-input class="form-control-sm" type="number" wire:model.defer="marks.ca2" />
-                </td>
-                <td class="px-5">
-                  <x-input class="form-control-sm" type="number" wire:model.defer="marks.exam_score" />
-                </td>
+                @unless($showEdit)
+                  <td class="px-5">{{ $mark->ca1 ?? '' }}</td>
+                  <td class="px-5">{{ $mark->ca2 ?? '' }}</td>
+                  <td class="px-5">{{ $mark->exam_score ?? '' }}</td>
+                @else
+                  <td class="px-5">
+                    <x-input class="form-control-sm" type="number" wire:model.defer="marks.ca1" />
+                  </td>
+                  <td class="px-5">
+                    <x-input class="form-control-sm" type="number" wire:model.defer="marks.ca2" />
+                  </td>
+                  <td class="px-5">
+                    <x-input class="form-control-sm" type="number" wire:model.defer="marks.exam_score" />
+                  </td>
+                @endunless
               </tr>
             @empty
               <tr>
@@ -52,12 +57,13 @@
           @endif
         </tbody>
       </table>
+    </div>
 
       @if($get_marks)
-        <div class="d-grid gap-2">
+        <div class="d-block mb-2 float-end">
+          <x-button value="dark" wire:click="$toggle('showEdit')">{{ $showEdit ? 'Cancel Edit' : 'Edit Marks' }}</x-button>
           <x-button wire:click.prevent="store">Update Marks</x-button>
         </div>
       @endif
-    </div>
   </x-card>
 </div>

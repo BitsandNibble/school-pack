@@ -28,6 +28,7 @@ class Marks extends Component
   public $ca1_limit;
   public $ca2_limit;
   public $exam_limit;
+  public bool $showEdit = false;
 
   protected $listeners = ['getValues'];
   protected array $rules;

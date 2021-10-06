@@ -6,6 +6,7 @@ use App\Helpers\SP;
 use App\Models\ClassStudentSubject;
 use App\Models\ClassSubjectTeacher;
 use App\Models\Exam;
+use App\Models\ExamRecord;
 use App\Models\Mark;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -77,6 +78,13 @@ class Exams extends Component
       Mark::firstOrCreate([
         'student_id' => $id->student_id,
         'subject_id' => $value['subject_id'],
+        'class_room_id' => $value['class_id'],
+        'exam_id' => $value['exam_id'],
+        'year' => SP::getSetting('current_session'),
+      ]);
+
+      ExamRecord::firstOrCreate([
+        'student_id' => $id->student_id,
         'class_room_id' => $value['class_id'],
         'exam_id' => $value['exam_id'],
         'year' => SP::getSetting('current_session'),

@@ -7,6 +7,7 @@ use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\ClassType;
 use App\Models\Exam;
+use App\Models\ExamRecord;
 use App\Models\Mark;
 use App\Models\Subject;
 use Illuminate\Contracts\Foundation\Application;
@@ -59,9 +60,7 @@ class Marks extends Component
         ->with('class_room', 'student')
         ->get();
 
-      $this->marks = Mark::where($this->data)
-        ->with('class_room', 'student')
-        ->get();
+      $this->marks = $this->get_marks;
     }
 
     return view('livewire.pages.teacher.marks');
@@ -89,6 +88,8 @@ class Marks extends Component
   {
     $this->validate();
 
+    $all_student_ids = [];
+
 //    get class_type_id to use for assigning grades
     $get_class_id = ClassRoom::find($this->class_id)->class_type_id;
     $class_type_id = ClassType::find($get_class_id)->id;
@@ -100,17 +101,15 @@ class Marks extends Component
 
 //    update records in mark table
     foreach ($marks as $index => $mark) {
-//    using $d[''] for future purpose, when we want to also update exam_records table as we assign marks
-//    so, we're going to do something like ExamRecord->update($d)
-      $d['ca1'] = $ca1 = $this->marks[$index]['ca1'] ?? null;
-      $d['ca2'] = $ca2 = $this->marks[$index]['ca2'] ?? null;
-      $d['tca'] = $tca = $ca1 + $ca2;
-      $d['exam'] = $exam = $this->marks[$index]['exam_score'] ?? null;
-      $d['total'] = $total = $tca + $exam;
+      $all_student_ids[] = $mark->student_id;
+
+      $ca1 = $this->marks[$index]['ca1'] ?? null;
+      $ca2 = $this->marks[$index]['ca2'] ?? null;
+      $tca = $ca1 + $ca2;
+      $exam = $this->marks[$index]['exam_score'] ?? null;
+      $total = $tca + $exam;
 
       $grade = GR::getGrade($total, $class_type_id);
-//      $d['grade_id'] = $grade ? $grade->id : NULL;
-//      $d['grade_id'] = $grade?->id;
 
       $mark->update([
         'ca1' => $ca1,
@@ -118,15 +117,24 @@ class Marks extends Component
         'total_ca' => $tca,
         'exam_score' => $exam,
         'total_score' => $total,
-        'grade_id' => $grade->id ?? null,
+        'grade_id' => $grade?->id,
       ]);
-
     }
 
 //    subject position
     foreach ($marks as $mark) {
-      $d2['sub_pos'] = $sub_pos = GR::getSubjectPosition($mark->student_id, $this->exam_id, $this->class_id, $this->subject_id, $year);
+      $sub_pos = GR::getSubjectPosition($mark->student_id, $this->exam_id, $this->class_id, $this->subject_id, $year);
       $mark->update(['subject_position' => $sub_pos]);
+    }
+
+//    update records in exam table
+    foreach ($all_student_ids as $student_id) {
+      ExamRecord::where(['student_id' => $student_id])->update([
+        'total' => GR::getExamTotal($this->exam_id, $student_id, $this->class_id, $year),
+        'average' => GR::getExamAvg($this->exam_id, $student_id, $this->class_id, $year),
+        'class_average' => GR::getClassAvg($this->exam_id, $this->class_id, $year),
+        'position' => GR::getPosition($this->exam_id, $student_id, $this->class_id, $year),
+      ]);
     }
 
     session()->flash('message', 'Mark Recorded Successfully');

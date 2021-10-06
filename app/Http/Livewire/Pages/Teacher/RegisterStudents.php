@@ -88,7 +88,9 @@ class RegisterStudents extends Component
     $this->subject_id = $value;
     $sub = Subject::find($value);
     $this->subject_name = $sub['name'];
-    $css = ClassStudentSubject::where('subject_id', $value)->pluck('student_id')->toArray();
+    $css = ClassStudentSubject::where('subject_id', $value)
+      ->where('class_room_id', $this->class_id)
+      ->pluck('student_id')->toArray();
     $this->fullname = StudentModel::whereIn('id', $css)->get()->pluck('id')->toArray();
   }
 

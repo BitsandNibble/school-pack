@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('classes', Classes::class)->name('.classes');
   Route::get('sections', Sections::class)->name('.sections');
   Route::get('classes/{classname:slug}', [PrincipalHomeController::class, 'getStudentsPerClass'])->name('.classes.students');
-  Route::get('class/{classname:slug}/{section:name}', [PrincipalHomeController::class, 'getStudentsPerSection'])->name('.sections.students');
+  Route::get('class/{classname:slug}/{section}', [PrincipalHomeController::class, 'getStudentsPerSection'])->name('.sections.students');
   Route::view('results', 'users.principal.results')->name('.results');
   Route::view('result', 'users.principal.result')->name('.result');
   Route::get('subjects', Subjects::class)->name('.subjects');
@@ -57,7 +57,7 @@ Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'te
   Route::get('profile', TeacherProfile::class)->name('.profile');
   Route::get('subjects', TeacherSubjects::class)->name('.subjects');
   Route::get('exams', TeacherExams::class)->name('.exams');
-  Route::get('{classname:slug}/{section:name}', [TeacherHomeController::class, 'getStudentsPerClassOrSection'])->name('.classes.students');
+  Route::get('{classname:slug}/{section}', [TeacherHomeController::class, 'getStudentsPerClassOrSection'])->name('.classes.students');
 });
 
 Route::get('login', [AuthController::class, 'create'])->middleware(['guest:principal', 'guest:teacher'])

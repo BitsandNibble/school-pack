@@ -71,7 +71,7 @@
                 </a>
               </td>
               <td style="transform: rotate(0);">
-                <a href="{{ route('principal.sections.students', [$section->class_room->slug, $section->name]) }}"
+                <a href="{{ route('principal.sections.students', [$section->class_room->slug, $section]) }}"
                    class="stretched-link">
                   {{ $section->name }}
                 </a>

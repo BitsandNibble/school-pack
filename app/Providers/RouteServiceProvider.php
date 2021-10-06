@@ -58,9 +58,9 @@ class RouteServiceProvider extends ServiceProvider
           return ClassRoom::where('slug', $value)->firstOrFail();
         });
 
-        Route::bind('section', function ($value) {
-          return Section::where('name', $value)->firstOrFail();
-        });
+//        Route::bind('section', function ($value) {
+//          return Section::where('name', $value)->firstOrFail();
+//        });
     }
 
     /**

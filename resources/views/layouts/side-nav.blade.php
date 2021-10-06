@@ -80,7 +80,7 @@
 
   @foreach($sec as $section)
     <li>
-      <a href="{{ route('teacher.classes.students', [$section->class_room->slug, $section->name]) }}">
+      <a href="{{ route('teacher.classes.students', [$section->class_room->slug, $section]) }}">
         <div class="parent-icon"><i class='lni lni-users'></i></div>
         <div class="menu-title">
           {{ $section->class_room->name . ' ' . $section->name }}

@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Pages\Teacher;
 
 use App\Helpers\SP;
+use App\Models\ClassRoom;
+use App\Models\Exam;
 use App\Models\ExamRecord;
 use App\Models\Mark;
 use Illuminate\Contracts\Foundation\Application;
@@ -19,6 +21,8 @@ class Tabulation extends Component
   public $subjects;
   public $students;
   public $exam;
+  public $class;
+  public $exam_name;
 
   protected $listeners = ['getValues'];
 
@@ -60,5 +64,8 @@ class Tabulation extends Component
       'class_room_id' => $this->class_id,
       'year' => SP::getSetting('current_session'),
     ];
+
+    $this->class = ClassRoom::where('id', $value['class_id'])->first()->name;
+    $this->exam_name = Exam::where('id', $value['exam_id'])->first()->name;
   }
 }

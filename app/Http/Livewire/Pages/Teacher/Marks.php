@@ -22,7 +22,7 @@ class Marks extends Component
   public $exam_id;
   public $class_id;
   public $subject_id;
-  public $marks;
+  public $marks = [];
   public $get_marks;
   public $data;
   public $ca1_limit;
@@ -36,20 +36,16 @@ class Marks extends Component
   protected function rules()
   {
     return [
-////    'student_id' => 'required|exists:students,id',
-////    'marks.subject_id' => 'required|exists:subjects,id',
-////    'marks.class_room_id' => 'required|exists:class_rooms,id',
-////    'marks.exam_id' => 'required|exists:exams,id',
-      'marks.ca1' => 'sometimes|numeric|max:' . $this->ca1_limit,
-      'marks.ca2' => 'sometimes|numeric|max:' . $this->ca2_limit,
-      'marks.exam_score' => 'sometimes|numeric|max:' . $this->exam_limit,
+      'marks.*.ca1' => 'sometimes|numeric|nullable|max:' . $this->ca1_limit,
+      'marks.*.ca2' => 'sometimes|numeric|nullable|max:' . $this->ca2_limit,
+      'marks.*.exam_score' => 'sometimes|nullable|numeric|max:' . $this->exam_limit,
     ];
   }
 
   protected array $validationAttributes = [
-    'marks.ca1' => 'first CA score',
-    'marks.ca2' => 'second CA score',
-    'marks.exam_score' => 'exam score',
+    'marks.*.ca1' => 'first CA score',
+    'marks.*.ca2' => 'second CA score',
+    'marks.*.exam_score' => 'exam score',
   ];
 
   public function render(): Factory|View|Application
@@ -59,9 +55,12 @@ class Marks extends Component
     $this->exam_limit = SP::getSetting('exam');
 //    show students based on selected class and subject from grading
     if ($this->class_id) {
-      $this->class_room = ClassStudentSubject::where('class_room_id', $this->class_id)
-        ->where('subject_id', $this->subject_id)
-        ->with('student', 'subject')
+      $this->get_marks = Mark::where($this->data)
+        ->with('class_room', 'student')
+        ->get();
+
+      $this->marks = Mark::where($this->data)
+        ->with('class_room', 'student')
         ->get();
     }
 
@@ -100,13 +99,13 @@ class Marks extends Component
     $marks = Mark::where($this->data)->with('grade')->get();
 
 //    update records in mark table
-    foreach ($marks as $mark) {
+    foreach ($marks as $index => $mark) {
 //    using $d[''] for future purpose, when we want to also update exam_records table as we assign marks
 //    so, we're going to do something like ExamRecord->update($d)
-      $d['ca1'] = $ca1 = $this->marks['ca1'] ?? null;
-      $d['ca2'] = $ca2 = $this->marks['ca2'] ?? null;
+      $d['ca1'] = $ca1 = $this->marks[$index]['ca1'] ?? null;
+      $d['ca2'] = $ca2 = $this->marks[$index]['ca2'] ?? null;
       $d['tca'] = $tca = $ca1 + $ca2;
-      $d['exam'] = $exam = $this->marks['exam_score'] ?? null;
+      $d['exam'] = $exam = $this->marks[$index]['exam_score'] ?? null;
       $d['total'] = $total = $tca + $exam;
 
       $grade = GR::getGrade($total, $class_type_id);

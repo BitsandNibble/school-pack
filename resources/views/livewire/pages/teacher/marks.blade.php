@@ -25,7 +25,7 @@
 
         <tbody>
           @if($get_marks)
-            @forelse($get_marks as $mark)
+            @forelse($get_marks as $index => $mark)
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $mark->student->fullname ?? '' }}</td>
@@ -38,13 +38,13 @@
                   <td class="px-5">{{ $mark->exam_score ?? '' }}</td>
                 @else
                   <td class="px-5">
-                    <x-input class="form-control-sm" type="number" wire:model.defer="marks.ca1" />
+                    <x-input class="form-control-sm" max="{{ $ca1_limit }}" wire:model.defer="marks.{{ $index }}.ca1" />
                   </td>
                   <td class="px-5">
-                    <x-input class="form-control-sm" type="number" wire:model.defer="marks.ca2" />
+                    <x-input class="form-control-sm" max="{{ $ca2_limit }}" wire:model.defer="marks.{{ $index }}.ca2" />
                   </td>
                   <td class="px-5">
-                    <x-input class="form-control-sm" type="number" wire:model.defer="marks.exam_score" />
+                    <x-input class="form-control-sm" max="{{ $exam_limit }}" wire:model.defer="marks.{{ $index }}.exam_score" />
                   </td>
                 @endunless
               </tr>
@@ -59,11 +59,14 @@
       </table>
     </div>
 
-      @if($get_marks)
-        <div class="d-block mb-2 float-end">
-          <x-button value="dark" wire:click="$toggle('showEdit')">{{ $showEdit ? 'Cancel Edit' : 'Edit Marks' }}</x-button>
+    @if($get_marks)
+      <div class="d-block mb-2 float-end">
+        <x-button value="dark"
+                  wire:click="$toggle('showEdit')">{{ $showEdit ? 'Cancel Edit' : 'Edit Marks' }}</x-button>
+        @if($showEdit)
           <x-button wire:click.prevent="store">Update Marks</x-button>
-        </div>
-      @endif
+        @endif
+      </div>
+    @endif
   </x-card>
 </div>

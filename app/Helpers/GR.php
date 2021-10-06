@@ -72,4 +72,56 @@ class GR
 
     return $sub_mks->count() > 0 ? $sub_mks->search($sub_mk) + 1 : NULL;
   }
+
+//  get the total score of all the exams written by a student
+  public static function getExamTotal($exam_id, $student_id, $class_id, $year)
+  {
+    $d = ['student_id' => $student_id, 'exam_id' => $exam_id, 'class_room_id' => $class_id, 'year' => $year];
+    $ts = 'total_score';
+
+    $mk = Mark::where($d);
+    return $mk->select($ts)->sum($ts);
+  }
+
+  //  get average of the exam scores of all subjects the student is offering
+  public static function getExamAvg($exam_id, $student_id, $class_id, $year): float
+  {
+    $d = ['student_id' => $student_id, 'exam_id' => $exam_id, 'class_room_id' => $class_id, 'year' => $year];
+    $ts = 'total_score';
+
+    $mk = Mark::where($d)->where($ts, '>', 0);
+    $avg = $mk->select($ts)->avg($ts);
+    return round($avg, 1);
+  }
+
+//  get average of all the subjects the student is offering
+  public static function getClassAvg($exam_id, $class_id, $year): float
+  {
+    $d = ['exam_id' => $exam_id, 'class_room_id' => $class_id, 'year' => $year];
+    $ts = 'total_score';
+
+    $avg = Mark::where($d)->select($ts)->avg($ts);
+    return round($avg, 1);
+  }
+
+//  get student position in class
+  public static function getPosition($exam_id, $student_id, $class_id, $year): bool|int|string
+  {
+    $d = ['student_id' => $student_id, 'exam_id' => $exam_id, 'class_room_id' => $class_id, 'year' => $year];
+    $all_mks = [];
+    $ts = 'total_score';
+
+    $my_mk = Mark::where($d)->select($ts)->sum($ts);
+
+    unset($d['student_id']);
+    $mk = Mark::where($d);
+    $students = $mk->select('student_id')->distinct()->get();
+
+    foreach ($students as $s) {
+      $all_mks[] = self::getExamTotal($exam_id, $s->student_id, $class_id, $year);
+    }
+    rsort($all_mks);
+
+    return array_search($my_mk, $all_mks, true) + 1;
+  }
 }

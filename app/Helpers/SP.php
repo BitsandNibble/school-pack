@@ -18,7 +18,7 @@ class SP
     return Setting::where('type', $type)->first()->description;
   }
 
-  public static function getFirstWord(String $string): String
+  public static function getFirstWord(string $string): string
   {
     return explode(' ', ucfirst(trim($string)))[0];
   }
@@ -31,5 +31,21 @@ class SP
   public static function totalTeachers()
   {
     return Teacher::get()->count();
+  }
+
+  /** ADD ORDINAL SUFFIX TO POSITION **/
+  public static function getSuffix($number): ?string
+  {
+    if ($number < 1) {
+      return NULL;
+    }
+
+    $ends = array('th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th');
+
+    if ((($number % 100) >= 11) && (($number % 100) <= 13)) {
+      return $number . '<sup>th</sup>';
+    }
+
+    return $number . '<sup>' . $ends[$number % 10] . '</sup>';
   }
 }

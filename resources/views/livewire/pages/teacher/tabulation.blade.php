@@ -17,8 +17,8 @@
               @endforeach
             @endif
             <th class="text-danger">Total</th>
-            <th class="text-info">Average</th>
-            <th class="text-success">Position</th>
+            <th class="text-primary">Average</th>
+            <th class="text-info">Position</th>
           </tr>
         </thead>
 
@@ -32,8 +32,8 @@
                   <td>{{ $marks->where('student_id', $s->student_id)->where('subject_id', $sub->subject_id)->first()->total_score ?? '-' }}</td>
                 @endforeach
                 <td class="text-danger">{{ $exam->where('student_id', $s->student_id)->first()->total ?? '' }}</td>
-                <td class="text-info">{{ $exam->where('student_id', $s->student_id)->first()->average ?? '' }}</td>
-                <td class="text-success">{!! \App\Helpers\SP::getSuffix($exam->where('student_id', $s->student_id)->first()->position) ?? '' !!}</td>
+                <td class="text-primary">{{ $exam->where('student_id', $s->student_id)->first()->average ?? '' }}</td>
+                <td class="text-info">{!! \App\Helpers\SP::getSuffix($exam->where('student_id', $s->student_id)->first()->position) ?? '' !!}</td>
               </tr>
             @empty
               <tr>
@@ -46,7 +46,7 @@
     </div>
 
     <div class="d-block mb-2 text-center">
-      <x-button>Print Tabulation Sheet</x-button>
+      <x-button><i class="bx bx-printer"></i>Print Tabulation Sheet</x-button>
     </div>
   </x-card>
 </div>

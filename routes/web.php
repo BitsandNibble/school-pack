@@ -6,17 +6,19 @@ use App\Http\Controllers\Teacher\HomeController as TeacherHomeController;
 use App\Http\Livewire\Pages\Principal\Classes;
 use App\Http\Livewire\Pages\Principal\Exams as PrincipalExams;
 use App\Http\Livewire\Pages\Principal\Grades;
+use App\Http\Livewire\Pages\Principal\MarkSheet as PrincipalMarkSheet;
 use App\Http\Livewire\Pages\Principal\Profile as PrincipalProfile;
 use App\Http\Livewire\Pages\Principal\Sections;
 use App\Http\Livewire\Pages\Principal\Settings;
 use App\Http\Livewire\Pages\Principal\Students;
 use App\Http\Livewire\Pages\Principal\Subjects;
+use App\Http\Livewire\Pages\Principal\TabulationSheet as PrincipalTabulationSheet;
 use App\Http\Livewire\Pages\Principal\Teachers;
 use App\Http\Livewire\Pages\Teacher\Exams as TeacherExams;
-use App\Http\Livewire\Pages\Teacher\MarkSheet;
+use App\Http\Livewire\Pages\Teacher\MarkSheet as TeacherMarkSheet;
 use App\Http\Livewire\Pages\Teacher\Profile as TeacherProfile;
 use App\Http\Livewire\Pages\Teacher\Subjects as TeacherSubjects;
-use App\Http\Livewire\Pages\Teacher\TabulationSheet;
+use App\Http\Livewire\Pages\Teacher\TabulationSheet as TeacherTabulationSheet;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +38,7 @@ Route::get('/', function () {
 
 Route::view('components', 'components')->name('components');
 
+//principal route
 Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' => 'principal'], function () {
   Route::view('/', 'users.principal.index')->name('.home');
   Route::get('teachers', Teachers::class)->name('.teachers');
@@ -44,8 +47,10 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('sections', Sections::class)->name('.sections');
   Route::get('classes/{classname:slug}', [PrincipalHomeController::class, 'getStudentsPerClass'])->name('.classes.students');
   Route::get('class/{classname:slug}/{section}', [PrincipalHomeController::class, 'getStudentsPerSection'])->name('.sections.students');
-  Route::view('results', 'users.principal.results')->name('.results');
-  Route::view('result', 'users.principal.result')->name('.result');
+  Route::get('results/tabulated', PrincipalTabulationSheet::class)->name('.result.tabulated');
+  Route::get('results/mark-sheet', PrincipalMarkSheet::class)->name('.result.marksheet');
+  Route::post('results/mark-sheet/select_year', [TeacherHomeController::class, 'getStudentId'])->name('.result.marksheet.year');
+  Route::post('results/show/mark-sheet', [TeacherHomeController::class, 'getMarksheetYear'])->name('.result.marksheet.select_year');
   Route::get('subjects', Subjects::class)->name('.subjects');
   Route::get('subjects/{classname:name}', [PrincipalHomeController::class, 'getSubjectsPerClass'])->name('.classes.subjects');
   Route::get('settings', Settings::class)->name('.settings');
@@ -54,13 +59,14 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('grades', Grades::class)->name('.grades');
 });
 
+//teacher route
 Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'teacher'], function () {
   Route::get('/', [TeacherHomeController::class, 'index'])->name('.home');
   Route::get('profile', TeacherProfile::class)->name('.profile');
   Route::get('subjects', TeacherSubjects::class)->name('.subjects');
   Route::get('exams', TeacherExams::class)->name('.exams');
-  Route::get('results/tabulated', TabulationSheet::class)->name('.result.tabulated');
-  Route::get('results/mark-sheet', MarkSheet::class)->name('.result.marksheet');
+  Route::get('results/tabulated', TeacherTabulationSheet::class)->name('.result.tabulated');
+  Route::get('results/mark-sheet', TeacherMarkSheet::class)->name('.result.marksheet');
   Route::post('results/mark-sheet/select_year', [TeacherHomeController::class, 'getStudentId'])->name('.result.marksheet.year');
   Route::post('results/show/mark-sheet', [TeacherHomeController::class, 'getMarksheetYear'])->name('.result.marksheet.select_year');
   Route::get('{classname:slug}/{section}', [TeacherHomeController::class, 'getStudentsPerClassOrSection'])->name('.classes.students');

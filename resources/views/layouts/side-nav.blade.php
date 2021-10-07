@@ -61,10 +61,20 @@
   </li>
 
   <li>
-    <a href="{{ route('principal.results') }}">
-      <div class="parent-icon"><i class='bx bx-notepad'></i></div>
+    <a href="javascript:" class="has-arrow" aria-expanded="false">
+      <div class="parent-icon"><i class='bx bx-paperclip'></i></div>
       <div class="menu-title">Results</div>
     </a>
+    <ul class="mm-collapse">
+      <li>
+        <a href="{{ route('principal.result.tabulated') }}"><i class="bx bx-right-arrow-alt"></i>Tabulation Sheet</a>
+      </li>
+    </ul>
+    <ul class="mm-collapse">
+      <li>
+        <a href="{{ route('principal.result.marksheet') }}"><i class="bx bx-right-arrow-alt"></i>Mark Sheet</a>
+      </li>
+    </ul>
   </li>
 @endif
 

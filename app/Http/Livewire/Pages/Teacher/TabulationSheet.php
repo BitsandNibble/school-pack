@@ -53,6 +53,5 @@ class TabulationSheet extends Component
   {
     $value = $this->validate();
     $this->emit('getValues', $value);
-//    $this->emit('create_marks', $value);
   }
 }

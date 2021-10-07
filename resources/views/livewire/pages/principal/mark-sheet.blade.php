@@ -34,7 +34,7 @@
     </div>
   </x-card>
 
-  <livewire:pages.teacher.class-marksheet />
+  <livewire:pages.principal.class-marksheet />
 
   <x-spinner />
 </div>

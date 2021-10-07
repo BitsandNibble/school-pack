@@ -26,17 +26,15 @@ class MarkSheet extends Component
 
   public function render(): Factory|View|Application
   {
-    // get all classes where current logged in teacher has been assigned to
-    $classes = Section::where('teacher_id', auth()->id())
-      ->with('class_room')
+    // get all classes
+    $classes = Section::with('class_room')
       ->distinct()
       ->select('class_room_id')
       ->get();
 
-    // show sections only when teacher has selected a class
+    // show sections per class
     if (!empty($this->class_id)) {
-      $this->sections = Section::where('teacher_id', auth()->id())
-        ->where('class_room_id', $this->class_id)
+      $this->sections = Section::where('class_room_id', $this->class_id)
         ->with('class_room')
         ->get();
     }

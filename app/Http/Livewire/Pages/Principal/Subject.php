@@ -11,6 +11,9 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
+/**
+ * @method static where(string $string, $id)
+ */
 class Subject extends Component
 {
   public $q;

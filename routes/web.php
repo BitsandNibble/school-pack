@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('profile', PrincipalProfile::class)->name('.profile');
   Route::get('exams', PrincipalExams::class)->name('.exams');
   Route::get('grades', Grades::class)->name('.grades');
+  Route::post('print', [PrincipalHomeController::class, 'print'])->name('.print');
 });
 
 //teacher route

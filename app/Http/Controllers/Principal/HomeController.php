@@ -3,9 +3,16 @@
 namespace App\Http\Controllers\Principal;
 
 use App\Actions\GetMarkSheetYear;
+use App\Actions\PrintView;
 use App\Http\Controllers\Controller;
+use App\Http\Livewire\Pages\Principal\Subject;
 use App\Models\ClassRoom;
+use App\Models\ClassType;
+use App\Models\Exam;
+use App\Models\ExamRecord;
+use App\Models\Mark;
 use App\Models\Section;
+use App\Models\Student;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -44,5 +51,12 @@ class HomeController extends Controller
     $d = $getMarkSheetYear->getMarkSheetYear($student_id, $year);
 
     return view('users.principal.student-marksheet', $d);
+  }
+
+  public function print($student_id, $exam_id, $year, PrintView $printView): Factory|View|Application
+  {
+    $d = $printView->getPrintView($student_id, $exam_id, $year);
+
+    return view('print.marksheet', $d);
   }
 }

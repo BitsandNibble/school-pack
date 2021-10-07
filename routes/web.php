@@ -49,8 +49,8 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('class/{classname:slug}/{section}', [PrincipalHomeController::class, 'getStudentsPerSection'])->name('.sections.students');
   Route::get('results/tabulated', PrincipalTabulationSheet::class)->name('.result.tabulated');
   Route::get('results/mark-sheet', PrincipalMarkSheet::class)->name('.result.marksheet');
-  Route::post('results/mark-sheet/select_year', [TeacherHomeController::class, 'getStudentId'])->name('.result.marksheet.year');
-  Route::post('results/show/mark-sheet', [TeacherHomeController::class, 'getMarksheetYear'])->name('.result.marksheet.select_year');
+  Route::post('results/mark-sheet/select_year', [PrincipalHomeController::class, 'getStudentId'])->name('.result.marksheet.year');
+  Route::post('results/show/mark-sheet', [PrincipalHomeController::class, 'getMarksheetYear'])->name('.result.marksheet.select_year');
   Route::get('subjects', Subjects::class)->name('.subjects');
   Route::get('subjects/{classname:name}', [PrincipalHomeController::class, 'getSubjectsPerClass'])->name('.classes.subjects');
   Route::get('settings', Settings::class)->name('.settings');

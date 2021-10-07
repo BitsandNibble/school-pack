@@ -21,24 +21,24 @@
         <x-select id="class" wire:model="class_id">
           @if(count($classes) > 0)
             @foreach($classes as $class)
-              <option value="{{ $class->class_room_id }}">{{ $class->class_room->name }}</option>
+              <option value="{{ $class->id }}">{{ $class->name }}</option>
             @endforeach
           @endif
         </x-select>
         <x-input-error for="class_id" />
       </div>
 
-{{--      <div class="col-md-4 mb-2">--}}
-{{--        <x-label for="subject">Subject</x-label>--}}
-{{--        <x-select id="subject" wire:model.defer="subject_id">--}}
-{{--          @if(count($subjects) > 0)--}}
-{{--            @foreach($subjects as $subject)--}}
-{{--              <option value="{{ $subject->subject->id }}">{{ $subject->subject->name }}</option>--}}
-{{--            @endforeach--}}
-{{--          @endif--}}
-{{--        </x-select>--}}
-{{--        <x-input-error for="subject_id" />--}}
-{{--      </div>--}}
+      {{--      <div class="col-md-4 mb-2">--}}
+      {{--        <x-label for="subject">Subject</x-label>--}}
+      {{--        <x-select id="subject" wire:model.defer="subject_id">--}}
+      {{--          @if(count($subjects) > 0)--}}
+      {{--            @foreach($subjects as $subject)--}}
+      {{--              <option value="{{ $subject->subject->id }}">{{ $subject->subject->name }}</option>--}}
+      {{--            @endforeach--}}
+      {{--          @endif--}}
+      {{--        </x-select>--}}
+      {{--        <x-input-error for="subject_id" />--}}
+      {{--      </div>--}}
 
       <div class="d-grid gap-2">
         <x-button wire:click.prevent="view">View Sheet</x-button>
@@ -46,7 +46,7 @@
     </div>
   </x-card>
 
-  <livewire:pages.teacher.tabulation />
+  <livewire:pages.principal.tabulation />
 
   <x-spinner />
 </div>

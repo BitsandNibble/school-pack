@@ -12,7 +12,7 @@
   </x-card>
 
   <x-card>
-    <h5 class="mb-4">{{ $exam->exam->name . ' - ' . $exam->year }}</h5>
+    <h5 class="mb-4">{{ $exam_record->exam->name . ' - ' . $exam_record->year }}</h5>
 
     <div class="table-responsive">
       <table class="table table-bordered text-center" style="width:100%">
@@ -45,9 +45,9 @@
             </tr>
           @endforeach
           <tr>
-            <td colspan="4"><strong>TOTAL SCORES OBTAINED: </strong> {{ $exam->total }}</td>
-            <td colspan="3"><strong>FINAL AVERAGE: </strong> {{ $exam->average }}</td>
-            <td colspan="2"><strong>CLASS AVERAGE: </strong> {{ $exam->class_average }}</td>
+            <td colspan="4"><strong>TOTAL SCORES OBTAINED: </strong> {{ $exam_record->total }}</td>
+            <td colspan="3"><strong>FINAL AVERAGE: </strong> {{ $exam_record->average }}</td>
+            <td colspan="2"><strong>CLASS AVERAGE: </strong> {{ $exam_record->class_average }}</td>
           </tr>
         </tbody>
 
@@ -55,7 +55,10 @@
     </div>
 
     <div class="d-block mb-2 text-center">
-      <x-button><i class="bx bx-printer"></i>Print Mark Sheet</x-button>
+      {{--      <x-button><i class="bx bx-printer"></i>Print Mark Sheet</x-button>--}}
+      <x-button-link href="{{ route('principal.print', [$student->id, $exam_record->id, $exam_record->year]) }}"><i
+            class="bx bx-printer"></i>Print Mark Sheet
+      </x-button-link>
     </div>
   </x-card>
 

@@ -16,7 +16,7 @@ class GetMarkSheetYear
       ->with('class_room', 'section')
       ->first();
 
-    $d['exam'] = ExamRecord::where(['year' => $year, 'student_id' => $student_id])
+    $d['exam_record'] = ExamRecord::where(['year' => $year, 'student_id' => $student_id])
       ->with('exam')
       ->first();
 

@@ -21,7 +21,11 @@
                 <td>{{ $s->fullname }}</td>
                 <td>{{ $s->school_id }}</td>
                 <td>
-                  <x-button-link value="danger" href="{{ route('select_year', [$s->id]) }}">View Marksheet</x-button-link>
+                  <form action="{{ route('teacher.result.marksheet.year') }}" method="POST">
+                    @csrf
+                    <x-input type="hidden" value="{{ $s->id }}" name="id"></x-input>
+                    <x-button type="submit" value="danger">View Marksheet</x-button>
+                  </form>
                 </td>
               </tr>
             @empty

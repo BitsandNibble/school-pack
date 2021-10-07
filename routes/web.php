@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Principal\HomeController as PrincipalHomeController;
 use App\Http\Controllers\Teacher\HomeController as TeacherHomeController;
 use App\Http\Livewire\Pages\Principal\Classes;
+use App\Http\Livewire\Pages\Principal\Exams as PrincipalExams;
 use App\Http\Livewire\Pages\Principal\Grades;
 use App\Http\Livewire\Pages\Principal\Profile as PrincipalProfile;
 use App\Http\Livewire\Pages\Principal\Sections;
@@ -11,7 +12,6 @@ use App\Http\Livewire\Pages\Principal\Settings;
 use App\Http\Livewire\Pages\Principal\Students;
 use App\Http\Livewire\Pages\Principal\Subjects;
 use App\Http\Livewire\Pages\Principal\Teachers;
-use App\Http\Livewire\Pages\Principal\Exams as PrincipalExams;
 use App\Http\Livewire\Pages\Teacher\Exams as TeacherExams;
 use App\Http\Livewire\Pages\Teacher\MarkSheet;
 use App\Http\Livewire\Pages\Teacher\Profile as TeacherProfile;
@@ -61,6 +61,8 @@ Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'te
   Route::get('exams', TeacherExams::class)->name('.exams');
   Route::get('results/tabulated', TabulationSheet::class)->name('.result.tabulated');
   Route::get('results/mark-sheet', MarkSheet::class)->name('.result.marksheet');
+  Route::post('results/mark-sheet/select_year', [TeacherHomeController::class, 'getStudentId'])->name('.result.marksheet.year');
+  Route::post('results/show/mark-sheet', [TeacherHomeController::class, 'getMarksheetYear'])->name('.result.marksheet.select_year');
   Route::get('{classname:slug}/{section}', [TeacherHomeController::class, 'getStudentsPerClassOrSection'])->name('.classes.students');
 });
 

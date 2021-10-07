@@ -4,11 +4,12 @@
   <x-card>
     <div class="row">
       <div class="col-md-3">
-        <p>Teacher's Comment</p>
+        <p>Principal's Comment</p>
       </div>
 
       <div class="col-md-9">
-        <x-textarea wire:model.defer="teachers_comment" placeholder="Type comment"></x-textarea>
+        <x-textarea wire:model.defer="principals_comment" placeholder="Type comment"></x-textarea>
+        <x-input-error for="principals_comment" />
       </div>
     </div>
 

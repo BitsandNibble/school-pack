@@ -10,11 +10,11 @@ use Livewire\Component;
 
 class PrincipalsComment extends Component
 {
-  public $teachers_comment;
+  public $principals_comment;
   public $student_id;
 
   protected array $rules = [
-    'teachers_comment' => 'required|string',
+    'principals_comment' => 'required|string',
   ];
 
   public function mount($id): void
@@ -24,9 +24,9 @@ class PrincipalsComment extends Component
 
   public function render(): Factory|View|Application
   {
-    $this->teachers_comment = ExamRecord::where(['student_id' => $this->student_id])
+    $this->principals_comment = ExamRecord::where(['student_id' => $this->student_id])
       ->first()
-      ->teachers_comment;
+      ->principals_comment;
 
     return view('livewire.pages.principal.principals-comment');
   }
@@ -36,7 +36,7 @@ class PrincipalsComment extends Component
     $this->validate();
 
     ExamRecord::where(['student_id' => $this->student_id])->update([
-      'teachers_comment' => $this->teachers_comment,
+      'principals_comment' => $this->principals_comment,
     ]);
 
     session()->flash('message', 'Comment Added Successfully');

@@ -9,6 +9,7 @@
 
       <div class="col-md-9">
         <x-textarea wire:model.defer="teachers_comment" placeholder="Type comment"></x-textarea>
+        <x-input-error for="teachers_comment" />
       </div>
     </div>
 

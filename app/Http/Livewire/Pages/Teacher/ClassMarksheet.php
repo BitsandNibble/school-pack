@@ -2,9 +2,6 @@
 
 namespace App\Http\Livewire\Pages\Teacher;
 
-use App\Helpers\SP;
-use App\Models\ClassRoom;
-use App\Models\Exam;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -21,7 +18,7 @@ class ClassMarksheet extends Component
 
   public function render(): Factory|View|Application
   {
-    if ($this->class_id){
+    if ($this->class_id) {
 
 //      get students along with the subjects they're registered with to show in table body
       $this->students = \App\Models\Student::where($this->data)

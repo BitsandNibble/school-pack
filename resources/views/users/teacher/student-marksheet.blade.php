@@ -59,4 +59,6 @@
     </div>
   </x-card>
 
+  <livewire:pages.teacher.teachers-comment :id="$student->id" />
+
 </x-app-layout>

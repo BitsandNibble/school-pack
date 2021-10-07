@@ -118,10 +118,10 @@
         <a href="{{ route('teacher.result.tabulated') }}"><i class="bx bx-right-arrow-alt"></i>Tabulation Sheet</a>
       </li>
     </ul>
-{{--    <ul class="mm-collapse">--}}
-{{--      <li>--}}
-{{--        <a href="{{ route('teacher.exams') }}"><i class="bx bx-right-arrow-alt"></i>Mark Sheet</a>--}}
-{{--      </li>--}}
-{{--    </ul>--}}
+    <ul class="mm-collapse">
+      <li>
+        <a href="{{ route('teacher.result.marksheet') }}"><i class="bx bx-right-arrow-alt"></i>Mark Sheet</a>
+      </li>
+    </ul>
   </li>
 @endif

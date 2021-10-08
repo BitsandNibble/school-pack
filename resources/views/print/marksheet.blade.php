@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Student Marksheet - {{ $student_record->fullname }}</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    {{--    <link rel="stylesheet" href="{{ asset('assets/css/icons.css') }}">--}}
+
+    <style>
+        body {
+            color: black;
+        }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div>
+        {{--    Logo N School Details--}}
+        <table width="100%">
+          <tr>
+            <td><img alt="..." src="{{ $s['school_logo'] }}" style="max-height : 100px;"></td>
+
+            <td style="text-align: center; ">
+              <strong><span
+                    style="color: #1b0c80; font-size: 25px;">{{ strtoupper(\App\Helpers\SP::getSetting('school_name')) }}</span></strong><br />
+              <strong><span
+                    style="color: #000; font-size: 15px;"><i>{{ ucwords($s['address']) }}</i></span></strong><br />
+              <strong><span style="color: #000; font-size: 15px;"> REPORT SHEET ({{ strtoupper($class_type->name) }})
+                    </span></strong>
+            </td>
+            <td style="width: 100px; height: 100px; float: left;">
+              <img src="{{ $student_record->profile_photo }}"
+                   alt="..." width="100" height="100">
+            </td>
+          </tr>
+        </table>
+        <br />
+
+        {{--Background Logo--}}
+        <div style="position: relative;  text-align: center; ">
+          <img alt="" src="{{ $s['school_logo'] }}"
+               style="max-width: 500px; max-height:600px; margin-top: 60px; position:absolute ; opacity: 0.2; margin-left: auto;margin-right: auto; left: 0; right: 0;" />
+        </div>
+
+        {{--         SHEET BEGINS --}}
+        @include('partials.sheet')
+
+        <br> <br>
+
+        {{--    COMMENTS & SIGNATURE    --}}
+        @include('partials.comments')
+
+      </div>
+    </div>
+
+    <script>
+        // window.print();
+    </script>
+  </body>
+
+</html>

@@ -24,9 +24,9 @@ class GetMarkSheetYear
       ->with('subject', 'grade')
       ->get();
 
-    $d['ca1_limit'] = SP::getSetting('ca1');
-    $d['ca2_limit'] = SP::getSetting('ca2');
-    $d['exam_limit'] = SP::getSetting('exam');
+    $d['ca1_limit'] = SP::getSetting('ca1') ?: null;
+    $d['ca2_limit'] = SP::getSetting('ca2') ?: null;
+    $d['exam_limit'] = SP::getSetting('exam') ?: null;
     $d['total'] = $d['ca1_limit'] + $d['ca2_limit'] + $d['exam_limit'];
 
     return $d;

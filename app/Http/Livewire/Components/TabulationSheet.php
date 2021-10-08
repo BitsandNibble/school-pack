@@ -51,7 +51,6 @@ class TabulationSheet extends Component
       }
     }
 
-
     return view('livewire.components.tabulation-sheet', compact('exams'));
   }
 

@@ -55,7 +55,6 @@
     </div>
 
     <div class="d-block mb-2 text-center">
-      {{--      <x-button><i class="bx bx-printer"></i>Print Mark Sheet</x-button>--}}
       <x-button-link target="_blank" href="{{ route('print_marksheet', [$student->id, $exam_record->exam_id, $exam_record->year]) }}"><i
             class="bx bx-printer"></i>Print Mark Sheet
       </x-button-link>

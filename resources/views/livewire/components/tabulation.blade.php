@@ -46,7 +46,9 @@
     </div>
 
     <div class="d-block mb-2 text-center">
-      <x-button><i class="bx bx-printer"></i>Print Tabulation Sheet</x-button>
+      <x-button-link target="_blank" href="{{ route('print_tabulation_sheet', [$exam_id, $class_id]) }}"><i
+            class="bx bx-printer"></i>Print Mark Sheet
+      </x-button-link>
     </div>
   </x-card>
 </div>

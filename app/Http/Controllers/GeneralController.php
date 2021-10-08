@@ -32,10 +32,17 @@ class GeneralController extends Controller
     return view('partials.student-marksheet', $d);
   }
 
-  public function print($student_id, $exam_id, $year, PrintView $printView): Factory|View|Application
+  public function printMarkSheet($student_id, $exam_id, $year, PrintView $printView): Factory|View|Application
   {
-    $d = $printView->getPrintView($student_id, $exam_id, $year);
+    $d = $printView->getMarksheetPrintView($student_id, $exam_id, $year);
 
     return view('print.marksheet', $d);
+  }
+
+  public function printTabulationSheet($exam_id, $class_id, PrintView $printView): Factory|View|Application
+  {
+    $d = $printView->getTabulationsheetPrintView($exam_id, $class_id);
+
+    return view('print.tabulation-sheet', $d);
   }
 }

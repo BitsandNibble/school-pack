@@ -70,7 +70,8 @@ Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'te
 //print route
 Route::get('results/mark-sheet/show/{id}', [GeneralController::class, 'getStudentId'])->name('result.marksheet.select_year');
 Route::post('results/mark-sheet/show/{id}', [GeneralController::class, 'getMarksheetYear'])->name('result.marksheet.show');
-Route::get('marks/print/{id}/{exam_id}/{year}', [GeneralController::class, 'print'])->name('print_marksheet');
+Route::get('marks/print/{id}/{exam_id}/{year}', [GeneralController::class, 'printMarkSheet'])->name('print_marksheet');
+Route::get('marks/print/{exam_id}/{class}', [GeneralController::class, 'printTabulationSheet'])->name('print_tabulation_sheet');
 
 //login route
 Route::get('login', [AuthController::class, 'create'])->middleware(['guest:principal', 'guest:teacher'])

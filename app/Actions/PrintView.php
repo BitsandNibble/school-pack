@@ -5,7 +5,6 @@ namespace App\Actions;
 use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\ClassStudentSubject;
-use App\Models\ClassSubjectTeacher;
 use App\Models\ClassType;
 use App\Models\Exam;
 use App\Models\ExamRecord;

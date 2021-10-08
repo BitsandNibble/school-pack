@@ -62,6 +62,6 @@
     </div>
   </x-card>
 
-  <livewire:pages.principal.principals-comment :id="$student->id" />
+  <livewire:components.comment :id="$student->id" />
 
 </x-app-layout>

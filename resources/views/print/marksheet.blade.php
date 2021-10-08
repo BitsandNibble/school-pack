@@ -50,12 +50,12 @@
         </div>
 
         {{--         SHEET BEGINS --}}
-        @include('partials.sheet')
+        @include('includes.sheet')
 
         <br> <br>
 
         {{--    COMMENTS & SIGNATURE    --}}
-        @include('partials.comments')
+        @include('includes.comments')
 
       </div>
     </div>

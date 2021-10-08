@@ -18,7 +18,7 @@ class GR
   public static function getTerms(): array
   {
     return [
-      'First Term', 'Second Term', 'Third Term',
+      1 => 'First Term', 2 => 'Second Term', 3 => 'Third Term',
     ];
   }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Pages\Teacher;
+namespace App\Http\Livewire\Components;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -25,7 +25,7 @@ class ClassMarksheet extends Component
         ->get();
     }
 
-    return view('livewire.pages.teacher.class-marksheet');
+    return view('livewire.components.class-marksheet');
   }
 
   public function getValues($value): void

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Pages\Teacher;
+namespace App\Http\Livewire\Components;
 
 use App\Helpers\SP;
 use App\Models\ClassRoom;
@@ -50,7 +50,7 @@ class Tabulation extends Component
         ->get(['student_id', 'total', 'average', 'position']);
     }
 
-    return view('livewire.pages.teacher.tabulation');
+    return view('livewire.components.tabulation');
   }
 
   public function getValues($value): void

@@ -5,6 +5,7 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\Principal\HomeController as PrincipalHomeController;
 use App\Http\Controllers\Teacher\HomeController as TeacherHomeController;
 use App\Http\Livewire\Components\MarkSheet;
+use App\Http\Livewire\Components\TabulationSheet;
 use App\Http\Livewire\Pages\Principal\Classes;
 use App\Http\Livewire\Pages\Principal\Exams as PrincipalExams;
 use App\Http\Livewire\Pages\Principal\Grades;
@@ -13,12 +14,10 @@ use App\Http\Livewire\Pages\Principal\Sections;
 use App\Http\Livewire\Pages\Principal\Settings;
 use App\Http\Livewire\Pages\Principal\Students;
 use App\Http\Livewire\Pages\Principal\Subjects;
-use App\Http\Livewire\Pages\Principal\TabulationSheet as PrincipalTabulationSheet;
 use App\Http\Livewire\Pages\Principal\Teachers;
 use App\Http\Livewire\Pages\Teacher\Exams as TeacherExams;
 use App\Http\Livewire\Pages\Teacher\Profile as TeacherProfile;
 use App\Http\Livewire\Pages\Teacher\Subjects as TeacherSubjects;
-use App\Http\Livewire\Pages\Teacher\TabulationSheet as TeacherTabulationSheet;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,7 +46,7 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('sections', Sections::class)->name('.sections');
   Route::get('classes/{classname:slug}', [PrincipalHomeController::class, 'getStudentsPerClass'])->name('.classes.students');
   Route::get('class/{classname:slug}/{section}', [PrincipalHomeController::class, 'getStudentsPerSection'])->name('.sections.students');
-  Route::get('results/tabulated', PrincipalTabulationSheet::class)->name('.result.tabulated');
+  Route::get('results/tabulated', TabulationSheet::class)->name('.result.tabulated');
   Route::get('results/mark-sheet', MarkSheet::class)->name('.result.marksheet');
   Route::get('subjects', Subjects::class)->name('.subjects');
   Route::get('subjects/{classname:name}', [PrincipalHomeController::class, 'getSubjectsPerClass'])->name('.classes.subjects');
@@ -63,7 +62,7 @@ Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'te
   Route::get('profile', TeacherProfile::class)->name('.profile');
   Route::get('subjects', TeacherSubjects::class)->name('.subjects');
   Route::get('exams', TeacherExams::class)->name('.exams');
-  Route::get('results/tabulated', TeacherTabulationSheet::class)->name('.result.tabulated');
+  Route::get('results/tabulated', TabulationSheet::class)->name('.result.tabulated');
   Route::get('results/mark-sheet', MarkSheet::class)->name('.result.marksheet');
   Route::get('{classname:slug}/{section}', [TeacherHomeController::class, 'getStudentsPerClassOrSection'])->name('.classes.students');
 });

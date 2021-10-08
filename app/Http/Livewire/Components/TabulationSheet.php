@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Pages\Teacher;
+namespace App\Http\Livewire\Components;
 
 use App\Models\ClassSubjectTeacher;
 use App\Models\Exam;
@@ -44,7 +44,7 @@ class TabulationSheet extends Component
         ->get();
     }
 
-    return view('livewire.pages.teacher.tabulation-sheet', compact('exams'));
+    return view('livewire.components.tabulation-sheet', compact('exams'));
   }
 
 

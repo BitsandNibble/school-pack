@@ -46,7 +46,7 @@
     </div>
   </x-card>
 
-  <livewire:pages.teacher.tabulation />
+  <livewire:components.tabulation />
 
   <x-spinner />
 </div>

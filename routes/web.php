@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\Principal\HomeController as PrincipalHomeController;
 use App\Http\Controllers\Teacher\HomeController as TeacherHomeController;
+use App\Http\Livewire\Components\MarkSheet;
 use App\Http\Livewire\Pages\Principal\Classes;
 use App\Http\Livewire\Pages\Principal\Exams as PrincipalExams;
 use App\Http\Livewire\Pages\Principal\Grades;
-use App\Http\Livewire\Pages\Principal\MarkSheet as PrincipalMarkSheet;
 use App\Http\Livewire\Pages\Principal\Profile as PrincipalProfile;
 use App\Http\Livewire\Pages\Principal\Sections;
 use App\Http\Livewire\Pages\Principal\Settings;
@@ -15,7 +16,6 @@ use App\Http\Livewire\Pages\Principal\Subjects;
 use App\Http\Livewire\Pages\Principal\TabulationSheet as PrincipalTabulationSheet;
 use App\Http\Livewire\Pages\Principal\Teachers;
 use App\Http\Livewire\Pages\Teacher\Exams as TeacherExams;
-use App\Http\Livewire\Pages\Teacher\MarkSheet as TeacherMarkSheet;
 use App\Http\Livewire\Pages\Teacher\Profile as TeacherProfile;
 use App\Http\Livewire\Pages\Teacher\Subjects as TeacherSubjects;
 use App\Http\Livewire\Pages\Teacher\TabulationSheet as TeacherTabulationSheet;
@@ -48,16 +48,13 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('classes/{classname:slug}', [PrincipalHomeController::class, 'getStudentsPerClass'])->name('.classes.students');
   Route::get('class/{classname:slug}/{section}', [PrincipalHomeController::class, 'getStudentsPerSection'])->name('.sections.students');
   Route::get('results/tabulated', PrincipalTabulationSheet::class)->name('.result.tabulated');
-  Route::get('results/mark-sheet', PrincipalMarkSheet::class)->name('.result.marksheet');
-  Route::post('results/mark-sheet/select_year', [PrincipalHomeController::class, 'getStudentId'])->name('.result.marksheet.year');
-  Route::post('results/show/mark-sheet', [PrincipalHomeController::class, 'getMarksheetYear'])->name('.result.marksheet.select_year');
+  Route::get('results/mark-sheet', MarkSheet::class)->name('.result.marksheet');
   Route::get('subjects', Subjects::class)->name('.subjects');
   Route::get('subjects/{classname:name}', [PrincipalHomeController::class, 'getSubjectsPerClass'])->name('.classes.subjects');
   Route::get('settings', Settings::class)->name('.settings');
   Route::get('profile', PrincipalProfile::class)->name('.profile');
   Route::get('exams', PrincipalExams::class)->name('.exams');
   Route::get('grades', Grades::class)->name('.grades');
-  Route::get('print/{id}/{exam_id}/{year}', [PrincipalHomeController::class, 'print'])->name('.print');
 });
 
 //teacher route
@@ -67,12 +64,16 @@ Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'te
   Route::get('subjects', TeacherSubjects::class)->name('.subjects');
   Route::get('exams', TeacherExams::class)->name('.exams');
   Route::get('results/tabulated', TeacherTabulationSheet::class)->name('.result.tabulated');
-  Route::get('results/mark-sheet', TeacherMarkSheet::class)->name('.result.marksheet');
-  Route::post('results/mark-sheet/select_year', [TeacherHomeController::class, 'getStudentId'])->name('.result.marksheet.year');
-  Route::post('results/show/mark-sheet', [TeacherHomeController::class, 'getMarksheetYear'])->name('.result.marksheet.select_year');
+  Route::get('results/mark-sheet', MarkSheet::class)->name('.result.marksheet');
   Route::get('{classname:slug}/{section}', [TeacherHomeController::class, 'getStudentsPerClassOrSection'])->name('.classes.students');
 });
 
+//print route
+Route::get('results/mark-sheet/show/{id}', [GeneralController::class, 'getStudentId'])->name('result.marksheet.select_year');
+Route::post('results/mark-sheet/show/{id}', [GeneralController::class, 'getMarksheetYear'])->name('result.marksheet.show');
+Route::get('marks/print/{id}/{exam_id}/{year}', [GeneralController::class, 'print'])->name('print_marksheet');
+
+//login route
 Route::get('login', [AuthController::class, 'create'])->middleware(['guest:principal', 'guest:teacher'])
   ->name('login');
 Route::post('login', [AuthController::class, 'store'])->middleware('guest');

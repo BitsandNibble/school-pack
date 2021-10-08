@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Teacher;
 
-use App\Actions\GetMarkSheetYear;
 use App\Http\Controllers\Controller;
 use App\Models\ClassRoom;
 use App\Models\Section;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -24,22 +22,5 @@ class HomeController extends Controller
   public function getStudentsPerClassOrSection(ClassRoom $class, Section $section): Factory|View|Application
   {
     return view('users.teacher.class-student', compact('class', 'section'));
-  }
-
-  public function getStudentId(Request $request): Factory|View|Application
-  {
-    $student_id = $request->id;
-
-    return view('users.teacher.select_year', compact('student_id'));
-  }
-
-  public function getMarksheetYear(Request $request, GetMarkSheetYear $getMarkSheetYear): Factory|View|Application
-  {
-    $year = $request->year;
-    $student_id = $request->id;
-
-    $d = $getMarkSheetYear->getMarkSheetYear($student_id, $year);
-
-    return view('users.teacher.student-marksheet', $d);
   }
 }

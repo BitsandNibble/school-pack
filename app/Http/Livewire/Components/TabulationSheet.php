@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components;
 
+use App\Models\ClassRoom;
 use App\Models\ClassSubjectTeacher;
 use App\Models\Exam;
 use Illuminate\Contracts\Foundation\Application;
@@ -37,12 +38,19 @@ class TabulationSheet extends Component
 
     // show classes only when user has selected an exam
     if (!empty($this->exam_id)) {
-      $this->classes = ClassSubjectTeacher::where('teacher_id', auth()->id())
-        ->with('class_room')
-        ->select('class_room_id')
-        ->distinct()
-        ->get();
+      if (auth('teacher')->user()) {
+        $this->classes = ClassSubjectTeacher::where('teacher_id', auth()->id())
+          ->with('class_room')
+          ->select('class_room_id')
+          ->distinct()
+          ->get();
+      }
+
+      if (auth('principal')->user()) {
+        $this->classes = ClassRoom::get();
+      }
     }
+
 
     return view('livewire.components.tabulation-sheet', compact('exams'));
   }

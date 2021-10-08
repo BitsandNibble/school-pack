@@ -6,6 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * @property mixed|string user_type
+ */
 class LoginRequest extends FormRequest
 {
   protected $loginField;

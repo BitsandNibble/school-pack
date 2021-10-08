@@ -16,17 +16,19 @@
 
     <div class="table-responsive">
       <table class="table table-bordered text-center" style="width:100%">
+        {{--        <table class="table table-bordered table-sm mt-4 text-center" style="width:100%; border: 1px solid #000; border-collapse:collapse;">--}}
+
         <thead>
           <tr>
-            <th rowspan="2">S/N</th>
-            <th rowspan="2">SUBJECTS</th>
-            <th rowspan="2">CA1 <br> ({{ $ca1_limit }})</th>
-            <th rowspan="2">CA2 <br> ({{ $ca2_limit }})</th>
-            <th rowspan="2">EXAM <br> ({{ $exam_limit }})</th>
-            <th rowspan="2">TOTAL <br> ({{ $total }})</th>
-            <th rowspan="2">GRADE</th>
-            <th rowspan="2">SUBJECT <br> POSITION</th>
-            <th rowspan="2">REMARKS</th>
+            <th>S/N</th>
+            <th>SUBJECTS</th>
+            <th>CA1 <br> ({{ $ca1_limit }})</th>
+            <th>CA2 <br> ({{ $ca2_limit }})</th>
+            <th>EXAM <br> ({{ $exam_limit }})</th>
+            <th>TOTAL <br> ({{ $total }})</th>
+            <th>GRADE</th>
+            <th>SUBJECT <br> POSITION</th>
+            <th>REMARKS</th>
           </tr>
         </thead>
 
@@ -45,9 +47,10 @@
             </tr>
           @endforeach
           <tr>
-            <td colspan="4"><strong>TOTAL SCORES OBTAINED: </strong> {{ $exam_record->total }}</td>
+            <td colspan="3"><strong>TOTAL SCORES OBTAINED: </strong> {{ $exam_record->total }}</td>
             <td colspan="3"><strong>FINAL AVERAGE: </strong> {{ $exam_record->average }}</td>
             <td colspan="2"><strong>CLASS AVERAGE: </strong> {{ $exam_record->class_average }}</td>
+            <td><strong>POSITION: </strong> {!! $position !!}</td>
           </tr>
         </tbody>
 
@@ -55,7 +58,8 @@
     </div>
 
     <div class="d-block mb-2 text-center">
-      <x-button-link target="_blank" href="{{ route('print_marksheet', [$student->id, $exam_record->exam_id, $exam_record->year]) }}"><i
+      <x-button-link target="_blank"
+                     href="{{ route('print_marksheet', [$student->id, $exam_record->exam_id, $exam_record->year]) }}"><i
             class="bx bx-printer"></i>Print Mark Sheet
       </x-button-link>
     </div>

@@ -16,13 +16,15 @@ class GetMarkSheetYear
       ->with('class_room', 'section')
       ->first();
 
-    $d['exam_record'] = ExamRecord::where(['year' => $year, 'student_id' => $student_id])
+    $d['exam_record'] = $exr = ExamRecord::where(['year' => $year, 'student_id' => $student_id])
       ->with('exam')
       ->first();
 
     $d['marks'] = Mark::where(['student_id' => $student_id])
       ->with('subject', 'grade')
       ->get();
+
+    $d['position'] = SP::getSuffix($exr->position);
 
     $d['ca1_limit'] = SP::getSetting('ca1') ?: null;
     $d['ca2_limit'] = SP::getSetting('ca2') ?: null;

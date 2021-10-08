@@ -9,6 +9,7 @@
     <tr>
       <td><strong>REPORT SHEET FOR:</strong> {!! strtoupper(\App\Helpers\SP::getSuffix($exam->term)) !!} TERM </td>
       <td><strong>ACADEMIC YEAR:</strong> {{ $exam_record->year }}</td>
+      <td><strong>POSITION:</strong> {!! $position !!}</td>
 {{--      <td><strong>AGE:</strong> {{ $s->age ?: ($sr->user->dob ? date_diff(date_create($sr->user->dob), date_create('now'))->y : '-') }}</td>--}}
     </tr>
   </tbody>

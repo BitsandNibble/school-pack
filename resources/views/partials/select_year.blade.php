@@ -13,8 +13,9 @@
           @csrf
           <x-label for="select_year" class="fw-bolder">Select Exam Year</x-label>
           <x-select id="select_year" class="mb-2" name="year">
-            <option
-                value="{{ \App\Helpers\SP::getSetting('current_session') }}">{{ \App\Helpers\SP::getSetting('current_session') }}</option>
+            @foreach($years as $year)
+              <option value="{{ $year->year }}" selected>{{ $year->year }}</option>
+            @endforeach
           </x-select>
           <x-validation-errors />
 

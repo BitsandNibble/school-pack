@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\GetMarkSheetYear;
 use App\Actions\PrintView;
+use App\Models\Mark;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -14,8 +15,9 @@ class GeneralController extends Controller
   public function getStudentId($id): Factory|View|Application
   {
     $student_id = $id;
+    $years = Mark::where(['student_id' => $student_id])->select('year')->distinct()->get();
 
-    return view('partials.select_year', compact('student_id'));
+    return view('partials.select_year', compact('student_id', 'years'));
   }
 
   public function getMarksheetYear(Request $request, $id, GetMarkSheetYear $getMarkSheetYear): Factory|View|Application

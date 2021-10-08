@@ -12,12 +12,12 @@ class RedirectIfAuthenticated
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param Request $request
+     * @param Closure $next
      * @param  string|null  ...$guards
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, ...$guards)
+    public function handle(Request $request, Closure $next, ...$guards): mixed
     {
         $guards = empty($guards) ? [null] : $guards;
 
@@ -26,19 +26,19 @@ class RedirectIfAuthenticated
                 return redirect(RouteServiceProvider::HOME);
             }
 
-            if ($guard == 'principal' && auth($guard)->check()) {
+            if ($guard === 'principal' && auth($guard)->check()) {
                 return redirect(RouteServiceProvider::PRINCIPALHOME);
             }
 
-            if ($guard == 'teacher' && auth($guard)->check()) {
+            if ($guard === 'teacher' && auth($guard)->check()) {
                 return redirect(RouteServiceProvider::TEACHERHOME);
             }
 
-            if ($guard == 'student' && auth($guard)->check()) {
+            if ($guard === 'student' && auth($guard)->check()) {
                 return redirect(RouteServiceProvider::STUDENTHOME);
             }
 
-            if ($guard == 'parent' && auth($guard)->check()) {
+            if ($guard === 'parent' && auth($guard)->check()) {
                 return redirect(RouteServiceProvider::PARENTHOME);
             }
         }

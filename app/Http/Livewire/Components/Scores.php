@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\Pages\Teacher;
+namespace App\Http\Livewire\Components;
 
 use App\Helpers\SP;
+use App\Models\ClassRoom;
 use App\Models\ClassStudentSubject;
 use App\Models\ClassSubjectTeacher;
 use App\Models\Exam;
@@ -29,9 +30,9 @@ class Scores extends Component
   ];
 
   protected array $validationAttributes = [
-    'exam_id' =>'exam',
-    'class_id' =>'class',
-    'subject_id' =>'subject',
+    'exam_id' => 'exam',
+    'class_id' => 'class',
+    'subject_id' => 'subject',
   ];
 
   public function render(): Factory|View|Application
@@ -39,24 +40,41 @@ class Scores extends Component
     // get all exams
     $exams = Exam::get();
 
-    // show classes only when user has selected an exam
-    if (!empty($this->exam_id)) {
-      $this->classes = ClassSubjectTeacher::where('teacher_id', auth()->id())
-        ->with('subject', 'class_room')
-        ->select('class_room_id')
-        ->distinct()
-        ->get();
-    }
+    if (auth('teacher')->user()) {
+      // show classes only when user has selected an exam
+      if (!empty($this->exam_id)) {
+        $this->classes = ClassSubjectTeacher::where('teacher_id', auth()->id())
+          ->with('subject', 'class_room')
+          ->select('class_room_id')
+          ->distinct()
+          ->get();
+      }
 
 //    show subjects specific to a class
-    if (!empty($this->class_id)) {
-      $this->subjects = ClassSubjectTeacher::where('teacher_id', auth()->id())
-        ->where('class_room_id', $this->class_id)
-        ->with('subject')
-        ->get();
+      if (!empty($this->class_id)) {
+        $this->subjects = ClassSubjectTeacher::where('teacher_id', auth()->id())
+          ->where('class_room_id', $this->class_id)
+          ->with('subject')
+          ->get();
+      }
     }
 
-    return view('livewire.pages.teacher.scores', compact('exams'));
+    if (auth('principal')->user()) {
+      // show classes only when user has selected an exam
+      if (!empty($this->exam_id)) {
+        $this->classes = ClassRoom::get();
+      }
+
+//    show subjects specific to a class
+      if (!empty($this->class_id)) {
+        $this->subjects = ClassSubjectTeacher::where('teacher_id', auth()->id())
+          ->where('class_room_id', $this->class_id)
+          ->with('subject')
+          ->get();
+      }
+    }
+
+    return view('livewire.components.scores', compact('exams'));
   }
 
 //  get values from select box

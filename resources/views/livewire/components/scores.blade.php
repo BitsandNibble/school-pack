@@ -22,7 +22,13 @@
         <x-select id="class" wire:model="class_id">
           @if(count($classes) > 0)
             @foreach($classes as $class)
-              <option value="{{ $class->class_room_id }}">{{ $class->class_room->name }}</option>
+              @auth('principal')
+                <option value="{{ $class->id }}">{{ $class->name }}</option>
+              @endauth
+
+              @auth('teacher')
+                <option value="{{ $class->class_room_id }}">{{ $class->class_room->name }}</option>
+              @endauth
             @endforeach
           @endif
         </x-select>
@@ -47,7 +53,7 @@
     </div>
   </x-card>
 
-  <livewire:pages.teacher.marks />
+  <livewire:components.marks />
 
   <x-spinner />
 </div>

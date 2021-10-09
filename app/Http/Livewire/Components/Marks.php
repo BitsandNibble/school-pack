@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Pages\Teacher;
+namespace App\Http\Livewire\Components;
 
 use App\Helpers\GR;
 use App\Helpers\SP;
@@ -63,7 +63,7 @@ class Marks extends Component
       $this->marks = $this->get_marks;
     }
 
-    return view('livewire.pages.teacher.marks');
+    return view('livewire.components.marks');
   }
 
   public function getValues($value): void

@@ -13,7 +13,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class Exams extends Component
+class Scores extends Component
 {
   public $exam_id;
   public $class_id;
@@ -56,7 +56,7 @@ class Exams extends Component
         ->get();
     }
 
-    return view('livewire.pages.teacher.exams', compact('exams'));
+    return view('livewire.pages.teacher.scores', compact('exams'));
   }
 
 //  get values from select box

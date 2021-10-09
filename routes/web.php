@@ -15,8 +15,8 @@ use App\Http\Livewire\Pages\Principal\Settings;
 use App\Http\Livewire\Pages\Principal\Students;
 use App\Http\Livewire\Pages\Principal\Subjects;
 use App\Http\Livewire\Pages\Principal\Teachers;
-use App\Http\Livewire\Pages\Teacher\Exams as TeacherExams;
 use App\Http\Livewire\Pages\Teacher\Profile as TeacherProfile;
+use App\Http\Livewire\Pages\Teacher\Scores;
 use App\Http\Livewire\Pages\Teacher\Subjects as TeacherSubjects;
 use Illuminate\Support\Facades\Route;
 
@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'te
   Route::get('/', [TeacherHomeController::class, 'index'])->name('.home');
   Route::get('profile', TeacherProfile::class)->name('.profile');
   Route::get('subjects', TeacherSubjects::class)->name('.subjects');
-  Route::get('exams', TeacherExams::class)->name('.exams');
+  Route::get('exams', Scores::class)->name('.scores');
   Route::get('results/tabulated', TabulationSheet::class)->name('.result.tabulated');
   Route::get('results/mark-sheet', MarkSheet::class)->name('.result.marksheet');
   Route::get('{classname:slug}/{section}', [TeacherHomeController::class, 'getStudentsPerClassOrSection'])->name('.classes.students');

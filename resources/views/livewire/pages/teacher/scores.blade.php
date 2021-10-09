@@ -1,7 +1,7 @@
 <div>
   <x-breadcrumb>
     Grading
-    <li class="breadcrumb-item active" aria-current="page">Exam</li>
+    <li class="breadcrumb-item active" aria-current="page">Scores</li>
   </x-breadcrumb>
   <x-flash />
 

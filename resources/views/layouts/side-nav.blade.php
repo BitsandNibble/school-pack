@@ -113,7 +113,7 @@
     </a>
     <ul class="mm-collapse">
       <li>
-        <a href="{{ route('teacher.exams') }}"><i class="bx bx-right-arrow-alt"></i>Exam</a>
+        <a href="{{ route('teacher.scores') }}"><i class="bx bx-right-arrow-alt"></i>Scores</a>
       </li>
     </ul>
   </li>

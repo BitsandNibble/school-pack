@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Models\Principal;
+use App\Models\Student;
 use App\Models\Teacher;
 use Exception;
 use Illuminate\Support\Str;
@@ -41,6 +42,23 @@ class UpdateProfile
       'gender' => $data['gender'],
       'date_of_birth' => $data['date_of_birth'],
       'title' => $data['title'],
+      'profile_photo' => $profile_photo ? $this->handleAvatarUpload($profile_photo, $data['slug']) : $data['profile_photo'],
+    ]);
+  }
+
+  /**
+   * @throws Exception
+   */
+  public function updateStudentProfile(array $data, $profile_photo): void
+  {
+    $updateStudent = Student::find(auth()->id());
+    $updateStudent->update([
+      'fullname' => $data['fullname'],
+      'slug' => Str::slug($data['fullname']),
+      'email' => $data['email'],
+      'phone_number' => $data['phone_number'],
+      'gender' => $data['gender'],
+      'date_of_birth' => $data['date_of_birth'],
       'profile_photo' => $profile_photo ? $this->handleAvatarUpload($profile_photo, $data['slug']) : $data['profile_photo'],
     ]);
   }

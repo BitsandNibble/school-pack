@@ -65,6 +65,9 @@
     </div>
   </x-card>
 
-  <livewire:components.comment :id="$student->id" />
+  @auth('student')
+  @else
+    <livewire:components.comment :id="$student->id" />
+  @endauth
 
 </x-app-layout>

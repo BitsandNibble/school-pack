@@ -152,7 +152,7 @@
     </a>
     <ul class="mm-collapse">
       <li>
-        <a href="{{ route('teacher.result.marksheet') }}"><i class="bx bx-right-arrow-alt"></i>Mark Sheet</a>
+        <a href="{{ route('result.marksheet.select_year', [auth('student')->id()]) }}"><i class="bx bx-right-arrow-alt"></i>Mark Sheet</a>
       </li>
     </ul>
   </li>

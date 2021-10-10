@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components;
 
+use App\Models\Student;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -19,9 +20,8 @@ class ClassMarksheet extends Component
   public function render(): Factory|View|Application
   {
     if ($this->class_id) {
-
 //      get students along with the subjects they're registered with to show in table body
-      $this->students = \App\Models\Student::where($this->data)
+      $this->students = Student::where($this->data)
         ->get();
     }
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\WithSearch;
+use Closure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static find($id)
  * @method static create(array $array)
  * @method static get()
- * @method static when($q, \Closure $param)
+ * @method static when($q, Closure $param)
  * @property mixed profile_photo
  */
 class Teacher extends Authenticatable
@@ -23,7 +24,8 @@ class Teacher extends Authenticatable
     'fullname', 'title', 'gender',
     'date_of_birth', 'school_id', 'email',
     'password', 'phone_number', 'profile_photo',
-    'slug',
+    'slug', 'address', 'nationality_id',
+    'state_id', 'lga_id', 'date_of_employment'
   ];
 
   // protected $search = [

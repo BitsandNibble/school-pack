@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Traits\WithSearch;
+use Closure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @method static where(string $string, $class_id)
- * @method static when($q, \Closure $param)
+ * @method static when($q, Closure $param)
  * @method static create(array $array)
  * @method static find($id)
  * @method static whereIn(string $string, $css)
@@ -24,7 +25,8 @@ class Student extends Authenticatable
     'fullname', 'gender', 'date_of_birth',
     'school_id', 'email', 'password',
     'phone_number', 'profile_photo', 'slug',
-    'class_room_id', 'section_id'
+    'class_room_id', 'section_id',
+    'address', 'nationality_id', 'state_id', 'lga_id'
   ];
 
   protected $hidden = [

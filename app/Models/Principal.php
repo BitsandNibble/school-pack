@@ -20,7 +20,8 @@ class Principal extends Authenticatable
 
   protected $fillable = [
     'fullname', 'slug', 'email', 'phone_number',
-    'password', 'profile_photo', 'school_id'
+    'password', 'profile_photo', 'school_id',
+    'address', 'nationality_id', 'state_id', 'lga_id'
   ];
 
   protected $hidden = [

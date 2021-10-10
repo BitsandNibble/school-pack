@@ -36,8 +36,7 @@
                     </span></strong>
             </td>
             <td style="width: 100px; height: 100px; float: left;">
-              <img src="{{ $student_record->thumbnail }}"
-                   alt="..." width="100" height="100">
+              <img src="{{ $student_record->thumbnail }}" class="rounded-circle p-1" width="110" alt="Preview">
             </td>
           </tr>
         </table>

@@ -48,4 +48,14 @@ class SP
 
     return $number . '<sup>' . $ends[$number % 10] . '</sup>';
   }
+
+  public static function getSchoolLogo(): string
+  {
+    $logo = Setting::get()->toArray()[10]['description'];
+
+    if ($logo !== "") {
+      return asset('storage/logos/' . $logo);
+    }
+    return asset('assets/_images/school_logo.jpg');
+  }
 }

@@ -4,6 +4,15 @@
 
   <h5 class="mt-5">School Information</h5>
   <x-card class="border-0 border-dark border-5 border-end">
+    @if($school_logo)
+      Logo Preview:
+      <img src="{{$school_logo->temporaryUrl()}}" class="mb-2 img-fluid"
+           alt="Preview">
+    @else
+      <img src="{{ \App\Helpers\SP::getSchoolLogo() }}" alt="Admin"
+           class="mb-2 img-fluid">
+    @endif
+
     <div class="row">
       <div class="col-md-6 mb-2">
         <x-label for="name">School Name <span class="text-danger">*</span></x-label>

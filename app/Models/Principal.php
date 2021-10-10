@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 /**
  * @method static where(string $string, int|string|null $id)
  * @method static find(int|string|null $id)
+ * @property mixed profile_photo
  */
 class Principal extends Authenticatable
 {
@@ -31,7 +32,7 @@ class Principal extends Authenticatable
     'email_verified_at' => 'datetime',
   ];
 
-  public function getThumbnailAttribute()
+  public function getThumbnailAttribute(): string
   {
     if ($this->profile_photo) {
       return asset('storage/profile-photos/' . $this->profile_photo);

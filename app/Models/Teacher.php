@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static create(array $array)
  * @method static get()
  * @method static when($q, \Closure $param)
+ * @property mixed profile_photo
  */
 class Teacher extends Authenticatable
 {
@@ -45,12 +46,12 @@ class Teacher extends Authenticatable
     return $this->belongsToMany(Subject::class, 'class_room_subject_teacher', 'class_room_id', 'subject_id')->withPivot('teacher_id');
   }
 
-  public function getFullnameAttribute($value)
+  public function getFullnameAttribute($value): string
   {
     return ucwords($value);
   }
 
-  public function getThumbnailAttribute()
+  public function getThumbnailAttribute(): string
   {
     if ($this->profile_photo) {
       return asset('storage/profile-photos/' . $this->profile_photo);

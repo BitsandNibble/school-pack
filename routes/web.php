@@ -16,6 +16,7 @@ use App\Http\Livewire\Pages\Principal\Settings;
 use App\Http\Livewire\Pages\Principal\Students;
 use App\Http\Livewire\Pages\Principal\Subjects;
 use App\Http\Livewire\Pages\Principal\Teachers;
+use App\Http\Livewire\Pages\Student\Profile as StudentProfile;
 use App\Http\Livewire\Pages\Teacher\Profile as TeacherProfile;
 use App\Http\Livewire\Pages\Teacher\Subjects as TeacherSubjects;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +38,7 @@ Route::get('/', function () {
 
 Route::view('components', 'components')->name('components');
 
-//principal route
+// principal route
 Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' => 'principal'], function () {
   Route::view('/', 'users.principal.index')->name('.home');
   Route::get('teachers', Teachers::class)->name('.teachers');
@@ -57,7 +58,7 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('grading/scores', Scores::class)->name('.scores');
 });
 
-//teacher route
+// teacher route
 Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'teacher'], function () {
   Route::get('/', [TeacherHomeController::class, 'index'])->name('.home');
   Route::get('profile', TeacherProfile::class)->name('.profile');
@@ -68,13 +69,19 @@ Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'te
   Route::get('{classname:slug}/{section}', [TeacherHomeController::class, 'getStudentsPerClassOrSection'])->name('.classes.students');
 });
 
-//print route
+// student route
+Route::group(['middleware' => 'auth:student', 'prefix' => 'student', 'as' => 'student'], function () {
+  Route::view('/', 'users.student.index')->name('.home');
+  Route::get('profile', StudentProfile::class)->name('.profile');
+});
+
+// print route
 Route::get('results/mark-sheet/show/{id}', [GeneralController::class, 'getStudentId'])->name('result.marksheet.select_year');
 Route::post('results/mark-sheet/show/{id}', [GeneralController::class, 'getMarksheetYear'])->name('result.marksheet.show');
 Route::get('marks/print/{id}/{exam_id}/{year}', [GeneralController::class, 'printMarkSheet'])->name('print_marksheet');
 Route::get('marks/print/{exam_id}/{class}', [GeneralController::class, 'printTabulationSheet'])->name('print_tabulation_sheet');
 
-//login route
+// login route
 Route::get('login', [AuthController::class, 'create'])->middleware(['guest:principal', 'guest:teacher'])
   ->name('login');
 Route::post('login', [AuthController::class, 'store'])->middleware('guest');

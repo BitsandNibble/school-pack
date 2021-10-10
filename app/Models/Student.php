@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Traits\WithSearch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @method static where(string $string, $class_id)
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static get()
  * @property mixed profile_photo
  */
-class Student extends Model
+class Student extends Authenticatable
 {
   use HasFactory, WithSearch;
 

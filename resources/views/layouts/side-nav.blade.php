@@ -134,3 +134,26 @@
     </ul>
   </li>
 @endif
+
+
+{{--student side nav--}}
+@if(auth('student')->user())
+  <li>
+    <a href="{{ route('student.home') }}">
+      <div class="parent-icon"><i class='bx bx-home'></i></div>
+      <div class="menu-title">Dashboard</div>
+    </a>
+  </li>
+
+  <li>
+    <a href="javascript:" class="has-arrow" aria-expanded="false">
+      <div class="parent-icon"><i class='bx bx-paperclip'></i></div>
+      <div class="menu-title">Results</div>
+    </a>
+    <ul class="mm-collapse">
+      <li>
+        <a href="{{ route('teacher.result.marksheet') }}"><i class="bx bx-right-arrow-alt"></i>Mark Sheet</a>
+      </li>
+    </ul>
+  </li>
+@endif

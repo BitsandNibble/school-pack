@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
     //   'password' => Hash::make('password'),
     // ]);
     $this->call([
+      GradeSeeder::class,
       ClassTypeSeeder::class,
       ClassRoomSeeder::class,
       SectionSeeder::class,
@@ -29,6 +30,9 @@ class DatabaseSeeder extends Seeder
       SettingsSeeder::class,
       StudentSeeder::class,
       TeacherSeeder::class,
+      NationalitySeeder::class,
+      StateSeeder::class,
+      LgaSeeder::class,
     ]);
   }
 }

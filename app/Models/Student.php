@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static find($id)
  * @method static whereIn(string $string, $css)
  * @method static get()
+ * @property mixed profile_photo
  */
 class Student extends Model
 {
@@ -44,5 +45,13 @@ class Student extends Model
   public function getFullnameAttribute($value)
   {
     return ucwords($value);
+  }
+
+  public function getThumbnailAttribute(): string
+  {
+    if ($this->profile_photo) {
+      return asset('storage/profile-photos/' . $this->profile_photo);
+    }
+    return asset('assets/_images/avatars/avatar-10.png');
   }
 }

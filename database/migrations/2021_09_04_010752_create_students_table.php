@@ -23,6 +23,10 @@ class CreateStudentsTable extends Migration
       $table->date('date_of_birth')->nullable();
       $table->string('school_id');
       $table->string('email')->unique()->nullable();
+      $table->unsignedBigInteger('nationality_id')->nullable();
+      $table->longText('address')->nullable();
+      $table->unsignedBigInteger('state_id')->nullable();
+      $table->unsignedBigInteger('lga_id')->nullable();
       $table->string('password');
       $table->string('phone_number')->nullable();
       $table->rememberToken();

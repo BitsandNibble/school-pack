@@ -7,6 +7,7 @@ use App\Models\Setting;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -15,6 +16,7 @@ class Settings extends Component
   use WithFileUploads;
 
   public $settings;
+  public $school_logo;
 
   protected array $rules = [
     'settings.school_name' => 'required|string',
@@ -27,7 +29,8 @@ class Settings extends Component
     'settings.alt_mail' => 'sometimes|email',
     'settings.phone' => 'required|numeric',
     'settings.mobile' => 'numeric',
-    'settings.school_logo' => 'sometimes|image|max:2048',
+//    'school_logo' => 'sometimes|image|max:2048',
+    'school_logo' => 'sometimes',
   ];
 
   protected array $validationAttributes = [
@@ -41,7 +44,7 @@ class Settings extends Component
     'settings.alt_mail' => 'email',
     'settings.phone' => 'phone number',
     'settings.mobile' => 'mobile number',
-    'settings.school_logo' => 'logo',
+    'school_logo' => 'logo',
   ];
 
   public function render(): Factory|View|Application
@@ -58,8 +61,13 @@ class Settings extends Component
   public function store(): void
   {
     $credentials = $this->validate();
-    foreach ($credentials as $cred) {
+
+    if ($credentials['school_logo'] !== null) {
+      $logo = $this->handleLogoUpload($credentials['school_logo'], $credentials['settings']['school_name']);
+      Setting::where('type', 'school_logo')->update(['description' => $logo]);
     }
+
+    $cred = $credentials['settings'];
 
     $keys = array_keys($cred);
     $values = array_values($cred);
@@ -70,5 +78,13 @@ class Settings extends Component
     }
 
     session()->flash('message', 'School Settings Updated Successfully');
+  }
+
+  public function handleLogoUpload($logo, $slug): string
+  {
+    $slug = Str::slug($slug, '_');
+    $name = $slug . '.' . $logo->getClientOriginalExtension();
+    $logo->storeAs('public/logos', $name);
+    return $name;
   }
 }

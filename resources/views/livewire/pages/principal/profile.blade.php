@@ -38,6 +38,15 @@
         </div>
         <div class="row mb-3">
           <div class="col-sm-3">
+            <h6>Address</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            <x-textarea wire:model.defer="principal.address"></x-textarea>
+            <x-input-error for="principal.address" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-3">
             <h6>Email</h6>
           </div>
           <div class="col-sm-9 text-secondary">
@@ -52,6 +61,45 @@
           <div class="col-sm-9 text-secondary">
             <x-input type="text" wire:model.defer="principal.phone_number" />
             <x-input-error for="principal.phone_number" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-3">
+            <h6>Nationality</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            <x-select wire:model.defer="principal.nationality_id">
+              @foreach($nationalities as $nationality)
+                <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
+              @endforeach
+            </x-select>
+            <x-input-error for="principal.nationality_id" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-3">
+            <h6>State</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            <x-select wire:model.defer="principal.state_id">
+              @foreach($states as $state)
+                <option value="{{ $state->id }}">{{ $state->name }}</option>
+              @endforeach
+            </x-select>
+            <x-input-error for="principal.state_id" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-3">
+            <h6>LGA</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            <x-select wire:model.defer="principal.lga_id">
+              @foreach($lgas as $lga)
+                <option value="{{ $lga->id }}">{{ $lga->name }}</option>
+              @endforeach
+            </x-select>
+            <x-input-error for="principal.lga_id" />
           </div>
         </div>
         <div class="row mb-3">

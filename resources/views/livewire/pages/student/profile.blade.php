@@ -103,7 +103,7 @@
                 <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
               @endforeach
             </x-select>
-            <x-input-error for="student.gender" />
+            <x-input-error for="student.nationality_id" />
           </div>
         </div>
         <div class="row mb-3">
@@ -116,7 +116,7 @@
                 <option value="{{ $state->id }}">{{ $state->name }}</option>
               @endforeach
             </x-select>
-            <x-input-error for="student.gender" />
+            <x-input-error for="student.state_id" />
           </div>
         </div>
         <div class="row mb-3">

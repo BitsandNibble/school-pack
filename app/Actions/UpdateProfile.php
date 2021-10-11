@@ -22,8 +22,12 @@ class UpdateProfile
     $updatePrincipal->update([
       'fullname' => $data['fullname'],
       'slug' => Str::slug($data['fullname']),
+      'address' => $data['address'],
       'email' => $data['email'],
       'phone_number' => $data['phone_number'],
+      'nationality_id' => $data['nationality_id'],
+      'state_id' => $data['state_id'],
+      'lga_id' => $data['lga_id'],
       'profile_photo' => $profile_photo ? $this->handleAvatarUpload($profile_photo, $data['slug']) : $data['profile_photo'],
     ]);
   }

@@ -3,7 +3,10 @@
 namespace App\Http\Livewire\Pages\Principal;
 
 use App\Actions\UpdateProfile;
+use App\Models\Lga;
+use App\Models\Nationality;
 use App\Models\Principal;
+use App\Models\State;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -21,16 +24,29 @@ class Profile extends Component
   protected array $rules = [
     'principal.fullname' => 'required|string',
     'principal.email' => 'sometimes|email',
+    'principal.address' => 'sometimes',
     'principal.phone_number' => 'sometimes|numeric',
+    'principal.nationality_id' => 'sometimes',
+    'principal.state_id' => 'sometimes',
+    'principal.lga_id' => 'sometimes',
     'profile_photo' => 'sometimes',
 //    'profile_photo' => 'sometimes|image|max:2048',
+  ];
+
+  protected array $validationAttributes = [
+    'principal.nationality_id' => 'nationality',
+    'principal.state_id' => 'state',
+    'principal.lga_id' => 'lga',
   ];
 
   public function render(): Factory|View|Application
   {
     $this->principal = Principal::where('id', auth()->id())->first();
+    $d['nationalities'] = Nationality::get();
+    $d['states'] = State::get();
+    $d['lgas'] = Lga::get();
 
-    return view('livewire.pages.principal.profile');
+    return view('livewire.pages.principal.profile', $d);
   }
 
   /**

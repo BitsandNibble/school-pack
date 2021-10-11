@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @method static create(array $array)
  * @method static get()
+ * @method static where(string $string, $state)
  */
 class Lga extends Model
 {

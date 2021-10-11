@@ -136,12 +136,12 @@
             <h6>State</h6>
           </div>
           <div class="col-sm-9 text-secondary">
-            <x-select wire:model.defer="teacher.state_id">
+            <x-select wire:model="state">
               @foreach($states as $state)
                 <option value="{{ $state->id }}">{{ $state->name }}</option>
               @endforeach
             </x-select>
-            <x-input-error for="teacher.state_id" />
+            <x-input-error for="state" />
           </div>
         </div>
         <div class="row mb-3">
@@ -149,12 +149,12 @@
             <h6>LGA</h6>
           </div>
           <div class="col-sm-9 text-secondary">
-            <x-select wire:model.defer="teacher.lga_id">
+            <x-select wire:model.defer="lga">
               @foreach($lgas as $lga)
                 <option value="{{ $lga->id }}">{{ $lga->name }}</option>
               @endforeach
             </x-select>
-            <x-input-error for="teacher.lga_id" />
+            <x-input-error for="lga" />
           </div>
         </div>
         <div class="row mb-3">

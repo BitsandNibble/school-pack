@@ -39,18 +39,18 @@ class UpdateProfile
   {
     $updateTeacher = Teacher::find(auth()->id());
     $updateTeacher->update([
-      'fullname' => $data['fullname'],
-      'slug' => Str::slug($data['fullname']),
-      'address' => $data['address'],
-      'email' => $data['email'],
-      'phone_number' => $data['phone_number'],
-      'gender' => $data['gender'],
-      'nationality_id' => $data['nationality_id'],
-      'state_id' => $data['state_id'],
-      'lga_id' => $data['lga_id'],
-      'date_of_birth' => $data['date_of_birth'],
-      'title' => $data['title'],
-      'profile_photo' => $profile_photo ? $this->handleAvatarUpload($profile_photo, $data['slug']) : $data['profile_photo'],
+      'fullname' => $data[0]['fullname'],
+      'slug' => Str::slug($data[0]['fullname']),
+      'address' => $data[0]['address'],
+      'email' => $data[0]['email'],
+      'phone_number' => $data[0]['phone_number'],
+      'gender' => $data[0]['gender'],
+      'nationality_id' => $data[0]['nationality_id'],
+      'state_id' => $data[1],
+      'lga_id' => $data[2],
+      'date_of_birth' => $data[0]['date_of_birth'],
+      'title' => $data[0]['title'],
+      'profile_photo' => $profile_photo ? $this->handleAvatarUpload($profile_photo, $data[0]['slug']) : $data[0]['profile_photo'],
     ]);
   }
 
@@ -61,17 +61,17 @@ class UpdateProfile
   {
     $updateStudent = Student::find(auth()->id());
     $updateStudent->update([
-      'fullname' => $data['fullname'],
-      'slug' => Str::slug($data['fullname']),
-      'address' => $data['address'],
-      'email' => $data['email'],
-      'phone_number' => $data['phone_number'],
-      'gender' => $data['gender'],
-      'nationality_id' => $data['nationality_id'],
-      'state_id' => $data['state_id'],
-      'lga_id' => $data['lga_id'],
-      'date_of_birth' => $data['date_of_birth'],
-      'profile_photo' => $profile_photo ? $this->handleAvatarUpload($profile_photo, $data['slug']) : $data['profile_photo'],
+      'fullname' => $data[0]['fullname'],
+      'slug' => Str::slug($data[0]['fullname']),
+      'address' => $data[0]['address'],
+      'email' => $data[0]['email'],
+      'phone_number' => $data[0]['phone_number'],
+      'gender' => $data[0]['gender'],
+      'nationality_id' => $data[0]['nationality_id'],
+      'state_id' => $data[1],
+      'lga_id' => $data[2],
+      'date_of_birth' => $data[0]['date_of_birth'],
+      'profile_photo' => $profile_photo ? $this->handleAvatarUpload($profile_photo, $data[0]['slug']) : $data[0]['profile_photo'],
     ]);
   }
 

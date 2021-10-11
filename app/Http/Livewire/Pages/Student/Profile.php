@@ -19,6 +19,9 @@ class Profile extends Component
   use WithFileUploads;
 
   public $student;
+  public $state;
+  public $lga;
+  public $lgas = [];
   public $profile_photo;
 
   protected array $rules = [
@@ -28,8 +31,8 @@ class Profile extends Component
     'student.phone_number' => 'sometimes|numeric',
     'student.gender' => 'required',
     'student.nationality_id' => 'sometimes',
-    'student.state_id' => 'sometimes',
-    'student.lga_id' => 'sometimes',
+    'state' => 'sometimes',
+    'lga' => 'sometimes',
     'student.date_of_birth' => 'sometimes',
     'profile_photo' => 'sometimes',
 //    'profile_photo' => 'sometimes|image|max:2048',
@@ -42,8 +45,6 @@ class Profile extends Component
     'student.phone_number' => 'phone number',
     'student.gender' => 'gender',
     'student.nationality_id' => 'nationality',
-    'student.state_id' => 'state',
-    'student.lga_id' => 'lga',
     'student.date_of_birth' => 'date of birth',
     'profile_photo' => 'profile photo',
   ];
@@ -53,7 +54,13 @@ class Profile extends Component
     $this->student = Student::where('id', auth()->id())->first();
     $d['nationalities'] = Nationality::get();
     $d['states'] = State::get();
-    $d['lgas'] = Lga::get();
+
+    $this->state = State::where('id', $this->student->state_id)->first()->id;
+    $this->lga = Lga::where('id', $this->student->lga_id)->first()->id;
+
+    if ($this->state) {
+      $this->lgas = Lga::where('state_id', $this->state)->get();
+    }
 
     return view('livewire.pages.student.profile', $d);
   }
@@ -64,7 +71,7 @@ class Profile extends Component
   public function update(UpdateProfile $updateProfile): void
   {
     $this->validate();
-    $updateProfile->updateStudentProfile($this->student->toArray(), $this->profile_photo);
+    $updateProfile->updateStudentProfile([$this->student->toArray(), $this->state, $this->lga], $this->profile_photo);
 
     $this->reset();
     session()->flash('message', 'Profile Updated Successfully');

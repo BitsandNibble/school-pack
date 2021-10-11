@@ -17,7 +17,6 @@ class GradeSettings extends Component
     'settings.ca1' => 'required|numeric',
     'settings.ca2' => 'required|numeric',
     'settings.exam' => 'required|numeric',
-    'settings.school_logo' => 'sometimes|image|max:2048',
   ];
 
   protected array $validationAttributes = [

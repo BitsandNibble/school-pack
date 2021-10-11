@@ -22,8 +22,6 @@ class Students extends Component
   public $offered_subjects;
   public $deleting;
   public $student_id;
-  public $current_class;
-  public $current_section;
   public $class;
   public $section;
   public $sections = [];
@@ -107,10 +105,11 @@ class Students extends Component
 
   public function showInfo($id): void
   {
-    $student = Student::where('id', $id)->with('class_room', 'section')->first();
+    $student = Student::where('id', $id)
+      ->with('class_room', 'section', 'nationality', 'state', 'lga')
+      ->get();
+
     $this->student_info = $student;
-    $this->current_class = $student->class_room->name ?? null;
-    $this->current_section = $student->section->name ?? null;
     $this->offered_subjects = ClassStudentSubject::where('student_id', $id)->get();
   }
 

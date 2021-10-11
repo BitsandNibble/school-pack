@@ -105,48 +105,68 @@
 
     <x-slot name="content">
       <table class="table table-sm table-borderless table-hover">
-        <tr>
-          <th>Fullname</th>
-          <td>{{ $student_info['fullname'] ?? '' }}</td>
-        </tr>
-        <tr>
-          <th>Email</th>
-          <td>{{ $student_info['email'] ?? '' }}</td>
-        </tr>
-        <tr>
-          <th>Phone Number</th>
-          <td>{{ $student_info['phone_number'] ?? '' }}</td>
-        </tr>
-        <tr>
-          <th>Gender</th>
-          <td>{{ $student_info['gender'] ?? '' }}</td>
-        </tr>
-        <tr>
-          <th>Date of Birth</th>
-          <td>{{ $student_info['date_of_birth'] ?? '' }}</td>
-        </tr>
-        <tr>
-          <th>Admission No.</th>
-          <td>{{ $student_info['school_id'] ?? '' }}</td>
-        </tr>
-        <tr>
-          <th>Current Class</th>
-          <td>
-            {{ $current_class . ' ' . $current_section }}
-          </td>
-        </tr>
-        <tr>
-          <th>Subjects</th>
-          <td>
-            @if(isset($offered_subjects))
-              <ul>
-                @foreach($offered_subjects as $sub)
-                  <li>{{ $sub->subject->name }}</li>
-                @endforeach
-              </ul>
-            @endif
-          </td>
-        </tr>
+        @if($student_info)
+          @foreach($student_info as $info)
+            <tr>
+              <th>Fullname</th>
+              <td>{{ $info->fullname ?? '' }}</td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>{{ $info->email ?? '' }}</td>
+            </tr>
+            <tr>
+              <th>Address</th>
+              <td>{{ $info->address ?? '' }}</td>
+            </tr>
+            <tr>
+              <th>Phone Number</th>
+              <td>{{ $info->phone_number ?? '' }}</td>
+            </tr>
+            <tr>
+              <th>Gender</th>
+              <td>{{ $info->gender ?? '' }}</td>
+            </tr>
+            <tr>
+              <th>Nationality</th>
+              <td>{{ $info->nationality->name ?? '' }}</td>
+            </tr>
+            <tr>
+              <th>State</th>
+              <td>{{ $info->state->name ?? '' }}</td>
+            </tr>
+            <tr>
+              <th>LGA</th>
+              <td>{{ $info->lga->name ?? '' }}</td>
+            </tr>
+            <tr>
+              <th>Date of Birth</th>
+              <td>{{ $info->date_of_birth ?? '' }}</td>
+            </tr>
+            <tr>
+              <th>Admission No.</th>
+              <td>{{ $info->school_id ?? '' }}</td>
+            </tr>
+            <tr>
+              <th>Current Class</th>
+              <td>
+                {{ $info->class_room->name . ' ' . $info->section->name }}
+              </td>
+            </tr>
+            <tr>
+              <th>Subjects</th>
+              <td>
+                @if(isset($offered_subjects))
+                  <ul>
+                    @foreach($offered_subjects as $sub)
+                      <li>{{ $sub->subject->name }}</li>
+                    @endforeach
+                  </ul>
+                @endif
+              </td>
+            </tr>
+          @endforeach
+        @endif
       </table>
     </x-slot>
 

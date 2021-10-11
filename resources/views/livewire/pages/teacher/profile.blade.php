@@ -46,6 +46,15 @@
         </div>
         <div class="row mb-3">
           <div class="col-sm-3">
+            <h6>Address</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            <x-textarea wire:model.defer="teacher.address"></x-textarea>
+            <x-input-error for="teacher.address" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-3">
             <h6>Email</h6>
           </div>
           <div class="col-sm-9 text-secondary">
@@ -99,6 +108,53 @@
           <div class="col-sm-9 text-secondary">
             <x-input type="date" wire:model.defer="teacher.date_of_birth" />
             <x-input-error for="teacher.date_of_birth" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-3">
+            <h6>Date of Employment</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            <x-input type="text" readonly value="{{ $teacher->date_of_employment ?? '' }}" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-3">
+            <h6>Nationality</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            <x-select wire:model.defer="teacher.nationality_id">
+              @foreach($nationalities as $nationality)
+                <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
+              @endforeach
+            </x-select>
+            <x-input-error for="teacher.nationality_id" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-3">
+            <h6>State</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            <x-select wire:model.defer="teacher.state_id">
+              @foreach($states as $state)
+                <option value="{{ $state->id }}">{{ $state->name }}</option>
+              @endforeach
+            </x-select>
+            <x-input-error for="teacher.state_id" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-3">
+            <h6>LGA</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            <x-select wire:model.defer="teacher.lga_id">
+              @foreach($lgas as $lga)
+                <option value="{{ $lga->id }}">{{ $lga->name }}</option>
+              @endforeach
+            </x-select>
+            <x-input-error for="teacher.lga_id" />
           </div>
         </div>
         <div class="row mb-3">

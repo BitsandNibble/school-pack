@@ -22,9 +22,24 @@ class CreateFks extends Migration
       $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('set null');
     });
 
+    Schema::table('principals', function (Blueprint $table) {
+      $table->foreign('state_id')->references('id')->on('states')->onDelete('set null');
+      $table->foreign('lga_id')->references('id')->on('lgas')->onDelete('set null');
+      $table->foreign('nationality_id')->references('id')->on('nationalities')->onDelete('set null');
+    });
+
+    Schema::table('teachers', function (Blueprint $table) {
+      $table->foreign('state_id')->references('id')->on('states')->onDelete('set null');
+      $table->foreign('lga_id')->references('id')->on('lgas')->onDelete('set null');
+      $table->foreign('nationality_id')->references('id')->on('nationalities')->onDelete('set null');
+    });
+//
     Schema::table('students', function (Blueprint $table) {
       $table->foreign('class_room_id')->references('id')->on('class_rooms')->onDelete('set null');
       $table->foreign('section_id')->references('id')->on('sections')->onDelete('set null');
+      $table->foreign('state_id')->references('id')->on('states')->onDelete('set null');
+      $table->foreign('lga_id')->references('id')->on('lgas')->onDelete('set null');
+      $table->foreign('nationality_id')->references('id')->on('nationalities')->onDelete('set null');
     });
 
     Schema::table('class_room_subject_teacher', function (Blueprint $table) {
@@ -49,6 +64,10 @@ class CreateFks extends Migration
       $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade');
       $table->foreign('class_room_id')->references('id')->on('class_rooms')->onDelete('cascade');
       $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+    });
+
+    Schema::table('lgas', function (Blueprint $table) {
+      $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
     });
   }
 

@@ -153,6 +153,14 @@
             </x-select>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <x-label for="date_of_employment">Date of Employment</x-label>
+            <x-input type="date" id="date_of_employment" wire:model.defer="teacher.date_of_employment"></x-input>
+            <x-input-error for="teacher.date_of_employment" />
+          </div>
+        </div>
       </form>
     </x-slot>
 

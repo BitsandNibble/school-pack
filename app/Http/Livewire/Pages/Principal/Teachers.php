@@ -48,6 +48,7 @@ class Teachers extends Component
       'teacher.fullname' => ['required', 'string', Rule::unique('teachers', 'fullname')->ignore($this->teacher_id)],
       'teacher.email' => ['sometimes', 'email', Rule::unique('teachers', 'email')->ignore($this->teacher_id)],
       'teacher.gender' => 'sometimes',
+      'teacher.date_of_employment' => 'sometimes',
     ];
   }
 
@@ -56,6 +57,7 @@ class Teachers extends Component
     'teacher.fullname' => 'fullname',
     'teacher.email' => 'email',
     'teacher.gender' => 'gender',
+    'teacher.date_of_employment' => 'date of employment',
   ];
 
   public function render(): Factory|View|Application
@@ -108,6 +110,7 @@ class Teachers extends Component
         'title' => $this->teacher['title'],
         'email' => $this->teacher['email'] ?? '',
         'gender' => $this->teacher['gender'] ?? '',
+        'date_of_employment' => $this->teacher['date_of_employment'] ?? '',
         'slug' => Str::slug($this->teacher['fullname']),
       ]);
       session()->flash('message', 'Teacher Updated Successfully');
@@ -117,6 +120,7 @@ class Teachers extends Component
         'title' => $this->teacher['title'],
         'email' => $this->teacher['email'] ?? '',
         'gender' => $this->teacher['gender'] ?? '',
+        'date_of_employment' => $this->teacher['date_of_employment'] ?? '',
         'school_id' => 'GS_' . random_int(500, 1000),
         'password' => Hash::make('password'),
         'slug' => Str::slug($this->teacher['fullname']),

@@ -44,6 +44,21 @@ class Student extends Authenticatable
     return $this->belongsTo(Section::class);
   }
 
+  public function nationality(): BelongsTo
+  {
+    return $this->belongsTo(Nationality::class);
+  }
+
+  public function state(): BelongsTo
+  {
+    return $this->belongsTo(State::class);
+  }
+
+  public function lga(): BelongsTo
+  {
+    return $this->belongsTo(Lga::class);
+  }
+
   public function getFullnameAttribute($value)
   {
     return ucwords($value);

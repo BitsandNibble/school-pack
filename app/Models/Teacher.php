@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\WithSearch;
 use Closure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -46,6 +47,21 @@ class Teacher extends Authenticatable
   {
 //    return $this->belongsToMany(Subject::class, 'class_room_subject_teacher', 'class_room_id');
     return $this->belongsToMany(Subject::class, 'class_room_subject_teacher', 'class_room_id', 'subject_id')->withPivot('teacher_id');
+  }
+
+  public function nationality(): BelongsTo
+  {
+    return $this->belongsTo(Nationality::class);
+  }
+
+  public function state(): BelongsTo
+  {
+    return $this->belongsTo(State::class);
+  }
+
+  public function lga(): BelongsTo
+  {
+    return $this->belongsTo(Lga::class);
   }
 
   public function getFullnameAttribute($value): string

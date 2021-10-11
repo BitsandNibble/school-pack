@@ -30,7 +30,7 @@ class CreateTeachersTable extends Migration
       $table->string('phone_number')->nullable();
       $table->rememberToken();
       $table->string('profile_photo', 2048)->nullable();
-      $table->date('date_of_employment')->nullable();
+      $table->date('date_of_employment')->nullable()->default(date('Y-m-d'));
       $table->timestamps();
     });
   }

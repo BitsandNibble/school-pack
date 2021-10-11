@@ -38,6 +38,8 @@
                   <x-select id="user_type" name="user_type">
                     <option value="principal" {{ old('user_type') === 'principal' ? 'selected' : ''  }}>Principal
                     </option>
+                    <option value="accountant" {{ old('user_type') === 'accountant' ? 'selected' : ''  }}>Accountant
+                    </option>
                     <option value="teacher" {{ old('user_type') === 'teacher' ? 'selected' : ''  }}>Teacher</option>
                     <option value="student" {{ old('user_type') === 'student' ? 'selected' : ''  }}>Student</option>
                     <option value="parent" {{ old('user_type') === 'parent' ? 'selected' : ''  }}>Parent</option>

@@ -21,6 +21,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/';
     public const PRINCIPALHOME = 'principal/';
+    public const ACCOUNTANTHOME = 'accountant/';
     public const TEACHERHOME = 'teacher/';
     public const STUDENTHOME = 'student/';
     public const PARENTHOME = 'parent/';

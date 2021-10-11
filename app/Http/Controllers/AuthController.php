@@ -26,6 +26,10 @@ class AuthController extends Controller
       return redirect()->intended(RouteServiceProvider::PRINCIPALHOME);
     }
 
+    if ($request->user_type === 'accountant' && auth('accountant')->attempt($credentials)) {
+      return redirect()->intended(RouteServiceProvider::ACCOUNTANTHOME);
+    }
+
     if ($request->user_type === 'teacher' && auth('teacher')->attempt($credentials)) {
       return redirect()->intended(RouteServiceProvider::TEACHERHOME);
     }
@@ -46,6 +50,11 @@ class AuthController extends Controller
   public function destroy(Request $request): Redirector|Application|RedirectResponse
   {
     if (auth('principal')->logout()) {
+      $request->session()->invalidate();
+      $request->session()->regenerateToken();
+    }
+
+    if (auth('accountant')->logout()) {
       $request->session()->invalidate();
       $request->session()->regenerateToken();
     }

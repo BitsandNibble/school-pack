@@ -75,6 +75,12 @@ Route::group(['middleware' => 'auth:student', 'prefix' => 'student', 'as' => 'st
   Route::get('profile', StudentProfile::class)->name('.profile');
 });
 
+// accountant route
+Route::group(['middleware' => 'auth:accountant', 'prefix' => 'accountant', 'as' => 'accountant'], function () {
+  Route::view('/', 'users.accountant.index')->name('.home');
+//  Route::get('profile', StudentProfile::class)->name('.profile');
+});
+
 // print route
 Route::get('results/mark-sheet/show/{id}', [GeneralController::class, 'getStudentId'])->name('result.marksheet.select_year');
 Route::post('results/mark-sheet/show/{id}', [GeneralController::class, 'getMarksheetYear'])->name('result.marksheet.show');

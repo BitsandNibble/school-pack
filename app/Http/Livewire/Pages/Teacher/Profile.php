@@ -57,8 +57,8 @@ class Profile extends Component
     $d['nationalities'] = Nationality::get();
     $d['states'] = State::get();
 
-    $this->state = State::where('id', $this->teacher->state_id)->first()->id;
-    $this->lga = Lga::where('id', $this->teacher->lga_id)->first()->id;
+    $this->state = !is_null($this->teacher->state_id) ? State::where('id', $this->teacher->state_id)->first()->id : '';
+    $this->lga = !is_null($this->teacher->lga_id) ? Lga::where('id', $this->teacher->lga_id)->first()->id : '';
 
     if ($this->state) {
       $this->lgas = Lga::where('state_id', $this->state)->get();

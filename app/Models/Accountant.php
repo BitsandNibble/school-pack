@@ -9,6 +9,8 @@ use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @method static create(array $array)
+ * @method static find(int|string|null $id)
+ * @method static where(string $string, int|string|null $id)
  */
 class Accountant extends Authenticatable
 {
@@ -32,4 +34,12 @@ class Accountant extends Authenticatable
   protected $casts = [
     'email_verified_at' => 'datetime',
   ];
+
+  public function getThumbnailAttribute(): string
+  {
+    if ($this->profile_photo) {
+      return asset('storage/profile-photos/' . $this->profile_photo);
+    }
+    return asset('assets/_images/avatars/avatar-10.png');
+  }
 }

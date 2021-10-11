@@ -95,6 +95,8 @@
               Principal
             @elseif(auth('teacher')->user())
               Teacher
+            @elseif(auth('accountant')->user())
+              Accountant
             @elseif(auth('student')->user())
               Student
             @else
@@ -130,6 +132,27 @@
       @if(auth('teacher')->user())
         <ul class="dropdown-menu dropdown-menu-end">
           <li><a class="dropdown-item" href="{{ route('teacher.profile') }}"><i
+                  class="bx bx-user"></i><span>Profile</span></a>
+          </li>
+          <li>
+            <div class="dropdown-divider mb-0"></div>
+          </li>
+          <li>
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+
+              <a class="dropdown-item cursor-pointer" href="{{ route('logout') }}"
+                 onclick="event.preventDefault(); this.closest('form').submit();">
+                <i class='bx bx-log-out-circle'></i><span>Logout</span>
+              </a>
+            </form>
+          </li>
+        </ul>
+      @endif
+
+      @if(auth('accountant')->user())
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="{{ route('accountant.profile') }}"><i
                   class="bx bx-user"></i><span>Profile</span></a>
           </li>
           <li>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Teacher\HomeController as TeacherHomeController;
 use App\Http\Livewire\Components\MarkSheet;
 use App\Http\Livewire\Components\Scores;
 use App\Http\Livewire\Components\TabulationSheet;
+use App\Http\Livewire\Pages\Accountant\Profile as AccountantProfile;
 use App\Http\Livewire\Pages\Principal\Classes;
 use App\Http\Livewire\Pages\Principal\Exams;
 use App\Http\Livewire\Pages\Principal\Grades;
@@ -78,7 +79,7 @@ Route::group(['middleware' => 'auth:student', 'prefix' => 'student', 'as' => 'st
 // accountant route
 Route::group(['middleware' => 'auth:accountant', 'prefix' => 'accountant', 'as' => 'accountant'], function () {
   Route::view('/', 'users.accountant.index')->name('.home');
-//  Route::get('profile', StudentProfile::class)->name('.profile');
+  Route::get('profile', AccountantProfile::class)->name('.profile');
 });
 
 // print route

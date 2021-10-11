@@ -46,6 +46,11 @@ return [
           'provider' => 'principals',
         ],
 
+        'accountant' => [
+          'driver' => 'session',
+          'provider' => 'accountants',
+        ],
+
         'teacher' => [
           'driver' => 'session',
           'provider' => 'teachers',
@@ -92,6 +97,11 @@ return [
         'principals' => [
           'driver' => 'eloquent',
           'model' => App\Models\Principal::class,
+        ],
+
+        'accountants' => [
+          'driver' => 'eloquent',
+          'model' => App\Models\Accountant::class,
         ],
 
         'teachers' => [

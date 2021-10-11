@@ -17,7 +17,7 @@ class TeacherSeeder extends Seeder
   {
     Teacher::create([
       'slug' => 'amara',
-      'fullname' => 'Amrachi Amara',
+      'fullname' => 'Amarachi Amara',
       'title' => 'Miss',
       'email' => 'amara@gmail.com',
       'phone_number' => '080121121',

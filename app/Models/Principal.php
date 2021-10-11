@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 /**
  * @method static where(string $string, int|string|null $id)
  * @method static find(int|string|null $id)
+ * @method static create(array $array)
  * @property mixed profile_photo
  */
 class Principal extends Authenticatable

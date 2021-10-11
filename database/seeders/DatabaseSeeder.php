@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
       SectionSeeder::class,
       PrincipalSeeder::class,
       SettingsSeeder::class,
+      AccountantSeeder::class,
       StudentSeeder::class,
       TeacherSeeder::class,
       NationalitySeeder::class,

@@ -17,6 +17,7 @@ class PrincipalSeeder extends Seeder
   {
     Principal::create([
       'fullname' => 'Sam Daniels Adekoya',
+      'slug' => 'sam-daniels',
       'email' => 'principal@gmail.com',
       'phone_number' => '0802222222',
       'school_id' => 'GS_001',

@@ -75,6 +75,10 @@ class CreateFks extends Migration
     Schema::table('lgas', function (Blueprint $table) {
       $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
     });
+
+    Schema::table('skills', function (Blueprint $table) {
+      $table->foreign('class_type_id')->references('id')->on('class_types')->onDelete('set null');
+    });
   }
 
   /**

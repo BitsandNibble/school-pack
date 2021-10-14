@@ -14,6 +14,7 @@ use App\Http\Livewire\Pages\Principal\Grades;
 use App\Http\Livewire\Pages\Principal\Profile as PrincipalProfile;
 use App\Http\Livewire\Pages\Principal\Sections;
 use App\Http\Livewire\Pages\Principal\Settings;
+use App\Http\Livewire\Pages\Principal\Skills;
 use App\Http\Livewire\Pages\Principal\Students;
 use App\Http\Livewire\Pages\Principal\Subjects;
 use App\Http\Livewire\Pages\Principal\Teachers;
@@ -57,6 +58,7 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('grading/exams', Exams::class)->name('.exams');
   Route::get('grading/grades', Grades::class)->name('.grades');
   Route::get('grading/scores', Scores::class)->name('.scores');
+  Route::get('grading/skills', Skills::class)->name('.skills');
 });
 
 // teacher route

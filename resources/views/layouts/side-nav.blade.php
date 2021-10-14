@@ -60,6 +60,9 @@
       <li>
         <a href="{{ route('principal.scores') }}"><i class="bx bx-right-arrow-alt"></i>Scores</a>
       </li>
+      <li>
+        <a href="{{ route('principal.skills') }}"><i class="bx bx-right-arrow-alt"></i>Skills</a>
+      </li>
     </ul>
   </li>
 

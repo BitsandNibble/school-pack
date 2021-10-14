@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
       NationalitySeeder::class,
       StateSeeder::class,
       LgaSeeder::class,
+      SkillSeeder::class,
     ]);
   }
 }

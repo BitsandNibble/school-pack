@@ -13,14 +13,14 @@ class Grades extends Component
 {
   public $grade;
   public $grade_id;
-  public $class_type_id;
-  public $remark;
   public $deleting;
 
   protected array $rules = [
     'grade.name' => 'required|string',
     'grade.mark_from' => 'required|numeric',
     'grade.mark_to' => 'required|numeric',
+    'grade.class_type_id' => 'sometimes',
+    'grade.remark' => 'sometimes',
   ];
 
   protected array $validationAttributes = [
@@ -45,11 +45,8 @@ class Grades extends Component
 
   public function edit($id): void
   {
-    $grade = Grade::where('id', $id)->first();
-    $this->grade_id = $grade['id'];
-    $this->grade = $grade;
-    $this->class_type_id = $grade['class_type_id'];
-    $this->remark = $grade['remark'];
+    $this->grade = Grade::where('id', $id)->first();
+    $this->grade_id = $this->grade['id'];
   }
 
   public function store(): void
@@ -60,19 +57,19 @@ class Grades extends Component
       $grade = Grade::find($this->grade_id);
       $grade->update([
         'name' => $this->grade['name'],
-        'class_type_id' => $this->class_type_id,
+        'class_type_id' => $this->grade['class_type_id'] !== 'NULL' ? $this->grade['class_type_id'] : NULL,
         'mark_from' => $this->grade['mark_from'],
         'mark_to' => $this->grade['mark_to'],
-        'remark' => $this->remark,
+        'remark' => $this->grade['remark'],
       ]);
       session()->flash('message', 'Grade Updated Successfully');
     } else {
       Grade::create([
         'name' => $this->grade['name'],
-        'class_type_id' => $this->class_type_id,
+        'class_type_id' => $this->grade['class_type_id'] !== 'NULL' ? $this->grade['class_type_id'] : NULL,
         'mark_from' => $this->grade['mark_from'],
         'mark_to' => $this->grade['mark_to'],
-        'remark' => $this->remark,
+        'remark' => $this->grade['remark'],
       ]);
       session()->flash('message', 'Grade Added Successfully');
     }

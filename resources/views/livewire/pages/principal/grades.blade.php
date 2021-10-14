@@ -78,8 +78,8 @@
 
         <div class="col-md-6 mb-2">
           <x-label for="class_type">Grade Type</x-label>
-          <x-select id="class_type" wire:model.defer="class_type_id">
-            <option value=null>Not Applicable</option>
+          <x-select id="class_type" wire:model.defer="grade.class_type_id">
+            <option value='NULL'>Not Applicable</option>
             @foreach ($class_type as $ct)
               <option value="{{ $ct->id }}">{{ $ct->name }}</option>
             @endforeach
@@ -104,7 +104,7 @@
       <div class="row">
         <div class="col">
           <x-label for="remark">Remark</x-label>
-          <x-select id="remark" wire:model.defer="remark">
+          <x-select id="remark" wire:model.defer="grade.remark">
             @foreach(\App\Helpers\GR::getRemarks() as $remark)
               <option value="{{ $remark }}">{{ $remark }}</option>
             @endforeach

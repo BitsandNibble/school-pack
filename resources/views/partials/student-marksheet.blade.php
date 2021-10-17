@@ -68,6 +68,7 @@
   @auth('student')
   @else
     <livewire:components.comment :id="$student->id" />
+    <livewire:components.skills :id="$student->id" />
   @endauth
 
 </x-app-layout>

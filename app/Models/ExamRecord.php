@@ -17,6 +17,7 @@ class ExamRecord extends Model
   protected $fillable = [
     'exam_id', 'class_room_id', 'student_id',
     'total', 'average', 'class_average', 'position',
+    'af', 'ps',
     'year', 'teachers_comment', 'principals_comment',
   ];
 

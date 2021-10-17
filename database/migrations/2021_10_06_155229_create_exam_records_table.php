@@ -22,6 +22,8 @@ class CreateExamRecordsTable extends Migration
       $table->string('average')->nullable();
       $table->string('class_average')->nullable();
       $table->integer('position')->nullable();
+      $table->string('af')->nullable();
+      $table->string('ps')->nullable();
       $table->longText('principals_comment')->nullable();
       $table->longText('teachers_comment')->nullable();
       $table->string('year');

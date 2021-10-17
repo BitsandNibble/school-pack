@@ -26,7 +26,8 @@ class Student extends Authenticatable
     'school_id', 'email', 'password',
     'phone_number', 'profile_photo', 'slug',
     'class_room_id', 'section_id',
-    'address', 'nationality_id', 'state_id', 'lga_id'
+    'address', 'nationality_id', 'state_id', 'lga_id',
+    'graduated', 'graduation_date', 'year_admitted'
   ];
 
   protected $hidden = [

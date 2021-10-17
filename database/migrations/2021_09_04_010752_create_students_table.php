@@ -31,6 +31,9 @@ class CreateStudentsTable extends Migration
       $table->string('phone_number')->nullable();
       $table->rememberToken();
       $table->string('profile_photo', 2048)->nullable();
+      $table->tinyInteger('graduated')->nullable();
+      $table->date('graduation_date')->nullable();
+      $table->date('year_admitted')->nullable();
       $table->timestamps();
     });
   }

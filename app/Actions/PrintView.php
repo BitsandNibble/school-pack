@@ -11,6 +11,7 @@ use App\Models\ExamRecord;
 use App\Models\Mark;
 use App\Models\Section;
 use App\Models\Setting;
+use App\Models\Skill;
 use App\Models\Student;
 use App\Models\Subject;
 
@@ -26,6 +27,11 @@ class PrintView
       ->get();
 
     $d['exam_record'] = $exr = ExamRecord::where($data)->first();
+
+    $d['af_skills'] = json_decode(ExamRecord::where($data)->first()->af, true, 512, JSON_THROW_ON_ERROR);
+    $d['ps_skills'] = json_decode(ExamRecord::where($data)->first()->ps, true, 512, JSON_THROW_ON_ERROR);
+
+    $d['skills'] = Skill::get();
 
     $d['class'] = $cl = ClassRoom::find($exr->class_room_id);
 //    $d['section'] = $exr->section_id;

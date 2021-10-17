@@ -48,8 +48,13 @@
                style="max-width: 500px; max-height:600px; margin-top: 60px; position:absolute ; opacity: 0.2; margin-left: auto;margin-right: auto; left: 0; right: 0;" />
         </div>
 
-        {{--         SHEET BEGINS --}}
+        {{--         SHEET --}}
         @include('includes.sheet')
+
+        <br> <br>
+
+        {{--        SKILLS--}}
+        @include('includes.skills')
 
         <br> <br>
 

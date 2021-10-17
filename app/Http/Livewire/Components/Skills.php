@@ -29,8 +29,8 @@ class Skills extends Component
     $afs = ExamRecord::where(['student_id' => $this->student_id])->first()->af;
     $pss = ExamRecord::where(['student_id' => $this->student_id])->first()->ps;
 
-    $decode_afs = json_decode($afs, true, 512, JSON_THROW_ON_ERROR);
-    $decode_pss = json_decode($pss, true, 512, JSON_THROW_ON_ERROR);
+    $decode_afs = empty($afs) ? '' : json_decode($afs, true, 512, JSON_THROW_ON_ERROR);
+    $decode_pss = empty($pss) ? '' : json_decode($pss, true, 512, JSON_THROW_ON_ERROR);
 
     $this->af = $decode_afs ?: [];
     $this->ps = $decode_pss ?: [];

@@ -1,30 +1,30 @@
 <div>
   <x-flash />
 
-  <x-card>
-    <div class="row fw-bolder">
-      <div class="col"><p>Subject: {{ $subject }}</p></div>
-      <div class="col"><p>Class: {{ $class }}</p></div>
-      <div class="col">
-        <p>Exam: {{ $exam }} @if($get_marks) ({{ \App\Helpers\SP::getSetting('current_session') }}) @endif</p>
+  @if($get_marks)
+    <x-card>
+      <div class="row fw-bolder">
+        <div class="col"><p>Subject: {{ $subject }}</p></div>
+        <div class="col"><p>Class: {{ $class }}</p></div>
+        <div class="col">
+          <p>Exam: {{ $exam }} ({{ \App\Helpers\SP::getSetting('current_session') }})</p>
+        </div>
       </div>
-    </div>
-    <div class="table-responsive">
-      <x-validation-errors />
-      <table class="table table-striped table-sm" style="width:100%">
-        <thead>
-          <tr>
-            <th>S/N</th>
-            <th>Name</th>
-            <th>Adm. No</th>
-            <th>1st CA ({{ $ca1_limit }})</th>
-            <th>2nd CA ({{ $ca2_limit }})</th>
-            <th>Exam ({{ $exam_limit }})</th>
-          </tr>
-        </thead>
+      <div class="table-responsive">
+        <x-validation-errors />
+        <table class="table table-striped table-sm" style="width:100%">
+          <thead>
+            <tr>
+              <th>S/N</th>
+              <th>Name</th>
+              <th>Adm. No</th>
+              <th>1st CA ({{ $ca1_limit }})</th>
+              <th>2nd CA ({{ $ca2_limit }})</th>
+              <th>Exam ({{ $exam_limit }})</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          @if($get_marks)
+          <tbody>
             @forelse($get_marks as $index => $mark)
               <tr>
                 <td>{{ $loop->iteration }}</td>
@@ -44,7 +44,8 @@
                     <x-input class="form-control-sm" max="{{ $ca2_limit }}" wire:model.defer="marks.{{ $index }}.ca2" />
                   </td>
                   <td class="px-5">
-                    <x-input class="form-control-sm" max="{{ $exam_limit }}" wire:model.defer="marks.{{ $index }}.exam_score" />
+                    <x-input class="form-control-sm" max="{{ $exam_limit }}"
+                             wire:model.defer="marks.{{ $index }}.exam_score" />
                   </td>
                 @endunless
               </tr>
@@ -53,13 +54,10 @@
                 <td colspan="6" class="text-center">No record found</td>
               </tr>
             @endforelse
+          </tbody>
+        </table>
+      </div>
 
-          @endif
-        </tbody>
-      </table>
-    </div>
-
-    @if($get_marks)
       <div class="d-block mb-2 float-end">
         <x-button value="dark"
                   wire:click="$toggle('showEdit')">{{ $showEdit ? 'Cancel Edit' : 'Edit Marks' }}</x-button>
@@ -67,6 +65,6 @@
           <x-button wire:click.prevent="store">Update Marks</x-button>
         @endif
       </div>
-    @endif
-  </x-card>
+    </x-card>
+  @endif
 </div>

@@ -1,29 +1,27 @@
 <div>
-  <x-card>
-    <div class="fw-bolder mb-2">
-      Tabulation Sheet for {{ $class }} - {{ $exam_name }} @if($class_id)
-        ({{ \App\Helpers\SP::getSetting('current_session') }}) @endif
-    </div>
+  @if($class_id)
+    <x-card>
+      <div class="fw-bolder mb-2">
+        Tabulation Sheet for {{ $class }} - {{ $exam_name }} @if($class_id)
+          ({{ \App\Helpers\SP::getSetting('current_session') }}) @endif
+      </div>
 
-    <div class="table-responsive">
-      <table class="table table-striped table-sm" style="width:100%">
-        <thead>
-          <tr>
-            <th>S/N</th>
-            <th>Name</th>
-            @if($class_id)
+      <div class="table-responsive">
+        <table class="table table-striped table-sm" style="width:100%">
+          <thead>
+            <tr>
+              <th>S/N</th>
+              <th>Name</th>
               @foreach($subjects as $sub)
                 <th>{{ $sub->subject->slug ?:  $sub->subject->name }}</th>
               @endforeach
-            @endif
-            <th class="text-danger">Total</th>
-            <th class="text-primary">Average</th>
-            <th class="text-info">Position</th>
-          </tr>
-        </thead>
+              <th class="text-danger">Total</th>
+              <th class="text-primary">Average</th>
+              <th class="text-info">Position</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          @if($class_id)
+          <tbody>
             @forelse($students as $s)
               <tr>
                 <td>{{ $loop->iteration }}</td>
@@ -40,17 +38,15 @@
                 <td colspan="6" class="text-center">No record found</td>
               </tr>
             @endforelse
-          @endif
-        </tbody>
-      </table>
-    </div>
+          </tbody>
+        </table>
+      </div>
 
-    @if($class_id)
       <div class="d-block mb-2 text-center">
         <x-button-link target="_blank" href="{{ route('print_tabulation_sheet', [$exam_id, $class_id]) }}"><i
               class="bx bx-printer"></i>Print Tabulation Sheet
         </x-button-link>
       </div>
-    @endif
-  </x-card>
+    </x-card>
+  @endif
 </div>

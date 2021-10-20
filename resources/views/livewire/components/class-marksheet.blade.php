@@ -1,19 +1,19 @@
 <div>
-  <x-card>
-    <div class="table-responsive">
-      <table class="table table-striped table-sm" style="width:100%">
-        <thead>
-          <tr>
-            <th>S/N</th>
-            <th>Photo</th>
-            <th>Name</th>
-            <th>Adm. No</th>
-            <th></th>
-          </tr>
-        </thead>
+  @if($students)
+    <x-card>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm" style="width:100%">
+          <thead>
+            <tr>
+              <th>S/N</th>
+              <th>Photo</th>
+              <th>Name</th>
+              <th>Adm. No</th>
+              <th></th>
+            </tr>
+          </thead>
 
-        <tbody>
-          @if($students)
+          <tbody>
             @forelse($students as $s)
               <tr>
                 <td>{{ $loop->iteration }}</td>
@@ -21,7 +21,8 @@
                 <td>{{ $s->fullname }}</td>
                 <td>{{ $s->school_id }}</td>
                 <td>
-                  <x-button-link target="_blank" value="danger" href="{{ route('result.marksheet.select_year', [$s->id]) }}">
+                  <x-button-link target="_blank" value="danger"
+                                 href="{{ route('result.marksheet.select_year', [$s->id]) }}">
                     View MarkSheet
                   </x-button-link>
                 </td>
@@ -31,9 +32,9 @@
                 <td colspan="5" class="text-center">No record found</td>
               </tr>
             @endforelse
-          @endif
-        </tbody>
-      </table>
-    </div>
-  </x-card>
+          </tbody>
+        </table>
+      </div>
+    </x-card>
+  @endif
 </div>

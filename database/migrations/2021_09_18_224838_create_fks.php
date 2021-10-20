@@ -79,6 +79,14 @@ class CreateFks extends Migration
     Schema::table('skills', function (Blueprint $table) {
       $table->foreign('class_type_id')->references('id')->on('class_types')->onDelete('set null');
     });
+    
+    Schema::table('promotions', function (Blueprint $table) {
+      $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+      $table->foreign('from_class')->references('id')->on('class_rooms')->onDelete('cascade');
+      $table->foreign('from_section')->references('id')->on('sections')->onDelete('cascade');
+      $table->foreign('to_section')->references('id')->on('sections')->onDelete('cascade');
+      $table->foreign('to_class')->references('id')->on('class_rooms')->onDelete('cascade');
+    });
   }
 
   /**

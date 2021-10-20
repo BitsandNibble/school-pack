@@ -17,10 +17,21 @@
   </li>
 
   <li>
-    <a href="{{ route('principal.students') }}">
-      <div class="parent-icon"><i class='lni lni-users'></i></div>
+    <a href="javascript:" class="has-arrow" aria-expanded="false">
+      <div class="parent-icon"><i class='bx bx-home-circle'></i></div>
       <div class="menu-title">Students</div>
     </a>
+    <ul class="mm-collapse">
+      <li>
+        <a href="{{ route('principal.students') }}"><i class="bx bx-right-arrow-alt"></i>View Students</a>
+      </li>
+      <li>
+        <a href="{{ route('principal.students.promotion') }}"><i class="bx bx-right-arrow-alt"></i>Promote Students</a>
+      </li>
+      <li>
+        <a href="{{ route('principal.sections') }}"><i class="bx bx-right-arrow-alt"></i>Manage Promotions</a>
+      </li>
+    </ul>
   </li>
 
   <li>
@@ -155,7 +166,8 @@
     </a>
     <ul class="mm-collapse">
       <li>
-        <a href="{{ route('result.marksheet.select_year', [auth('student')->id()]) }}"><i class="bx bx-right-arrow-alt"></i>Mark Sheet</a>
+        <a href="{{ route('result.marksheet.select_year', [auth('student')->id()]) }}"><i
+              class="bx bx-right-arrow-alt"></i>Mark Sheet</a>
       </li>
     </ul>
   </li>

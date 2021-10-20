@@ -1,5 +1,8 @@
 <div>
-  <x-breadcrumb>Students</x-breadcrumb>
+  <x-breadcrumb>
+    Students
+    <li class="breadcrumb-item active" aria-current="page">View Students</li>
+  </x-breadcrumb>
   <x-flash />
 
   <x-card>

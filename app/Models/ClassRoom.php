@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\WithSearch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -34,12 +35,12 @@ class ClassRoom extends Model
 //    return $this->belongsToMany(Subject::class, 'class_room_subject_teacher', 'class_room_id', 'subject_id')->withPivot('teacher_id');
   }
 
-  public function class_type()
+  public function class_type(): BelongsTo
   {
     return $this->belongsTo(ClassType::class);
   }
 
-  public function getNameAttribute($value)
+  public function getNameAttribute($value): string
   {
     return strtoupper($value);
   }

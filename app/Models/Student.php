@@ -60,7 +60,7 @@ class Student extends Authenticatable
     return $this->belongsTo(Lga::class);
   }
 
-  public function getFullnameAttribute($value)
+  public function getFullnameAttribute($value): string
   {
     return ucwords($value);
   }

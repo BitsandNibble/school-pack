@@ -6,6 +6,7 @@ use App\Http\Controllers\Principal\HomeController as PrincipalHomeController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\Teacher\HomeController as TeacherHomeController;
 use App\Http\Livewire\Components\MarkSheet;
+use App\Http\Livewire\Components\Promotion;
 use App\Http\Livewire\Components\Scores;
 use App\Http\Livewire\Components\TabulationSheet;
 use App\Http\Livewire\Pages\Accountant\Profile as AccountantProfile;
@@ -64,7 +65,8 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('grading/skills', Skills::class)->name('.skills');
 
 //  promotions
-  Route::get('promotion/{fc?}/{fs?}/{tc?}/{ts?}', [PromotionController::class, 'promotion'])->name('.students.promotion');
+  Route::get('promotion', Promotion::class)->name('.students.promotion');
+//  Route::get('promotion/{fc?}/{fs?}/{tc?}/{ts?}', [PromotionController::class, 'promotion'])->name('.students.promotion');
 
 //
 //  /* Promotions */

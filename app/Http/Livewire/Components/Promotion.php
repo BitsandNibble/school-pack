@@ -18,7 +18,6 @@ class Promotion extends Component
   public $to_section;
   public $fs = [];
   public $ts = [];
-//  public $section_id;
 
   protected array $rules = [
     'from_class' => 'required',

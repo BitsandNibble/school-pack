@@ -9,11 +9,9 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use phpDocumentor\Reflection\Types\Collection;
 
 class Promotion extends Component
 {
-
   public $from_class;
   public $to_class;
   public $from_section;
@@ -46,7 +44,6 @@ class Promotion extends Component
         ->with('class_room')
         ->get();
     }
-
 
     $old_year = SP::getSetting('current_session');
     $old_yr = explode('-', $old_year);

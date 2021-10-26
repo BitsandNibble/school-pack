@@ -62,7 +62,7 @@
     </div>
   </x-card-with-header>
 
-{{--  <livewire:components.promote />--}}
+  <livewire:components.promote />
 
   <x-spinner />
 </div>

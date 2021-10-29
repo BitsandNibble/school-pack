@@ -3,7 +3,6 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\Principal\HomeController as PrincipalHomeController;
-use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\Teacher\HomeController as TeacherHomeController;
 use App\Http\Livewire\Components\MarkSheet;
 use App\Http\Livewire\Components\Promotion;
@@ -64,18 +63,8 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('grading/scores', Scores::class)->name('.scores');
   Route::get('grading/skills', Skills::class)->name('.skills');
 
-//  promotions
+  //  promotions
   Route::get('promotion', Promotion::class)->name('.students.promotion');
-//  Route::get('promotion/{fc?}/{fs?}/{tc?}/{ts?}', [PromotionController::class, 'promotion'])->name('.students.promotion');
-
-//
-//  /* Promotions */
-//  Route::post('promote_selector', 'PromotionController@selector')->name('students.promote_selector');
-//  Route::get('promotion/manage', 'PromotionController@manage')->name('students.promotion_manage');
-//  Route::delete('promotion/reset/{pid}', 'PromotionController@reset')->name('students.promotion_reset');
-//  Route::delete('promotion/reset_all', 'PromotionController@reset_all')->name('students.promotion_reset_all');
-//  Route::get('promotion/{fc?}/{fs?}/{tc?}/{ts?}', 'PromotionController@promotion')->name('students.promotion');
-//  Route::post('promote/{fc}/{fs}/{tc}/{ts}', 'PromotionController@promote')->name('students.promote');
 });
 
 // teacher route

@@ -19,7 +19,7 @@
           <div class="mt-3">
             <h4>{{ $student->fullname }}</h4>
             <p class="text-secondary mb-1">Student</p>
-            <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+            <p class="text-muted font-size-sm">{{ $student->address }}</p>
           </div>
         </div>
         <hr class="my-4" />

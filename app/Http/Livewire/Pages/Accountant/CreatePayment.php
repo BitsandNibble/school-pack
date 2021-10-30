@@ -6,6 +6,9 @@ use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\Payment;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class CreatePayment extends Component
@@ -28,7 +31,7 @@ class CreatePayment extends Component
     'payment.description' => 'description',
   ];
 
-  public function render()
+  public function render(): Factory|View|Application
   {
     $classes = ClassRoom::get();
 

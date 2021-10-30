@@ -20,25 +20,25 @@ class Promotion extends Model
 
   public function student(): BelongsTo
   {
-    return $this->belongsTo(User::class, 'student_id');
+    return $this->belongsTo(Student::class, 'student_id');
   }
 
-  public function from_class(): BelongsTo
+  public function fc(): BelongsTo
   {
     return $this->belongsTo(ClassRoom::class, 'from_class');
   }
 
-  public function from_section(): BelongsTo
+  public function fs(): BelongsTo
   {
     return $this->belongsTo(Section::class, 'from_section');
   }
 
-  public function to_section(): BelongsTo
+  public function ts(): BelongsTo
   {
     return $this->belongsTo(Section::class, 'to_section');
   }
 
-  public function to_class(): BelongsTo
+  public function tc(): BelongsTo
   {
     return $this->belongsTo(ClassRoom::class, 'to_class');
   }

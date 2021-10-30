@@ -172,3 +172,32 @@
     </ul>
   </li>
 @endif
+
+
+{{--accountant side nav--}}
+@if(auth('accountant')->user())
+  <li>
+    <a href="{{ route('accountant.home') }}">
+      <div class="parent-icon"><i class='bx bx-home'></i></div>
+      <div class="menu-title">Dashboard</div>
+    </a>
+  </li>
+
+  <li>
+    <a href="javascript:" class="has-arrow" aria-expanded="false">
+      <div class="parent-icon"><i class='bx bx-money'></i></div>
+      <div class="menu-title">Payments</div>
+    </a>
+    <ul class="mm-collapse">
+      <li>
+        <a href="{{ route('accountant.create-payment') }}"><i class="bx bx-right-arrow-alt"></i>Create Payment</a>
+      </li>
+      <li>
+        <a href="{{ route('accountant.manage-payment') }}"><i class="bx bx-right-arrow-alt"></i>Manage Payment</a>
+      </li>
+      <li>
+        <a href="{{ route('teacher.result.marksheet') }}"><i class="bx bx-right-arrow-alt"></i>Student Payments</a>
+      </li>
+    </ul>
+  </li>
+@endif

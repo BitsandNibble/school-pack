@@ -9,6 +9,8 @@ use App\Http\Livewire\Components\MarkSheet;
 use App\Http\Livewire\Components\Promotion;
 use App\Http\Livewire\Components\Scores;
 use App\Http\Livewire\Components\TabulationSheet;
+use App\Http\Livewire\Pages\Accountant\CreatePayment;
+use App\Http\Livewire\Pages\Accountant\ManagePayment;
 use App\Http\Livewire\Pages\Accountant\Profile as AccountantProfile;
 use App\Http\Livewire\Pages\Principal\Classes;
 use App\Http\Livewire\Pages\Principal\Exams;
@@ -90,6 +92,9 @@ Route::group(['middleware' => 'auth:student', 'prefix' => 'student', 'as' => 'st
 Route::group(['middleware' => 'auth:accountant', 'prefix' => 'accountant', 'as' => 'accountant'], function () {
   Route::view('/', 'users.accountant.index')->name('.home');
   Route::get('profile', AccountantProfile::class)->name('.profile');
+  Route::get('payments/create-payment', CreatePayment::class)->name('.create-payment');
+  Route::get('payments/manage-payment', ManagePayment::class)->name('.manage-payment');
+//  Route::get('payments/create-payment', CreatePayment::class)->name('.');
 });
 
 // print route

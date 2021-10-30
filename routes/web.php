@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\Principal\HomeController as PrincipalHomeController;
 use App\Http\Controllers\Teacher\HomeController as TeacherHomeController;
+use App\Http\Livewire\Components\ManagePromotion;
 use App\Http\Livewire\Components\MarkSheet;
 use App\Http\Livewire\Components\Promotion;
 use App\Http\Livewire\Components\Scores;
@@ -45,7 +46,7 @@ Route::view('components', 'components')->name('components');
 Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' => 'principal'], function () {
   Route::view('/', 'users.principal.index')->name('.home');
   Route::get('teachers', Teachers::class)->name('.teachers');
-  Route::get('students', Students::class)->name('.students');
+  Route::get('students/view', Students::class)->name('.students');
   Route::get('classes', Classes::class)->name('.classes');
   Route::get('sections', Sections::class)->name('.sections');
   Route::get('classes/{classname:slug}', [PrincipalHomeController::class, 'getStudentsPerClass'])->name('.classes.students');
@@ -64,7 +65,8 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('grading/skills', Skills::class)->name('.skills');
 
   //  promotions
-  Route::get('promotion', Promotion::class)->name('.students.promotion');
+  Route::get('students/promotion', Promotion::class)->name('.students.promotion');
+  Route::get('students/manage-promotion', ManagePromotion::class)->name('.students.manage-promotion');
 });
 
 // teacher route

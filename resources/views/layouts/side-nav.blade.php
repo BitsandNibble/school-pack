@@ -29,7 +29,7 @@
         <a href="{{ route('principal.students.promotion') }}"><i class="bx bx-right-arrow-alt"></i>Promote Students</a>
       </li>
       <li>
-        <a href="{{ route('principal.sections') }}"><i class="bx bx-right-arrow-alt"></i>Manage Promotions</a>
+        <a href="{{ route('principal.students.manage-promotion') }}"><i class="bx bx-right-arrow-alt"></i>Manage Promotions</a>
       </li>
     </ul>
   </li>

@@ -18,7 +18,7 @@ class ManagePaymentYear extends Component
 
   public function render(): Factory|View|Application
   {
-    $years = Payment::get('year');
+    $years = Payment::select('year')->distinct()->get();
 
     return view('livewire.pages.accountant.manage-payment-year', compact('years'));
   }

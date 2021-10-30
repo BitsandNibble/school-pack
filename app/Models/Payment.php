@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method static get()
+ * @method static find($id)
+ * @method static select(string $string)
  */
 class Payment extends Model
 {

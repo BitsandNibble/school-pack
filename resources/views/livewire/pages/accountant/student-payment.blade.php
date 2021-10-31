@@ -20,7 +20,22 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $st->fullname ?? '' }}</td>
                 <td>{{ $st->school_id ?? '' }}</td>
-                <td></td>
+                <td>
+                  <div class="dropdown">
+                    <x-button class="dropdown-toggle" value="danger" data-bs-toggle="dropdown" aria-expanded="false">
+                      Manage Payments
+                    </x-button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" target="_blank" href="#">
+                          All Payments</a>
+                      </li>
+                      @foreach($payments as $payment)
+                        <li><a class="dropdown-item" target="_blank" href="#">{{ $payment->year }}</a>
+                        </li>
+                      @endforeach
+                    </ul>
+                  </div>
+                </td>
               </tr>
             @empty
               <tr>

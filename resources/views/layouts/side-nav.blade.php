@@ -196,7 +196,7 @@
         <a href="{{ route('accountant.manage-payment') }}"><i class="bx bx-right-arrow-alt"></i>Manage Payment</a>
       </li>
       <li>
-        <a href="{{ route('teacher.result.marksheet') }}"><i class="bx bx-right-arrow-alt"></i>Student Payments</a>
+        <a href="{{ route('accountant.student-payment') }}"><i class="bx bx-right-arrow-alt"></i>Student Payments</a>
       </li>
     </ul>
   </li>

@@ -26,7 +26,8 @@
                       Manage Payments
                     </x-button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" target="_blank" href="#">
+                      <li><a class="dropdown-item" target="_blank"
+                             href="{{ route('accountant.payment.invoice', [$st->id]) }}">
                           All Payments</a>
                       </li>
                       @foreach($payments as $payment)

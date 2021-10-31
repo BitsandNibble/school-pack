@@ -25,6 +25,6 @@ class StudentPaymentClass extends Component
     $value = $this->validate(
       ['class' => 'required'],
     );
-    $this->emit('$selected_class', $value);
+    $this->emit('selected_class', $value);
   }
 }

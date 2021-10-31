@@ -21,6 +21,6 @@
     </div>
   </x-card>
 
-{{--  <livewire:pages.accountant.student-payment />--}}
+  <livewire:pages.accountant.student-payment />
 
 </div>

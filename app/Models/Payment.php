@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static find($id)
  * @method static select(string $string)
  * @method static whereNull(string $string)
+ * @method static where(string $string, $session_year)
  */
 class Payment extends Model
 {

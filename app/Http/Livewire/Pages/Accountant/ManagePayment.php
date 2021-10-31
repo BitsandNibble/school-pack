@@ -38,7 +38,7 @@ class ManagePayment extends Component
 
   public function render(): Factory|View|Application
   {
-    $payments = Payment::with('class_room')->get();
+    $payments = Payment::where('year', $this->session_year)->with('class_room')->get();
     $classes = ClassRoom::get();
 
     return view('livewire.pages.accountant.manage-payment', compact('payments', 'classes'));

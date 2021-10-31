@@ -36,10 +36,10 @@ class StudentPaymentClass extends Component
     );
     $this->emit('selected_class', $value);
 
-    $pay1 = Payment::where([
-      'class_room_id' => $this->class,
-      'year' => $this->year
-    ])->with('class_room')->get();
+    $pay1 = Payment::where('year', $this->year)
+      ->where('class_room_id', $this->class)
+      ->with('class_room')
+      ->get();
 
     $pay2 = Payment::whereNull('class_room_id')
       ->where('year', $this->year)

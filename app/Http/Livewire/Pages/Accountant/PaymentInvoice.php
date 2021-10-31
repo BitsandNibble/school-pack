@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Pages\Accountant;
 
+use App\Helpers\PR;
 use App\Helpers\SP;
 use App\Models\Payment;
 use App\Models\PaymentRecord;
@@ -17,23 +18,26 @@ class PaymentInvoice extends Component
   public $student;
   public $student_id;
   public $amount_paid = [];
-  public $year;
+  public $current_year;
+  public $selected_year;
   public $limit;
 
-  public function mount($id): void
+  public function mount($id, $year): void
   {
     $this->student_id = $id;
-    $this->student = Student::findOrFail($id)->fullname;
+    $this->selected_year = $year;
   }
 
   public function render(): Factory|View|Application
   {
-    $invoice = PaymentRecord::where('student_id', $this->student_id)->with('payment')->get();
+    $invoice = $this->selected_year ? PR::getAllPaymentRecord($this->student_id, $this->selected_year) :
+      PR::getAllPaymentRecord($this->student_id);
 
+    $this->student = Student::findOrFail($this->student_id)->fullname;
     $uncleared = $invoice->where('paid', 0);
     $cleared = $invoice->where('paid', 1);
 
-    $this->year = SP::getSetting('current_session');
+    $this->current_year = SP::getSetting('current_session');
 
     return view('livewire.pages.accountant.payment-invoice', compact('uncleared', 'cleared'));
   }
@@ -64,7 +68,7 @@ class PaymentInvoice extends Component
 //    $d2['amount_paid'] = $this->amount_paid;
       $d2['amount_paid'] = $amt_paid;
       $d2['balance'] = $bal;
-      $d2['year'] = $this->year;
+      $d2['year'] = $this->current_year;
 
       Receipt::create($d2);
     }

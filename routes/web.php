@@ -97,7 +97,7 @@ Route::group(['middleware' => 'auth:accountant', 'prefix' => 'accountant', 'as' 
   Route::get('payments/create-payment', CreatePayment::class)->name('.create-payment');
   Route::get('payments/manage-payment', ManagePaymentYear::class)->name('.manage-payment');
   Route::get('payments/students-payment', StudentPaymentClass::class)->name('.student-payment');
-  Route::get('payments/invoice/{student_id}', [AccountantHomeController::class, 'getStudentId'])->name('.payment.invoice');
+  Route::get('payments/invoice/{student_id}/{year?}', [AccountantHomeController::class, 'getStudentId'])->name('.payment.invoice');
 });
 
 // print route

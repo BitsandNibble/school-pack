@@ -9,10 +9,11 @@ use Illuminate\Contracts\View\View;
 
 class HomeController extends Controller
 {
-  public function getStudentId($id): Factory|View|Application
+  public function getStudentId($id, $year = NULL): Factory|View|Application
   {
-    $student_id = $id;
+    $d['student_id'] = $id;
+    $d['year'] = $year;
 
-    return view('users.accountant.invoice.index', compact('student_id'));
+    return view('users.accountant.invoice.index', $d);
   }
 }

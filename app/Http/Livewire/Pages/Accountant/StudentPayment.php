@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Pages\Accountant;
 
-use App\Models\Payment;
+use App\Models\PaymentRecord;
 use App\Models\Student;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -17,7 +17,7 @@ class StudentPayment extends Component
   public function render(): Factory|View|Application
   {
     $students = Student::where('class_room_id', $this->selected_class)->get();
-    $payments = Payment::select('year')->distinct()->get();
+    $payments = PaymentRecord::get();
 
     return view('livewire.pages.accountant.student-payment', compact('students', 'payments'));
   }

@@ -76,4 +76,11 @@ class PaymentInvoice extends Component
     $this->reset('amount_paid');
     session()->flash('message', 'Payment Recorded Successfully');
   }
+
+  public function reset_record($id): void
+  {
+    $pr['amount_paid'] = $pr['paid'] = $pr['balance'] = 0;
+    PaymentRecord::find($id)->update($pr);
+    Receipt::where('pr_id', $id)->delete();
+  }
 }

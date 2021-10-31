@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method static create(array $d2)
+ * @method static where(string $string, $id)
  */
 class Receipt extends Model
 {

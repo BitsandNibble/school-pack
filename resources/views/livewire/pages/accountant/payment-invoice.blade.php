@@ -66,7 +66,16 @@
                   </td>
                   <td>{{ $uc->ref_no ?? '' }}</td>
                   <td>{{ $uc->year ?? '' }}</td>
-                  <td></td>
+                  <td>
+                    <x-button wire:click="reset_record({{ $uc->id }})" value=""
+                              onclick="return confirm('Are you sure you want to reset this payment?') || event.stopImmediatePropagation()">
+                      <i class="bx bx-refresh"></i>
+                    </x-button>
+
+                    <x-button value="">
+                      <i class="bx bx-printer"></i>
+                    </x-button>
+                  </td>
                 </tr>
               @empty
                 <tr>
@@ -102,7 +111,16 @@
                   <td class="fw-bold">{{ $cl->payment->amount ?? '' }}</td>
                   <td>{{ $cl->ref_no ?? '' }}</td>
                   <td>{{ $cl->year ?? '' }}</td>
-                  <td></td>
+                  <td>
+                    <x-button wire:click="reset_record({{ $cl->id }})" value=""
+                              onclick="return confirm('Are you sure you want to reset this payment?') || event.stopImmediatePropagation()">
+                      <i class="bx bx-refresh"></i>
+                    </x-button>
+
+                    <x-button value="">
+                      <i class="bx bx-printer"></i>
+                    </x-button>
+                  </td>
                 </tr>
               @empty
                 <tr>

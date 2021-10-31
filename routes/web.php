@@ -105,6 +105,7 @@ Route::get('results/mark-sheet/show/{id}', [GeneralController::class, 'getStuden
 Route::post('results/mark-sheet/show/{id}', [GeneralController::class, 'getMarksheetYear'])->name('result.marksheet.show');
 Route::get('marks/print/{id}/{exam_id}/{year}', [GeneralController::class, 'printMarkSheet'])->name('print_marksheet');
 Route::get('marks/print/{exam_id}/{class}', [GeneralController::class, 'printTabulationSheet'])->name('print_tabulation_sheet');
+Route::get('payments/receipts/{pr_id}', [GeneralController::class, 'printReceipt'])->name('print_invoice');
 
 // login route
 Route::get('login', [AuthController::class, 'create'])->middleware(['guest:principal', 'guest:teacher'])

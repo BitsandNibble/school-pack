@@ -47,4 +47,11 @@ class GeneralController extends Controller
 
     return view('print.tabulation-sheet', $d);
   }
+
+  public function printReceipt($pr_id, PrintView $printView): Factory|View|Application
+  {
+    $d = $printView->getReceiptPrintView($pr_id);
+
+    return view('print.receipt', $d);
+  }
 }

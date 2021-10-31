@@ -9,7 +9,7 @@ use App\Models\ClassType;
 use App\Models\Exam;
 use App\Models\ExamRecord;
 use App\Models\Mark;
-use App\Models\Section;
+use App\Models\PaymentRecord;
 use App\Models\Setting;
 use App\Models\Skill;
 use App\Models\Student;
@@ -94,6 +94,20 @@ class PrintView
     $d['exam'] = Exam::find($exam_id);
     $d['ts'] = 'total_score';
 
+    $d['s'] = Setting::all()->flatMap(function ($s) {
+      return [$s->type => $s->description];
+    });
+
+    return $d;
+  }
+
+  public function getReceiptPrintView($pr_id): array
+  {
+    $d['pr'] = $pr = PaymentRecord::orderBy('year', 'DESC')->where('id', $pr_id)->with('payment', 'receipt')->first();
+
+    $d['receipts'] = $pr->receipt;
+    $d['payment'] = $pr->payment;
+    $d['sr'] = Student::where('id', $pr->student_id)->first();
     $d['s'] = Setting::all()->flatMap(function ($s) {
       return [$s->type => $s->description];
     });

@@ -72,9 +72,9 @@
                       <i class="bx bx-refresh"></i>
                     </x-button>
 
-                    <x-button value="">
+                    <x-button-link target="_blank" href="{{ route('print_invoice', $uc->id) }}" value="">
                       <i class="bx bx-printer"></i>
-                    </x-button>
+                    </x-button-link>
                   </td>
                 </tr>
               @empty
@@ -117,9 +117,9 @@
                       <i class="bx bx-refresh"></i>
                     </x-button>
 
-                    <x-button value="">
+                    <x-button-link target="_blank" href="{{ route('print_invoice', $cl->id) }}" value="">
                       <i class="bx bx-printer"></i>
-                    </x-button>
+                    </x-button-link>
                   </td>
                 </tr>
               @empty

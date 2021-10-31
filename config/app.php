@@ -231,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'SP' => App\Helpers\SP::class,
         'GR' => App\Helpers\GR::class,
+        'PR' => App\Helpers\PR::class,
 
     ],
 

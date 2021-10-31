@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static where(string $string, $student_id)
  * @method static findOrFail($pr_id)
  * @method static find($pr_id)
+ * @method static get()
+ * @method static orderBy(mixed $order, mixed $dir)
  */
 class PaymentRecord extends Model
 {

@@ -15,6 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static find($id)
  * @method static whereIn(string $string, $css)
  * @method static get()
+ * @method static findOrFail($id)
  * @property mixed profile_photo
  */
 class Student extends Authenticatable

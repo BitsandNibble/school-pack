@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static firstOrCreate(array $array)
+ * @method static where(string $string, $student_id)
  */
 class PaymentRecord extends Model
 {

@@ -47,7 +47,7 @@ class StudentPaymentClass extends Component
       ->get();
 
     $payments = $pay2->count() ? $pay1->merge($pay2) : $pay1;
-    $students = Student::where('id', $value['class'])->get();
+    $students = Student::where('class_room_id', $value['class'])->get();
 
     if ($payments->count() && $students->count()) {
       foreach ($payments as $p) {

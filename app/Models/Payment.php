@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static get()
  * @method static find($id)
  * @method static select(string $string)
+ * @method static whereNull(string $string)
  */
 class Payment extends Model
 {

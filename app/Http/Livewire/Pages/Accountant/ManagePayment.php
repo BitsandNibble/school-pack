@@ -12,13 +12,13 @@ use Livewire\Component;
 
 class ManagePayment extends Component
 {
-  public $exam_year;
+  public $session_year;
   public $deleting;
   public $payment_id;
   public $payment;
 
   protected array $rules = [
-    'exam_year' => 'required',
+    'session_year' => 'required',
     'payment.title' => 'required|string',
     'payment.class_room_id' => 'sometimes',
     'payment.method' => 'sometimes',
@@ -52,7 +52,7 @@ class ManagePayment extends Component
 
   public function selected_year($value): void
   {
-    $this->exam_year = $value['exam_year'];
+    $this->session_year = $value['session_year'];
   }
 
   public function edit($id): void

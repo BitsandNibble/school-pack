@@ -8,13 +8,13 @@
   <x-card>
     <div class="row d-flex justify-content-center text-center">
       <div class="col-6">
-        <x-label for="select_year" class="fw-bolder">Select Exam Year</x-label>
-        <x-select id="select_year" class="mb-2" wire:model.defer="exam_year">
+        <x-label for="select_year" class="fw-bolder">Select Session/Year</x-label>
+        <x-select id="select_year" class="mb-2" wire:model.defer="session_year">
           @foreach($years as $year)
             <option value="{{ $year->year }}" selected>{{ $year->year }}</option>
           @endforeach
         </x-select>
-        <x-input-error for="exam_year" />
+        <x-input-error for="session_year" />
 
         <x-button class="mt-2" wire:click.prevent="submit">Submit</x-button>
       </div>

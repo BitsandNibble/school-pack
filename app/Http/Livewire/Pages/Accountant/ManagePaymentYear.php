@@ -10,11 +10,7 @@ use Livewire\Component;
 
 class ManagePaymentYear extends Component
 {
-  public $exam_year;
-
-  protected array $rules = [
-    'exam_year' => 'required'
-  ];
+  public $session_year;
 
   public function render(): Factory|View|Application
   {
@@ -25,7 +21,11 @@ class ManagePaymentYear extends Component
 
   public function submit(): void
   {
-    $value = $this->validate();
+    $value = $this->validate(
+      ['session_year' => 'required'],
+      [],
+      ['session_year' => 'session/year']
+    );
     $this->emit('selected_year', $value);
   }
 }

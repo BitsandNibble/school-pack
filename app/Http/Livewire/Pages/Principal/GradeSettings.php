@@ -44,7 +44,7 @@ class GradeSettings extends Component
 
     $keys = array_keys($cred);
     $values = array_values($cred);
-    $iMax = SP::count($cred);
+    $iMax = count($cred);
 
     for ($i = 0; $i < $iMax; $i++) {
       Setting::where('type', $keys[$i])->update(['description' => $values[$i]]);

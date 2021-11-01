@@ -27,12 +27,12 @@
                     </x-button>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" target="_blank"
-                             href="{{ route('accountant.payment.invoice', [$st->id]) }}">
+                             href="{{ route('payment.invoice', [$st->id]) }}">
                           All Payments</a>
                       </li>
                       @foreach($payments->where('student_id', $st->id)->pluck('year')->unique() as $year)
                         <li><a class="dropdown-item" target="_blank"
-                               href="{{ route('accountant.payment.invoice', [$st->id, $year]) }}">
+                               href="{{ route('payment.invoice', [$st->id, $year]) }}">
                             {{ $year }}</a>
                         </li>
                       @endforeach

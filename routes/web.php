@@ -94,18 +94,24 @@ Route::group(['middleware' => 'auth:student', 'prefix' => 'student', 'as' => 'st
 Route::group(['middleware' => 'auth:accountant', 'prefix' => 'accountant', 'as' => 'accountant'], function () {
   Route::view('/', 'users.accountant.index')->name('.home');
   Route::get('profile', AccountantProfile::class)->name('.profile');
-  Route::get('payments/create-payment', CreatePayment::class)->name('.create-payment');
-  Route::get('payments/manage-payment', ManagePaymentYear::class)->name('.manage-payment');
-  Route::get('payments/students-payment', StudentPaymentClass::class)->name('.student-payment');
-  Route::get('payments/invoice/{student_id}/{year?}', [AccountantHomeController::class, 'getStudentId'])->name('.payment.invoice');
+});
+
+// payment route
+Route::group(['middleware' => 'auth:accountant,principal'], function () {
+  Route::get('payments/create-payment', CreatePayment::class)->name('create-payment');
+  Route::get('payments/manage-payment', ManagePaymentYear::class)->name('manage-payment');
+  Route::get('payments/students-payment', StudentPaymentClass::class)->name('student-payment');
+  Route::get('payments/invoice/{student_id}/{year?}', [AccountantHomeController::class, 'getStudentId'])->name('payment.invoice');
 });
 
 // print route
-Route::get('results/mark-sheet/show/{id}', [GeneralController::class, 'getStudentId'])->name('result.marksheet.select_year');
-Route::post('results/mark-sheet/show/{id}', [GeneralController::class, 'getMarksheetYear'])->name('result.marksheet.show');
-Route::get('marks/print/{id}/{exam_id}/{year}', [GeneralController::class, 'printMarkSheet'])->name('print_marksheet');
-Route::get('marks/print/{exam_id}/{class}', [GeneralController::class, 'printTabulationSheet'])->name('print_tabulation_sheet');
-Route::get('payments/receipts/{pr_id}', [GeneralController::class, 'printReceipt'])->name('print_invoice');
+Route::group(['middleware' => 'auth:teacher,principal'], function () {
+  Route::get('results/mark-sheet/show/{id}', [GeneralController::class, 'getStudentId'])->name('result.marksheet.select_year');
+  Route::post('results/mark-sheet/show/{id}', [GeneralController::class, 'getMarksheetYear'])->name('result.marksheet.show');
+  Route::get('marks/print/{id}/{exam_id}/{year}', [GeneralController::class, 'printMarkSheet'])->name('print_marksheet');
+  Route::get('marks/print/{exam_id}/{class}', [GeneralController::class, 'printTabulationSheet'])->name('print_tabulation_sheet');
+  Route::get('payments/receipts/{pr_id}', [GeneralController::class, 'printReceipt'])->name('print_invoice');
+});
 
 // login route
 Route::get('login', [AuthController::class, 'create'])->middleware(['guest:principal', 'guest:teacher'])

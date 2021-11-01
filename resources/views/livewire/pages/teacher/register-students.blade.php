@@ -21,48 +21,44 @@
       </div>
     </div>
 
+    <x-responsive-table class="table-bordered">
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th wire:click="sortBy('name')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Name
+              <x-sort-icon sortField="name" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
 
-    <div class="table-responsive">
-      <table class="table table-striped table-bordered" style="width:100%">
-        <thead>
+      <tbody>
+        @forelse($subjects as $subject)
           <tr>
-            <th>S/N</th>
-            <th wire:click="sortBy('name')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Name
-                <x-sort-icon sortField="name" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th></th>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $subject->name }}</td>
+            <td>
+              <x-button class="px-0" value="" wire:click="registerStudents({{ $subject->id }})" data-bs-toggle="modal"
+                        data-bs-target="#registerStudentModal">
+                <i class="bx bxs-plus-circle"></i>
+              </x-button>
+              {{--                <x-button class="px-0" value="" wire:click="editRegisteredStudents({{ $subject->id }})"--}}
+              {{--                          data-bs-toggle="modal"--}}
+              {{--                          data-bs-target="#registerStudentModal">--}}
+              {{--                  <i class="bx bxs-pen"></i>--}}
+              {{--                </x-button>--}}
+            </td>
           </tr>
-        </thead>
-
-        <tbody>
-          @forelse($subjects as $subject)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ $subject->name }}</td>
-              <td>
-                <x-button class="px-0" value="" wire:click="registerStudents({{ $subject->id }})" data-bs-toggle="modal"
-                          data-bs-target="#registerStudentModal">
-                  <i class="bx bxs-plus-circle"></i>
-                </x-button>
-                {{--                <x-button class="px-0" value="" wire:click="editRegisteredStudents({{ $subject->id }})"--}}
-                {{--                          data-bs-toggle="modal"--}}
-                {{--                          data-bs-target="#registerStudentModal">--}}
-                {{--                  <i class="bx bxs-pen"></i>--}}
-                {{--                </x-button>--}}
-              </td>
-            </tr>
-          @empty
-            <tr>
-              <td colspan="3" align="center">No record found</td>
-            </tr>
-          @endforelse
-        </tbody>
-
-      </table>
-    </div>
+        @empty
+          <tr>
+            <td colspan="3" align="center">No record found</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </x-responsive-table>
   </x-card>
 
   <x-modal id="registerStudentModal">

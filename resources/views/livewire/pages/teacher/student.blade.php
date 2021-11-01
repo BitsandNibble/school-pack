@@ -18,60 +18,58 @@
         <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" class="mb-3" />
       </div>
     </div>
+    <x-responsive-table class="table-bordered">
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th wire:click="sortBy('fullname')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Full Name
+              <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('school_id')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Admission No
+              <x-sort-icon sortField="school_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('gender')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Gender
+              <x-sort-icon sortField="gender" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
 
-    <div class="table-responsive">
-      <table class="table table-striped table-bordered" style="width:100%">
-        <thead>
+      <tbody>
+        @forelse ($students as $student)
           <tr>
-            <th>S/N</th>
-            <th wire:click="sortBy('fullname')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Full Name
-                <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th wire:click="sortBy('school_id')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Admission No
-                <x-sort-icon sortField="school_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th wire:click="sortBy('gender')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Gender
-                <x-sort-icon sortField="gender" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th></th>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $student->fullname }} </td>
+            <td>{{ $student->school_id }}</td>
+            <td>{{ $student->gender }}</td>
+            <td>
+              <x-button class="px-0" value="" wire:click="showInfo({{ $student->id }})"
+                        data-bs-toggle="modal" data-bs-target="#infoModal">
+                <i class="bx bxs-show"></i>
+              </x-button>
+              <x-button class="px-0" value="" wire:click="showInfo({{ $student->id }})"
+                        data-bs-toggle="modal" data-bs-target="#infoModal">
+                <i class="bx bxs-plus-circle"></i>
+              </x-button>
+            </td>
           </tr>
-        </thead>
+        @empty
+          <tr>
+            <td colspan="5" align="center">No record found</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </x-responsive-table>
 
-        <tbody>
-          @forelse ($students as $student)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ $student->fullname }} </td>
-              <td>{{ $student->school_id }}</td>
-              <td>{{ $student->gender }}</td>
-              <td>
-                <x-button class="px-0" value="" wire:click="showInfo({{ $student->id }})"
-                          data-bs-toggle="modal" data-bs-target="#infoModal">
-                  <i class="bx bxs-show"></i>
-                </x-button>
-                <x-button class="px-0" value="" wire:click="showInfo({{ $student->id }})"
-                          data-bs-toggle="modal" data-bs-target="#infoModal">
-                  <i class="bx bxs-plus-circle"></i>
-                </x-button>
-              </td>
-            </tr>
-          @empty
-            <tr>
-              <td colspan="5" align="center">No record found</td>
-            </tr>
-          @endforelse
-        </tbody>
-      </table>
-    </div>
     {{ $students->links() }}
   </x-card>
 
@@ -79,7 +77,7 @@
     <x-slot name="title">Student</x-slot>
 
     <x-slot name="content">
-      <table class="table table-sm table-borderless table-hover">
+      <x-table class="table-borderless table-hover">
         @if($student_info)
           @foreach($student_info as $info)
             <tr>
@@ -142,7 +140,7 @@
             </tr>
           @endforeach
         @endif
-      </table>
+      </x-table>
     </x-slot>
 
     <x-slot name="footer">

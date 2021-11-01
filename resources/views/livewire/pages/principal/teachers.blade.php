@@ -30,79 +30,77 @@
       </div>
     </div>
 
-    <div class="table-responsive">
-      <table class="table table-striped table-sm" style="width:100%">
-        <thead>
+    <x-responsive-table>
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th wire:click="sortBy('title')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Title
+              <x-sort-icon sortField="title" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('fullname')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Name
+              <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('school_id')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Staff ID
+              <x-sort-icon sortField="school_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('email')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Email
+              <x-sort-icon sortField="email" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('phone_number')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Number
+              <x-sort-icon sortField="phone_number" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @forelse ($teachers as $teacher)
           <tr>
-            <th>S/N</th>
-            <th wire:click="sortBy('title')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Title
-                <x-sort-icon sortField="title" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th wire:click="sortBy('fullname')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Name
-                <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th wire:click="sortBy('school_id')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Staff ID
-                <x-sort-icon sortField="school_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th wire:click="sortBy('email')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Email
-                <x-sort-icon sortField="email" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th wire:click="sortBy('phone_number')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Number
-                <x-sort-icon sortField="phone_number" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th></th>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $teacher->title }}</td>
+            <td>{{ $teacher->fullname }} </td>
+            <td>{{ $teacher->school_id }}</td>
+            <td>{{ $teacher->email }}</td>
+            <td>{{ $teacher->phone_number }}</td>
+            <td>
+              <x-button class="px-0" value="" wire:click="showInfo({{ $teacher->id }})"
+                        data-bs-toggle="modal" data-bs-target="#infoModal">
+                <i class="bx bxs-show"></i>
+              </x-button>
+              <x-button class="px-0" wire:click="edit({{ $teacher->id }})" value="" data-bs-toggle="modal"
+                        data-bs-target="#teacherModal">
+                <i class="bx bxs-pen"></i>
+              </x-button>
+              <x-button class="px-0" value="" wire:click="openDeleteModal({{ $teacher->id }})"
+                        data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <i class="bx bxs-trash-alt"></i>
+              </x-button>
+            </td>
           </tr>
-        </thead>
+        @empty
+          <tr>
+            <td colspan="8" class="text-center">No record found</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </x-responsive-table>
 
-        <tbody>
-          @forelse ($teachers as $teacher)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ $teacher->title }}</td>
-              <td>{{ $teacher->fullname }} </td>
-              <td>{{ $teacher->school_id }}</td>
-              <td>{{ $teacher->email }}</td>
-              <td>{{ $teacher->phone_number }}</td>
-              <td>
-                <x-button class="px-0" value="" wire:click="showInfo({{ $teacher->id }})"
-                          data-bs-toggle="modal" data-bs-target="#infoModal">
-                  <i class="bx bxs-show"></i>
-                </x-button>
-                <x-button class="px-0" wire:click="edit({{ $teacher->id }})" value="" data-bs-toggle="modal"
-                          data-bs-target="#teacherModal">
-                  <i class="bx bxs-pen"></i>
-                </x-button>
-                <x-button class="px-0" value="" wire:click="openDeleteModal({{ $teacher->id }})"
-                          data-bs-toggle="modal" data-bs-target="#deleteModal">
-                  <i class="bx bxs-trash-alt"></i>
-                </x-button>
-              </td>
-            </tr>
-          @empty
-            <tr>
-              <td colspan="8" class="text-center">No record found</td>
-            </tr>
-          @endforelse
-        </tbody>
-      </table>
-
-      {{ $teachers->links() }}
-    </div>
+    {{ $teachers->links() }}
 
   </x-card>
 
@@ -174,7 +172,7 @@
     <x-slot name="title">Teacher</x-slot>
 
     <x-slot name="content">
-      <table class="table table-sm table-borderless table-hover">
+      <x-table class="table-borderless table-hover">
         @if($teacher_info)
           @foreach($teacher_info as $info)
             <tr>
@@ -238,7 +236,7 @@
             </tr>
           @endforeach
         @endif
-      </table>
+      </x-table>
     </x-slot>
 
     <x-slot name="footer">

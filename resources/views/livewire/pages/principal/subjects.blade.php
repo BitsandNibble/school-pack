@@ -50,42 +50,40 @@
       </div>
     </div>
 
-    <div class="table-responsive">
-      <table class="table table-striped table-sm" style="width:100%">
-        <thead>
+    <x-responsive-table>
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th>Name</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @forelse ($subjects as $subject)
           <tr>
-            <th>S/N</th>
-            <th>Name</th>
-            <th></th>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $subject->name }}</td>
+            <td>
+              <x-button class="px-0" wire:click="edit({{ $subject->id }})" value="" data-bs-toggle="modal"
+                        data-bs-target="#subjectModal">
+                <i class="bx bxs-pen"></i>
+              </x-button>
+              <x-button class="px-0" value="" wire:click="openDeleteModal({{ $subject->id }})"
+                        data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <i class="bx bxs-trash-alt"></i>
+              </x-button>
+            </td>
           </tr>
-        </thead>
+        @empty
+          <tr>
+            <td colspan="3" align="center">No record found</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </x-responsive-table>
 
-        <tbody>
-          @forelse ($subjects as $subject)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ $subject->name }}</td>
-              <td>
-                <x-button class="px-0" wire:click="edit({{ $subject->id }})" value="" data-bs-toggle="modal"
-                          data-bs-target="#subjectModal">
-                  <i class="bx bxs-pen"></i>
-                </x-button>
-                <x-button class="px-0" value="" wire:click="openDeleteModal({{ $subject->id }})"
-                          data-bs-toggle="modal" data-bs-target="#deleteModal">
-                  <i class="bx bxs-trash-alt"></i>
-                </x-button>
-              </td>
-            </tr>
-          @empty
-            <tr>
-              <td colspan="3" align="center">No record found</td>
-            </tr>
-          @endforelse
-        </tbody>
-      </table>
-
-      {{ $subjects->links() }}
-    </div>
+    {{ $subjects->links() }}
   </x-card>
 
   <x-confirmation-modal id="subjectModal">

@@ -35,91 +35,90 @@
       </div>
     </div>
 
-    <div class="table-responsive">
-      <table class="table table-striped table-sm" style="width:100%">
-        <thead>
+    <x-responsive-table>
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th wire:click="sortBy('fullname')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Name
+              <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('school_id')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Adm. No
+              <x-sort-icon sortField="school_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('gender')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Gender
+              <x-sort-icon sortField="gender" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          @if (!$class_id)
+            <th wire:click="sortBy('class_room_id')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Class
+                <x-sort-icon sortField="class_room_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
+          @else
+            <th wire:click="sortBy('section_id')" class="cursor-pointer">
+              <div class="d-flex justify-content-between">
+                Section
+                <x-sort-icon sortField="section_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+              </div>
+            </th>
+          @endif
+          @if ($parent === null)
+            <th></th>
+          @endif
+        </tr>
+      </thead>
+
+      <tbody>
+        @forelse ($students as $student)
           <tr>
-            <th>S/N</th>
-            <th wire:click="sortBy('fullname')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Name
-                <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th wire:click="sortBy('school_id')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Adm. No
-                <x-sort-icon sortField="school_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th wire:click="sortBy('gender')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Gender
-                <x-sort-icon sortField="gender" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $student->fullname }} </td>
+            <td>{{ $student->school_id }}</td>
+            <td>{{ $student->gender }}</td>
             @if (!$class_id)
-              <th wire:click="sortBy('class_room_id')" class="cursor-pointer">
-                <div class="d-flex justify-content-between">
-                  Class
-                  <x-sort-icon sortField="class_room_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-                </div>
-              </th>
+              <td>
+                {{ $student->class_room->name ?? '' }} {{ $student->section->name ?? '' }}
+              </td>
             @else
-              <th wire:click="sortBy('section_id')" class="cursor-pointer">
-                <div class="d-flex justify-content-between">
-                  Section
-                  <x-sort-icon sortField="section_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-                </div>
-              </th>
+              <td>
+                {{ $student->section->name ?? '' }}
+              </td>
             @endif
             @if ($parent === null)
-              <th></th>
+              <td>
+                <x-button class="px-0" value="" wire:click="$emit('showInfo', {{ $student->id }})"
+                          data-bs-toggle="modal" data-bs-target="#infoModal">
+                  <i class="bx bxs-show"></i>
+                </x-button>
+                <x-button class="px-0" wire:click="$emit('edit', {{ $student->id }})" value=""
+                          data-bs-toggle="modal" data-bs-target="#studentModal">
+                  <i class="bx bxs-pen"></i>
+                </x-button>
+                <x-button class="px-0" value="" wire:click="$emit('openDeleteModal', {{ $student->id }})"
+                          data-bs-toggle="modal" data-bs-target="#deleteModal">
+                  <i class="bx bxs-trash-alt"></i>
+                </x-button>
+              </td>
             @endif
           </tr>
-        </thead>
+        @empty
+          <tr>
+            <td colspan="6" class="text-center">No record found</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </x-responsive-table>
 
-        <tbody>
-          @forelse ($students as $student)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ $student->fullname }} </td>
-              <td>{{ $student->school_id }}</td>
-              <td>{{ $student->gender }}</td>
-              @if (!$class_id)
-                <td>
-                  {{ $student->class_room->name ?? '' }} {{ $student->section->name ?? '' }}
-                </td>
-              @else
-                <td>
-                  {{ $student->section->name ?? '' }}
-                </td>
-              @endif
-              @if ($parent === null)
-                <td>
-                  <x-button class="px-0" value="" wire:click="$emit('showInfo', {{ $student->id }})"
-                            data-bs-toggle="modal" data-bs-target="#infoModal">
-                    <i class="bx bxs-show"></i>
-                  </x-button>
-                  <x-button class="px-0" wire:click="$emit('edit', {{ $student->id }})" value=""
-                            data-bs-toggle="modal" data-bs-target="#studentModal">
-                    <i class="bx bxs-pen"></i>
-                  </x-button>
-                  <x-button class="px-0" value="" wire:click="$emit('openDeleteModal', {{ $student->id }})"
-                            data-bs-toggle="modal" data-bs-target="#deleteModal">
-                    <i class="bx bxs-trash-alt"></i>
-                  </x-button>
-                </td>
-              @endif
-            </tr>
-          @empty
-            <tr>
-              <td colspan="6" class="text-center">No record found</td>
-            </tr>
-          @endforelse
-        </tbody>
-      </table>
-    </div>
     {{ $students->links() }}
   </x-card>
 

@@ -16,44 +16,42 @@
   </x-card>
 
   <x-card>
-    <div class="table-responsive">
-      <table class="table table-striped table-sm" style="width:100%">
-        <thead>
-          <tr>
-            <th>S/N</th>
-            <th>Name</th>
-            <th>Term</th>
-            <th>Session</th>
-            <th></th>
-          </tr>
-        </thead>
+    <x-responsive-table>
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th>Name</th>
+          <th>Term</th>
+          <th>Session</th>
+          <th></th>
+        </tr>
+      </thead>
 
-        <tbody>
-          @forelse($exams as $exam)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ $exam->name }}</td>
-              <td>{{ $exam->term }}</td>
-              <td>{{ \App\Helpers\SP::getSetting('current_session') }}</td>
-              <td>
-                <x-button class="px-0" wire:click="edit({{ $exam->id }})" value="" data-bs-toggle="modal"
-                          data-bs-target="#examModal">
-                  <i class="bx bxs-pen"></i>
-                </x-button>
-                <x-button class="px-0" value="" wire:click="openDeleteModal({{ $exam->id }})"
-                          data-bs-toggle="modal" data-bs-target="#deleteModal">
-                  <i class="bx bxs-trash-alt"></i>
-                </x-button>
-              </td>
-            </tr>
-          @empty
-            <tr>
-              <td colspan="5" class="text-center">No record found</td>
-            </tr>
-          @endforelse
-        </tbody>
-      </table>
-    </div>
+      <tbody>
+        @forelse($exams as $exam)
+          <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $exam->name }}</td>
+            <td>{{ $exam->term }}</td>
+            <td>{{ \App\Helpers\SP::getSetting('current_session') }}</td>
+            <td>
+              <x-button class="px-0" wire:click="edit({{ $exam->id }})" value="" data-bs-toggle="modal"
+                        data-bs-target="#examModal">
+                <i class="bx bxs-pen"></i>
+              </x-button>
+              <x-button class="px-0" value="" wire:click="openDeleteModal({{ $exam->id }})"
+                        data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <i class="bx bxs-trash-alt"></i>
+              </x-button>
+            </td>
+          </tr>
+        @empty
+          <tr>
+            <td colspan="5" class="text-center">No record found</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </x-responsive-table>
   </x-card>
 
 

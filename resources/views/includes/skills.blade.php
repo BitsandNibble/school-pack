@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-5">
-    <table class="table table-sm table-bordered" style="border: solid 1px">
+    <x-table class="table-bordered" style="border: solid 1px">
       <thead>
         <th>AFFECTIVE SKILLS</th>
         <th>RATING</th>
@@ -15,11 +15,11 @@
           </tr>
         @endforeach
       </tbody>
-    </table>
+    </x-table>
   </div>
 
   <div class="col-md-5">
-    <table class="table table-sm table-bordered" style="border: solid 1px">
+    <x-table class="table-bordered" style="border: solid 1px">
       <thead>
         <th>BEHAVIOUR</th>
         <th>RATING</th>
@@ -34,7 +34,7 @@
           </tr>
         @endforeach
       </tbody>
-    </table>
+    </x-table>
   </div>
 
   <div class="col-md-2">

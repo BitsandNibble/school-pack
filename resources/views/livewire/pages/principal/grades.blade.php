@@ -16,46 +16,44 @@
   </x-card>
 
   <x-card>
-    <div class="table-responsive">
-      <table class="table table-striped table-sm" style="width:100%">
-        <thead>
-          <tr>
-            <th>S/N</th>
-            <th>Name</th>
-            <th>Grade Type</th>
-            <th>Range</th>
-            <th>Remark</th>
-            <th></th>
-          </tr>
-        </thead>
+    <x-responsive-table>
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th>Name</th>
+          <th>Grade Type</th>
+          <th>Range</th>
+          <th>Remark</th>
+          <th></th>
+        </tr>
+      </thead>
 
-        <tbody>
-          @forelse($grades as $gr)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ $gr->name }}</td>
-              <td>{{ $gr->class_type->name ?? '' }}</td>
-              <td>{{ $gr->mark_from . ' - ' . $gr->mark_to }}</td>
-              <td>{{ $gr->remark }}</td>
-              <td>
-                <x-button class="px-0" wire:click="edit({{ $gr->id }})" value="" data-bs-toggle="modal"
-                          data-bs-target="#gradeModal">
-                  <i class="bx bxs-pen"></i>
-                </x-button>
-                <x-button class="px-0" value="" wire:click="openDeleteModal({{ $gr->id }})"
-                          data-bs-toggle="modal" data-bs-target="#deleteModal">
-                  <i class="bx bxs-trash-alt"></i>
-                </x-button>
-              </td>
-            </tr>
-          @empty
-            <tr>
-              <td colspan="6" class="text-center">No record found</td>
-            </tr>
-          @endforelse
-        </tbody>
-      </table>
-    </div>
+      <tbody>
+        @forelse($grades as $gr)
+          <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $gr->name }}</td>
+            <td>{{ $gr->class_type->name ?? '' }}</td>
+            <td>{{ $gr->mark_from . ' - ' . $gr->mark_to }}</td>
+            <td>{{ $gr->remark }}</td>
+            <td>
+              <x-button class="px-0" wire:click="edit({{ $gr->id }})" value="" data-bs-toggle="modal"
+                        data-bs-target="#gradeModal">
+                <i class="bx bxs-pen"></i>
+              </x-button>
+              <x-button class="px-0" value="" wire:click="openDeleteModal({{ $gr->id }})"
+                        data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <i class="bx bxs-trash-alt"></i>
+              </x-button>
+            </td>
+          </tr>
+        @empty
+          <tr>
+            <td colspan="6" class="text-center">No record found</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </x-responsive-table>
   </x-card>
 
 

@@ -7,18 +7,18 @@
       <td><strong>CLASS:</strong> {{ strtoupper($class->name) }}</td>
     </tr>
     <tr>
-      <td><strong>REPORT SHEET FOR:</strong> {!! strtoupper(\App\Helpers\SP::getSuffix($exam->term)) !!} TERM </td>
+      <td><strong>REPORT SHEET FOR:</strong> {!! strtoupper(\App\Helpers\SP::getSuffix($exam->term)) !!} TERM</td>
       <td><strong>ACADEMIC YEAR:</strong> {{ $exam_record->year }}</td>
       <td><strong>POSITION:</strong> {!! $position !!}</td>
-{{--      <td><strong>AGE:</strong> {{ $s->age ?: ($sr->user->dob ? date_diff(date_create($sr->user->dob), date_create('now'))->y : '-') }}</td>--}}
+      {{--      <td><strong>AGE:</strong> {{ $s->age ?: ($sr->user->dob ? date_diff(date_create($sr->user->dob), date_create('now'))->y : '-') }}</td>--}}
     </tr>
   </tbody>
 </table>
 
 
 {{--Exam Table--}}
-<table class="table table-bordered table-sm mt-4 text-center" style="width:100%; border: 1px solid #000; border-collapse:collapse;">
-{{--  <table style="width:100%;  border: 1px solid #000; margin: 10px auto;" border="1">--}}
+<x-table class="table-bordered mt-4 text-center" style="border: 1px solid #000; border-collapse: collapse;">
+  {{--  <table style="width:100%;  border: 1px solid #000; margin: 10px auto;" border="1">--}}
 
   <thead>
     <tr>
@@ -81,4 +81,4 @@
       <td colspan="3"><strong>CLASS AVERAGE: </strong> {{ $exam_record->class_average }}</td>
     </tr>
   </tbody>
-</table>
+</x-table>

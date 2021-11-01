@@ -107,7 +107,7 @@
     <x-slot name="title">Student</x-slot>
 
     <x-slot name="content">
-      <table class="table table-sm table-borderless table-hover">
+      <x-table class="table-borderless table-hover">
         @if($student_info)
           @foreach($student_info as $info)
             <tr>
@@ -170,7 +170,7 @@
             </tr>
           @endforeach
         @endif
-      </table>
+      </x-table>
     </x-slot>
 
     <x-slot name="footer">

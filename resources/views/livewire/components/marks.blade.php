@@ -10,53 +10,52 @@
           <p>Exam: {{ $exam }} ({{ \App\Helpers\SP::getSetting('current_session') }})</p>
         </div>
       </div>
-      <div class="table-responsive">
+
+      <x-responsive-table>
         <x-validation-errors />
-        <table class="table table-striped table-sm" style="width:100%">
-          <thead>
+        <thead>
+          <tr>
+            <th>S/N</th>
+            <th>Name</th>
+            <th>Adm. No</th>
+            <th>1st CA ({{ $ca1_limit }})</th>
+            <th>2nd CA ({{ $ca2_limit }})</th>
+            <th>Exam ({{ $exam_limit }})</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @forelse($get_marks as $index => $mark)
             <tr>
-              <th>S/N</th>
-              <th>Name</th>
-              <th>Adm. No</th>
-              <th>1st CA ({{ $ca1_limit }})</th>
-              <th>2nd CA ({{ $ca2_limit }})</th>
-              <th>Exam ({{ $exam_limit }})</th>
+              <td>{{ $loop->iteration }}</td>
+              <td>{{ $mark->student->fullname ?? '' }}</td>
+              <td>{{ $mark->student->school_id ?? '' }}</td>
+
+              {{--                CA and exam score--}}
+              @unless($showEdit)
+                <td class="px-5">{{ $mark->ca1 ?? '' }}</td>
+                <td class="px-5">{{ $mark->ca2 ?? '' }}</td>
+                <td class="px-5">{{ $mark->exam_score ?? '' }}</td>
+              @else
+                <td class="px-5">
+                  <x-input class="form-control-sm" max="{{ $ca1_limit }}" wire:model.defer="marks.{{ $index }}.ca1" />
+                </td>
+                <td class="px-5">
+                  <x-input class="form-control-sm" max="{{ $ca2_limit }}" wire:model.defer="marks.{{ $index }}.ca2" />
+                </td>
+                <td class="px-5">
+                  <x-input class="form-control-sm" max="{{ $exam_limit }}"
+                           wire:model.defer="marks.{{ $index }}.exam_score" />
+                </td>
+              @endunless
             </tr>
-          </thead>
-
-          <tbody>
-            @forelse($get_marks as $index => $mark)
-              <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $mark->student->fullname ?? '' }}</td>
-                <td>{{ $mark->student->school_id ?? '' }}</td>
-
-                {{--                CA and exam score--}}
-                @unless($showEdit)
-                  <td class="px-5">{{ $mark->ca1 ?? '' }}</td>
-                  <td class="px-5">{{ $mark->ca2 ?? '' }}</td>
-                  <td class="px-5">{{ $mark->exam_score ?? '' }}</td>
-                @else
-                  <td class="px-5">
-                    <x-input class="form-control-sm" max="{{ $ca1_limit }}" wire:model.defer="marks.{{ $index }}.ca1" />
-                  </td>
-                  <td class="px-5">
-                    <x-input class="form-control-sm" max="{{ $ca2_limit }}" wire:model.defer="marks.{{ $index }}.ca2" />
-                  </td>
-                  <td class="px-5">
-                    <x-input class="form-control-sm" max="{{ $exam_limit }}"
-                             wire:model.defer="marks.{{ $index }}.exam_score" />
-                  </td>
-                @endunless
-              </tr>
-            @empty
-              <tr>
-                <td colspan="6" class="text-center">No record found</td>
-              </tr>
-            @endforelse
-          </tbody>
-        </table>
-      </div>
+          @empty
+            <tr>
+              <td colspan="6" class="text-center">No record found</td>
+            </tr>
+          @endforelse
+        </tbody>
+      </x-responsive-table>
 
       <div class="d-block mb-2 float-end">
         <x-button value="dark"

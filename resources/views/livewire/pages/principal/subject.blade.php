@@ -18,46 +18,44 @@
       </div>
     </div>
 
-    <div class="table-responsive">
-      <table class="table table-striped table-sm" style="width:100%">
-        <thead>
-          <tr>
-            <th>S/N</th>
-            <th>Subject Name</th>
-            <th>Subject Teacher</th>
-            <th></th>
-          </tr>
-        </thead>
+    <x-responsive-table>
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th>Subject Name</th>
+          <th>Subject Teacher</th>
+          <th></th>
+        </tr>
+      </thead>
 
-        <tbody>
-          @forelse($classes as $class)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td>
-                {{ $class->subject->name ?? '' }}
-              </td>
-              <td>
-                {{ $class->teacher->fullname ?? '' }}
-              </td>
-              <td>
-                <x-button class="px-0" wire:click="edit({{ $class->id }})" value=""
-                          data-bs-toggle="modal" data-bs-target="#subjectTeacherModal">
-                  <i class="bx bxs-pen"></i>
-                </x-button>
-                <x-button class="px-0" value="" wire:click="openDeleteModal({{ $class->id }})"
-                          data-bs-toggle="modal" data-bs-target="#deleteModal">
-                  <i class="bx bxs-trash-alt"></i>
-                </x-button>
-              </td>
-            </tr>
-          @empty
-            <tr>
-              <td colspan="5" align="center">No record found</td>
-            </tr>
-          @endforelse
-        </tbody>
-      </table>
-    </div>
+      <tbody>
+        @forelse($classes as $class)
+          <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>
+              {{ $class->subject->name ?? '' }}
+            </td>
+            <td>
+              {{ $class->teacher->fullname ?? '' }}
+            </td>
+            <td>
+              <x-button class="px-0" wire:click="edit({{ $class->id }})" value=""
+                        data-bs-toggle="modal" data-bs-target="#subjectTeacherModal">
+                <i class="bx bxs-pen"></i>
+              </x-button>
+              <x-button class="px-0" value="" wire:click="openDeleteModal({{ $class->id }})"
+                        data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <i class="bx bxs-trash-alt"></i>
+              </x-button>
+            </td>
+          </tr>
+        @empty
+          <tr>
+            <td colspan="5" align="center">No record found</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </x-responsive-table>
   </x-card>
 
   <x-confirmation-modal id="subjectTeacherModal">

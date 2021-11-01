@@ -1,5 +1,5 @@
 <div>
-  <table class="table table-sm table-borderless" style="border-collapse:collapse;">
+  <x-table class="table-borderless">
     <tbody>
       <tr>
         <td><strong>CLASS TEACHER'S COMMENT:</strong></td>
@@ -13,10 +13,10 @@
         <td><strong>NEXT TERM BEGINS:</strong></td>
         <td>{{ date('l\, jS F\, Y', strtotime($s['term_begins'])) }}</td>
       </tr>
-{{--      <tr>--}}
-{{--        <td><strong>NEXT TERM FEES:</strong></td>--}}
-{{--        <td><del style="text-decoration-style: double">N</del>{{ $s['next_term_fees_'.strtolower($ct)] }}</td>--}}
-{{--      </tr>--}}
+      {{--      <tr>--}}
+      {{--        <td><strong>NEXT TERM FEES:</strong></td>--}}
+      {{--        <td><del style="text-decoration-style: double">N</del>{{ $s['next_term_fees_'.strtolower($ct)] }}</td>--}}
+      {{--      </tr>--}}
     </tbody>
-  </table>
+  </x-table>
 </div>

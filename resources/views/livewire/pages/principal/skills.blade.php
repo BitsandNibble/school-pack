@@ -16,44 +16,42 @@
   </x-card>
 
   <x-card>
-    <div class="table-responsive">
-      <table class="table table-striped table-sm" style="width:100%">
-        <thead>
-          <tr>
-            <th>S/N</th>
-            <th>Name</th>
-            <th>Skill Type</th>
-            <th>Class Type</th>
-            <th></th>
-          </tr>
-        </thead>
+    <x-responsive-table>
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th>Name</th>
+          <th>Skill Type</th>
+          <th>Class Type</th>
+          <th></th>
+        </tr>
+      </thead>
 
-        <tbody>
-          @forelse($skills as $sk)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ $sk->name }}</td>
-              <td>{{ $sk->skill_type ?? '' }}</td>
-              <td>{{ $sk->class_type->name ?? '' }}</td>
-              <td>
-                <x-button class="px-0" wire:click="edit({{ $sk->id }})" value="" data-bs-toggle="modal"
-                          data-bs-target="#skillModal">
-                  <i class="bx bxs-pen"></i>
-                </x-button>
-                <x-button class="px-0" value="" wire:click="openDeleteModal({{ $sk->id }})"
-                          data-bs-toggle="modal" data-bs-target="#deleteModal">
-                  <i class="bx bxs-trash-alt"></i>
-                </x-button>
-              </td>
-            </tr>
-          @empty
-            <tr>
-              <td colspan="6" class="text-center">No record found</td>
-            </tr>
-          @endforelse
-        </tbody>
-      </table>
-    </div>
+      <tbody>
+        @forelse($skills as $sk)
+          <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $sk->name }}</td>
+            <td>{{ $sk->skill_type ?? '' }}</td>
+            <td>{{ $sk->class_type->name ?? '' }}</td>
+            <td>
+              <x-button class="px-0" wire:click="edit({{ $sk->id }})" value="" data-bs-toggle="modal"
+                        data-bs-target="#skillModal">
+                <i class="bx bxs-pen"></i>
+              </x-button>
+              <x-button class="px-0" value="" wire:click="openDeleteModal({{ $sk->id }})"
+                        data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <i class="bx bxs-trash-alt"></i>
+              </x-button>
+            </td>
+          </tr>
+        @empty
+          <tr>
+            <td colspan="6" class="text-center">No record found</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </x-responsive-table>
   </x-card>
 
 
@@ -66,7 +64,7 @@
         Type That the grade applies to</p>
 
       <div class="row">
-{{--         <x-validation-errors />--}}
+        {{--         <x-validation-errors />--}}
 
         <div class="col-md-4 mb-2">
           <x-label for="skill">Name <span class="text-danger">*</span></x-label>

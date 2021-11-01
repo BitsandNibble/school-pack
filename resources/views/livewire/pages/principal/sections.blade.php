@@ -33,71 +33,69 @@
       </div> --}}
     </div>
 
-    <div class="table-responsive">
-      <table class="table table-striped table-sm" style="width:100%">
-        <thead>
+    <x-responsive-table>
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th wire:click="sortBy('class_room_id')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Class
+              <x-sort-icon sortField="class_room_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('name')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Section
+              <x-sort-icon sortField="name" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('teacher_id')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Teacher
+              <x-sort-icon sortField="teacher_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @forelse($sections as $section)
           <tr>
-            <th>S/N</th>
-            <th wire:click="sortBy('class_room_id')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Class
-                <x-sort-icon sortField="class_room_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th wire:click="sortBy('name')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Section
-                <x-sort-icon sortField="name" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th wire:click="sortBy('teacher_id')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Teacher
-                <x-sort-icon sortField="teacher_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th></th>
+            <td>{{ $loop->iteration }}</td>
+            <td style="transform: rotate(0);">
+              <a href="{{ route('principal.classes.students', [$section->class_room->slug]) }}"
+                 class="stretched-link">
+                {{ $section->class_room->name }}
+              </a>
+            </td>
+            <td style="transform: rotate(0);">
+              <a href="{{ route('principal.sections.students', [$section->class_room->slug, $section]) }}"
+                 class="stretched-link">
+                {{ $section->name }}
+              </a>
+            </td>
+            <td>{{ $section->teacher->fullname ?? '' }}</td>
+            <td>
+              <x-button class="px-0" wire:click="edit({{ $section->id }})" value="" data-bs-toggle="modal"
+                        data-bs-target="#sectionModal">
+                <i class="bx bxs-pen"></i>
+              </x-button>
+              <x-button class="px-0" value="" wire:click="openDeleteModal({{ $section->id }})"
+                        data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <i class="bx bxs-trash-alt"></i>
+              </x-button>
+            </td>
           </tr>
-        </thead>
+        @empty
+          <tr>
+            <td colspan="5" class="text-center">No record found</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </x-responsive-table>
 
-        <tbody>
-          @forelse($sections as $section)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td style="transform: rotate(0);">
-                <a href="{{ route('principal.classes.students', [$section->class_room->slug]) }}"
-                   class="stretched-link">
-                  {{ $section->class_room->name }}
-                </a>
-              </td>
-              <td style="transform: rotate(0);">
-                <a href="{{ route('principal.sections.students', [$section->class_room->slug, $section]) }}"
-                   class="stretched-link">
-                  {{ $section->name }}
-                </a>
-              </td>
-              <td>{{ $section->teacher->fullname ?? '' }}</td>
-              <td>
-                <x-button class="px-0" wire:click="edit({{ $section->id }})" value="" data-bs-toggle="modal"
-                          data-bs-target="#sectionModal">
-                  <i class="bx bxs-pen"></i>
-                </x-button>
-                <x-button class="px-0" value="" wire:click="openDeleteModal({{ $section->id }})"
-                          data-bs-toggle="modal" data-bs-target="#deleteModal">
-                  <i class="bx bxs-trash-alt"></i>
-                </x-button>
-              </td>
-            </tr>
-          @empty
-            <tr>
-              <td colspan="5" class="text-center">No record found</td>
-            </tr>
-          @endforelse
-        </tbody>
-      </table>
-
-      {{ $sections->links() }}
-    </div>
+    {{ $sections->links() }}
   </x-card>
 
 

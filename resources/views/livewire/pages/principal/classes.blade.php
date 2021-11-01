@@ -33,59 +33,57 @@
       </div> --}}
     </div>
 
-    <div class="table-responsive">
-      <table class="table table-striped table-sm" style="width:100%">
-        <thead>
+    <x-responsive-table>
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th wire:click="sortBy('name')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Name
+              <x-sort-icon sortField="name" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('class_type_id')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Class Type
+              <x-sort-icon sortField="class_type_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @forelse($classes as $class)
           <tr>
-            <th>S/N</th>
-            <th wire:click="sortBy('name')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Name
-                <x-sort-icon sortField="name" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th wire:click="sortBy('class_type_id')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Class Type
-                <x-sort-icon sortField="class_type_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-            <th></th>
+            <td>{{ $loop->iteration }}</td>
+            <td style="transform: rotate(0);">
+              <a href="{{ route('principal.classes.students', [$class->slug]) }}"
+                 class="stretched-link">
+                {{ $class->name }}
+              </a>
+            </td>
+            <td>{{ $class->class_type->name ?? '' }}</td>
+            <td>
+              <x-button class="px-0" wire:click="edit({{ $class->id }})" value="" data-bs-toggle="modal"
+                        data-bs-target="#classModal">
+                <i class="bx bxs-pen"></i>
+              </x-button>
+              <x-button class="px-0" value="" wire:click="openDeleteModal({{ $class->id }})"
+                        data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <i class="bx bxs-trash-alt"></i>
+              </x-button>
+            </td>
           </tr>
-        </thead>
+        @empty
+          <tr>
+            <td colspan="4" align="center">No record found</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </x-responsive-table>
 
-        <tbody>
-          @forelse($classes as $class)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td style="transform: rotate(0);">
-                <a href="{{ route('principal.classes.students', [$class->slug]) }}"
-                   class="stretched-link">
-                  {{ $class->name }}
-                </a>
-              </td>
-              <td>{{ $class->class_type->name ?? '' }}</td>
-              <td>
-                <x-button class="px-0" wire:click="edit({{ $class->id }})" value="" data-bs-toggle="modal"
-                          data-bs-target="#classModal">
-                  <i class="bx bxs-pen"></i>
-                </x-button>
-                <x-button class="px-0" value="" wire:click="openDeleteModal({{ $class->id }})"
-                          data-bs-toggle="modal" data-bs-target="#deleteModal">
-                  <i class="bx bxs-trash-alt"></i>
-                </x-button>
-              </td>
-            </tr>
-          @empty
-            <tr>
-              <td colspan="4" align="center">No record found</td>
-            </tr>
-          @endforelse
-        </tbody>
-      </table>
-
-      {{ $classes->links() }}
-    </div>
+    {{ $classes->links() }}
   </x-card>
 
   <x-confirmation-modal id="classModal">

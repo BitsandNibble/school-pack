@@ -7,50 +7,48 @@
         <h6 class="fw-bold my-auto">Manage Payments for {{ $session_year }}</h6>
       </x-slot>
 
-      <div class="table-responsive">
-        <table class="table table-striped table-sm" style="width:100%">
-          <thead>
-            <tr>
-              <th>S/N</th>
-              <th>Title</th>
-              <th>Amount</th>
-              <th>Ref_No</th>
-              <th>Class</th>
-              <th>Method</th>
-              <th>Description</th>
-              <th></th>
-            </tr>
-          </thead>
+      <x-responsive-table>
+        <thead>
+          <tr>
+            <th>S/N</th>
+            <th>Title</th>
+            <th>Amount</th>
+            <th>Ref_No</th>
+            <th>Class</th>
+            <th>Method</th>
+            <th>Description</th>
+            <th></th>
+          </tr>
+        </thead>
 
-          <tbody>
-            @forelse($payments as $payment)
-              <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $payment->title ?? '' }}</td>
-                <td>{{ $payment->amount ?? '' }}</td>
-                <td>{{ $payment->ref_no ?? '' }}</td>
-                <td>{{ $payment->class_room->name ?? '' }}</td>
-                <td>{{ $payment->method ?? '' }}</td>
-                <td>{{ $payment->description ?? '' }}</td>
-                <td>
-                  <x-button class="px-0" wire:click="edit({{ $payment->id }})" value="" data-bs-toggle="modal"
-                            data-bs-target="#paymentModal">
-                    <i class="bx bxs-pen"></i>
-                  </x-button>
-                  <x-button class="px-0" value="" wire:click="openDeleteModal({{ $payment->id }})"
-                            data-bs-toggle="modal" data-bs-target="#deleteModal">
-                    <i class="bx bxs-trash-alt"></i>
-                  </x-button>
-                </td>
-              </tr>
-            @empty
-              <tr>
-                <td colspan="8" align="center">No record found</td>
-              </tr>
-            @endforelse
-          </tbody>
-        </table>
-      </div>
+        <tbody>
+          @forelse($payments as $payment)
+            <tr>
+              <td>{{ $loop->iteration }}</td>
+              <td>{{ $payment->title ?? '' }}</td>
+              <td>{{ $payment->amount ?? '' }}</td>
+              <td>{{ $payment->ref_no ?? '' }}</td>
+              <td>{{ $payment->class_room->name ?? '' }}</td>
+              <td>{{ $payment->method ?? '' }}</td>
+              <td>{{ $payment->description ?? '' }}</td>
+              <td>
+                <x-button class="px-0" wire:click="edit({{ $payment->id }})" value="" data-bs-toggle="modal"
+                          data-bs-target="#paymentModal">
+                  <i class="bx bxs-pen"></i>
+                </x-button>
+                <x-button class="px-0" value="" wire:click="openDeleteModal({{ $payment->id }})"
+                          data-bs-toggle="modal" data-bs-target="#deleteModal">
+                  <i class="bx bxs-trash-alt"></i>
+                </x-button>
+              </td>
+            </tr>
+          @empty
+            <tr>
+              <td colspan="8" align="center">No record found</td>
+            </tr>
+          @endforelse
+        </tbody>
+      </x-responsive-table>
     </x-card-with-header>
 
     <x-confirmation-modal id="paymentModal">

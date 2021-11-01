@@ -403,6 +403,10 @@
             <a href="{{ route('principal.home') }}" class="text-sm text-gray-700 underline">Principal Dashboard</a>
           @elseif(auth('teacher')->user())
             <a href="{{ route('teacher.home') }}" class="text-sm text-gray-700 underline">Teacher Dashboard</a>
+          @elseif(auth('accountant')->user())
+            <a href="{{ route('accountant.home') }}" class="text-sm text-gray-700 underline">Accountant Dashboard</a>
+          @elseif(auth('student')->user())
+            <a href="{{ route('student.home') }}" class="text-sm text-gray-700 underline">Student Dashboard</a>
           @else
             <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
 

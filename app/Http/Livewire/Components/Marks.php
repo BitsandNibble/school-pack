@@ -77,6 +77,7 @@ class Marks extends Component
       'exam_id' => $this->exam_id,
       'class_room_id' => $this->class_id,
       'subject_id' => $this->subject_id,
+      'year' => SP::getSetting('current_session')
     ];
 
     $this->subject = Subject::where('id', $value['subject_id'])->first()->name;

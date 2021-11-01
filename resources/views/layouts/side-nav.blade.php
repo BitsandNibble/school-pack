@@ -29,7 +29,26 @@
         <a href="{{ route('principal.students.promotion') }}"><i class="bx bx-right-arrow-alt"></i>Promote Students</a>
       </li>
       <li>
-        <a href="{{ route('principal.students.manage-promotion') }}"><i class="bx bx-right-arrow-alt"></i>Manage Promotions</a>
+        <a href="{{ route('principal.students.manage-promotion') }}"><i class="bx bx-right-arrow-alt"></i>Manage
+          Promotions</a>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <a href="javascript:" class="has-arrow" aria-expanded="false">
+      <div class="parent-icon"><i class='bx bx-money'></i></div>
+      <div class="menu-title">Payments</div>
+    </a>
+    <ul class="mm-collapse">
+      <li>
+        <a href="{{ route('create-payment') }}"><i class="bx bx-right-arrow-alt"></i>Create Payment</a>
+      </li>
+      <li>
+        <a href="{{ route('manage-payment') }}"><i class="bx bx-right-arrow-alt"></i>Manage Payment</a>
+      </li>
+      <li>
+        <a href="{{ route('student-payment') }}"><i class="bx bx-right-arrow-alt"></i>Student Payments</a>
       </li>
     </ul>
   </li>
@@ -190,13 +209,13 @@
     </a>
     <ul class="mm-collapse">
       <li>
-        <a href="{{ route('accountant.create-payment') }}"><i class="bx bx-right-arrow-alt"></i>Create Payment</a>
+        <a href="{{ route('create-payment') }}"><i class="bx bx-right-arrow-alt"></i>Create Payment</a>
       </li>
       <li>
-        <a href="{{ route('accountant.manage-payment') }}"><i class="bx bx-right-arrow-alt"></i>Manage Payment</a>
+        <a href="{{ route('manage-payment') }}"><i class="bx bx-right-arrow-alt"></i>Manage Payment</a>
       </li>
       <li>
-        <a href="{{ route('accountant.student-payment') }}"><i class="bx bx-right-arrow-alt"></i>Student Payments</a>
+        <a href="{{ route('student-payment') }}"><i class="bx bx-right-arrow-alt"></i>Student Payments</a>
       </li>
     </ul>
   </li>

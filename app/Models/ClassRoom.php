@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static find($class_id)
  * @method static create(array $array)
  * @method static get()
+ * @method static whereIn(string $string, $students)
  */
 class ClassRoom extends Model
 {

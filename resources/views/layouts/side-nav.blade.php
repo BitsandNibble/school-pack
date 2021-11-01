@@ -50,6 +50,9 @@
       <li>
         <a href="{{ route('student-payment') }}"><i class="bx bx-right-arrow-alt"></i>Student Payments</a>
       </li>
+      <li>
+        <a href="{{ route('payment.debtors') }}"><i class="bx bx-right-arrow-alt"></i>Debtors</a>
+      </li>
     </ul>
   </li>
 
@@ -216,6 +219,9 @@
       </li>
       <li>
         <a href="{{ route('student-payment') }}"><i class="bx bx-right-arrow-alt"></i>Student Payments</a>
+      </li>
+      <li>
+        <a href="{{ route('payment.debtors') }}"><i class="bx bx-right-arrow-alt"></i>Debtors</a>
       </li>
     </ul>
   </li>

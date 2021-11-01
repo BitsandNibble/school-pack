@@ -11,6 +11,7 @@ use App\Http\Livewire\Components\Promotion;
 use App\Http\Livewire\Components\Scores;
 use App\Http\Livewire\Components\TabulationSheet;
 use App\Http\Livewire\Pages\Accountant\CreatePayment;
+use App\Http\Livewire\Pages\Accountant\Debtors;
 use App\Http\Livewire\Pages\Accountant\ManagePaymentYear;
 use App\Http\Livewire\Pages\Accountant\Profile as AccountantProfile;
 use App\Http\Livewire\Pages\Accountant\StudentPaymentClass;
@@ -102,6 +103,7 @@ Route::group(['middleware' => 'auth:accountant,principal'], function () {
   Route::get('payments/manage-payment', ManagePaymentYear::class)->name('manage-payment');
   Route::get('payments/students-payment', StudentPaymentClass::class)->name('student-payment');
   Route::get('payments/invoice/{student_id}/{year?}', [AccountantHomeController::class, 'getStudentId'])->name('payment.invoice');
+  Route::get('payments/debtors', Debtors::class)->name('payment.debtors');
 });
 
 // print route

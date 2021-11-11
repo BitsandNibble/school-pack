@@ -7,7 +7,7 @@
         <div class="col"><p>Subject: {{ $subject }}</p></div>
         <div class="col"><p>Class: {{ $class }}</p></div>
         <div class="col">
-          <p>Exam: {{ $exam }} ({{ \App\Helpers\SP::getSetting('current_session') }})</p>
+          <p>Exam: {{ $exam->name }} ({{ $exam->session }})</p>
         </div>
       </div>
 
@@ -58,11 +58,16 @@
       </x-responsive-table>
 
       <div class="d-block mb-2 float-end">
-        <x-button value="dark"
-                  wire:click="$toggle('showEdit')">{{ $showEdit ? 'Cancel Edit' : 'Edit Marks' }}</x-button>
-        @if($showEdit)
-          <x-button wire:click.prevent="store">Update Marks</x-button>
-        @endif
+        {{--        check if exam is locked--}}
+        @unless($exam->locked)
+          <x-button value="dark"
+                    wire:click="$toggle('showEdit')">{{ $showEdit ? 'Cancel Edit' : 'Edit Marks' }}</x-button>
+          @if($showEdit)
+            <x-button wire:click.prevent="store">Update Marks</x-button>
+          @endif
+        @else
+          <sub class="text-danger">Exam session is locked. Contact admin to unlock before any changes can be made to this page</sub>
+        @endunless
       </div>
     </x-card>
   @endif

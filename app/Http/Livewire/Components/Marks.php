@@ -84,7 +84,7 @@ class Marks extends Component
 
     $this->subject = Subject::where('id', $value['subject_id'])->first()->name;
     $this->class = ClassRoom::where('id', $value['class_id'])->first()->name;
-    $this->exam = Exam::where('id', $value['exam_id'])->first()->name;
+    $this->exam = Exam::where('id', $value['exam_id'])->first();
   }
 
   public function store(): void

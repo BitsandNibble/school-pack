@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Components;
 
-use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\Exam;
 use App\Models\ExamRecord;
@@ -23,6 +22,7 @@ class Tabulation extends Component
   public $exam;
   public $class;
   public $exam_name;
+  public $selected_year;
 
   protected $listeners = ['getValues'];
 
@@ -57,12 +57,13 @@ class Tabulation extends Component
   {
     $this->class_id = $value['class_id'];
     $this->exam_id = $value['exam_id'];
+    $this->selected_year = Exam::where('id', $this->exam_id)->first()->session;
 
 //    use this for where clause to avoid duplicates
     $this->data = [
       'exam_id' => $this->exam_id,
       'class_room_id' => $this->class_id,
-      'year' => SP::getSetting('current_session'),
+      'year' => $this->selected_year,
     ];
 
     $this->class = ClassRoom::where('id', $value['class_id'])->first()->name;

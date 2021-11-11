@@ -3,7 +3,7 @@
     <x-card>
       <div class="fw-bolder mb-2">
         Tabulation Sheet for {{ $class }} - {{ $exam_name }} @if($class_id)
-          ({{ \App\Helpers\SP::getSetting('current_session') }}) @endif
+          ({{ $selected_year }}) @endif
       </div>
 
       <x-responsive-table>

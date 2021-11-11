@@ -32,6 +32,9 @@
         <a href="{{ route('principal.students.manage-promotion') }}"><i class="bx bx-right-arrow-alt"></i>Manage
           Promotions</a>
       </li>
+      <li>
+        <a><i class="bx bx-right-arrow-alt"></i>Graduated</a>
+      </li>
     </ul>
   </li>
 

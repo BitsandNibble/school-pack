@@ -16,6 +16,6 @@ class Exam extends Model
   use HasFactory;
 
   protected $fillable = [
-    'name', 'term', 'session'
+    'name', 'term', 'session', 'locked'
   ];
 }

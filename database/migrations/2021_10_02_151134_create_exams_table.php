@@ -18,6 +18,7 @@ class CreateExamsTable extends Migration
       $table->string('name');
       $table->string('term');
       $table->string('session');
+      $table->boolean('locked')->default('0');
       $table->timestamps();
     });
   }

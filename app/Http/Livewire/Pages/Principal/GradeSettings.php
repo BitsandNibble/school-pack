@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
-use App\Helpers\SP;
+use App\Models\Exam;
 use App\Models\Setting;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -33,6 +33,8 @@ class GradeSettings extends Component
     });
     $this->settings = $s['set'];
 
+    $s['exams'] = Exam::get();
+
     return view('livewire.pages.principal.grade-settings', $s);
   }
 
@@ -51,5 +53,20 @@ class GradeSettings extends Component
     }
 
     session()->flash('message', 'Grade Settings Updated Successfully');
+  }
+
+  public function unlock(Exam $exam): void
+  {
+    if (isset($exam->locked)) {
+      if ($exam->locked === 0) {
+        $exam->locked = 1;
+        $exam->update();
+        session()->flash('message', 'Exam Locked Successfully');
+      } else {
+        $exam->locked = 0;
+        $exam->update();
+        session()->flash('message', 'Exam Unlocked Successfully');
+      }
+    }
   }
 }

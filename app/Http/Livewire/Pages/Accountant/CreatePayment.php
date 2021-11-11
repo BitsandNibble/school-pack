@@ -46,13 +46,13 @@ class CreatePayment extends Component
     $this->validate();
 
     Payment::create([
-      'title' => $this->payment['title'],
-      'amount' => $this->payment['amount'],
+      'title' => $this->payment['title'] ?? '',
+      'amount' => $this->payment['amount'] ?? '',
       'ref_no' => now()->year . '/' . random_int(100000, 999999),
       'method' => $this->payment['method'],
       'class_room_id' => $this->payment['class'] !== 'NULL' ? $this->payment['class'] : NULL,
-      'description' => $this->payment['description'],
-      'year' => SP::getSetting('current_session'),
+      'description' => $this->payment['description'] ?? '',
+      'year' => SP::getSetting('current_session') ?? '',
     ]);
 
     session()->flash('message', 'Payment Created Successfully');

@@ -64,7 +64,7 @@ class PrintView
 
   public function getTabulationsheetPrintView($exam_id, $class_id): array
   {
-    $year = SP::getSetting('current_session');
+    $year = Exam::where('id', $exam_id)->first()->session;
     $data = ['exam_id' => $exam_id, 'class_room_id' => $class_id, 'year' => $year];
 
     $subject_ids = Mark::where($data)->distinct()

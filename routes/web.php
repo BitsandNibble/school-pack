@@ -107,7 +107,7 @@ Route::group(['middleware' => 'auth:accountant,principal'], function () {
 });
 
 // print route
-Route::group(['middleware' => 'auth:teacher,principal'], function () {
+Route::group(['middleware' => 'auth:teacher,principal,student'], function () {
   Route::get('results/mark-sheet/show/{id}', [GeneralController::class, 'getStudentId'])->name('result.marksheet.select_year');
   Route::post('results/mark-sheet/show/{id}', [GeneralController::class, 'getMarksheetYear'])->name('result.marksheet.show');
   Route::get('marks/print/{id}/{exam_id}/{year}', [GeneralController::class, 'printMarkSheet'])->name('print_marksheet');

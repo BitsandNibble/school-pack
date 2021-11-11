@@ -91,4 +91,5 @@
   </x-card>
 
   <livewire:pages.principal.grade-settings />
+  <livewire:pages.principal.other-settings />
 </div>

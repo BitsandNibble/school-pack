@@ -23,6 +23,7 @@
           <th>Name</th>
           <th>Term</th>
           <th>Session</th>
+          <th>Status</th>
           <th></th>
         </tr>
       </thead>
@@ -34,6 +35,7 @@
             <td>{{ $exam->name }}</td>
             <td>{{ $exam->term }}</td>
             <td>{{ $exam->session }}</td>
+            <td>{{ $exam->locked ? 'Locked' : 'Unlocked' }}</td>
             <td>
               <x-button class="px-0" wire:click="edit({{ $exam->id }})" value="" data-bs-toggle="modal"
                         data-bs-target="#examModal">

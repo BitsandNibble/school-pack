@@ -63,7 +63,7 @@
                 {{ $class->name }}
               </a>
             </td>
-            <td>{{ $class->class_type->name ?? '' }}</td>
+            <td>{{ $class->class_type->name }}</td>
             <td>
               <x-button class="px-0" wire:click="edit({{ $class->id }})" value="" data-bs-toggle="modal"
                         data-bs-target="#classModal">

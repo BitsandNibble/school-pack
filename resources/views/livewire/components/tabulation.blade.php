@@ -24,7 +24,7 @@
           @forelse($students as $s)
             <tr>
               <td>{{ $loop->iteration }}</td>
-              <td>{{ $s->student->fullname ?? '' }}</td>
+              <td>{{ $s->student->fullname }}</td>
               @foreach($subjects as $sub)
                 <td>{{ $marks->where('student_id', $s->student_id)->where('subject_id', $sub->subject_id)->first()->total_score ?? '-' }}</td>
               @endforeach

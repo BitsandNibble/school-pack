@@ -177,46 +177,46 @@
           @foreach($teacher_info as $info)
             <tr>
               <th>Fullname</th>
-              <td>{{ $info->fullname ?? '' }}</td>
+              <td>{{ $info->fullname }}</td>
             </tr>
             <tr>
               <th>Email</th>
-              <td>{{ $info->email ?? '' }}</td>
+              <td>{{ $info->email }}</td>
             </tr>
             <tr>
               <th>Address</th>
-              <td>{{ $info->address ?? '' }}</td>
+              <td>{{ $info->address }}</td>
             </tr>
             <tr>
               <th>Phone Number</th>
-              <td>{{ $info->phone_number ?? '' }}</td>
+              <td>{{ $info->phone_number }}</td>
             </tr>
             <tr>
               <th>Gender</th>
-              <td>{{ $info->gender ?? '' }}</td>
+              <td>{{ $info->gender }}</td>
             </tr>
             <tr>
               <th>Nationality</th>
-              <td>{{ $info->nationality->name ?? '' }}</td>
+              <td>{{ $info->nationality->name }}</td>
             </tr>
             <tr>
               <th>State</th>
-              <td>{{ $info->state->name ?? '' }}</td>
+              <td>{{ $info->state->name }}</td>
             </tr>
             <tr>
               <th>LGA</th>
-              <td>{{ $info->lga->name ?? '' }}</td>
+              <td>{{ $info->lga->name }}</td>
             </tr>
             <tr>
               <th>Date of Birth</th>
-              <td>{{ $info->date_of_birth ?? '' }}</td>
+              <td>{{ $info->date_of_birth }}</td>
             </tr>
             <tr>
               <th>Staff ID</th>
-              <td>{{ $info->school_id ?? '' }}</td>
+              <td>{{ $info->school_id }}</td>
             </tr>
             <th>Date of Employment</th>
-            <td>{{ $info->date_of_employment ?? '' }}</td>
+            <td>{{ $info->date_of_employment }}</td>
             </tr>
             <tr>
               <th>Class Teacher</th>

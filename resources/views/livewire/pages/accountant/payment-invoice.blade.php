@@ -45,9 +45,9 @@
             @forelse($uncleared as $index => $uc)
               <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $uc->payment->title ?? '' }}</td>
-                <td>{{ $uc->payment->ref_no ?? '' }}</td>
-                <td class="fw-bold">{{ $uc->payment->amount ?? '' }}</td>
+                <td>{{ $uc->payment->title }}</td>
+                <td>{{ $uc->payment->ref_no }}</td>
+                <td class="fw-bold">{{ $uc->payment->amount }}</td>
                 <td class="text-info">{{ $uc->amount_paid ?: '0.00' }}</td>
                 <td class="text-danger">{{ $uc->balance ?: $uc->payment->amount }}</td>
                 <td>
@@ -63,8 +63,8 @@
                     </div>
                   </div>
                 </td>
-                <td>{{ $uc->ref_no ?? '' }}</td>
-                <td>{{ $uc->year ?? '' }}</td>
+                <td>{{ $uc->ref_no }}</td>
+                <td>{{ $uc->year }}</td>
                 <td>
                   <x-button wire:click="reset_record({{ $uc->id }})" value=""
                             onclick="return confirm('Are you sure you want to reset this payment?') || event.stopImmediatePropagation()">
@@ -103,11 +103,11 @@
             @forelse($cleared as $cl)
               <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $cl->payment->title ?? '' }}</td>
-                <td>{{ $cl->payment->ref_no ?? '' }}</td>
-                <td class="fw-bold">{{ $cl->payment->amount ?? '' }}</td>
-                <td>{{ $cl->ref_no ?? '' }}</td>
-                <td>{{ $cl->year ?? '' }}</td>
+                <td>{{ $cl->payment->title }}</td>
+                <td>{{ $cl->payment->ref_no }}</td>
+                <td class="fw-bold">{{ $cl->payment->amount }}</td>
+                <td>{{ $cl->ref_no }}</td>
+                <td>{{ $cl->year }}</td>
                 <td>
                   <x-button wire:click="reset_record({{ $cl->id }})" value=""
                             onclick="return confirm('Are you sure you want to reset this payment?') || event.stopImmediatePropagation()">

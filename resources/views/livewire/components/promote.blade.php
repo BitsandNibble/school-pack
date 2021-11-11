@@ -26,7 +26,7 @@
           @forelse($students as $s)
             <tr>
               <td>{{ $loop->iteration }}</td>
-              <td>{{ $s->fullname ?? '' }}</td>
+              <td>{{ $s->fullname }}</td>
               <td>{{ \App\Helpers\SP::getSetting('current_session') ?? '' }}</td>
               <td>
                 <x-select class="form-select-sm" wire:model.defer="decision">

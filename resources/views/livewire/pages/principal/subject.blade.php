@@ -33,10 +33,10 @@
           <tr>
             <td>{{ $loop->iteration }}</td>
             <td>
-              {{ $class->subject->name ?? '' }}
+              {{ $class->subject->name }}
             </td>
             <td>
-              {{ $class->teacher->fullname ?? '' }}
+              {{ $class->teacher->fullname }}
             </td>
             <td>
               <x-button class="px-0" wire:click="edit({{ $class->id }})" value=""

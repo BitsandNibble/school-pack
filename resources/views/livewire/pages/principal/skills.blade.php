@@ -32,8 +32,8 @@
           <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $sk->name }}</td>
-            <td>{{ $sk->skill_type ?? '' }}</td>
-            <td>{{ $sk->class_type->name ?? '' }}</td>
+            <td>{{ $sk->skill_type }}</td>
+            <td>{{ $sk->class_type->name }}</td>
             <td>
               <x-button class="px-0" wire:click="edit({{ $sk->id }})" value="" data-bs-toggle="modal"
                         data-bs-target="#skillModal">

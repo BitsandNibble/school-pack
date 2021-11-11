@@ -75,7 +75,7 @@
                 {{ $section->name }}
               </a>
             </td>
-            <td>{{ $section->teacher->fullname ?? '' }}</td>
+            <td>{{ $section->teacher->fullname }}</td>
             <td>
               <x-button class="px-0" wire:click="edit({{ $section->id }})" value="" data-bs-toggle="modal"
                         data-bs-target="#sectionModal">

@@ -25,12 +25,12 @@
           @forelse($payments as $payment)
             <tr>
               <td>{{ $loop->iteration }}</td>
-              <td>{{ $payment->title ?? '' }}</td>
-              <td>{{ $payment->amount ?? '' }}</td>
-              <td>{{ $payment->ref_no ?? '' }}</td>
-              <td>{{ $payment->class_room->name ?? '' }}</td>
-              <td>{{ $payment->method ?? '' }}</td>
-              <td>{{ $payment->description ?? '' }}</td>
+              <td>{{ $payment->title }}</td>
+              <td>{{ $payment->amount }}</td>
+              <td>{{ $payment->ref_no }}</td>
+              <td>{{ $payment->class_room->name }}</td>
+              <td>{{ $payment->method }}</td>
+              <td>{{ $payment->description }}</td>
               <td>
                 <x-button class="px-0" wire:click="edit({{ $payment->id }})" value="" data-bs-toggle="modal"
                           data-bs-target="#paymentModal">

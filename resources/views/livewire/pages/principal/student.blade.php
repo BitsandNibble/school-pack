@@ -87,11 +87,11 @@
             <td>{{ $student->gender }}</td>
             @if (!$class_id)
               <td>
-                {{ $student->class_room->name ?? '' }} {{ $student->section->name ?? '' }}
+                {{ $student->class_room->name }} {{ $student->section->name }}
               </td>
             @else
               <td>
-                {{ $student->section->name ?? '' }}
+                {{ $student->section->name }}
               </td>
             @endif
             @if ($parent === null)

@@ -33,7 +33,7 @@
           <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $gr->name }}</td>
-            <td>{{ $gr->class_type->name ?? '' }}</td>
+            <td>{{ $gr->class_type->name }}</td>
             <td>{{ $gr->mark_from . ' - ' . $gr->mark_to }}</td>
             <td>{{ $gr->remark }}</td>
             <td>

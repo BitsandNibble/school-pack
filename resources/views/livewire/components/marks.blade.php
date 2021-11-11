@@ -28,14 +28,14 @@
           @forelse($get_marks as $index => $mark)
             <tr>
               <td>{{ $loop->iteration }}</td>
-              <td>{{ $mark->student->fullname ?? '' }}</td>
-              <td>{{ $mark->student->school_id ?? '' }}</td>
+              <td>{{ $mark->student->fullname }}</td>
+              <td>{{ $mark->student->school_id }}</td>
 
               {{--                CA and exam score--}}
               @unless($showEdit)
-                <td class="px-5">{{ $mark->ca1 ?? '' }}</td>
-                <td class="px-5">{{ $mark->ca2 ?? '' }}</td>
-                <td class="px-5">{{ $mark->exam_score ?? '' }}</td>
+                <td class="px-5">{{ $mark->ca1 }}</td>
+                <td class="px-5">{{ $mark->ca2 }}</td>
+                <td class="px-5">{{ $mark->exam_score }}</td>
               @else
                 <td class="px-5">
                   <x-input class="form-control-sm" max="{{ $ca1_limit }}" wire:model.defer="marks.{{ $index }}.ca1" />

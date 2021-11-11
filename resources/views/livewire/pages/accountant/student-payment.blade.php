@@ -17,8 +17,8 @@
           @forelse($students as $st)
             <tr>
               <td>{{ $loop->iteration }}</td>
-              <td>{{ $st->fullname ?? '' }}</td>
-              <td>{{ $st->school_id ?? '' }}</td>
+              <td>{{ $st->fullname }}</td>
+              <td>{{ $st->school_id }}</td>
               <td>
                 <div class="dropdown">
                   <x-button class="dropdown-toggle" value="danger" data-bs-toggle="dropdown" aria-expanded="false">

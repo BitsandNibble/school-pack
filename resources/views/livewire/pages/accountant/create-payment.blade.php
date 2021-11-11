@@ -20,7 +20,7 @@
     <div class="col-md-6 mb-2">
       <x-label>Class</x-label>
       <x-select wire:model.defer="payment.class">
-        <option selected value="NULL">All Classes</option>
+        <option selected value="NULL">ALL CLASSES</option>
         @foreach($classes as $class)
           <option value="{{ $class->id }}">{{ $class->name }}</option>
         @endforeach

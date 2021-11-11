@@ -38,27 +38,27 @@ class Student extends Authenticatable
 
   public function class_room(): BelongsTo
   {
-    return $this->belongsTo(ClassRoom::class);
+    return $this->belongsTo(ClassRoom::class)->withDefault();
   }
 
   public function section(): BelongsTo
   {
-    return $this->belongsTo(Section::class);
+    return $this->belongsTo(Section::class)->withDefault();
   }
 
   public function nationality(): BelongsTo
   {
-    return $this->belongsTo(Nationality::class);
+    return $this->belongsTo(Nationality::class)->withDefault();
   }
 
   public function state(): BelongsTo
   {
-    return $this->belongsTo(State::class);
+    return $this->belongsTo(State::class)->withDefault();
   }
 
   public function lga(): BelongsTo
   {
-    return $this->belongsTo(Lga::class);
+    return $this->belongsTo(Lga::class)->withDefault();
   }
 
   public function getFullnameAttribute($value): string

@@ -22,11 +22,11 @@ class Section extends Model
 
   public function class_room(): BelongsTo
   {
-    return $this->belongsTo(ClassRoom::class);
+    return $this->belongsTo(ClassRoom::class)->withDefault();
   }
 
   public function teacher(): BelongsTo
   {
-    return $this->belongsTo(Teacher::class);
+    return $this->belongsTo(Teacher::class)->withDefault();
   }
 }

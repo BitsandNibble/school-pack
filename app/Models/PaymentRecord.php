@@ -26,12 +26,12 @@ class PaymentRecord extends Model
 
   public function payment(): BelongsTo
   {
-    return $this->belongsTo(Payment::class);
+    return $this->belongsTo(Payment::class)->withDefault();
   }
 
   public function student(): BelongsTo
   {
-    return $this->belongsTo(Student::class);
+    return $this->belongsTo(Student::class)->withDefault();
   }
 
   public function receipt(): HasMany

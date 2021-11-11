@@ -51,17 +51,17 @@ class Teacher extends Authenticatable
 
   public function nationality(): BelongsTo
   {
-    return $this->belongsTo(Nationality::class);
+    return $this->belongsTo(Nationality::class)->withDefault();
   }
 
   public function state(): BelongsTo
   {
-    return $this->belongsTo(State::class);
+    return $this->belongsTo(State::class)->withDefault();
   }
 
   public function lga(): BelongsTo
   {
-    return $this->belongsTo(Lga::class);
+    return $this->belongsTo(Lga::class)->withDefault();
   }
 
   public function getFullnameAttribute($value): string

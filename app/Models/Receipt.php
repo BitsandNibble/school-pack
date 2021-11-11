@@ -18,6 +18,6 @@ class Receipt extends Model
 
   public function payment_record(): BelongsTo
   {
-    return $this->belongsTo(PaymentRecord::class, 'pr_id');
+    return $this->belongsTo(PaymentRecord::class, 'pr_id')->withDefault();
   }
 }

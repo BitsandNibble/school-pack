@@ -25,11 +25,11 @@ class ClassStudentSubject extends Model
 
   public function student(): BelongsTo
   {
-    return $this->belongsTo(Student::class);
+    return $this->belongsTo(Student::class)->withDefault();
   }
 
   public function subject(): BelongsTo
   {
-    return $this->belongsTo(Subject::class);
+    return $this->belongsTo(Subject::class)->withDefault();
   }
 }

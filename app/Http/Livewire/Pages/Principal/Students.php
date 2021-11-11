@@ -65,8 +65,8 @@ class Students extends Component
     $student = Student::find($id);
     $this->student_id = $student['id'];
     $this->student = $student;
-    $this->class = $student->class_room->id ?? '';
-    $this->section = $student->section->id ?? '';
+    $this->class = $student->class_room->id;
+    $this->section = $student->section->id;
   }
 
   /**
@@ -80,9 +80,9 @@ class Students extends Component
       $student = Student::find($this->student_id);
       $student->update([
         'fullname' => $this->student['fullname'],
-        'class_room_id' => $this->class ?? '',
-        'section_id' => $this->section ?? '',
-        'gender' => $this->student['gender'] ?? '',
+        'class_room_id' => $this->class,
+        'section_id' => $this->section,
+        'gender' => $this->student['gender'],
         'slug' => Str::slug($this->student['fullname']),
       ]);
       session()->flash('message', 'Student Updated Successfully');
@@ -91,7 +91,7 @@ class Students extends Component
         'fullname' => $this->student['fullname'],
         'class_room_id' => $this->class,
         'section_id' => $this->section,
-        'gender' => $this->student['gender'] ?? '',
+        'gender' => $this->student['gender'],
         'school_id' => 'GS_' . random_int(500, 1000),
         'password' => Hash::make('password'),
         'slug' => Str::slug($this->student['fullname']),

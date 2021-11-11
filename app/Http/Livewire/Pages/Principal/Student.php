@@ -145,7 +145,7 @@ class Student extends Component
         'fullname' => $this->student['fullname'],
         'class_room_id' => $this->class_id,
         'section_id' => $this->section_id,
-        'gender' => $this->student['gender'] ?? '',
+        'gender' => $this->student['gender'],
         'school_id' => 'GS_' . random_int(500, 1000),
         'password' => Hash::make('password'),
         'slug' => Str::slug($this->student['fullname']),
@@ -154,7 +154,7 @@ class Student extends Component
       StudentModel::create([
         'fullname' => $this->student['fullname'],
         'class_room_id' => $this->class_id,
-        'gender' => $this->student['gender'] ?? '',
+        'gender' => $this->student['gender'],
         'school_id' => 'GS_' . random_int(500, 1000),
         'password' => Hash::make('password'),
         'slug' => Str::slug($this->student['fullname']),

@@ -108,9 +108,9 @@ class Teachers extends Component
       $teacher->update([
         'fullname' => $this->teacher['fullname'],
         'title' => $this->teacher['title'],
-        'email' => $this->teacher['email'] ?? '',
-        'gender' => $this->teacher['gender'] ?? '',
-        'date_of_employment' => $this->teacher['date_of_employment'] ?? '',
+        'email' => $this->teacher['email'],
+        'gender' => $this->teacher['gender'],
+        'date_of_employment' => $this->teacher['date_of_employment'],
         'slug' => Str::slug($this->teacher['fullname']),
       ]);
       session()->flash('message', 'Teacher Updated Successfully');
@@ -118,9 +118,9 @@ class Teachers extends Component
       Teacher::create([
         'fullname' => $this->teacher['fullname'],
         'title' => $this->teacher['title'],
-        'email' => $this->teacher['email'] ?? '',
-        'gender' => $this->teacher['gender'] ?? '',
-        'date_of_employment' => $this->teacher['date_of_employment'] ?? '',
+        'email' => $this->teacher['email'],
+        'gender' => $this->teacher['gender'],
+        'date_of_employment' => $this->teacher['date_of_employment'],
         'school_id' => 'GS_' . random_int(500, 1000),
         'password' => Hash::make('password'),
         'slug' => Str::slug($this->teacher['fullname']),

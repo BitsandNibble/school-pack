@@ -24,6 +24,6 @@ class Payment extends Model
 
   public function class_room(): BelongsTo
   {
-    return $this->belongsTo(ClassRoom::class);
+    return $this->belongsTo(ClassRoom::class)->withDefault();
   }
 }

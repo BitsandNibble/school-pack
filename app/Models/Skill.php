@@ -22,6 +22,6 @@ class Skill extends Model
 
   public function class_type(): BelongsTo
   {
-    return $this->belongsTo(ClassType::class);
+    return $this->belongsTo(ClassType::class)->withDefault();
   }
 }

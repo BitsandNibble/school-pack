@@ -23,6 +23,6 @@ class ExamRecord extends Model
 
   public function exam(): BelongsTo
   {
-    return $this->belongsTo(Exam::class);
+    return $this->belongsTo(Exam::class)->withDefault();
   }
 }

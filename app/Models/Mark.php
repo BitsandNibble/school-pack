@@ -24,21 +24,21 @@ class Mark extends Model
 
   public function class_room(): BelongsTo
   {
-    return $this->belongsTo(ClassRoom::class);
+    return $this->belongsTo(ClassRoom::class)->withDefault();
   }
 
   public function student(): BelongsTo
   {
-    return $this->belongsTo(Student::class);
+    return $this->belongsTo(Student::class)->withDefault();
   }
 
   public function subject(): BelongsTo
   {
-    return $this->belongsTo(Subject::class);
+    return $this->belongsTo(Subject::class)->withDefault();
   }
 
   public function grade(): BelongsTo
   {
-    return $this->belongsTo(Grade::class);
+    return $this->belongsTo(Grade::class)->withDefault();
   }
 }

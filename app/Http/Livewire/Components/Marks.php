@@ -30,6 +30,7 @@ class Marks extends Component
   public $ca2_limit;
   public $exam_limit;
   public bool $showEdit = false;
+  public $selected_year;
 
   protected $listeners = ['getValues'];
   protected array $rules;
@@ -71,13 +72,14 @@ class Marks extends Component
     $this->class_id = $value['class_id'];
     $this->subject_id = $value['subject_id'];
     $this->exam_id = $value['exam_id'];
+    $this->selected_year = Exam::where('id', $this->exam_id)->first()->session;
 
 //    use this for where clause to avoid duplicates
     $this->data = [
       'exam_id' => $this->exam_id,
       'class_room_id' => $this->class_id,
       'subject_id' => $this->subject_id,
-      'year' => SP::getSetting('current_session')
+      'year' => $this->selected_year
     ];
 
     $this->subject = Subject::where('id', $value['subject_id'])->first()->name;
@@ -94,8 +96,6 @@ class Marks extends Component
 //    get class_type_id to use for assigning grades
     $get_class_id = ClassRoom::find($this->class_id)->class_type_id;
     $class_type_id = ClassType::find($get_class_id)->id;
-
-    $year = SP::getSetting('current_session');
 
 //    fetch data from mark table so that data can be inserted to specific students
     $marks = Mark::where($this->data)->with('grade')->get();
@@ -124,17 +124,17 @@ class Marks extends Component
 
 //    subject position
     foreach ($marks as $mark) {
-      $sub_pos = GR::getSubjectPosition($mark->student_id, $this->exam_id, $this->class_id, $this->subject_id, $year);
+      $sub_pos = GR::getSubjectPosition($mark->student_id, $this->exam_id, $this->class_id, $this->subject_id, $this->selected_year);
       $mark->update(['subject_position' => $sub_pos]);
     }
 
 //    update records in exam table
     foreach ($all_student_ids as $student_id) {
       ExamRecord::where(['student_id' => $student_id])->update([
-        'total' => GR::getExamTotal($this->exam_id, $student_id, $this->class_id, $year),
-        'average' => GR::getExamAvg($this->exam_id, $student_id, $this->class_id, $year),
-        'class_average' => GR::getClassAvg($this->exam_id, $this->class_id, $year),
-        'position' => GR::getPosition($this->exam_id, $student_id, $this->class_id, $year),
+        'total' => GR::getExamTotal($this->exam_id, $student_id, $this->class_id, $this->selected_year),
+        'average' => GR::getExamAvg($this->exam_id, $student_id, $this->class_id, $this->selected_year),
+        'class_average' => GR::getClassAvg($this->exam_id, $this->class_id, $this->selected_year),
+        'position' => GR::getPosition($this->exam_id, $student_id, $this->class_id, $this->selected_year),
       ]);
     }
 

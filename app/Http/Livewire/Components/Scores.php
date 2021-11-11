@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Components;
 
-use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\ClassStudentSubject;
 use App\Models\ClassSubjectTeacher;
@@ -37,7 +36,7 @@ class Scores extends Component
 
   public function render(): Factory|View|Application
   {
-    // get all exams
+    // get exams for current session
     $exams = Exam::get();
 
     if (auth('teacher')->user()) {
@@ -92,20 +91,22 @@ class Scores extends Component
       ->where('class_room_id', $value['class_id'])
       ->get('student_id');
 
+    $year = Exam::where('id', $value['exam_id'])->first()->session;
+
     foreach ($student_id as $id) {
       Mark::firstOrCreate([
         'student_id' => $id->student_id,
         'subject_id' => $value['subject_id'],
         'class_room_id' => $value['class_id'],
         'exam_id' => $value['exam_id'],
-        'year' => SP::getSetting('current_session'),
+        'year' => $year,
       ]);
 
       ExamRecord::firstOrCreate([
         'student_id' => $id->student_id,
         'class_room_id' => $value['class_id'],
         'exam_id' => $value['exam_id'],
-        'year' => SP::getSetting('current_session'),
+        'year' => $year,
       ]);
     }
   }

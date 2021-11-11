@@ -33,7 +33,7 @@
             <td>{{ $loop->iteration }}</td>
             <td>{{ $exam->name }}</td>
             <td>{{ $exam->term }}</td>
-            <td>{{ \App\Helpers\SP::getSetting('current_session') }}</td>
+            <td>{{ $exam->session }}</td>
             <td>
               <x-button class="px-0" wire:click="edit({{ $exam->id }})" value="" data-bs-toggle="modal"
                         data-bs-target="#examModal">

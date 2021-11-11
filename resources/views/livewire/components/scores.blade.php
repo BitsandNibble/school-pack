@@ -11,7 +11,7 @@
         <x-label for="exam">Exam</x-label>
         <x-select id="exam" wire:model="exam_id">
           @foreach($exams as $exam)
-            <option value="{{ $exam->id }}">{{ $exam->name }}</option>
+            <option value="{{ $exam->id }}">{{ $exam->name }} ({{ $exam->session }})</option>
           @endforeach
         </x-select>
         <x-input-error for="exam_id" />

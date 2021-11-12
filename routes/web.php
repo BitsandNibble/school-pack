@@ -7,6 +7,7 @@ use App\Http\Controllers\Principal\HomeController as PrincipalHomeController;
 use App\Http\Controllers\Teacher\HomeController as TeacherHomeController;
 use App\Http\Livewire\Components\ManagePromotion;
 use App\Http\Livewire\Components\MarkSheet;
+use App\Http\Livewire\Components\NoticeBoard;
 use App\Http\Livewire\Components\Promotion;
 use App\Http\Livewire\Components\Scores;
 use App\Http\Livewire\Components\TabulationSheet;
@@ -62,6 +63,7 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('subjects/{classname:name}', [PrincipalHomeController::class, 'getSubjectsPerClass'])->name('.classes.subjects');
   Route::get('settings', Settings::class)->name('.settings');
   Route::get('profile', PrincipalProfile::class)->name('.profile');
+  Route::get('notice-board', NoticeBoard::class)->name('.notice-board');
 
   //  grading
   Route::get('grading/exams', Exams::class)->name('.exams');

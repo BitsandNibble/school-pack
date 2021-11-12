@@ -116,6 +116,13 @@
       </li>
     </ul>
   </li>
+
+  <li>
+    <a href="{{ route('principal.notice-board') }}">
+      <div class="parent-icon"><i class='bx bx-tab'></i></div>
+      <div class="menu-title">Notice Board</div>
+    </a>
+  </li>
 @endif
 
 

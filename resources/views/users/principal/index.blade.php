@@ -28,4 +28,6 @@
       </x-card>
     </div>
   </div>
+
+  <livewire:components.show-notice />
 </x-app-layout>

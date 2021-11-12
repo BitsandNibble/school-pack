@@ -34,6 +34,7 @@
       <thead>
         <tr>
           <th>S/N</th>
+          <th>Title</th>
           <th>Message</th>
           <th>Author</th>
           <th>Created</th>
@@ -46,6 +47,7 @@
         @forelse ($notices as $notice)
           <tr>
             <td>{{ $loop->iteration }}</td>
+            <td>{{ $notice->title }}</td>
             <td>{{ $notice->message }}</td>
             <td>{{ $notice->principal->fullname }}</td>
             <td>{{ $notice->created_at }}</td>
@@ -67,7 +69,7 @@
           </tr>
         @empty
           <tr>
-            <td colspan="6" class="text-center">No record found</td>
+            <td colspan="7" class="text-center">No record found</td>
           </tr>
         @endforelse
       </tbody>
@@ -84,7 +86,13 @@
       <form>
         <p><span class="text-danger">*</span> fields are required</p>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6 mb-2">
+            <x-label for="title">Title <span class="text-danger">*</span></x-label>
+            <x-input type="text" id="title" wire:model.defer="title" />
+            <x-input-error for="title" />
+          </div>
+
+          <div class="col-md-6">
             <x-label for="message">Message <span class="text-danger">*</span></x-label>
             <x-textarea id="message" wire:model.defer="message" />
             <x-input-error for="message" />
@@ -106,6 +114,10 @@
       <x-table class="table-borderless table-hover">
         @if($notice_info)
           @foreach($notice_info as $info)
+            <tr>
+              <th>Title</th>
+              <td>{{ $info->title }}</td>
+            </tr>
             <tr>
               <th>Message</th>
               <td>{{ $info->message }}</td>

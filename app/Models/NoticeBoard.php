@@ -19,7 +19,7 @@ class NoticeBoard extends Model
   use WithSearch;
 
   protected $fillable = [
-    'message', 'author_id',
+    'title', 'message', 'author_id',
   ];
 
   public function principal(): BelongsTo

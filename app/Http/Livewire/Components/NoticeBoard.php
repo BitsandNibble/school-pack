@@ -16,6 +16,7 @@ class NoticeBoard extends Component
 
   public $q;
   public $paginate = 10;
+  public $title;
   public $message;
   public $notice_info;
   public $deleting;
@@ -28,6 +29,7 @@ class NoticeBoard extends Component
   ];
 
   protected array $rules = [
+    'title' => 'required',
     'message' => 'required',
   ];
 
@@ -57,6 +59,7 @@ class NoticeBoard extends Component
   {
     $notice = NoticeBoardModel::where('id', $id)->first();
     $this->notice_id = $notice['id'];
+    $this->title = $notice->title;
     $this->message = $notice->message;
   }
 
@@ -69,11 +72,13 @@ class NoticeBoard extends Component
 
     if ($this->notice_id) {
       NoticeBoardModel::find($this->notice_id)->update([
+        'title' => $this->title,
         'message' => $this->message,
       ]);
       session()->flash('message', 'Notice Board Updated Successfully');
     } else {
       NoticeBoardModel::create([
+        'title' => $this->title,
         'message' => $this->message,
         'author_id' => auth('principal')->id(),
       ]);

@@ -54,10 +54,4 @@ class GeneralController extends Controller
 
     return view('print.receipt', $d);
   }
-//
-////  show notice board
-//  public function showNotice(): Factory|View|Application
-//  {
-//    return view('partials.notice');
-//  }
 }

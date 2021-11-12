@@ -100,6 +100,10 @@ class CreateFks extends Migration
     Schema::table('receipts', function (Blueprint $table) {
       $table->foreign('pr_id')->references('id')->on('payment_records')->onDelete('cascade');
     });
+
+    Schema::table('notice_boards', function (Blueprint $table) {
+      $table->foreign('author_id')->references('id')->on('principals')->onDelete('cascade');
+    });
   }
 
   /**

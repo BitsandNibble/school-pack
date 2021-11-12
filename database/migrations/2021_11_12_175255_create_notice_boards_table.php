@@ -16,8 +16,7 @@ class CreateNoticeBoardsTable extends Migration
     Schema::create('notice_boards', function (Blueprint $table) {
       $table->id();
       $table->longText('message');
-      $table->string('author');
-      $table->string('role');
+      $table->unsignedBigInteger('author_id');
       $table->timestamps();
     });
   }

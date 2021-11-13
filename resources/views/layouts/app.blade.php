@@ -12,6 +12,7 @@
   @stack('styles')
 
   @livewireStyles
+  <x-livewire-alert::scripts />
 </head>
 
 <body>

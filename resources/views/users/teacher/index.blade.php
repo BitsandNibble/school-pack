@@ -28,4 +28,6 @@
       </div>
     @endforelse
   </div>
+
+  <livewire:components.show-notice />
 </x-app-layout>

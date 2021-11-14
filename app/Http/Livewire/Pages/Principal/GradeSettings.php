@@ -6,10 +6,13 @@ use App\Models\Setting;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class GradeSettings extends Component
 {
+  use LivewireAlert;
+
   public $settings;
 
   protected array $rules = [
@@ -49,6 +52,6 @@ class GradeSettings extends Component
       Setting::where('type', $keys[$i])->update(['description' => $values[$i]]);
     }
 
-    session()->flash('message', 'Grade Settings Updated Successfully');
+    $this->alert('success', 'Grade Settings Updated Successfully');
   }
 }

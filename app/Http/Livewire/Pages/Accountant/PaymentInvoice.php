@@ -11,10 +11,13 @@ use App\Models\Student;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class PaymentInvoice extends Component
 {
+  use LivewireAlert;
+
   public $student;
   public $student_id;
   public $amount_paid = [];
@@ -74,7 +77,7 @@ class PaymentInvoice extends Component
     }
 
     $this->reset('amount_paid');
-    session()->flash('message', 'Payment Recorded Successfully');
+    $this->alert('success', 'Payment Recorded Successfully');
   }
 
   public function reset_record($id): void

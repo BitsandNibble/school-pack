@@ -9,10 +9,13 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class CreatePayment extends Component
 {
+  use LivewireAlert;
+
   public $payment;
 
   protected array $rules = [
@@ -55,7 +58,7 @@ class CreatePayment extends Component
       'year' => SP::getSetting('current_session') ?? '',
     ]);
 
-    session()->flash('message', 'Payment Created Successfully');
+    $this->alert('success', 'Payment Created Successfully');
     $this->reset();
   }
 }

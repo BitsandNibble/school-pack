@@ -7,10 +7,13 @@ use App\Models\Exam;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class Exams extends Component
 {
+  use LivewireAlert;
+
   public $exam;
   public $exam_id;
   public $deleting;
@@ -56,14 +59,14 @@ class Exams extends Component
         'term' => $this->exam['term'],
         'session' => SP::getSetting('current_session'),
       ]);
-      session()->flash('message', 'Exam Updated Successfully');
+      $this->alert('success', 'Exam Updated Successfully');
     } else {
       Exam::create([
         'name' => $this->exam['name'],
         'term' => $this->exam['term'],
         'session' => SP::getSetting('current_session'),
       ]);
-      session()->flash('message', 'Exam Added Successfully');
+      $this->alert('success', 'Exam Added Successfully');
     }
 
     $this->cancel();
@@ -79,6 +82,6 @@ class Exams extends Component
   {
     $exam->delete();
     $this->cancel();
-    session()->flash('message', 'Exam Successfully');
+    $this->alert('success', 'Exam Deleted Successfully');
   }
 }

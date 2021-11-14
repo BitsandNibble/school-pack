@@ -13,12 +13,14 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Teachers extends Component
 {
   use WithPagination;
+  use LivewireAlert;
 
   public $q;
   public $sortBy = 'fullname';
@@ -113,7 +115,7 @@ class Teachers extends Component
         'date_of_employment' => $this->teacher['date_of_employment'] ?? '',
         'slug' => Str::slug($this->teacher['fullname']),
       ]);
-      session()->flash('message', 'Teacher Updated Successfully');
+      $this->alert('success', 'Teacher Updated Successfully');
     } else {
       Teacher::create([
         'fullname' => $this->teacher['fullname'],
@@ -125,7 +127,7 @@ class Teachers extends Component
         'password' => Hash::make('password'),
         'slug' => Str::slug($this->teacher['fullname']),
       ]);
-      session()->flash('message', 'Teacher Added Successfully');
+      $this->alert('success', 'Teacher Updated Successfully');
     }
 
     $this->cancel();
@@ -168,5 +170,6 @@ class Teachers extends Component
   {
     $teacher->delete();
     $this->cancel();
+    $this->alert('success', 'Teacher Deleted Successfully');
   }
 }

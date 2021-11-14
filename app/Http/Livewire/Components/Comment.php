@@ -6,10 +6,13 @@ use App\Models\ExamRecord;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class Comment extends Component
 {
+  use LivewireAlert;
+
   public $teachers_comment;
   public $principals_comment;
   public $student_id;
@@ -59,6 +62,6 @@ class Comment extends Component
       $this->user_comment => ($this->user_comment === 'teachers_comment' ? $this->teachers_comment : $this->principals_comment),
     ]);
 
-    session()->flash('message', 'Comment Added Successfully');
+    $this->alert('success', 'Comment Added Successfully');
   }
 }

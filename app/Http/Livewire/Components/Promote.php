@@ -10,10 +10,13 @@ use App\Models\Student;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class Promote extends Component
 {
+  use LivewireAlert;
+
   public $from_class;
   public $to_class;
   public $from_section;
@@ -99,6 +102,6 @@ class Promote extends Component
       PromotionModel::create($promote);
     }
 
-    session()->flash('message', 'Student Record Updated Successfully');
+    $this->alert('success', 'Student Record Updated Successfully');
   }
 }

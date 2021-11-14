@@ -13,10 +13,13 @@ use App\Models\Subject;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class Marks extends Component
 {
+  use LivewireAlert;
+
   public $subject;
   public $class;
   public $exam;
@@ -138,6 +141,6 @@ class Marks extends Component
       ]);
     }
 
-    session()->flash('message', 'Mark Recorded Successfully');
+    $this->alert('success', 'Mark Recorded Successfully');
   }
 }

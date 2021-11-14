@@ -7,10 +7,13 @@ use App\Models\Skill;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class Skills extends Component
 {
+  use LivewireAlert;
+
   public $skill;
   public $skill_id;
   public $deleting;
@@ -57,14 +60,14 @@ class Skills extends Component
         'skill_type' => $this->skill['skill_type'],
         'class_type_id' => $this->skill['class_type_id'] !== 'NULL' ? $this->skill['class_type_id'] : NULL,
       ]);
-      session()->flash('message', 'Skill Updated Successfully');
+      $this->alert('success', 'Skill Updated Successfully');
     } else {
       Skill::create([
         'name' => $this->skill['name'],
         'skill_type' => $this->skill['skill_type'],
         'class_type_id' => $this->skill['class_type_id'] !== 'NULL' ? $this->skill['class_type_id'] : NULL,
       ]);
-      session()->flash('message', 'Skill Added Successfully');
+      $this->alert('success', 'Skill Added Successfully');
     }
 
     $this->cancel();
@@ -80,6 +83,6 @@ class Skills extends Component
   {
     $skill->delete();
     $this->cancel();
-    session()->flash('message', 'Skill Deleted Successfully');
+    $this->alert('success', 'Skill Deleted Successfully');
   }
 }

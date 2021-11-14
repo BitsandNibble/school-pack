@@ -6,10 +6,13 @@ use App\Models\Exam;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class OtherSettings extends Component
 {
+  use LivewireAlert;
+
   public function render(): Factory|View|Application
   {
     $s['exams'] = Exam::get();
@@ -23,11 +26,11 @@ class OtherSettings extends Component
       if ($exam->locked === 0) {
         $exam->locked = 1;
         $exam->update();
-        session()->flash('message', 'Exam Locked Successfully');
+        $this->alert('success', 'Exam Locked Successfully');
       } else {
         $exam->locked = 0;
         $exam->update();
-        session()->flash('message', 'Exam Unlocked Successfully');
+        $this->alert('success', 'Exam Unlocked Successfully');
       }
     }
   }

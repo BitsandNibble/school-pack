@@ -9,12 +9,14 @@ use App\Models\Subject;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class RegisterStudents extends Component
 {
   use WithPagination;
+  use LivewireAlert;
 
   public $class_id;
   public $section_id;
@@ -106,7 +108,7 @@ class RegisterStudents extends Component
       ]);
     }
 
-    session()->flash('message', 'Student Registered Successfully');
+    $this->alert('success', 'Student Registered Successfully');
     $this->cancel();
   }
 

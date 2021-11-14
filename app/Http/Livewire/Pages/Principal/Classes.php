@@ -9,12 +9,14 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Classes extends Component
 {
   use WithPagination;
+  use LivewireAlert;
 
   public $name;
   public $deleting;
@@ -87,15 +89,14 @@ class Classes extends Component
         'class_type_id' => $this->class_type_id,
         'slug' => Str::slug($this->name)
       ]);
-      session()->flash('message', 'Class Updated Successfully');
+      $this->alert('success', 'Class Updated Successfully');
     } else {
       ClassRoom::create([
         'name' => $this->name,
         'class_type_id' => $this->class_id,
         'slug' => Str::slug($this->name)
       ]);
-
-      session()->flash('message', 'Class Added Successfully');
+      $this->alert('success', 'Class Added Successfully');
     }
 
     $this->cancel();
@@ -111,6 +112,6 @@ class Classes extends Component
   {
     $class->delete();
     $this->cancel();
-    session()->flash('message', 'Class Deleted Successfully');
+    $this->alert('success', 'Class Deleted Successfully');
   }
 }

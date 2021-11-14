@@ -7,10 +7,13 @@ use App\Models\Grade;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class Grades extends Component
 {
+  use LivewireAlert;
+
   public $grade;
   public $grade_id;
   public $deleting;
@@ -62,7 +65,7 @@ class Grades extends Component
         'mark_to' => $this->grade['mark_to'],
         'remark' => $this->grade['remark'],
       ]);
-      session()->flash('message', 'Grade Updated Successfully');
+      $this->alert('success', 'Grade Updated Successfully');
     } else {
       Grade::create([
         'name' => $this->grade['name'],
@@ -71,7 +74,7 @@ class Grades extends Component
         'mark_to' => $this->grade['mark_to'],
         'remark' => $this->grade['remark'],
       ]);
-      session()->flash('message', 'Grade Added Successfully');
+      $this->alert('success', 'Grade Added Successfully');
     }
 
     $this->cancel();
@@ -87,6 +90,6 @@ class Grades extends Component
   {
     $grade->delete();
     $this->cancel();
-    session()->flash('message', 'Grade Deleted Successfully');
+    $this->alert('success', 'Grade Deleted Successfully');
   }
 }

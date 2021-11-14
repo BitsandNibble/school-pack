@@ -2,18 +2,19 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
-use App\Helpers\SP;
 use App\Models\Setting;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class Settings extends Component
 {
   use WithFileUploads;
+  use LivewireAlert;
 
   public $settings;
   public $school_logo;
@@ -77,7 +78,7 @@ class Settings extends Component
       Setting::where('type', $keys[$i])->update(['description' => $values[$i]]);
     }
 
-    session()->flash('message', 'School Settings Updated Successfully');
+    $this->alert('success', 'School Settings Updated Successfully');
   }
 
   public function handleLogoUpload($logo, $slug): string

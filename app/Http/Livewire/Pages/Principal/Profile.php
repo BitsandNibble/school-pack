@@ -11,12 +11,14 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class Profile extends Component
 {
   use WithFileUploads;
+  use LivewireAlert;
 
   public $principal;
   public $profile_photo;
@@ -58,6 +60,6 @@ class Profile extends Component
     $updateProfile->updatePrincipalProfile($this->principal->toArray(), $this->profile_photo);
 
     $this->reset();
-    session()->flash('message', 'Profile Updated Successfully');
+    $this->alert('success', 'Profile Updated Successfully');
   }
 }

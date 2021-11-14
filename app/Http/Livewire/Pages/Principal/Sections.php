@@ -8,12 +8,14 @@ use App\Models\Teacher;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Sections extends Component
 {
   use WithPagination;
+  use LivewireAlert;
 
   public $name;
   public $class;
@@ -76,14 +78,14 @@ class Sections extends Component
         'class_room_id' => $this->class,
         'teacher_id' => $this->teacher_id !== "" ? $this->teacher_id : null,
       ]);
-      session()->flash('message', 'Section Updated Successfully');
+      $this->alert('success', 'Section Updated Successfully');
     } else {
       Section::create([
         'name' => $this->name,
         'class_room_id' => $this->class,
         'teacher_id' => $this->teacher_id
       ]);
-      session()->flash('message', 'Section Added Successfully');
+      $this->alert('success', 'Section Added Successfully');
     }
 
     $this->cancel();
@@ -99,6 +101,6 @@ class Sections extends Component
   {
     $section->delete();
     $this->cancel();
-    session()->flash('message', 'Section Deleted Successfully');
+    $this->alert('success', 'Section Deleted Successfully');
   }
 }

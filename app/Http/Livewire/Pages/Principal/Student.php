@@ -11,12 +11,14 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Student extends Component
 {
   use WithPagination;
+  use LivewireAlert;
 
   public $q;
   public $sortBy = 'fullname';
@@ -160,8 +162,8 @@ class Student extends Component
         'slug' => Str::slug($this->student['fullname']),
       ]);
     }
-    $this->cancel();
 
-    session()->flash('message', 'Student Added Successfully');
+    $this->cancel();
+    $this->alert('success', 'Student Added Successfully');
   }
 }

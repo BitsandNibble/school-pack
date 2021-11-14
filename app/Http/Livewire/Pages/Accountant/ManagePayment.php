@@ -8,10 +8,13 @@ use App\Models\Payment;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class ManagePayment extends Component
 {
+  use LivewireAlert;
+
   public $session_year;
   public $deleting;
   public $payment_id;
@@ -77,7 +80,7 @@ class ManagePayment extends Component
       ]);
 
       $this->cancel();
-      session()->flash('message', 'Payment Updated Successfully');
+      $this->alert('success', 'Payment Updated Successfully');
     }
   }
 
@@ -91,6 +94,6 @@ class ManagePayment extends Component
   {
     $payment->delete();
     $this->cancel();
-    session()->flash('message', 'Payment Deleted Successfully');
+    $this->alert('success', 'Payment Deleted Successfully');
   }
 }

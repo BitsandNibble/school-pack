@@ -13,10 +13,13 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class Students extends Component
 {
+  use LivewireAlert;
+
   public $student;
   public $student_info;
   public $offered_subjects;
@@ -85,7 +88,7 @@ class Students extends Component
         'gender' => $this->student['gender'] ?? '',
         'slug' => Str::slug($this->student['fullname']),
       ]);
-      session()->flash('message', 'Student Updated Successfully');
+      $this->alert('success', 'Student Updated Successfully');
     } else {
       Student::create([
         'fullname' => $this->student['fullname'],
@@ -96,7 +99,7 @@ class Students extends Component
         'password' => Hash::make('password'),
         'slug' => Str::slug($this->student['fullname']),
       ]);
-      session()->flash('message', 'Student Added Successfully');
+      $this->alert('success', 'Student Added Successfully');
     }
 
     $this->emit('refresh');
@@ -124,5 +127,6 @@ class Students extends Component
     $student->delete();
     $this->emit('refresh');
     $this->cancel();
+    $this->alert('success', 'Student Deleted Successfully');
   }
 }

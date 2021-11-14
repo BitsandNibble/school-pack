@@ -8,10 +8,13 @@ use App\Models\Subject;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class Subjects extends Component
 {
+  use LivewireAlert;
+
   public $q;
   public $paginate = 15;
   public $names = [0];
@@ -65,13 +68,13 @@ class Subjects extends Component
           'name' => $this->names[$key]['name'],
           'slug' => SP::getFirstWord($this->names[$key]['name']),
         ]);
-        session()->flash('message', 'Subject Updated Successfully');
+        $this->alert('success', 'Subject Updated Successfully');
       } else {
         Subject::create([
           'name' => $this->names[$key]['name'],
           'slug' => SP::getFirstWord($this->names[$key]['name']),
         ]);
-        session()->flash('message', 'Subject Added Successfully');
+        $this->alert('success', 'Subject Updated Successfully');
       }
 
       $this->names = [];

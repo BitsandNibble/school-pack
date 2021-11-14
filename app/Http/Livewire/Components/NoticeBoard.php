@@ -7,12 +7,14 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class NoticeBoard extends Component
 {
   use WithPagination;
+  use LivewireAlert;
 
   public $q;
   public $paginate = 10;
@@ -75,14 +77,14 @@ class NoticeBoard extends Component
         'title' => $this->title,
         'message' => $this->message,
       ]);
-      session()->flash('message', 'Notice Board Updated Successfully');
+      $this->alert('success', 'Notice Updated Successfully');
     } else {
       NoticeBoardModel::create([
         'title' => $this->title,
         'message' => $this->message,
         'author_id' => auth('principal')->id(),
       ]);
-      session()->flash('message', 'Notice Board Added Successfully');
+      $this->alert('success', 'Notice Added Successfully');
     }
 
     $this->cancel();

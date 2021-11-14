@@ -5,11 +5,13 @@ namespace App\Http\Livewire\Components;
 use App\Actions\Fortify\PasswordValidationRules;
 use App\Models\Principal;
 use Illuminate\Support\Facades\Hash;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class UpdatePassword extends Component
 {
   use PasswordValidationRules;
+  use LivewireAlert;
 
   public $principal;
 
@@ -36,6 +38,7 @@ class UpdatePassword extends Component
     $principal->update([
       'password' => Hash::make($this->principal['password_confirmation'])
     ]);
-    session()->flash('message', 'Password Updated Successfully');
+
+    $this->alert('success', 'Password Updated Successfully');
   }
 }

@@ -9,6 +9,7 @@ use App\Models\Teacher;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 /**
@@ -16,6 +17,8 @@ use Livewire\Component;
  */
 class Subject extends Component
 {
+  use LivewireAlert;
+
   public $q;
   public $class_id;
   public $deleting;
@@ -79,7 +82,7 @@ class Subject extends Component
       ]);
     }
 
-    session()->flash('message', 'Added Successfully');
+    $this->alert('success', 'Added Successfully');
     $this->cancel();
   }
 
@@ -92,7 +95,7 @@ class Subject extends Component
   public function delete(ClassSubjectTeacher $cst): void
   {
     $cst->delete();
-    session()->flash('message', 'Deleted Successfully');
+    $this->alert('success', 'Subject Deleted Successfully');
     $this->cancel();
   }
 }

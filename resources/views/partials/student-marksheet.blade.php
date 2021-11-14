@@ -70,4 +70,16 @@
     <livewire:components.skills :id="$student->id" />
   @endauth
 
+  @push('scripts')
+    <script>
+        $(document).ready(function () {
+            $(".wrapper").addClass("toggled");
+            $(".sidebar-wrapper").hover(function () {
+                $(".wrapper").addClass("sidebar-hovered");
+            }, function () {
+                $(".wrapper").removeClass("sidebar-hovered");
+            })
+        });
+    </script>
+  @endpush
 </x-app-layout>

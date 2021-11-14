@@ -47,4 +47,17 @@
       </div>
     </x-card>
   @endif
+
+  @push('scripts')
+    <script>
+        $(document).ready(function () {
+            $(".wrapper").addClass("toggled");
+            $(".sidebar-wrapper").hover(function () {
+                $(".wrapper").addClass("sidebar-hovered");
+            }, function () {
+                $(".wrapper").removeClass("sidebar-hovered");
+            })
+        });
+    </script>
+  @endpush
 </div>

@@ -1,6 +1,5 @@
 <div>
   <x-breadcrumb>Notice Board</x-breadcrumb>
-  <x-flash />
 
   <x-card>
     <div class="d-flex align-items-center">

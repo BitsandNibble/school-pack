@@ -1,6 +1,4 @@
 <div>
-  <x-flash />
-
   <h5 class="mt-5">Grading Settings</h5>
   <x-card class="border-0 border-dark border-5 border-end">
     <p class="fw-bold">Set the maximum scores</p>

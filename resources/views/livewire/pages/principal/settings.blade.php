@@ -1,6 +1,5 @@
 <div>
   <x-breadcrumb>Settings</x-breadcrumb>
-  <x-flash />
 
   <h5 class="mt-5">School Information</h5>
   <x-card class="border-0 border-dark border-5 border-end">

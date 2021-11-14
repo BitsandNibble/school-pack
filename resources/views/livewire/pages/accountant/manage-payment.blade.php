@@ -1,7 +1,5 @@
 <div>
   @if($session_year)
-    <x-flash />
-
     <x-card-with-header>
       <x-slot name="header">
         <h6 class="fw-bold my-auto">Manage Payments for {{ $session_year }}</h6>

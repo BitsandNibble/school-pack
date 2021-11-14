@@ -1,6 +1,4 @@
 <div>
-  <x-flash />
-
   <div class="row">
     <div class="col-md-6">
       <x-card-with-header>

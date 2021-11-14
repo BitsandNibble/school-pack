@@ -3,7 +3,6 @@
     Payments
     <li class="breadcrumb-item active" aria-current="page">Create Payment</li>
   </x-breadcrumb>
-  <x-flash />
 
   <x-card-with-header>
     <x-slot name="header">

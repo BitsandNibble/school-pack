@@ -3,7 +3,6 @@
     Grading
     <li class="breadcrumb-item active" aria-current="page">Exam</li>
   </x-breadcrumb>
-  <x-flash />
 
   <x-card>
     <div class="d-flex align-items-center">

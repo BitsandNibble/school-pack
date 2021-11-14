@@ -1,6 +1,4 @@
 <div>
-  <x-flash />
-
   @if ($parent !== 2)
     <h5>{{ $title }}</h5>
   @endif

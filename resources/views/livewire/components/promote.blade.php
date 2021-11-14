@@ -1,7 +1,5 @@
 <div>
   @if($students)
-    <x-flash />
-
     <x-card-with-header>
       <x-slot name="header">
         <h5 class="fw-bold my-auto">Promote Students From <span

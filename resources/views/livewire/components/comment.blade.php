@@ -1,6 +1,4 @@
 <div>
-  <x-flash />
-
   <x-card>
     <div class="row">
       <div class="col-md-3">

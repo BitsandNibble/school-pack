@@ -1,6 +1,4 @@
 <div>
-  <x-flash />
-
   <x-card-with-header>
     <x-slot name="header">
       <h6 class="fw-bold my-auto">Manage Payment Records for {{ $student }}</h6>

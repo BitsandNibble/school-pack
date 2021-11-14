@@ -1,6 +1,4 @@
 <div>
-  <x-flash />
-
   <h4>Subjects</h4>
 
   <x-card class="border-0 border-start border-5 border-primary">

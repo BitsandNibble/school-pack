@@ -1,6 +1,5 @@
 <div>
   <x-breadcrumb>Profile</x-breadcrumb>
-  <x-flash />
 
   <h5 class="mt-5">Personal Information</h5>
 

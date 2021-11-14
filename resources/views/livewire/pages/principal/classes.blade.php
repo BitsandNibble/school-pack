@@ -3,7 +3,6 @@
     Classes
     <li class="breadcrumb-item active" aria-current="page">Classes</li>
   </x-breadcrumb>
-  <x-flash />
 
   <x-card>
     <div class="d-flex align-items-center">

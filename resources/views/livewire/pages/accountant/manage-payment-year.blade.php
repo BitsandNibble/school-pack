@@ -3,7 +3,6 @@
     Payments
     <li class="breadcrumb-item active" aria-current="page">Manage Payments</li>
   </x-breadcrumb>
-  <x-flash />
 
   <x-card>
     <div class="row d-flex justify-content-center text-center">

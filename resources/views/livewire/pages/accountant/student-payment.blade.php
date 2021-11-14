@@ -1,7 +1,5 @@
 <div>
   @if($selected_class)
-    <x-flash />
-
     <x-card>
       <x-responsive-table>
         <thead>

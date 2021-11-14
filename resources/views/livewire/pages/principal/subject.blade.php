@@ -1,6 +1,4 @@
 <div>
-  <x-flash />
-
   <x-card>
     <div class="d-flex align-items-center">
       <h4 class="my-1">{{ $class->name }}</h4>

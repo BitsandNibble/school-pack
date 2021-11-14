@@ -1,6 +1,4 @@
 <div>
-  <x-flash />
-
   @if($get_marks)
     <x-card>
       <div class="row fw-bolder">

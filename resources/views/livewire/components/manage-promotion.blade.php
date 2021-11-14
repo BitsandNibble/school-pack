@@ -3,7 +3,6 @@
     Students
     <li class="breadcrumb-item active" aria-current="page">Manage Promotions</li>
   </x-breadcrumb>
-  <x-flash />
 
   <x-card-with-header>
     <x-slot name="header">

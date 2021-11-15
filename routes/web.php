@@ -47,6 +47,7 @@ Route::get('/', function () {
 });
 
 Route::view('components', 'components')->name('components');
+Route::get('notice/{notice}', [GeneralController::class, 'notice'])->name('notice');
 
 // principal route
 Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' => 'principal'], function () {

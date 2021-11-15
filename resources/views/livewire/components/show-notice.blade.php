@@ -5,8 +5,15 @@
 
   @foreach($notices as $notice)
     <h6 class="fw-bolder">{{ $notice->title }}</h6>
-    <p class="text-truncate">{{ $notice->message }}</p>
+    <p>{{ Str::limit($notice->message, 50) }}</p>
     <h6>Author: {{ $notice->principal->fullname }}</h6>
+    <div class="d-flex align-items-center">
+      <div class="ms-auto d-flex justify-content-end">
+        <a href="{{ route('notice', [$notice->id]) }}">
+          <i class='bx bxs-right-arrow-circle font-22'></i>
+        </a>
+      </div>
+    </div>
     <div class="float-end mb-2">
       <h6>Posted: {{ $notice->created_at }}</h6>
       <h6>Updated: {{ $notice->updated_at }}</h6>
@@ -16,4 +23,6 @@
     <br>
     <br>
   @endforeach
+
+  {{ $notices->links() }}
 </x-card-with-header>

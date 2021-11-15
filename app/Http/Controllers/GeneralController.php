@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\GetMarkSheetYear;
 use App\Actions\PrintView;
 use App\Models\Mark;
+use App\Models\NoticeBoard;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -53,5 +54,10 @@ class GeneralController extends Controller
     $d = $printView->getReceiptPrintView($pr_id);
 
     return view('print.receipt', $d);
+  }
+
+  public function notice(NoticeBoard $notice): Factory|View|Application
+  {
+    return view('partials.notice', compact('notice'));
   }
 }

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static create(string[] $array)
  * @method static firstOrCreate(array $array)
  * @method static where(array $data)
+ * @method static get()
  */
 class Mark extends Model
 {

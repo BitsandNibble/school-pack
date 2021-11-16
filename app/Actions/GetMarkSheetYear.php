@@ -12,6 +12,8 @@ class GetMarkSheetYear
 
   public function getMarkSheetYear($student_id, $year): array
   {
+    $d['year'] = $year;
+
     $d['student'] = Student::where('id', $student_id)
       ->with('class_room', 'section')
       ->first();
@@ -21,6 +23,7 @@ class GetMarkSheetYear
       ->first();
 
     $d['marks'] = Mark::where(['student_id' => $student_id])
+      ->where('year', $year)
       ->with('subject', 'grade')
       ->get();
 

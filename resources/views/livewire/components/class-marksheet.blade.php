@@ -13,17 +13,26 @@
         </thead>
 
         <tbody>
-          @forelse($students as $s)
+          @forelse($students as $st)
             <tr>
               <td>{{ $loop->iteration }}</td>
               <td></td>
-              <td>{{ $s->fullname }}</td>
-              <td>{{ $s->school_id }}</td>
+              <td>{{ $st->fullname }}</td>
+              <td>{{ $st->school_id }}</td>
               <td>
-                <x-button-link target="_blank" value="danger"
-                               href="{{ route('result.marksheet.select_year', [$s->id]) }}">
-                  View MarkSheet
-                </x-button-link>
+                <div class="dropdown">
+                  <x-button class="dropdown-toggle" value="danger" data-bs-toggle="dropdown" aria-expanded="false">
+                    View Marksheet
+                  </x-button>
+                  <ul class="dropdown-menu">
+                    @foreach($marks->where('student_id', $st->id)->pluck('year')->unique() as $year)
+                      <li><a class="dropdown-item" target="_blank"
+                             href="{{ route('result.marksheet.show', [$st->id, $year]) }}">
+                          {{ $year }}</a>
+                      </li>
+                    @endforeach
+                  </ul>
+                </div>
               </td>
             </tr>
           @empty

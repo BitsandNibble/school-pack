@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components;
 
+use App\Models\Mark;
 use App\Models\Student;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -14,6 +15,7 @@ class ClassMarksheet extends Component
   public $section_id;
   public $data;
   public $students;
+  public $marks;
 
   protected $listeners = ['getValues'];
 
@@ -23,6 +25,8 @@ class ClassMarksheet extends Component
 //      get students along with the subjects they're registered with to show in table body
       $this->students = Student::where($this->data)
         ->get();
+
+      $this->marks = Mark::get();
     }
 
     return view('livewire.components.class-marksheet');

@@ -67,7 +67,7 @@
   @auth('student')
   @else
     <livewire:components.comment :id="$student->id" />
-    <livewire:components.skills :id="$student->id" />
+    <livewire:components.skills :id="$student->id" :year="$year" />
   @endauth
 
   @push('scripts')

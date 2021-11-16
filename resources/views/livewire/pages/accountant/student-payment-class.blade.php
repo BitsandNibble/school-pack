@@ -19,6 +19,7 @@
       </div>
     </div>
   </x-card>
+  <x-spinner />
 
   <livewire:pages.accountant.student-payment />
 

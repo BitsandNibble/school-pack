@@ -45,7 +45,5 @@
         </tbody>
       </x-responsive-table>
     </x-card>
-
-    <x-spinner />
   @endif
 </div>

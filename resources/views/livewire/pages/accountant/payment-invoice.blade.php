@@ -128,6 +128,7 @@
     </div>
 
   </x-card-with-header>
+  <x-spinner />
 
   @push('scripts')
     <script>

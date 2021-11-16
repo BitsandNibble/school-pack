@@ -51,5 +51,6 @@
     </div>
     {{--    </div>--}}
   </x-card-with-header>
+  <x-spinner />
 
 </div>

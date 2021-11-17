@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static select(string $string)
  * @method static whereNull(string $string)
  * @method static where(string $string, $session_year)
+ * @method static create(array $array)
  */
 class Payment extends Model
 {
@@ -19,7 +20,7 @@ class Payment extends Model
 
   protected $fillable = [
     'title', 'amount', 'class_room_id',
-    'description', 'year', 'ref_no'
+    'student_id', 'description', 'year', 'ref_no'
   ];
 
   public function class_room(): BelongsTo

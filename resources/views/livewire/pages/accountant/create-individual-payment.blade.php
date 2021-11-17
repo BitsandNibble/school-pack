@@ -1,14 +1,10 @@
 <div>
-  <x-breadcrumb>
-    Payments
-    <li class="breadcrumb-item active" aria-current="page">Create Payment</li>
-  </x-breadcrumb>
-
   <x-card-with-header>
     <x-slot name="header">
-      <h6 class="fw-bold my-auto">Create General Payment</h6>
+      <h6 class="fw-bold my-auto">Create Individual Payments</h6>
     </x-slot>
 
+    {{--    <div class="row">--}}
     <div class="col-md-6 mb-2">
       <x-label>Title <span class="text-danger">*</span></x-label>
       <x-input type="text" wire:model.defer="payment.title" placeholder="E.g School Fees" />
@@ -17,13 +13,24 @@
 
     <div class="col-md-6 mb-2">
       <x-label>Class</x-label>
-      <x-select wire:model.defer="payment.class">
-        <option selected value="NULL">ALL CLASSES</option>
+      <x-select wire:model="class_id">
         @foreach($classes as $class)
           <option value="{{ $class->id }}">{{ $class->name }}</option>
         @endforeach
       </x-select>
-      <x-input-error for="payment.class" />
+      <x-input-error for="class_id" />
+    </div>
+
+    <div class="col-md-6 mb-2">
+      <x-label>Student</x-label>
+      <x-select wire:model.defer="student_id">
+        @if(count($students) > 0)
+          @foreach($students as $st)
+            <option value="{{ $st->id }}">{{ $st->fullname }}</option>
+          @endforeach
+        @endif
+      </x-select>
+      <x-input-error for="student_id" />
     </div>
 
     <div class="col-md-6 mb-2">
@@ -50,9 +57,7 @@
     <div class="col-md-6 mb-2">
       <x-button class="float-end" value="submit" wire:click.prevent="store">Submit</x-button>
     </div>
+    {{--    </div>--}}
   </x-card-with-header>
   <x-spinner />
-
-  <livewire:pages.accountant.create-individual-payment />
-
 </div>

@@ -7,8 +7,8 @@
   <x-card>
     <div class="row d-flex justify-content-center text-center">
       <div class="col-6">
-        <x-label for="select_year" class="fw-bolder">Select Class</x-label>
-        <x-select id="select_year" class="mb-2" wire:model.defer="class">
+        <x-label for="class" class="fw-bolder">Select Class</x-label>
+        <x-select id="class" class="mb-2" wire:model.defer="class">
           @foreach($classes as $cl)
             <option value="{{ $cl->id }}" selected>{{ $cl->name }}</option>
           @endforeach
@@ -22,5 +22,4 @@
   <x-spinner />
 
   <livewire:pages.accountant.student-payment />
-
 </div>

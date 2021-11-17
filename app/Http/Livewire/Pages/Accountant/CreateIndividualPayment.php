@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Pages\Accountant;
 use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\Payment;
+use App\Models\PaymentRecord;
 use App\Models\Student;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -21,6 +22,7 @@ class CreateIndividualPayment extends Component
   public $class_id;
   public $student_id;
   public $students = [];
+  public $year;
 
   protected array $rules = [
     'payment.title' => 'required|string',
@@ -43,6 +45,7 @@ class CreateIndividualPayment extends Component
   public function render(): Factory|View|Application
   {
     $classes = ClassRoom::get();
+    $this->year = SP::getSetting('current_session');
 
     if ($this->class_id) {
       $this->students = Student::where('class_room_id', $this->class_id)->get();
@@ -68,6 +71,22 @@ class CreateIndividualPayment extends Component
       'description' => $this->payment['description'] ?? '',
       'year' => SP::getSetting('current_session') ?? '',
     ]);
+
+    $payment = Payment::where('class_room_id', $this->class_id)
+      ->whereNotNull('student_id')
+      ->get();
+
+    $student = Student::where('id', $this->student_id)->first();
+
+    if ($payment->count() && $student->count()) {
+      foreach ($payment as $p) {
+        $pr['student_id'] = $student->id;
+        $pr['payment_id'] = $p->id;
+        $pr['year'] = $this->year;
+        $rec = PaymentRecord::firstOrCreate($pr);
+        $rec->ref_no ?: $rec->update(['ref_no' => random_int(100000, 99999999)]);
+      }
+    }
 
     $this->alert('success', 'Payment Created Successfully');
     $this->reset();

@@ -18,6 +18,10 @@ class StudentPaymentClass extends Component
   public $class;
   public $year;
 
+  protected array $rules = [
+    'class' => 'required|exists:class_rooms,id',
+  ];
+
   public function render(): Factory|View|Application
   {
     $classes = ClassRoom::get();
@@ -31,34 +35,7 @@ class StudentPaymentClass extends Component
    */
   public function submit(): void
   {
-    $value = $this->validate(
-      ['class' => 'required|exists:class_rooms,id'],
-    );
+    $value = $this->validate();
     $this->emit('selected_class', $value);
-
-    $pay1 = Payment::where('year', $this->year)
-      ->where('class_room_id', $this->class)
-      ->with('class_room')
-      ->get();
-
-    $pay2 = Payment::whereNull('class_room_id')
-      ->where('year', $this->year)
-      ->with('class_room')
-      ->get();
-
-    $payments = $pay2->count() ? $pay1->merge($pay2) : $pay1;
-    $students = Student::where('class_room_id', $value['class'])->get();
-
-    if ($payments->count() && $students->count()) {
-      foreach ($payments as $p) {
-        foreach ($students as $st) {
-          $pr['student_id'] = $st->id;
-          $pr['payment_id'] = $p->id;
-          $pr['year'] = $this->year;
-          $rec = PaymentRecord::firstOrCreate($pr);
-          $rec->ref_no ?: $rec->update(['ref_no' => random_int(100000, 99999999)]);
-        }
-      }
-    }
   }
 }

@@ -20,6 +20,7 @@ class CreatePaymentsTable extends Migration
       $table->string('ref_no', 100)->unique();
       $table->string('method', 100)->default('cash');
       $table->unsignedBigInteger('class_room_id')->nullable();
+      $table->unsignedBigInteger('student_id')->nullable();
       $table->string('description')->nullable();
       $table->string('year');
       $table->timestamps();

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Pages\Accountant;
 use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\Payment;
+use App\Models\Student;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -12,15 +13,19 @@ use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class CreatePayment extends Component
+class CreateIndividualPayment extends Component
 {
   use LivewireAlert;
 
   public $payment;
+  public $class_id;
+  public $student_id;
+  public $students = [];
 
   protected array $rules = [
     'payment.title' => 'required|string',
-    'payment.class' => 'required',
+    'class_id' => 'required',
+    'student_id' => 'required',
     'payment.method' => 'required',
     'payment.amount' => 'required|int',
     'payment.description' => 'sometimes|string',
@@ -28,7 +33,8 @@ class CreatePayment extends Component
 
   protected array $validationAttributes = [
     'payment.title' => 'title',
-    'payment.class' => 'class',
+    'class_id' => 'class',
+    'student_id' => 'student',
     'payment.method' => 'method',
     'payment.amount' => 'amount',
     'payment.description' => 'description',
@@ -38,7 +44,11 @@ class CreatePayment extends Component
   {
     $classes = ClassRoom::get();
 
-    return view('livewire.pages.accountant.create-payment', compact('classes'));
+    if ($this->class_id) {
+      $this->students = Student::where('class_room_id', $this->class_id)->get();
+    }
+
+    return view('livewire.pages.accountant.create-individual-payment', compact('classes'));
   }
 
   /**
@@ -53,7 +63,8 @@ class CreatePayment extends Component
       'amount' => $this->payment['amount'] ?? '',
       'ref_no' => now()->year . '/' . random_int(100000, 999999),
       'method' => $this->payment['method'],
-      'class_room_id' => $this->payment['class'] !== 'NULL' ? $this->payment['class'] : NULL,
+      'class_room_id' => $this->class_id,
+      'student_id' => $this->student_id,
       'description' => $this->payment['description'] ?? '',
       'year' => SP::getSetting('current_session') ?? '',
     ]);

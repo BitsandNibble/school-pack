@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Pages\Accountant;
 
+use App\Helpers\SP;
+use App\Models\ClassRoom;
 use App\Models\PaymentRecord;
 use App\Models\Student;
 use Illuminate\Contracts\Foundation\Application;
@@ -11,19 +13,30 @@ use Livewire\Component;
 
 class StudentPayment extends Component
 {
-  public $selected_class;
-  protected $listeners = ['selected_class' => 'selectedClass'];
+  public $class;
+  public $year;
+  public $students;
+  public $payments;
+
+  protected array $rules = [
+    'class' => 'required|exists:class_rooms,id',
+  ];
 
   public function render(): Factory|View|Application
   {
-    $students = Student::where('class_room_id', $this->selected_class)->get();
-    $payments = PaymentRecord::get();
+    $classes = ClassRoom::get();
+    $this->year = SP::getSetting('current_session');
 
-    return view('livewire.pages.accountant.student-payment', compact('students', 'payments'));
+    if ($this->class) {
+      $this->students = Student::where('class_room_id', $this->class)->get();
+      $this->payments = PaymentRecord::get();
+    }
+
+    return view('livewire.pages.accountant.student-payment', compact('classes'));
   }
 
-  public function selectedClass($value): void
+  public function submit(): void
   {
-    $this->selected_class = $value['class'];
+    $this->validate();
   }
 }

@@ -18,6 +18,8 @@
             <th>Name</th>
             <th>Amount</th>
             <th>Balance</th>
+            <th>Name</th>
+            <th>Description</th>
           </tr>
         </thead>
 
@@ -29,6 +31,8 @@
                 <td>{{ $d->student->fullname }}</td>
                 <td>{{ $d->payment->amount }}</td>
                 <td>{{ $d->balance ?: $d->payment->amount  }}</td>
+                <td>{{ $d->payment->title }}</td>
+                <td>{{ $d->payment->description }}</td>
               @endif
           </tr>
           @endforeach
@@ -37,4 +41,17 @@
       <br>
     @endforeach
   </x-card-with-header>
+
+  @push('scripts')
+    <script>
+        $(document).ready(function () {
+            $(".wrapper").addClass("toggled");
+            $(".sidebar-wrapper").hover(function () {
+                $(".wrapper").addClass("sidebar-hovered");
+            }, function () {
+                $(".wrapper").removeClass("sidebar-hovered");
+            })
+        });
+    </script>
+  @endpush
 </div>

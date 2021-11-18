@@ -26,7 +26,7 @@
         <a href="{{ route('principal.students') }}"><i class="bx bx-right-arrow-alt"></i>View Students</a>
       </li>
       <li>
-        <a href="{{ route('principal.students.promotion') }}"><i class="bx bx-right-arrow-alt"></i>Promote Students</a>
+        <a href="{{ route('principal.students.promote') }}"><i class="bx bx-right-arrow-alt"></i>Promote Students</a>
       </li>
       <li>
         <a href="{{ route('principal.students.manage-promotion') }}"><i class="bx bx-right-arrow-alt"></i>Manage

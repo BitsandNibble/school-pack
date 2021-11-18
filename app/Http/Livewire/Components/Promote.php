@@ -21,16 +21,45 @@ class Promote extends Component
   public $to_class;
   public $from_section;
   public $to_section;
+  public bool $selected = false;
   public $decision;
   public $students;
   public $class;
   public $section;
+  public $fs = [];
+  public $ts = [];
 
-  protected $listeners = ['getValues'];
+  protected array $rules = [
+    'from_class' => 'required',
+    'to_class' => 'required',
+    'from_section' => 'required',
+    'to_section' => 'required',
+  ];
 
   public function render(): Factory|View|Application
   {
+    // get all classes if accessing from principal's dashboard
+    $classes = ClassRoom::orderBy('class_type_id', 'ASC')->get();
+
+    // show sections per class
     if ($this->from_class) {
+      $this->fs = Section::where('class_room_id', $this->from_class)
+        ->with('class_room')
+        ->get();
+    }
+
+    if ($this->to_class) {
+      $this->ts = Section::where('class_room_id', $this->to_class)
+        ->with('class_room')
+        ->get();
+    }
+
+    $old_year = SP::getSetting('current_session');
+    $old_yr = explode('-', $old_year);
+    $new_year = ++$old_yr[0] . ' - ' . ++$old_yr[1];
+
+
+    if ($this->selected) {
       $this->students = Student::where('class_room_id', $this->from_class)
         ->where('section_id', $this->from_section)
         ->get();
@@ -39,19 +68,21 @@ class Promote extends Component
       $this->section = Section::get();
 
     }
-    return view('livewire.components.promote');
+
+    return view('livewire.components.promote', compact('classes', 'old_year', 'new_year'));
   }
 
-  public function getValues($value): void
+//  get values from select box
+  public function view(): void
   {
-    $this->from_class = $value['from_class'];
-    $this->to_class = $value['to_class'];
-    $this->from_section = $value['from_section'];
-    $this->to_section = $value['to_section'];
+    $this->validate();
+    $this->selected = true;
   }
 
   public function promote(): void
   {
+    $this->validate(['decision' => 'required']);
+
     $old_year = SP::getSetting('current_session');
     $old_yr = explode('-', $old_year);
     $new_year = ++$old_yr[0] . ' - ' . ++$old_yr[1];

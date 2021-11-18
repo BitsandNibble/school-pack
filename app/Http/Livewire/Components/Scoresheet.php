@@ -16,7 +16,7 @@ use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class Marks extends Component
+class Scoresheet extends Component
 {
   use LivewireAlert;
 
@@ -67,7 +67,7 @@ class Marks extends Component
       $this->marks = $this->get_marks;
     }
 
-    return view('livewire.components.marks');
+    return view('livewire.components.scoresheet');
   }
 
   public function getValues($value): void

@@ -8,7 +8,7 @@ use App\Http\Controllers\Teacher\HomeController as TeacherHomeController;
 use App\Http\Livewire\Components\ManagePromotion;
 use App\Http\Livewire\Components\MarkSheet;
 use App\Http\Livewire\Components\NoticeBoard;
-use App\Http\Livewire\Components\Promotion;
+use App\Http\Livewire\Components\Promote;
 use App\Http\Livewire\Components\Scores;
 use App\Http\Livewire\Components\TabulationSheet;
 use App\Http\Livewire\Pages\Accountant\CreatePayment;
@@ -73,7 +73,7 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('grading/skills', Skills::class)->name('.skills');
 
   //  promotions
-  Route::get('students/promotion', Promotion::class)->name('.students.promotion');
+  Route::get('students/promote', Promote::class)->name('.students.promote');
   Route::get('students/manage-promotion', ManagePromotion::class)->name('.students.manage-promotion');
 });
 

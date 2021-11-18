@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static where(string $string, $id)
  * @method static find($section_id)
  * @method static create(array $array)
+ * @method static get()
  */
 class Section extends Model
 {

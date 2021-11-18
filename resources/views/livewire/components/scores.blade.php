@@ -52,7 +52,7 @@
     </div>
   </x-card>
 
-  <livewire:components.marks />
+  <livewire:components.scoresheet />
 
   <x-spinner />
 </div>

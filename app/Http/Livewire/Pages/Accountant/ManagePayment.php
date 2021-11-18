@@ -19,6 +19,8 @@ class ManagePayment extends Component
   public $deleting;
   public $payment_id;
   public $payment;
+  public $payments;
+  public $classes;
 
   protected array $rules = [
     'session_year' => 'required',
@@ -37,25 +39,32 @@ class ManagePayment extends Component
     'payment.description' => 'description',
   ];
 
-  protected $listeners = ['selected_year'];
-
   public function render(): Factory|View|Application
   {
-    $payments = Payment::where('year', $this->session_year)->with('class_room')->get();
-    $classes = ClassRoom::get();
+    $years = Payment::select('year')->distinct()->get();
 
-    return view('livewire.pages.accountant.manage-payment', compact('payments', 'classes'));
+    if ($this->session_year) {
+
+      $this->payments = Payment::where('year', $this->session_year)->with('class_room')->get();
+      $this->classes = ClassRoom::get();
+    }
+
+    return view('livewire.pages.accountant.manage-payment', compact('years'));
+  }
+
+  public function submit(): void
+  {
+    $this->validate(
+      ['session_year' => 'required'],
+      [],
+      ['session_year' => 'session/year']
+    );
   }
 
   public function cancel(): void
   {
     $this->emit('closeModal');
     $this->reset('deleting', 'payment_id');
-  }
-
-  public function selected_year($value): void
-  {
-    $this->session_year = $value['session_year'];
   }
 
   public function edit($id): void

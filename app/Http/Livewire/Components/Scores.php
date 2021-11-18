@@ -80,34 +80,32 @@ class Scores extends Component
   public function manage(): void
   {
     $value = $this->validate();
-    $this->emit('getValues', $value);
-    $this->emit('create_marks', $value);
-  }
 
-//  add records to mark table
-  public function create_marks($value): void
-  {
-    $student_id = ClassStudentSubject::where('subject_id', $value['subject_id'])
-      ->where('class_room_id', $value['class_id'])
+    //  add records to mark table
+    $student_id = ClassStudentSubject::where('subject_id', $this->subject_id)
+      ->where('class_room_id', $this->class_id)
       ->get('student_id');
 
-    $year = Exam::where('id', $value['exam_id'])->first()->session;
+    $year = Exam::where('id', $this->exam_id)->first()->session;
 
     foreach ($student_id as $id) {
       Mark::firstOrCreate([
         'student_id' => $id->student_id,
-        'subject_id' => $value['subject_id'],
-        'class_room_id' => $value['class_id'],
-        'exam_id' => $value['exam_id'],
+        'subject_id' => $this->subject_id,
+        'class_room_id' => $this->class_id,
+        'exam_id' => $this->exam_id,
         'year' => $year,
       ]);
 
       ExamRecord::firstOrCreate([
         'student_id' => $id->student_id,
-        'class_room_id' => $value['class_id'],
-        'exam_id' => $value['exam_id'],
+        'class_room_id' => $this->class_id,
+        'exam_id' => $this->exam_id,
         'year' => $year,
       ]);
     }
+    //  add records to mark table
+
+    $this->emit('getValues', $value);
   }
 }

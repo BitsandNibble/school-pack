@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Components;
 
+use App\Models\Mark;
 use App\Models\Section;
+use App\Models\Student;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -13,6 +15,10 @@ class MarkSheet extends Component
   public $class_id;
   public $sections = [];
   public $section_id;
+  public $data;
+  public bool $selected = false;
+  public $students;
+  public $marks;
 
   protected array $rules = [
     'class_id' => 'required',
@@ -36,7 +42,7 @@ class MarkSheet extends Component
         ->get();
 
       // show sections only when teacher has selected a class (teacher's dashboard)
-      if (!empty($this->class_id)) {
+      if ($this->class_id) {
         $this->sections = Section::where('teacher_id', auth()->id())
           ->where('class_room_id', $this->class_id)
           ->with('class_room')
@@ -52,11 +58,19 @@ class MarkSheet extends Component
         ->get();
 
       // show sections per class (principal's dashboard)
-      if (!empty($this->class_id)) {
+      if ($this->class_id) {
         $this->sections = Section::where('class_room_id', $this->class_id)
           ->with('class_room')
           ->get();
       }
+    }
+
+    if ($this->class_id) {
+//      get students along with the subjects they're registered with to show in table body
+      $this->students = Student::where($this->data)
+        ->get();
+
+      $this->marks = Mark::get();
     }
 
     return view('livewire.components.mark-sheet', compact('classes'));
@@ -65,8 +79,14 @@ class MarkSheet extends Component
 //  get values from select box
   public function view(): void
   {
-    $value = $this->validate();
-    $this->emit('getValues', $value);
+    $this->validate();
+    $this->selected = true;
+
+//    use this for where clause to avoid duplicates
+    $this->data = [
+      'class_room_id' => $this->class_id,
+      'section_id' => $this->section_id,
+    ];
   }
 }
 

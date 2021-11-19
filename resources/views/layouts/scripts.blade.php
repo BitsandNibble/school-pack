@@ -7,6 +7,7 @@
 <script src="{{ asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
 
 <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.js') }}"></script>
+<script src="{{ asset('assets/plugins/yearpicker/dist/yearpicker.js') }}"></script>
 
 <!--app JS-->
 <script src="{{ asset('assets/js/app.js') }}"></script>

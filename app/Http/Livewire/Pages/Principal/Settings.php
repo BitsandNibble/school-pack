@@ -18,11 +18,16 @@ class Settings extends Component
 
   public $settings;
   public $school_logo;
+  public $year;
+
+  protected $listeners = ['getYear0', 'getYear1'];
 
   protected array $rules = [
     'settings.school_name' => 'required|string',
     'settings.school_title' => 'required|string',
-    'settings.current_session' => 'required|string',
+    'settings.current_session' => '',
+    'year.0' => 'required',
+    'year.1' => 'required',
     'settings.term_begins' => 'required|date',
     'settings.term_ends' => 'required|date',
     'settings.address' => 'required|string',
@@ -38,6 +43,8 @@ class Settings extends Component
     'settings.school_name' => 'school name',
     'settings.school_title' => 'school title',
     'settings.current_session' => 'current session',
+    'year.0' => 'year',
+    'year.1' => 'year',
     'settings.term_begins' => 'term begins',
     'settings.term_ends' => 'term ends',
     'settings.address' => 'address',
@@ -56,6 +63,9 @@ class Settings extends Component
     });
     $this->settings = $s['set'];
 
+    $session = $this->settings->toArray()['current_session']; // get session
+    $this->year = explode('-', $session); // split session to get the individual years
+
     return view('livewire.pages.principal.settings', $s);
   }
 
@@ -68,11 +78,15 @@ class Settings extends Component
       Setting::where('type', 'school_logo')->update(['description' => $logo]);
     }
 
-    $cred = $credentials['settings'];
+    $cred = $credentials['settings']; // get values after submitting
+    $changed_session = ["current_session" => implode(' - ', $this->year)]; // get the session from the two years selected
 
-    $keys = array_keys($cred);
-    $values = array_values($cred);
-    $iMax = count($cred);
+    $new_cred = array_merge($cred, $changed_session); // get the new credentials by merging the new session
+
+    // get array key and value from the new credentials
+    $keys = array_keys($new_cred);
+    $values = array_values($new_cred);
+    $iMax = count($new_cred);
 
     for ($i = 0; $i < $iMax; $i++) {
       Setting::where('type', $keys[$i])->update(['description' => $values[$i]]);

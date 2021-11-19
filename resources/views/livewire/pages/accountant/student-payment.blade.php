@@ -1,6 +1,6 @@
 <div>
   <x-breadcrumb>
-    Payments
+    Financials
     <li class="breadcrumb-item active" aria-current="page">Student Payments</li>
   </x-breadcrumb>
 

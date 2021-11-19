@@ -8,9 +8,9 @@
         "php": "^8.0.1",
         "fruitcake/laravel-cors": "^2.0.4",
         "guzzlehttp/guzzle": "^7.4.0",
-        "jantinnerezo/livewire-alert": "^2.2",
+        "jantinnerezo/livewire-alert": "^2.2.1",
         "laravel/fortify": "^1.8.3",
-        "laravel/framework": "^8.70.0",
+        "laravel/framework": "^8.70.2",
         "laravel/sanctum": "^2.12.1",
         "laravel/tinker": "^2.6.2",
         "livewire/livewire": "^2.7.2"

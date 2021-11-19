@@ -41,7 +41,7 @@
   <li>
     <a href="javascript:" class="has-arrow" aria-expanded="false">
       <div class="parent-icon"><i class='bx bx-money'></i></div>
-      <div class="menu-title">Payments</div>
+      <div class="menu-title">Financials</div>
     </a>
     <ul class="mm-collapse">
       <li>
@@ -217,7 +217,7 @@
   <li>
     <a href="javascript:" class="has-arrow" aria-expanded="false">
       <div class="parent-icon"><i class='bx bx-money'></i></div>
-      <div class="menu-title">Payments</div>
+      <div class="menu-title">Financials</div>
     </a>
     <ul class="mm-collapse">
       <li>

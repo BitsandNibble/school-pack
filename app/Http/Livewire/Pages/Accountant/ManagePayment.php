@@ -19,8 +19,9 @@ class ManagePayment extends Component
   public $deleting;
   public $payment_id;
   public $payment;
-  public $payments;
   public $classes;
+  public $general;
+  public $individual;
 
   protected array $rules = [
     'session_year' => 'required',
@@ -44,9 +45,11 @@ class ManagePayment extends Component
     $years = Payment::select('year')->distinct()->get();
 
     if ($this->session_year) {
-
-      $this->payments = Payment::where('year', $this->session_year)->with('class_room')->get();
+      $payments = Payment::where('year', $this->session_year)->with('class_room', 'student')->get();
       $this->classes = ClassRoom::get();
+
+      $this->general = $payments->whereNull('student_id');
+      $this->individual = $payments->whereNotNull('student_id', $this->session_year);
     }
 
     return view('livewire.pages.accountant.manage-payment', compact('years'));

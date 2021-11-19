@@ -46,7 +46,7 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $uc->payment->title }}</td>
-                <td>{{ $uc->payment->description }}</td>
+                <td>{{ Str::limit($uc->payment->description, 20) }}</td>
                 <td>{{ $uc->payment->ref_no }}</td>
                 <td class="fw-bold">{{ $uc->payment->amount }}</td>
                 <td class="text-info">{{ $uc->amount_paid ?: '0.00' }}</td>
@@ -106,7 +106,7 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $cl->payment->title }}</td>
-                <td>{{ $cl->payment->description }}</td>
+                <td>{{ Str::limit($cl->payment->description, 20) }}</td>
                 <td>{{ $cl->payment->ref_no }}</td>
                 <td class="fw-bold">{{ $cl->payment->amount }}</td>
                 <td>{{ $cl->ref_no }}</td>

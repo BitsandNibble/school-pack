@@ -28,6 +28,7 @@
             <tr>
               <th>S/N</th>
               <th>Title</th>
+              <th>Desc</th>
               <th>Pay_Ref</th>
               <th>Amount</th>
               <th>Paid</th>
@@ -44,6 +45,7 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $uc->payment->title }}</td>
+                <td>{{ $uc->payment->description }}</td>
                 <td>{{ $uc->payment->ref_no }}</td>
                 <td class="fw-bold">{{ $uc->payment->amount }}</td>
                 <td class="text-info">{{ $uc->amount_paid ?: '0.00' }}</td>
@@ -89,6 +91,7 @@
             <tr>
               <th>S/N</th>
               <th>Title</th>
+              <th>Desc</th>
               <th>Pay_Ref</th>
               <th>Amount</th>
               <th>Receipt_No</th>
@@ -102,6 +105,7 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $cl->payment->title }}</td>
+                <td>{{ $cl->payment->description }}</td>
                 <td>{{ $cl->payment->ref_no }}</td>
                 <td class="fw-bold">{{ $cl->payment->amount }}</td>
                 <td>{{ $cl->ref_no }}</td>

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Pages\Accountant;
 use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\Payment;
+use App\Models\Student;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,6 +21,8 @@ class ManagePayment extends Component
   public $payment_id;
   public $payment;
   public $classes;
+  public $student;
+  public $students = [];
   public $general;
   public $individual;
 
@@ -27,6 +30,7 @@ class ManagePayment extends Component
     'session_year' => 'required',
     'payment.title' => 'required|string',
     'payment.class_room_id' => 'sometimes',
+    'payment.student_id' => 'sometimes',
     'payment.method' => 'sometimes',
     'payment.amount' => 'required',
     'payment.description' => 'sometimes|string',
@@ -35,6 +39,7 @@ class ManagePayment extends Component
   protected array $validationAttributes = [
     'payment.title' => 'title',
     'payment.class_room_id' => 'class',
+    'payment.student_id' => 'student',
     'payment.method' => 'method',
     'payment.amount' => 'amount',
     'payment.description' => 'description',
@@ -72,8 +77,10 @@ class ManagePayment extends Component
 
   public function edit($id): void
   {
-    $this->payment = Payment::find($id);
+    $this->payment = $pay = Payment::find($id);
     $this->payment_id = $id;
+    $this->students = Student::where('class_room_id', $pay->class_room_id)->get();
+    $this->student = $pay->student_id;
   }
 
   public function store(): void
@@ -86,7 +93,8 @@ class ManagePayment extends Component
         'amount' => $this->payment['amount'] ?? $this->payment->amount,
         'ref_no' => now()->year . '/' . random_int(100000, 999999),
         'method' => $this->payment['method'] ?? $this->payment->method,
-        'class_room_id' => $this->payment['class'] !== 'NULL' ? $this->payment['class'] : NULL,
+        'class_room_id' => $this->payment['class_room_id'] !== 'NULL' ? $this->payment['class_room_id'] : NULL,
+        'student_id' => $this->students ? $this->payment['student_id'] : NULL,
         'description' => $this->payment['description'] ?? $this->payment->desctiption,
         'year' => $this->payment->year ?? SP::getSetting('current_session'),
       ]);

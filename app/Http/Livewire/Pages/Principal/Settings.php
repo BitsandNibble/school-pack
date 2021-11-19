@@ -64,7 +64,7 @@ class Settings extends Component
     $this->settings = $s['set'];
 
     $session = $this->settings->toArray()['current_session']; // get session
-    $this->year = explode('-', $session); // split session to get the individual years
+    $this->year = explode(' - ', $session); // split session to get the individual years
 
     return view('livewire.pages.principal.settings', $s);
   }

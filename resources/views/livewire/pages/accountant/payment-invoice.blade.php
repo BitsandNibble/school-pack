@@ -20,6 +20,7 @@
         </a>
       </li>
     </ul>
+
     <div class="tab-content py-3">
       <div class="tab-pane fade active show" id="incomplete" role="tabpanel">
         <x-responsive-table>

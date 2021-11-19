@@ -68,5 +68,4 @@
       </x-responsive-table>
     </x-card>
   @endif
-  {{--  <livewire:pages.accountant.student-payment />--}}
 </div>

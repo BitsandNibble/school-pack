@@ -198,8 +198,7 @@
     </a>
     <ul class="mm-collapse">
       <li>
-        <a href="{{ route('result.marksheet.select_year', [auth('student')->id()]) }}"><i
-              class="bx bx-right-arrow-alt"></i>Mark Sheet</a>
+        <a href="{{ route('student.select-year') }}"><i class="bx bx-right-arrow-alt"></i>Mark Sheet</a>
       </li>
     </ul>
   </li>

@@ -26,6 +26,7 @@ use App\Http\Livewire\Pages\Principal\Skills;
 use App\Http\Livewire\Pages\Principal\Students;
 use App\Http\Livewire\Pages\Principal\Subjects;
 use App\Http\Livewire\Pages\Principal\Teachers;
+use App\Http\Livewire\Pages\Student\Payment;
 use App\Http\Livewire\Pages\Student\Profile as StudentProfile;
 use App\Http\Livewire\Pages\Student\SelectYear;
 use App\Http\Livewire\Pages\Teacher\Profile as TeacherProfile;
@@ -94,6 +95,7 @@ Route::group(['middleware' => 'auth:student', 'prefix' => 'student', 'as' => 'st
   Route::view('/', 'users.student.index')->name('.home');
   Route::get('profile', StudentProfile::class)->name('.profile');
   Route::get('mark-sheet/select-year', SelectYear::class)->name('.select-year');
+  Route::get('payments/students-payment', Payment::class)->name('.payment');
 });
 
 // accountant route

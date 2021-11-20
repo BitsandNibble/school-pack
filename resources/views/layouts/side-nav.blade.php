@@ -202,6 +202,18 @@
       </li>
     </ul>
   </li>
+
+  <li>
+    <a href="javascript:" class="has-arrow" aria-expanded="false">
+      <div class="parent-icon"><i class='bx bx-money'></i></div>
+      <div class="menu-title">Financials</div>
+    </a>
+    <ul class="mm-collapse">
+      <li>
+        <a href="{{ route('student.payment') }}"><i class="bx bx-right-arrow-alt"></i>Student Payments</a>
+      </li>
+    </ul>
+  </li>
 @endif
 
 

@@ -88,7 +88,7 @@
     </a>
     <ul class="mm-collapse">
       <li>
-        <a href="{{ route('principal.exams') }}"><i class="bx bx-right-arrow-alt"></i>Exam</a>
+        <a href="{{ route('principal.terms') }}"><i class="bx bx-right-arrow-alt"></i>Terms</a>
       </li>
       <li>
         <a href="{{ route('principal.grades') }}"><i class="bx bx-right-arrow-alt"></i>Grades</a>

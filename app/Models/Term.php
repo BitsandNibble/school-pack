@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static create(array $array)
  * @method static get()
  */
-class Exam extends Model
+class Term extends Model
 {
   use HasFactory;
 
   protected $fillable = [
-    'name', 'term', 'session', 'locked'
+    'name', 'session', 'locked'
   ];
 }

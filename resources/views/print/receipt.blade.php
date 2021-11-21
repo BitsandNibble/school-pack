@@ -26,7 +26,7 @@
 
         {{--                Background Logo--}}
         <div style="position: relative;  text-align: center; ">
-          <img src="{{ \App\Helpers\SP::getSchoolLogo() }}"
+          <img src="{{ get_school_logo() }}"
                style="max-width: 500px; max-height:600px; margin-top: 60px; position:absolute ; opacity: 0.1; margin-left: auto;margin-right: auto; left: 0; right: 0;" />
         </div>
 

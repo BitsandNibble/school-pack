@@ -61,7 +61,7 @@
 
     <x-slot name="content">
       <p><span class="text-danger">*</span> fields are required</p>
-      <p>You're creating an exam for the current session {{ \App\Helpers\SP::getSetting('current_session') }}</p>
+      <p>You're creating an exam for the current session {{ get_setting('current_session') }}</p>
 
       <div class="row">
         <div class="col-md-6 mb-2">

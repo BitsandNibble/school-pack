@@ -92,7 +92,7 @@
             <tr>
               <td>{{ $loop->iteration }}</td>
               <td>{{ $s->fullname }}</td>
-              <td>{{ \App\Helpers\SP::getSetting('current_session') ?? '' }}</td>
+              <td>{{ get_setting('current_session') ?? '' }}</td>
               <td>
                 <x-select class="form-select-sm" wire:model.defer="decision">
                   <option value="P">Promote</option>

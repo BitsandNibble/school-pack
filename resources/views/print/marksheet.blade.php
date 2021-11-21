@@ -25,11 +25,11 @@
         {{--    Logo N School Details--}}
         <table width="100%">
           <tr>
-            <td><img alt="..." src="{{ \App\Helpers\SP::getSchoolLogo() }}" style="max-height : 100px;"></td>
+            <td><img alt="..." src="{{ get_school_logo() }}" style="max-height : 100px;"></td>
 
             <td style="text-align: center; ">
               <strong><span
-                    style="color: #1b0c80; font-size: 25px;">{{ strtoupper(\App\Helpers\SP::getSetting('school_name')) }}</span></strong><br />
+                    style="color: #1b0c80; font-size: 25px;">{{ strtoupper(get_setting('school_name')) }}</span></strong><br />
               <strong><span
                     style="color: #000; font-size: 15px;"><i>{{ ucwords($s['address']) }}</i></span></strong><br />
               <strong><span style="color: #000; font-size: 15px;"> REPORT SHEET ({{ strtoupper($class_type->name) }})
@@ -44,7 +44,7 @@
 
         {{--Background Logo--}}
         <div style="position: relative;  text-align: center; ">
-          <img alt="" src="{{ \App\Helpers\SP::getSchoolLogo() }}"
+          <img alt="" src="{{ get_school_logo() }}"
                style="max-width: 500px; max-height:600px; margin-top: 60px; position:absolute ; opacity: 0.2; margin-left: auto;margin-right: auto; left: 0; right: 0;" />
         </div>
 

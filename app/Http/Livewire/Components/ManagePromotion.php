@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Components;
 
-use App\Helpers\SP;
+
 use App\Models\Promotion as PromotionModel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -13,7 +13,7 @@ class ManagePromotion extends Component
 {
   public function render(): Factory|View|Application
   {
-    $old_year = SP::getSetting('current_session');
+    $old_year = get_setting('current_session');
     $old_yr = explode('-', $old_year);
     $new_year = ++$old_yr[0] . ' - ' . ++$old_yr[1];
 

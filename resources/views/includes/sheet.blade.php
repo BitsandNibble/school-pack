@@ -7,7 +7,7 @@
       <td><strong>CLASS:</strong> {{ strtoupper($class->name) }}</td>
     </tr>
     <tr>
-      <td><strong>REPORT SHEET FOR:</strong> {!! strtoupper(\App\Helpers\SP::getSuffix($exam->term)) !!} TERM</td>
+      <td><strong>REPORT SHEET FOR:</strong> {!! strtoupper(\App\Helpers\get_suffix($exam->term)) !!} TERM</td>
       <td><strong>ACADEMIC YEAR:</strong> {{ $exam_record->year }}</td>
       <td><strong>POSITION:</strong> {!! $position !!}</td>
       {{--      <td><strong>AGE:</strong> {{ $s->age ?: ($sr->user->dob ? date_diff(date_create($sr->user->dob), date_create('now'))->y : '-') }}</td>--}}
@@ -59,7 +59,7 @@
 
           <td>{{ $mk->$ts ?: '-'}}</td>
           <td>{{ $mk->grade?->name ?: '-' }}</td>
-          <td>{!! ($mk->grade) ? \App\Helpers\SP::getSuffix($mk->subject_position) : '-' !!}</td>
+          <td>{!! ($mk->grade) ? get_suffix($mk->subject_position) : '-' !!}</td>
           <td>{{ $mk->grade?->remark ?: '-' }}</td>
 
           {{--@if($ex->term == 3)

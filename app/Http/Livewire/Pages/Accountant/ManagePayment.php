@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Pages\Accountant;
 
-use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\Payment;
 use App\Models\Student;
@@ -96,7 +95,7 @@ class ManagePayment extends Component
         'class_room_id' => $this->payment['class_room_id'] !== 'NULL' ? $this->payment['class_room_id'] : NULL,
         'student_id' => $this->students ? $this->payment['student_id'] : NULL,
         'description' => $this->payment['description'] ?? $this->payment->desctiption,
-        'year' => $this->payment->year ?? SP::getSetting('current_session'),
+        'year' => $this->payment->year ?? get_setting('current_session'),
       ]);
 
       $this->cancel();

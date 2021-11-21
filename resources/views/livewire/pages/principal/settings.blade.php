@@ -8,7 +8,7 @@
       <img src="{{$school_logo->temporaryUrl()}}" class="mb-2 img-fluid"
            alt="Preview">
     @else
-      <img src="{{ \App\Helpers\SP::getSchoolLogo() }}" alt="Admin"
+      <img src="{{ get_school_logo() }}" alt="Admin"
            class="mb-2 img-fluid">
     @endif
 

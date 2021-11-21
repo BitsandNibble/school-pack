@@ -1,5 +1,5 @@
 <x-app-layout>
-  Current Session : {{ \App\Helpers\SP::getSetting('current_session') }}
+  Current Session : {{ get_setting('current_session') }}
 
   <div class="row mt-5">
     <div class="col">
@@ -7,7 +7,7 @@
         <div class="d-flex align-items-center">
           <div>
             <p class="mb-1 text-uppercase">Total Students</p>
-            <h5 class="mb-0 display-6">{{ \App\Helpers\SP::totalStudents() }}</h5>
+            <h5 class="mb-0 display-6">{{ total_students() }}</h5>
           </div>
           <div class="ms-auto"><i class="bx bx-user font-30"></i>
           </div>
@@ -20,7 +20,7 @@
         <div class="d-flex align-items-center">
           <div>
             <p class="mb-1 text-uppercase">Total Teachers</p>
-            <h5 class="mb-0 display-6">{{ \App\Helpers\SP::totalTeachers() }}</h5>
+            <h5 class="mb-0 display-6">{{ total_teachers() }}</h5>
           </div>
           <div class="ms-auto"><i class="bx bxs-user font-30"></i>
           </div>

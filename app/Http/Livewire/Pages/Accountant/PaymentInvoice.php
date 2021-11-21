@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Pages\Accountant;
 
 use App\Helpers\PR;
-use App\Helpers\SP;
 use App\Models\Payment;
 use App\Models\PaymentRecord;
 use App\Models\Receipt;
@@ -40,7 +39,7 @@ class PaymentInvoice extends Component
     $uncleared = $invoice->where('paid', 0);
     $cleared = $invoice->where('paid', 1);
 
-    $this->current_year = SP::getSetting('current_session');
+    $this->current_year = get_setting('current_session');
 
     return view('livewire.pages.accountant.payment-invoice', compact('uncleared', 'cleared'));
   }

@@ -73,7 +73,7 @@
         <div class="col-md-6 mb-2">
           <x-label for="exam.term">Term <span class="text-danger">*</span></x-label>
           <x-select id="exam.term" wire:model.defer="exam.term">
-            @foreach (\App\Helpers\GR::getTerms() as $index => $term)
+            @foreach (get_terms() as $index => $term)
               <option value="{{ $index }}">{{ $term }}</option>
             @endforeach
           </x-select>

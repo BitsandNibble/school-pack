@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-5">
+  <div class="col-5">
     <x-table class="table-bordered" style="border: solid 1px">
       <thead>
         <th>AFFECTIVE SKILLS</th>
@@ -18,7 +18,7 @@
     </x-table>
   </div>
 
-  <div class="col-md-5">
+  <div class="col-5">
     <x-table class="table-bordered" style="border: solid 1px">
       <thead>
         <th>BEHAVIOUR</th>
@@ -37,7 +37,7 @@
     </x-table>
   </div>
 
-  <div class="col-md-2">
+  <div class="col-2">
     <h6 class="fw-bold text-decoration-underline">KEY</h6>
     <ul class="list-unstyled">
       <li>5 - Excellent</li>

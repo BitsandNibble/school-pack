@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Components;
 
-use App\Helpers\GR;
 use App\Models\ClassRoom;
 use App\Models\ClassType;
 use App\Models\Exam;
@@ -112,7 +111,7 @@ class Scoresheet extends Component
       $exam = $this->marks[$index]['exam_score'] ?? null;
       $total = $tca + $exam;
 
-      $grade = GR::getGrade($total, $class_type_id);
+      $grade = get_grade($total, $class_type_id);
 
       $mark->update([
         'ca1' => $ca1,
@@ -126,17 +125,17 @@ class Scoresheet extends Component
 
 //    subject position
     foreach ($marks as $mark) {
-      $sub_pos = GR::getSubjectPosition($mark->student_id, $this->exam_id, $this->class_id, $this->subject_id, $this->selected_year);
+      $sub_pos = get_subject_position($mark->student_id, $this->exam_id, $this->class_id, $this->subject_id, $this->selected_year);
       $mark->update(['subject_position' => $sub_pos]);
     }
 
 //    update records in exam table
     foreach ($all_student_ids as $student_id) {
       ExamRecord::where(['student_id' => $student_id])->update([
-        'total' => GR::getExamTotal($this->exam_id, $student_id, $this->class_id, $this->selected_year),
-        'average' => GR::getExamAvg($this->exam_id, $student_id, $this->class_id, $this->selected_year),
-        'class_average' => GR::getClassAvg($this->exam_id, $this->class_id, $this->selected_year),
-        'position' => GR::getPosition($this->exam_id, $student_id, $this->class_id, $this->selected_year),
+        'total' => get_exam_total($this->exam_id, $student_id, $this->class_id, $this->selected_year),
+        'average' => get_exam_avg($this->exam_id, $student_id, $this->class_id, $this->selected_year),
+        'class_average' => get_class_avg($this->exam_id, $this->class_id, $this->selected_year),
+        'position' => get_student_position($this->exam_id, $student_id, $this->class_id, $this->selected_year),
       ]);
     }
 

@@ -9,9 +9,7 @@
         @foreach($skills->where('skill_type', 'AF') as $af)
           <tr>
             <td>{{ $af->name }}</td>
-            {{--            fix inserting values as array/json into the db--}}
-            {{--            <td>@json($af_skills[$loop->index ?? 0])</td>--}}
-            <td>{{ $loop->index }}</td>
+            <td>{{ $exam_record->af ? explode(',', $exam_record->af)[$loop->index] : '-' }}</td>
           </tr>
         @endforeach
       </tbody>
@@ -28,9 +26,7 @@
         @foreach($skills->where('skill_type', 'PS') as $ps)
           <tr>
             <td>{{ $ps->name }}</td>
-            {{--            fix inserting values as array/json into the db--}}
-            {{--            <td>@json($ps_skills[$loop->index ?? 0])</td>--}}
-            <td>{{ $loop->index }}</td>
+            <td>{{ $exam_record->ps ? explode(',', $exam_record->ps)[$loop->index] : '' }}</td>
           </tr>
         @endforeach
       </tbody>

@@ -26,13 +26,7 @@ class PrintView
       ->get();
 
     $d['exam_record'] = $exr = ExamRecord::where($data)->first();
-
-//    need to return blank values from db or something
-//    $d['af_skills'] = json_decode(ExamRecord::where($data)->first()->af, true, 512, JSON_THROW_ON_ERROR);
-//    $d['ps_skills'] = json_decode(ExamRecord::where($data)->first()->ps, true, 512, JSON_THROW_ON_ERROR);
-
     $d['skills'] = Skill::get();
-
     $d['class'] = $cl = ClassRoom::find($exr->class_room_id);
 //    $d['section'] = $exr->section_id;
     $d['term'] = Term::find($term_id);

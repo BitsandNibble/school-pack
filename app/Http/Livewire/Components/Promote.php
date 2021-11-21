@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Components;
 
-use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\Promotion as PromotionModel;
 use App\Models\Section;
@@ -54,7 +53,7 @@ class Promote extends Component
         ->get();
     }
 
-    $old_year = SP::getSetting('current_session');
+    $old_year = get_setting('current_session');
     $old_yr = explode('-', $old_year);
     $new_year = ++$old_yr[0] . ' - ' . ++$old_yr[1];
 
@@ -83,7 +82,7 @@ class Promote extends Component
   {
     $this->validate(['decision' => 'required']);
 
-    $old_year = SP::getSetting('current_session');
+    $old_year = get_setting('current_session');
     $old_yr = explode('-', $old_year);
     $new_year = ++$old_yr[0] . ' - ' . ++$old_yr[1];
     $d = [];

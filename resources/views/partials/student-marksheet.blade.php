@@ -41,7 +41,7 @@
             <td>{{ $mark->exam_score }}</td>
             <td>{{ $mark->total_score }}</td>
             <td>{{ $mark->grade->name }}</td>
-            <td>{!! \App\Helpers\SP::getSuffix($mark->subject_position) !!}</td>
+            <td>{!! get_suffix($mark->subject_position) !!}</td>
             <td>{{ $mark->grade->remark }}</td>
           </tr>
         @endforeach

@@ -1,5 +1,5 @@
 <x-app-layout>
-  Current Session : {{ \App\Helpers\SP::getSetting('current_session') }}
+  Current Session : {{ get_setting('current_session') }}
   <hr>
   <div class="row">
     @forelse($sections as $section)

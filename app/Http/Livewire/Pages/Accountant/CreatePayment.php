@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Pages\Accountant;
 
-use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\Payment;
 use App\Models\PaymentRecord;
@@ -40,7 +39,7 @@ class CreatePayment extends Component
   public function render(): Factory|View|Application
   {
     $classes = ClassRoom::get();
-    $this->year = SP::getSetting('current_session');
+    $this->year = get_setting('current_session');
 
     return view('livewire.pages.accountant.create-payment', compact('classes'));
   }
@@ -59,7 +58,7 @@ class CreatePayment extends Component
       'method' => $this->payment['method'],
       'class_room_id' => $this->payment['class'] !== 'NULL' ? $this->payment['class'] : NULL,
       'description' => $this->payment['description'] ?? '',
-      'year' => SP::getSetting('current_session') ?? '',
+      'year' => get_setting('current_session') ?? '',
     ]);
 
     $pay1 = Payment::where('year', $this->year)

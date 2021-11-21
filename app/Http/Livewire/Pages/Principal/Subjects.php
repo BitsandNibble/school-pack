@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
-use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\Subject;
 use Illuminate\Contracts\Foundation\Application;
@@ -66,13 +65,13 @@ class Subjects extends Component
         $subject = Subject::find($this->subject_id);
         $subject->update([
           'name' => $this->names[$key]['name'],
-          'slug' => SP::getFirstWord($this->names[$key]['name']),
+          'slug' => get_first_word($this->names[$key]['name']),
         ]);
         $this->alert('success', 'Subject Updated Successfully');
       } else {
         Subject::create([
           'name' => $this->names[$key]['name'],
-          'slug' => SP::getFirstWord($this->names[$key]['name']),
+          'slug' => get_first_word($this->names[$key]['name']),
         ]);
         $this->alert('success', 'Subject Updated Successfully');
       }

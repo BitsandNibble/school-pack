@@ -2,7 +2,6 @@
 
 namespace App\Actions;
 
-use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\ClassStudentSubject;
 use App\Models\ClassType;
@@ -48,16 +47,16 @@ class PrintView
     $d['year'] = $year;
     $d['student_id'] = $student_id;
     $d['exam_id'] = $exam_id;
-    $d['position'] = SP::getSuffix($exr->position);
+    $d['position'] = get_suffix($exr->position);
 
     $d['s'] = Setting::all()->flatMap(function ($s) {
       return [$s->type => $s->description];
     });
 
-    $d['ca1_limit'] = $ca1 = SP::getSetting('ca1') ?: null;
-    $d['ca2_limit'] = $ca2 = SP::getSetting('ca2') ?: null;
+    $d['ca1_limit'] = $ca1 = get_setting('ca1') ?: null;
+    $d['ca2_limit'] = $ca2 = get_setting('ca2') ?: null;
     $d['total_ca_limit'] = $tca = $ca1 + $ca2;
-    $d['exam_limit'] = $ex = SP::getSetting('exam') ?: null;
+    $d['exam_limit'] = $ex = get_setting('exam') ?: null;
     $d['final_marks'] = $tca + $ex;
 
     return $d;

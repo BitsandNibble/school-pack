@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Pages\Accountant;
 
-use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\PaymentRecord;
 use App\Models\Student;
@@ -25,7 +24,7 @@ class StudentPayment extends Component
   public function render(): Factory|View|Application
   {
     $classes = ClassRoom::get();
-    $this->year = SP::getSetting('current_session');
+    $this->year = get_setting('current_session');
 
     if ($this->class) {
       $this->students = Student::where('class_room_id', $this->class)->get();

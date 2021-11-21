@@ -85,7 +85,7 @@
               @endforeach
               <td class="text-danger">{{ $exam_record->where('student_id', $s->student_id)->first()->total ?? '' }}</td>
               <td class="text-primary">{{ $exam_record->where('student_id', $s->student_id)->first()->average ?? '' }}</td>
-              <td class="text-info">{!! \App\Helpers\SP::getSuffix($exam_record->where('student_id', $s->student_id)->first()->position) ?? '' !!}</td>
+              <td class="text-info">{!! get_suffix($exam_record->where('student_id', $s->student_id)->first()->position) ?? '' !!}</td>
             </tr>
           @empty
             <tr>

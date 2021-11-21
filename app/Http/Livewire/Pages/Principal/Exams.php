@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
-use App\Helpers\SP;
 use App\Models\Exam;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -57,14 +56,14 @@ class Exams extends Component
       $exam->update([
         'name' => $this->exam['name'],
         'term' => $this->exam['term'],
-        'session' => SP::getSetting('current_session'),
+        'session' => get_setting('current_session'),
       ]);
       $this->alert('success', 'Exam Updated Successfully');
     } else {
       Exam::create([
         'name' => $this->exam['name'],
         'term' => $this->exam['term'],
-        'session' => SP::getSetting('current_session'),
+        'session' => get_setting('current_session'),
       ]);
       $this->alert('success', 'Exam Added Successfully');
     }

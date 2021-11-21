@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Components;
 
 use App\Helpers\GR;
-use App\Helpers\SP;
 use App\Models\ClassRoom;
 use App\Models\ClassType;
 use App\Models\Exam;
@@ -55,9 +54,9 @@ class Scoresheet extends Component
 
   public function render(): Factory|View|Application
   {
-    $this->ca1_limit = SP::getSetting('ca1');
-    $this->ca2_limit = SP::getSetting('ca2');
-    $this->exam_limit = SP::getSetting('exam');
+    $this->ca1_limit = get_setting('ca1');
+    $this->ca2_limit = get_setting('ca2');
+    $this->exam_limit = get_setting('exam');
 //    show students based on selected class and subject from grading
     if ($this->class_id) {
       $this->get_marks = Mark::where($this->data)

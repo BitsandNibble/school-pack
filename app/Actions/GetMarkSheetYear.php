@@ -2,7 +2,6 @@
 
 namespace App\Actions;
 
-use App\Helpers\SP;
 use App\Models\ExamRecord;
 use App\Models\Mark;
 use App\Models\Student;
@@ -27,11 +26,11 @@ class GetMarkSheetYear
       ->with('subject', 'grade')
       ->get();
 
-    $d['position'] = SP::getSuffix($exr->position);
+    $d['position'] = get_suffix($exr->position);
 
-    $d['ca1_limit'] = SP::getSetting('ca1') ?: null;
-    $d['ca2_limit'] = SP::getSetting('ca2') ?: null;
-    $d['exam_limit'] = SP::getSetting('exam') ?: null;
+    $d['ca1_limit'] = get_setting('ca1') ?: null;
+    $d['ca2_limit'] = get_setting('ca2') ?: null;
+    $d['exam_limit'] = get_setting('exam') ?: null;
     $d['total'] = $d['ca1_limit'] + $d['ca2_limit'] + $d['exam_limit'];
 
     return $d;

@@ -5,7 +5,6 @@ namespace App\Actions;
 use App\Models\ClassRoom;
 use App\Models\ClassStudentSubject;
 use App\Models\ClassType;
-use App\Models\Exam;
 use App\Models\ExamRecord;
 use App\Models\Mark;
 use App\Models\PaymentRecord;
@@ -13,13 +12,14 @@ use App\Models\Setting;
 use App\Models\Skill;
 use App\Models\Student;
 use App\Models\Subject;
+use App\Models\Term;
 
 class PrintView
 {
 
-  public function getMarksheetPrintView($student_id, $exam_id, $year): array
+  public function getMarksheetPrintView($student_id, $term_id, $year): array
   {
-    $data = ['student_id' => $student_id, 'exam_id' => $exam_id, 'year' => $year];
+    $data = ['student_id' => $student_id, 'term_id' => $term_id, 'year' => $year];
 
     $d['marks'] = Mark::where($data)
       ->with('grade')
@@ -35,7 +35,7 @@ class PrintView
 
     $d['class'] = $cl = ClassRoom::find($exr->class_room_id);
 //    $d['section'] = $exr->section_id;
-    $d['exam'] = Exam::find($exam_id);
+    $d['term'] = Term::find($term_id);
     $d['ts'] = 'total_score';
     $d['student_record'] = Student::where('id', $student_id)->first();
     $d['class_type'] = ClassType::find($cl->class_type_id);
@@ -46,7 +46,7 @@ class PrintView
 
     $d['year'] = $year;
     $d['student_id'] = $student_id;
-    $d['exam_id'] = $exam_id;
+    $d['term_id'] = $term_id;
     $d['position'] = get_suffix($exr->position);
 
     $d['s'] = Setting::all()->flatMap(function ($s) {
@@ -62,10 +62,10 @@ class PrintView
     return $d;
   }
 
-  public function getTabulationsheetPrintView($exam_id, $class_id): array
+  public function getTabulationsheetPrintView($term_id, $class_id): array
   {
-    $year = Exam::where('id', $exam_id)->first()->session;
-    $data = ['exam_id' => $exam_id, 'class_room_id' => $class_id, 'year' => $year];
+    $year = Term::where('id', $term_id)->first()->session;
+    $data = ['term_id' => $term_id, 'class_room_id' => $class_id, 'year' => $year];
 
     $subject_ids = Mark::where($data)->distinct()
       ->select('subject_id')
@@ -82,16 +82,16 @@ class PrintView
     $d['subjects'] = Subject::whereIn('id', $subject_ids)->orderBy('name')->get();
     $d['students'] = Student::whereIn('id', $student_ids)->get();
     $d['class_id'] = $class_id;
-    $d['exam_id'] = $exam_id;
+    $d['term_id'] = $term_id;
     $d['year'] = $year;
 
-    $data2 = ['exam_id' => $exam_id, 'class_room_id' => $class_id];
+    $data2 = ['term_id' => $term_id, 'class_room_id' => $class_id];
     $d['marks'] = Mark::where($data2)->with('grade')->get();
     $d['exam_record'] = ExamRecord::where($data2)->first();
 
     $d['class'] = ClassRoom::find($class_id);
 //    $d['section'] = Section::find($section_id);
-    $d['exam'] = Exam::find($exam_id);
+    $d['term'] = Term::find($term_id);
     $d['ts'] = 'total_score';
 
     $d['s'] = Setting::all()->flatMap(function ($s) {

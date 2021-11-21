@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Pages\Accountant;
 
-use App\Helpers\PR;
 use App\Models\Payment;
 use App\Models\PaymentRecord;
 use App\Models\Receipt;
@@ -32,8 +31,8 @@ class PaymentInvoice extends Component
 
   public function render(): Factory|View|Application
   {
-    $invoice = $this->selected_year ? PR::getAllPaymentRecord($this->student_id, $this->selected_year) :
-      PR::getAllPaymentRecord($this->student_id);
+    $invoice = $this->selected_year ? get_all_payment_record($this->student_id, $this->selected_year) :
+      get_all_payment_record($this->student_id);
 
     $this->student = Student::findOrFail($this->student_id)->fullname;
     $uncleared = $invoice->where('paid', 0);

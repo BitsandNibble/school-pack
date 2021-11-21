@@ -42,6 +42,8 @@ class TabulationSheet extends Component
 
   public function render(): Factory|View|Application
   {
+    check_teacher_tabulationsheet_access(); // check if teacher has access to view this page
+
     // get all exams
     $exams = Exam::get();
 

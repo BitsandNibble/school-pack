@@ -32,6 +32,8 @@ class MarkSheet extends Component
 
   public function render(): Factory|View|Application
   {
+    check_teacher_marksheet_access(); // check if teacher has access to view this page
+
     // get all classes where current logged in teacher has been
     // assigned to and when accessing from teacher's dashboard
     if (auth('teacher')->user()) {

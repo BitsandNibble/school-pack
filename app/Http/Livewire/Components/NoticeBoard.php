@@ -31,7 +31,7 @@ class NoticeBoard extends Component
   ];
 
   protected array $rules = [
-    'title' => 'required',
+    'title' => 'required|unique:notice_boards,title',
     'message' => 'required',
   ];
 

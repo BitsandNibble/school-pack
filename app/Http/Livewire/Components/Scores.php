@@ -5,9 +5,9 @@ namespace App\Http\Livewire\Components;
 use App\Models\ClassRoom;
 use App\Models\ClassStudentSubject;
 use App\Models\ClassSubjectTeacher;
-use App\Models\Exam;
 use App\Models\ExamRecord;
 use App\Models\Mark;
+use App\Models\Term;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -15,7 +15,7 @@ use Livewire\Component;
 
 class Scores extends Component
 {
-  public $exam_id;
+  public $term_id;
   public $class_id;
   public $subject_id;
   public $classes = [];
@@ -23,25 +23,25 @@ class Scores extends Component
 
   protected $listeners = ['create_marks'];
   protected array $rules = [
-    'exam_id' => 'required',
+    'term_id' => 'required',
     'class_id' => 'required',
     'subject_id' => 'required',
   ];
 
   protected array $validationAttributes = [
-    'exam_id' => 'exam',
+    'term_id' => 'term',
     'class_id' => 'class',
     'subject_id' => 'subject',
   ];
 
   public function render(): Factory|View|Application
   {
-    // get exams for current session
-    $exams = Exam::get();
+    // get terms for current session
+    $terms = Term::get();
 
     if (auth('teacher')->user()) {
-      // show classes only when user has selected an exam
-      if (!empty($this->exam_id)) {
+      // show classes only when user has selected an term
+      if (!empty($this->term_id)) {
         $this->classes = ClassSubjectTeacher::where('teacher_id', auth()->id())
           ->with('subject', 'class_room')
           ->select('class_room_id')
@@ -59,8 +59,8 @@ class Scores extends Component
     }
 
     if (auth('principal')->user()) {
-      // show classes only when user has selected an exam
-      if (!empty($this->exam_id)) {
+      // show classes only when user has selected an term
+      if (!empty($this->term_id)) {
         $this->classes = ClassRoom::get();
       }
 
@@ -73,7 +73,7 @@ class Scores extends Component
       }
     }
 
-    return view('livewire.components.scores', compact('exams'));
+    return view('livewire.components.scores', compact('terms'));
   }
 
 //  get values from select box
@@ -86,21 +86,21 @@ class Scores extends Component
       ->where('class_room_id', $this->class_id)
       ->get('student_id');
 
-    $year = Exam::where('id', $this->exam_id)->first()->session;
+    $year = Term::where('id', $this->term_id)->first()->session;
 
     foreach ($student_id as $id) {
       Mark::firstOrCreate([
         'student_id' => $id->student_id,
         'subject_id' => $this->subject_id,
         'class_room_id' => $this->class_id,
-        'exam_id' => $this->exam_id,
+        'term_id' => $this->term_id,
         'year' => $year,
       ]);
 
       ExamRecord::firstOrCreate([
         'student_id' => $id->student_id,
         'class_room_id' => $this->class_id,
-        'exam_id' => $this->exam_id,
+        'term_id' => $this->term_id,
         'year' => $year,
       ]);
     }

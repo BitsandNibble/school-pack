@@ -18,7 +18,7 @@ class Mark extends Model
 
   protected $fillable = [
     'student_id', 'subject_id', 'class_room_id',
-    'exam_id', 'ca1', 'ca2', 'total_ca',
+    'term_id', 'ca1', 'ca2', 'total_ca',
     'exam_score', 'total_score',
     'subject_position', 'grade_id', 'year',
   ];

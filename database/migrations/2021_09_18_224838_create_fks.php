@@ -62,12 +62,12 @@ class CreateFks extends Migration
       $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
       $table->foreign('class_room_id')->references('id')->on('class_rooms')->onDelete('cascade');
       $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
-      $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade');
+      $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade');
       $table->foreign('grade_id')->references('id')->on('grades')->onDelete('set null');
     });
 
     Schema::table('exam_records', function (Blueprint $table) {
-      $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade');
+      $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade');
       $table->foreign('class_room_id')->references('id')->on('class_rooms')->onDelete('cascade');
       $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
     });

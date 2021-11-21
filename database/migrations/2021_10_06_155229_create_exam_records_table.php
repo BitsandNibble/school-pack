@@ -15,7 +15,7 @@ class CreateExamRecordsTable extends Migration
   {
     Schema::create('exam_records', function (Blueprint $table) {
       $table->id();
-      $table->unsignedBigInteger('exam_id');
+      $table->unsignedBigInteger('term_id');
       $table->unsignedBigInteger('student_id');
       $table->unsignedBigInteger('class_room_id');
       $table->integer('total')->nullable();

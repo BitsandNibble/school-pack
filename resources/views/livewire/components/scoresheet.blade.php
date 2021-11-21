@@ -5,7 +5,7 @@
         <div class="col"><p>Subject: {{ $subject }}</p></div>
         <div class="col"><p>Class: {{ $class }}</p></div>
         <div class="col">
-          <p>Exam: {{ $exam->name }} ({{ $exam->session }})</p>
+          <p>Term: {{ $term->name }} ({{ $term->session }})</p>
         </div>
       </div>
 
@@ -57,14 +57,15 @@
 
       <div class="d-block mb-2 float-end">
         {{--        check if exam is locked--}}
-        @unless($exam->locked)
+        @unless($term->locked)
           <x-button value="dark"
                     wire:click="$toggle('showEdit')">{{ $showEdit ? 'Cancel Edit' : 'Edit Marks' }}</x-button>
           @if($showEdit)
             <x-button wire:click.prevent="store">Update Marks</x-button>
           @endif
         @else
-          <sub class="text-danger">Exam session is locked. Contact admin to unlock before any changes can be made to this page</sub>
+          <sub class="text-danger">Session is locked. Contact admin to unlock before any changes can be made to
+            this page</sub>
         @endunless
       </div>
     </x-card>

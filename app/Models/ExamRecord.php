@@ -15,7 +15,7 @@ class ExamRecord extends Model
   use HasFactory;
 
   protected $fillable = [
-    'exam_id', 'class_room_id', 'student_id',
+    'term_id', 'class_room_id', 'student_id',
     'total', 'average', 'class_average', 'position',
     'af', 'ps',
     'year', 'teachers_comment', 'principals_comment',

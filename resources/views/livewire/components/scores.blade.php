@@ -7,13 +7,13 @@
   <x-card>
     <div class="row">
       <div class="col-md-4 mb-2">
-        <x-label for="exam">Exam</x-label>
-        <x-select id="exam" wire:model="exam_id">
-          @foreach($exams as $exam)
-            <option value="{{ $exam->id }}">{{ $exam->name }} ({{ $exam->session }})</option>
+        <x-label for="term">Term</x-label>
+        <x-select id="term" wire:model="term_id">
+          @foreach($terms as $term)
+            <option value="{{ $term->id }}">{{ $term->name }} ({{ $term->session }})</option>
           @endforeach
         </x-select>
-        <x-input-error for="exam_id" />
+        <x-input-error for="term_id" />
       </div>
 
       <div class="col-md-4 mb-2">

@@ -12,7 +12,7 @@
   </x-card>
 
   <x-card>
-    <h5 class="mb-4">{{ $exam_record->exam->name . ' - ' . $exam_record->year }}</h5>
+    <h5 class="mb-4">{{ $exam_record->term->name . ' - ' . $exam_record->year }}</h5>
 
     <x-responsive-table class="table-bordered text-center">
       {{--        <table class="table table-bordered table-sm mt-4 text-center" style="width:100%; border: 1px solid #000; border-collapse:collapse;">--}}
@@ -57,7 +57,7 @@
 
     <div class="d-block mb-2 text-center">
       <x-button-link target="_blank"
-                     href="{{ route('print_marksheet', [$student->id, $exam_record->exam_id, $exam_record->year]) }}">
+                     href="{{ route('print_marksheet', [$student->id, $exam_record->term_id, $exam_record->year]) }}">
         <i
             class="bx bx-printer"></i>Print Mark Sheet
       </x-button-link>

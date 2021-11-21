@@ -21,8 +21,8 @@ class ExamRecord extends Model
     'year', 'teachers_comment', 'principals_comment',
   ];
 
-  public function exam(): BelongsTo
+  public function term(): BelongsTo
   {
-    return $this->belongsTo(Exam::class)->withDefault();
+    return $this->belongsTo(Term::class)->withDefault();
   }
 }

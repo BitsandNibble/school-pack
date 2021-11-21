@@ -10,7 +10,7 @@
         <x-label for="term">Term</x-label>
         <x-select id="term" wire:model="term_id">
           @foreach($terms as $term)
-            <option value="{{ $term->id }}" {{ $term->locked === 1 ? 'disabled' : '' }}>{{ $term->name }}
+            <option value="{{ $term->id }}" {{ is_term_locked($term) }}>{{ $term->name }}
               ({{ $term->session }})
             </option>
           @endforeach

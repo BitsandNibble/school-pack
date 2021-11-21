@@ -47,7 +47,7 @@
           <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $notice->title }}</td>
-            <td>{{ $notice->message }}</td>
+            <td>{{ Str::limit($notice->message, 30) }}</td>
             <td>{{ $notice->principal->fullname }}</td>
             <td>{{ $notice->created_at }}</td>
             <td>{{ $notice->updated_at }}</td>

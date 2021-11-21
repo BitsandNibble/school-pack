@@ -49,7 +49,6 @@ Route::get('/', function () {
 });
 
 Route::view('components', 'components')->name('components');
-Route::get('notice/{notice}', [GeneralController::class, 'notice'])->name('notice');
 
 // principal route
 Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' => 'principal'], function () {
@@ -119,6 +118,11 @@ Route::group(['middleware' => 'auth:teacher,principal,student'], function () {
   Route::get('marks/print/{id}/{exam_id}/{year}', [GeneralController::class, 'printMarkSheet'])->name('print_marksheet');
   Route::get('marks/print/{exam_id}/{class}', [GeneralController::class, 'printTabulationSheet'])->name('print_tabulation_sheet');
   Route::get('payments/receipts/{pr_id}', [GeneralController::class, 'printReceipt'])->name('print_invoice');
+});
+
+// general route
+Route::group(['middleware' => 'auth:accountant,principal,student,teacher'], function () {
+  Route::get('notice/{id}', [GeneralController::class, 'notice'])->name('notice');
 });
 
 // login route

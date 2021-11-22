@@ -100,6 +100,7 @@ class Settings extends Component
     for ($i = 0; $i < $iMax; $i++) {
       Setting::where('type', $keys[$i])->update(['description' => $values[$i]]);
     }
+    create_terms();
 
     $this->alert('success', 'School Settings Updated Successfully');
   }

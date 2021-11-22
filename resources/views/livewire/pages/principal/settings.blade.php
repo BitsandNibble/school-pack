@@ -29,22 +29,22 @@
     <div class="row">
       <div class="col-md-6 mb-2">
         <x-label for="session">Current Session <span class="text-danger">*</span></x-label>
-        <div class="row">
+        <div class="d-flex justify-content-between">
           <div class="col-5 mb-2">
             <x-select id="session" wire:model.defer="year.0">
               @for($i = 1; $i <= 5; $i++)
-                <option value="">{{ $date1++ }}</option>
+                <option value="{{ $date1_value++ }}">{{ $date1++ }}</option>
               @endfor
             </x-select>
             <x-input-error for="year.0" />
           </div>
-          <div class="col-2">
-            <span class="w-100 mx-auto">-</span>
+          <div>
+            <span>➡️</span>
           </div>
           <div class="col-5 mb-2">
             <x-select id="session" wire:model.defer="year.1">
               @for($i = 1; $i <= 5; $i++)
-                <option value="">{{ ++$date2 }}</option>
+                <option value="{{ ++$date2_value }}">{{ ++$date2 }}</option>
               @endfor
             </x-select>
             <x-input-error for="year.1" />

@@ -20,7 +20,9 @@ class Settings extends Component
   public $school_logo;
   public $year;
   public $date1;
+  public $date1_value;
   public $date2;
+  public $date2_value;
 
   protected $listeners = ['getYear0', 'getYear1'];
 
@@ -67,8 +69,11 @@ class Settings extends Component
 
     $session = $this->settings->toArray()['current_session']; // get session
     $this->year = explode(' - ', $session); // split session to get the individual years
+
     $this->date1 = date('Y');
+    $this->date1_value = date('Y');
     $this->date2 = date('Y');
+    $this->date2_value = date('Y');
 
     return view('livewire.pages.principal.settings', $s);
   }

@@ -34,7 +34,8 @@
         "files": [
             "app/Helpers/helpers.php",
             "app/Helpers/payments.php",
-            "app/Helpers/grades.php"
+            "app/Helpers/grades.php",
+            "app/Helpers/scripts.php"
         ]
     },
     "autoload-dev": {

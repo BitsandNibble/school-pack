@@ -8,7 +8,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use JsonException;
 use Livewire\Component;
 
 class Skills extends Component
@@ -31,38 +30,30 @@ class Skills extends Component
     ];
   }
 
-  /**
-   * @throws JsonException
-   */
   public function render(): Factory|View|Application
   {
     $skills = Skill::get();
 
-    $afs = ExamRecord::where($this->data)->first()->af;
-    $pss = ExamRecord::where($this->data)->first()->ps;
-
-    $decode_afs = empty($afs) ? '' : json_decode($afs, true, 512, JSON_THROW_ON_ERROR);
-    $decode_pss = empty($pss) ? '' : json_decode($pss, true, 512, JSON_THROW_ON_ERROR);
-
-    $this->af = $decode_afs ?: [];
-    $this->ps = $decode_pss ?: [];
+    $a = ExamRecord::where($this->data)->get();
+    $b = $a->toArray()[0];
+    $this->af = explode(',', $b['af']);
+    $this->ps = explode(',', $b['ps']);
 
     return view('livewire.components.skills', compact('skills'));
   }
 
-  /**
-   * @throws JsonException
-   */
-  public function store(): void
+  public function store($skill): void
   {
-    $af_skill = json_encode($this->af, JSON_THROW_ON_ERROR | JSON_FORCE_OBJECT);
-    $ps_skill = json_encode($this->ps, JSON_THROW_ON_ERROR | JSON_FORCE_OBJECT);
+    $d = [];
 
-    $exam_record = ExamRecord::where($this->data)->first();
-    $exam_record->update([
-      'af' => $af_skill,
-      'ps' => $ps_skill,
-    ]);
+    if ($skill === 'af') {
+      $d[$skill] = implode(',', $this->af);
+    }
+    if ($skill === 'ps') {
+      $d[$skill] = implode(',', $this->ps);
+    }
+
+    ExamRecord::where($this->data)->first()->update($d);
 
     $this->alert('success', 'Skill Updated Successfully');
   }

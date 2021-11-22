@@ -25,4 +25,9 @@ class ExamRecord extends Model
   {
     return $this->belongsTo(Term::class)->withDefault();
   }
+
+  protected $casts = [
+    'af' => 'array',
+    'ps' => 'array'
+  ];
 }

@@ -110,6 +110,8 @@
     <x-button value="submit" class="float-end px-4" wire:click.prevent="store">Save</x-button>
   </x-card>
 
+  <x-spinner />
+
   <livewire:pages.principal.grade-settings />
   <livewire:pages.principal.other-settings />
 

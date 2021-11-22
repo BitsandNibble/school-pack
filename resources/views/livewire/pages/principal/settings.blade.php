@@ -27,23 +27,26 @@
     </div>
 
     <div class="row">
-      {{--      <div class="col-md-4 mb-2">--}}
-      {{--        <x-label for="session">Current Session <span class="text-danger">*</span></x-label>--}}
-      {{--        <x-input type="text" id="session" wire:model.defer="settings.current_session" />--}}
-      {{--        <x-input-error for="settings.current_session" />--}}
-      {{--      </div>--}}
       <div class="col-md-6 mb-2">
         <x-label for="session">Current Session <span class="text-danger">*</span></x-label>
         <div class="row">
           <div class="col-5 mb-2">
-            <x-input type="text" id="yp" class="yeapicker0" id="session" wire:model.defer="year.0" />
+            <x-select id="session" wire:model.defer="year.0">
+              @for($i = 1; $i <= 5; $i++)
+                <option value="">{{ $date1++ }}</option>
+              @endfor
+            </x-select>
             <x-input-error for="year.0" />
           </div>
           <div class="col-2">
             <span class="w-100 mx-auto">-</span>
           </div>
           <div class="col-5 mb-2">
-            <x-input type="text" class="yeapicker1" id="session" wire:model.defer="year.1" />
+            <x-select id="session" wire:model.defer="year.1">
+              @for($i = 1; $i <= 5; $i++)
+                <option value="">{{ ++$date2 }}</option>
+              @endfor
+            </x-select>
             <x-input-error for="year.1" />
           </div>
         </div>
@@ -114,19 +117,4 @@
 
   <livewire:pages.principal.grade-settings />
   <livewire:pages.principal.other-settings />
-
-  @push('scripts')
-    <script type="text/javascript">
-        $('.yearpicker0').yearpicker({
-            onChange: function (value) {
-                console.log(value)
-            },
-        });
-        $('.yearpicker1').yearpicker({
-            onChange: function (value) {
-                console.log(value)
-            },
-        });
-    </script>
-  @endpush
 </div>

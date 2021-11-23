@@ -36,7 +36,8 @@
               <th>Balance</th>
               <th>Pay Now</th>
               <th>Receipt_No</th>
-              <th>Year</th>
+              <th>Session</th>
+              <th>Term</th>
               <th></th>
             </tr>
           </thead>
@@ -65,7 +66,8 @@
                   </div>
                 </td>
                 <td>{{ $uc->ref_no }}</td>
-                <td>{{ $uc->year }}</td>
+                <td>{{ $uc->session }}</td>
+                <td>{{ $uc->payment->term->name }}</td>
                 <td>
                   <x-button wire:click="reset_record({{ $uc->id }})" value=""
                             onclick="return confirm('Are you sure you want to reset this payment?') || event.stopImmediatePropagation()">
@@ -79,7 +81,7 @@
               </tr>
             @empty
               <tr>
-                <td colspan="10" align="center">No record found</td>
+                <td colspan="12" align="center">No record found</td>
               </tr>
             @endforelse
           </tbody>
@@ -96,7 +98,8 @@
               <th>Pay_Ref</th>
               <th>Amount</th>
               <th>Receipt_No</th>
-              <th>Year</th>
+              <th>Session</th>
+              <th>Term</th>
               <th></th>
             </tr>
           </thead>
@@ -110,7 +113,8 @@
                 <td>{{ $cl->payment->ref_no }}</td>
                 <td class="fw-bold">{{ $cl->payment->amount }}</td>
                 <td>{{ $cl->ref_no }}</td>
-                <td>{{ $cl->year }}</td>
+                <td>{{ $cl->session }}</td>
+                <td>{{ $cl->payment->term->name }}</td>
                 <td>
                   <x-button wire:click="reset_record({{ $cl->id }})" value=""
                             onclick="return confirm('Are you sure you want to reset this payment?') || event.stopImmediatePropagation()">
@@ -124,7 +128,7 @@
               </tr>
             @empty
               <tr>
-                <td colspan="7" align="center">No record found</td>
+                <td colspan="9" align="center">No record found</td>
               </tr>
             @endforelse
           </tbody>

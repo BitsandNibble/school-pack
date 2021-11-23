@@ -74,10 +74,10 @@
                     View Marksheet
                   </x-button>
                   <ul class="dropdown-menu">
-                    @foreach($terms->where('session', $session) as $term)
+                    @foreach($marks->where('year', $session)->where('student_id', $st->id) as $term)
                       <li><a class="dropdown-item" target="_blank"
                              href="{{ route('result.marksheet.show', [$st->id, $session, $term->id]) }}">
-                          {{ $term->name }}</a>
+                          {{ $term->term->name }}</a>
                       </li>
                     @endforeach
                   </ul>

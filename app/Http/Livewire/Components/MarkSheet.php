@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Components;
 use App\Models\Mark;
 use App\Models\Section;
 use App\Models\Student;
-use App\Models\Term;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -39,7 +38,6 @@ class MarkSheet extends Component
     check_teacher_marksheet_access(); // check if teacher has access to view this page
 
     $sessions = Mark::distinct()->select('year')->get();
-    $terms = Term::get(); // get all terms
 
     // show classes only when user has selected a term
     if (!empty($this->session)) {
@@ -78,14 +76,11 @@ class MarkSheet extends Component
     }
 
     if ($this->class_id) {
-      // get students along with the subjects they're registered with to show in table body
-      $this->students = Student::where($this->data)
-        ->get();
-
-      $this->marks = Mark::get();
+      $this->students = Student::where($this->data)->get(); // get students
+      $this->marks = Mark::with('term')->get(); // use this to get the terms to view the scoresheet
     }
 
-    return view('livewire.components.mark-sheet', compact('sessions', 'terms'));
+    return view('livewire.components.mark-sheet', compact('sessions'));
   }
 
   // get values from select box

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static firstOrCreate(array $array)
  * @method static where(array $data)
  * @method static get()
+ * @method static distinct()
  */
 class Mark extends Model
 {
@@ -41,5 +42,10 @@ class Mark extends Model
   public function grade(): BelongsTo
   {
     return $this->belongsTo(Grade::class)->withDefault();
+  }
+
+  public function term(): BelongsTo
+  {
+    return $this->belongsTo(Term::class)->withDefault();
   }
 }

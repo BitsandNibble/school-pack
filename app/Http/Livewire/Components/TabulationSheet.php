@@ -18,7 +18,7 @@ class TabulationSheet extends Component
   public $class_id;
   public $subject_id;
   public $classes = [];
-//  public $subjects = [];
+  // public $subjects = [];
   public $data;
   public $marks;
   public $subjects;
@@ -31,21 +31,20 @@ class TabulationSheet extends Component
   protected array $rules = [
     'term_id' => 'required',
     'class_id' => 'required',
-//    'subject_id' => 'required',
+    // 'subject_id' => 'required',
   ];
 
   protected array $validationAttributes = [
     'term_id' => 'term',
     'class_id' => 'class',
-//    'subject_id' => 'subject',
+    // 'subject_id' => 'subject',
   ];
 
   public function render(): Factory|View|Application
   {
     check_teacher_tabulationsheet_access(); // check if teacher has access to view this page
 
-    // get all terms
-    $terms = Term::get();
+    $terms = Term::get(); // get all terms
 
     // show classes only when user has selected a term
     if (!empty($this->term_id)) {
@@ -61,19 +60,18 @@ class TabulationSheet extends Component
         $this->classes = ClassRoom::get();
       }
 
-      // get selected year
-      $this->selected_year = Term::where('id', $this->term_id)->first()['session'];
+      $this->selected_year = Term::where('id', $this->term_id)->first()['session']; // get selected year
     }
 
     if ($this->class_id) {
-//      get distinct subjects per class and show in table head
+      // get distinct subjects per class and show in table head
       $this->subjects = Mark::where($this->data)
         ->select('subject_id')
         ->distinct()
         ->with('subject')
         ->get(['subject_id']);
 
-//      get students along with the subjects they're registered with to show in table body
+      // get students along with the subjects they're registered with to show in table body
       $this->students = Mark::where($this->data)
         ->select('student_id')
         ->distinct()
@@ -90,12 +88,12 @@ class TabulationSheet extends Component
     return view('livewire.components.tabulation-sheet', compact('terms'));
   }
 
-//  get values from select box
+  // get values from select box
   public function view(): void
   {
     $this->validate();
 
-//    use this for where clause to avoid duplicates
+    // use this for where clause to avoid duplicates
     $this->data = [
       'term_id' => $this->term_id,
       'class_room_id' => $this->class_id,

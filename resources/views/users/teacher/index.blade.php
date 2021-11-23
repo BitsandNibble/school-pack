@@ -1,6 +1,7 @@
 <x-app-layout>
-  Current Session : {{ get_setting('current_session') }}
+  <p>Current Session : {{ get_setting('current_session') }}</p>
   <hr>
+
   <div class="row">
     @forelse($sections as $section)
       <div class="col-4">

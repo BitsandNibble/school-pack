@@ -1,7 +1,8 @@
 <x-app-layout>
-  Current Session : {{ get_setting('current_session') }}
+  <p>Current Session : {{ get_setting('current_session') }}</p>
+  <hr>
 
-  <div class="row mt-5">
+  <div class="row">
     <div class="col">
       <x-card radius="10" shadow="" class="overflow-hidden py-1">
         <div class="d-flex align-items-center">

@@ -18,9 +18,9 @@ class CreatePayment extends Component
   use LivewireAlert;
 
   public $payment;
-  public $year;
 
   protected array $rules = [
+    'payment.session' => 'required',
     'payment.title' => 'required|string',
     'payment.class' => 'required',
     'payment.method' => 'required',
@@ -29,9 +29,10 @@ class CreatePayment extends Component
   ];
 
   protected array $validationAttributes = [
+    'payment.session' => 'session',
     'payment.title' => 'title',
     'payment.class' => 'class',
-    'payment.method' => 'method',
+    'payment.method' => 'payment method',
     'payment.amount' => 'amount',
     'payment.description' => 'description',
   ];
@@ -39,7 +40,6 @@ class CreatePayment extends Component
   public function render(): Factory|View|Application
   {
     $classes = ClassRoom::get();
-    $this->year = get_setting('current_session');
 
     return view('livewire.pages.accountant.create-payment', compact('classes'));
   }
@@ -58,16 +58,16 @@ class CreatePayment extends Component
       'method' => $this->payment['method'],
       'class_room_id' => $this->payment['class'] !== 'NULL' ? $this->payment['class'] : NULL,
       'description' => $this->payment['description'] ?? '',
-      'year' => get_setting('current_session') ?? '',
+      'year' => $this->payment['session'] ?? '',
     ]);
 
-    $pay1 = Payment::where('year', $this->year)
+    $pay1 = Payment::where('year', $this->payment['session'])
       ->where('class_room_id', $this->payment['class'])
       ->whereNull('student_id')
       ->with('class_room')
       ->get();
 
-    $pay2 = Payment::where('year', $this->year)
+    $pay2 = Payment::where('year', $this->payment['session'])
       ->whereNull('class_room_id')
       ->whereNull('student_id')
       ->with('class_room')
@@ -86,7 +86,7 @@ class CreatePayment extends Component
         foreach ($students as $st) {
           $pr['student_id'] = $st->id;
           $pr['payment_id'] = $p->id;
-          $pr['year'] = $this->year;
+          $pr['year'] = $this->payment['session'];
           $rec = PaymentRecord::firstOrCreate($pr);
           $rec->ref_no ?: $rec->update(['ref_no' => random_int(100000, 99999999)]);
         }

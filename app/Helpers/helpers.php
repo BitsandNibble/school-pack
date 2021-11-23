@@ -105,3 +105,19 @@ if (!function_exists('is_term_locked')) {
     return $term->locked === 1 ? 'disabled' : '';
   }
 }
+
+
+// display an array of current session & future sessions
+if (!function_exists('all_sessions')) {
+  function all_sessions(): array
+  {
+    $current_session = get_setting('current_session');
+    $year = explode(' - ', $current_session);
+    $year_one = $year[0];
+    $year_two = $year[1];
+
+    return [
+      $current_session, ++$year_one . ' - ' . ++$year_two,
+    ];
+  }
+}

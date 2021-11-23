@@ -29,13 +29,23 @@
         </x-slot>
 
         <div class="col-md-6 mb-2">
+          <x-label>Session <span class="text-danger">*</span></x-label>
+          <x-select wire:model.defer="payment.session">
+            @foreach(all_sessions() as $sess)
+              <option value="{{ $sess }}">{{ $sess }}</option>
+            @endforeach
+          </x-select>
+          <x-input-error for="payment.session" />
+        </div>
+
+        <div class="col-md-6 mb-2">
           <x-label>Title <span class="text-danger">*</span></x-label>
           <x-input type="text" wire:model.defer="payment.title" placeholder="E.g School Fees" />
           <x-input-error for="payment.title" />
         </div>
 
         <div class="col-md-6 mb-2">
-          <x-label>Class</x-label>
+          <x-label>Class <span class="text-danger">*</span></x-label>
           <x-select wire:model.defer="payment.class">
             <option selected value="NULL">ALL CLASSES</option>
             @foreach($classes as $class)

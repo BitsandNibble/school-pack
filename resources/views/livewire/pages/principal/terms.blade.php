@@ -58,9 +58,6 @@
     <x-slot name="title">{{ isset($this->term_id) ? 'Edit' : 'Add New' }} Term</x-slot>
 
     <x-slot name="content">
-      <p><span class="text-danger">*</span> fields are required</p>
-      <p>You're creating a term for the current session {{ get_setting('current_session') }}</p>
-
       <div class="row">
         <div class="col-md-12 mb-2">
           <x-label for="name">Name <span class="text-danger">*</span></x-label>

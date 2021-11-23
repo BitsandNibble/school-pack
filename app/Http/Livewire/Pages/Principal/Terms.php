@@ -6,6 +6,7 @@ use App\Models\Term;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -17,9 +18,20 @@ class Terms extends Component
   public $term_id;
   public $deleting;
 
-  protected array $rules = [
-    'name' => 'required|string',
-  ];
+  protected $rules;
+
+  protected function rules(): array
+  {
+    return [
+      'name' => [
+        'required',
+        'string',
+        Rule::unique('terms')->where(function ($q) {
+          $q->where('session', get_setting('current_session'));
+        })->ignore($this->term_id),
+      ],
+    ];
+  }
 
   public function render(): Factory|View|Application
   {

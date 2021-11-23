@@ -5,5 +5,5 @@
     <li class="breadcrumb-item active" aria-current="page">Invoice</li>
   </x-breadcrumb>
 
-  <livewire:pages.accountant.payment-invoice :id="$student_id" :year="$year" />
+  <livewire:pages.accountant.payment-invoice :id="$student_id" :session="$session" />
 </x-app-layout>

@@ -49,9 +49,9 @@
                            href="{{ route('payment.invoice', [$st->id]) }}">
                         All Payments</a>
                     </li>
-                    @foreach($payments->where('student_id', $st->id)->pluck('year')->unique() as $year)
+                    @foreach($payments->where('student_id', $st->id)->pluck('session')->unique() as $session)
                       <li><a class="dropdown-item" target="_blank"
-                             href="{{ route('payment.invoice', [$st->id, $year]) }}">
+                             href="{{ route('payment.invoice', [$st->id, $session]) }}">
                           {{ $year }}</a>
                       </li>
                     @endforeach

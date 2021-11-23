@@ -19,26 +19,26 @@ class PaymentInvoice extends Component
   public $student;
   public $student_id;
   public $amount_paid = [];
-  public $current_year;
-  public $selected_year;
+  public $current_session;
+  public $selected_session;
   public $limit;
 
-  public function mount($id, $year): void
+  public function mount($id, $session): void
   {
     $this->student_id = $id;
-    $this->selected_year = $year;
+    $this->selected_session = $session;
   }
 
   public function render(): Factory|View|Application
   {
-    $invoice = $this->selected_year ? get_all_payment_record($this->student_id, $this->selected_year) :
+    $invoice = $this->selected_session ? get_all_payment_record($this->student_id, $this->selected_session) :
       get_all_payment_record($this->student_id);
 
     $this->student = Student::findOrFail($this->student_id)->fullname;
     $uncleared = $invoice->where('paid', 0);
     $cleared = $invoice->where('paid', 1);
 
-    $this->current_year = get_setting('current_session');
+    $this->current_session = get_setting('current_session');
 
     return view('livewire.pages.accountant.payment-invoice', compact('uncleared', 'cleared'));
   }

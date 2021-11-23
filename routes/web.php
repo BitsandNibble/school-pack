@@ -108,7 +108,7 @@ Route::group(['middleware' => 'auth:accountant,principal'], function () {
   Route::get('payments/create-payment', CreatePayment::class)->name('create-payment');
   Route::get('payments/manage-payment', ManagePayment::class)->name('manage-payment');
   Route::get('payments/students-payment', StudentPayment::class)->name('student-payment');
-  Route::get('payments/invoice/{student_id}/{year?}', [AccountantHomeController::class, 'getStudentId'])->name('payment.invoice');
+  Route::get('payments/invoice/{student_id}/{session?}', [AccountantHomeController::class, 'getStudentId'])->name('payment.invoice');
   Route::get('payments/debtors', Debtors::class)->name('payment.debtors');
 });
 

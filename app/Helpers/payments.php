@@ -5,10 +5,10 @@ use App\Models\PaymentRecord;
 
 // check if year is null
 if (!function_exists('get_all_payment_record')) {
-  function get_all_payment_record($student_id, $year = NULL)
+  function get_all_payment_record($student_id, $session = NULL)
   {
     // if year isn't null, pass only student id, else, pass both student id and year
-    return $year ? get_payment_record(['student_id' => $student_id, 'year' => $year]) :
+    return $session ? get_payment_record(['student_id' => $student_id, 'session' => $session]) :
       get_payment_record(['student_id' => $student_id]);
   }
 }

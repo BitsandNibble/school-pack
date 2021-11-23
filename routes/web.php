@@ -28,7 +28,7 @@ use App\Http\Livewire\Pages\Principal\Teachers;
 use App\Http\Livewire\Pages\Principal\Terms;
 use App\Http\Livewire\Pages\Student\Payment;
 use App\Http\Livewire\Pages\Student\Profile as StudentProfile;
-use App\Http\Livewire\Pages\Student\SelectYear;
+use App\Http\Livewire\Pages\Student\SelectSession;
 use App\Http\Livewire\Pages\Teacher\Profile as TeacherProfile;
 use App\Http\Livewire\Pages\Teacher\Subjects as TeacherSubjects;
 use Illuminate\Support\Facades\Route;
@@ -93,7 +93,7 @@ Route::group(['middleware' => 'auth:teacher', 'prefix' => 'teacher', 'as' => 'te
 Route::group(['middleware' => 'auth:student', 'prefix' => 'student', 'as' => 'student'], function () {
   Route::view('/', 'users.student.index')->name('.home');
   Route::get('profile', StudentProfile::class)->name('.profile');
-  Route::get('mark-sheet/select-year', SelectYear::class)->name('.select-year');
+  Route::get('mark-sheet/select-session', SelectSession::class)->name('.select-session');
   Route::get('payments/students-payment', Payment::class)->name('.payment');
 });
 

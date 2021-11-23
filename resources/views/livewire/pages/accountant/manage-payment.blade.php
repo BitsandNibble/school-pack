@@ -5,16 +5,30 @@
   </x-breadcrumb>
 
   <x-card>
-    <div class="row d-flex justify-content-center text-center">
-      <div class="col-6">
+    <div class="row">
+      <div class="col-md-6">
         <x-label for="session" class="fw-bolder">Select Session</x-label>
-        <x-select id="session" class="mb-2" wire:model.defer="session">
+        <x-select id="session" class="mb-2" wire:model="selected_session">
           @foreach(all_sessions()  as $sess)
             <option value="{{ $sess }}" selected>{{ $sess }}</option>
           @endforeach
         </x-select>
-        <x-input-error for="session" />
+        <x-input-error for="selected_session" />
+      </div>
 
+      <div class="col-md-6">
+        <x-label for="term" class="fw-bolder">Select Term</x-label>
+        <x-select id="term" class="mb-2" wire:model.defer="selected_term">
+          @if(count($terms) > 0)
+            @foreach($terms as $term)
+              <option value="{{ $term->id }}" selected>{{ $term->name }}</option>
+            @endforeach
+          @endif
+        </x-select>
+        <x-input-error for="selected_term" />
+      </div>
+
+      <div class="d-grid gap-2">
         <x-button class="mt-2" wire:click.prevent="submit">Submit</x-button>
       </div>
     </div>
@@ -22,12 +36,11 @@
 
   <x-spinner />
 
-  @if($session)
+  @if($selected_term)
     <x-card-with-header>
       <x-slot name="header">
-        <h6 class="fw-bold my-auto">Manage Payments for {{ $session }}</h6>
+        <h6 class="fw-bold my-auto">Manage Payments for {{ $term_name }} ({{ $selected_session }})</h6>
       </x-slot>
-
 
       <ul class="nav nav-tabs nav-primary" role="tablist">
         <li class="nav-item" role="presentation">
@@ -148,24 +161,24 @@
         <div class="row">
           <div class="col-md-6 mb-2">
             <x-label>Session <span class="text-danger">*</span></x-label>
-            <x-select wire:model="session">
+            <x-select wire:model="payment.session">
               @foreach(all_sessions() as $sess)
                 <option value="{{ $sess }}">{{ $sess }}</option>
               @endforeach
             </x-select>
-            <x-input-error for="session" />
+            <x-input-error for="payment.session" />
           </div>
 
           <div class="col-md-6 mb-2">
             <x-label>Term <span class="text-danger">*</span></x-label>
-            <x-select wire:model.defer="term_id">
+            <x-select wire:model.defer="payment.term_id">
               @if(count($terms) > 0)
                 @foreach($terms as $t)
                   <option value="{{ $t->id }}">{{ $t->name }}</option>
                 @endforeach
               @endif
             </x-select>
-            <x-input-error for="term_id" />
+            <x-input-error for="payment.term_id" />
           </div>
         </div>
 
@@ -228,24 +241,24 @@
         <div class="row">
           <div class="col-md-6 mb-2">
             <x-label>Session <span class="text-danger">*</span></x-label>
-            <x-select wire:model="session">
+            <x-select wire:model="payment.session">
               @foreach(all_sessions() as $sess)
                 <option value="{{ $sess }}">{{ $sess }}</option>
               @endforeach
             </x-select>
-            <x-input-error for="session" />
+            <x-input-error for="payment.session" />
           </div>
 
           <div class="col-md-6 mb-2">
             <x-label>Term <span class="text-danger">*</span></x-label>
-            <x-select wire:model.defer="term_id">
+            <x-select wire:model.defer="payment.term_id">
               @if(count($terms) > 0)
                 @foreach($terms as $t)
                   <option value="{{ $t->id }}">{{ $t->name }}</option>
                 @endforeach
               @endif
             </x-select>
-            <x-input-error for="term_id" />
+            <x-input-error for="payment.term_id" />
           </div>
         </div>
 

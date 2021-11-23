@@ -17,24 +17,23 @@ class ManagePayment extends Component
 {
   use LivewireAlert;
 
-  public $session;
+  public $selected_session;
+  public $selected_term;
   public $deleting;
   public $payment_id;
   public $payment;
   public $classes = [];
-  public $student;
   public $students = [];
   public $general;
   public $individual;
-  public $term_id;
   public $terms = [];
-  public $class_id;
   public $student_id;
+  public $term_name;
 
 
   protected array $rules = [
-    'session' => 'required',
-    'term_id' => 'required',
+    'payment.session' => 'required',
+    'payment.term_id' => 'required',
     'payment.title' => 'required|string',
     'payment.class_room_id' => 'sometimes',
     'payment.student_id' => 'sometimes',
@@ -44,7 +43,8 @@ class ManagePayment extends Component
   ];
 
   protected array $validationAttributes = [
-    'term_id' => 'term',
+    'payment.session' => 'session',
+    'payment.term_id' => 'term',
     'payment.title' => 'title',
     'payment.class_room_id' => 'class',
     'payment.student_id' => 'student',
@@ -55,16 +55,19 @@ class ManagePayment extends Component
 
   public function render(): Factory|View|Application
   {
-    if ($this->session) {
-      $this->terms = Term::where('session', $this->session)->get();
+    if ($this->selected_session) {
+      $this->terms = Term::where('session', $this->selected_session)->get();
     }
 
-    if ($this->session) {
-      $payments = Payment::where('session', $this->session)->with('class_room', 'student')->get();
-      $this->classes = ClassRoom::get();
+    if ($this->selected_term) {
+      $payments = Payment::where('session', $this->selected_session)
+        ->where('term_id', $this->selected_term)
+        ->with('class_room', 'student')->get();
 
+      $this->term_name = Term::find($this->selected_term)->name;
+      $this->classes = ClassRoom::get();
       $this->general = $payments->whereNull('student_id');
-      $this->individual = $payments->whereNotNull('student_id', $this->session);
+      $this->individual = $payments->whereNotNull('student_id', $this->selected_session);
     }
 
     return view('livewire.pages.accountant.manage-payment');
@@ -72,22 +75,27 @@ class ManagePayment extends Component
 
   public function submit(): void
   {
-    $this->validate([
-      'session' => 'required'
-    ]);
+    $this->validate(
+      [
+        'selected_session' => 'required',
+        'selected_term' => 'required',
+      ], [], [
+        'selected_session' => 'session',
+        'selected_term' => 'term',
+      ]
+    );
   }
 
   public function cancel(): void
   {
     $this->emit('closeModal');
-    $this->reset('deleting', 'payment_id', 'payment', 'term_id');
+    $this->reset('deleting', 'payment_id', 'payment');
   }
 
   public function edit($id): void
   {
     $this->payment = $pay = Payment::find($id);
     $this->payment_id = $id;
-    $this->term_id = $pay->term_id;
     $this->students = Student::where('class_room_id', $pay->class_room_id)->get();
     $this->student = $pay->student_id;
   }
@@ -109,6 +117,7 @@ class ManagePayment extends Component
         'student_id' => $this->students ? $this->payment['student_id'] : NULL,
         'description' => $this->payment['description'] ?? $this->payment->desctiption,
         'session' => $this->payment['session'] ?? $this->payment->session,
+        'term_id' => $this->payment['term_id'] ?? $this->payment->term_id,
       ]);
 
       $this->cancel();

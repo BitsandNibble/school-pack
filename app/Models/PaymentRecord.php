@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static find($pr_id)
  * @method static get()
  * @method static orderBy(mixed $order, mixed $dir)
+ * @method static whereHas(string $string, \Closure $param)
  */
 class PaymentRecord extends Model
 {

@@ -3,8 +3,10 @@
 namespace App\Http\Livewire\Pages\Accountant;
 
 use App\Models\ClassRoom;
+use App\Models\Payment;
 use App\Models\PaymentRecord;
 use App\Models\Student;
+use App\Models\Term;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -12,21 +14,45 @@ use Livewire\Component;
 
 class Debtors extends Component
 {
-  public $selected_year;
+  public $selected_session;
+  public $terms = [];
+  public $selected_term;
   public $debtors;
   public $class_id;
   public $student_ids;
   public $students;
   public $classes;
+  public $payments;
+
+  protected array $rules = [
+    'selected_session' => 'required',
+    'selected_term' => 'required',
+  ];
+
+  protected array $validationAttributes = [
+    'selected_session' => 'session',
+    'selected_term' => 'term',
+  ];
 
   public function render(): Factory|View|Application
   {
-    $years = PaymentRecord::where('paid', 0)
-      ->select('year')->distinct()->get();
+    $sessions = PaymentRecord::where('paid', 0)
+      ->select('session')->distinct()->get();
 
-    if ($this->selected_year) {
-      $this->debtors = PaymentRecord::where('paid', 0)
-        ->where('year', $this->selected_year)
+    if ($this->selected_session) {
+      $this->terms = Term::where('session', $this->selected_session)->get();
+    }
+
+    if ($this->selected_term) {
+      $this->payments = Payment::where('session', $this->selected_session)
+        ->where('term_id', $this->selected_term)
+        ->get();
+
+      // get debtors per session & term
+      $this->debtors = PaymentRecord::whereHas('payment', function ($q) {
+        $q->where('term_id', $this->selected_term); // get term from 'payment' relation
+      })->where('paid', 0)
+        ->where('session', $this->selected_session)
         ->with('student', 'payment')->get();
 
       foreach ($this->debtors as $debtor) {
@@ -44,13 +70,11 @@ class Debtors extends Component
       $this->classes = ClassRoom::whereIn('id', $this->students)->get();
     }
 
-    return view('livewire.pages.accountant.debtors', compact('years'));
+    return view('livewire.pages.accountant.debtors', compact('sessions'));
   }
 
-  public function submit()
+  public function submit(): void
   {
-    $value = $this->validate(
-      ['selected_year' => 'required']
-    );
+    $this->validate();
   }
 }

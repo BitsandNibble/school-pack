@@ -35,4 +35,9 @@ class Payment extends Model
   {
     return $this->belongsTo(Student::class)->withDefault();
   }
+
+  public function term(): BelongsTo
+  {
+    return $this->belongsTo(Term::class)->withDefault();
+  }
 }

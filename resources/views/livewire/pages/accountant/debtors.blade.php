@@ -5,23 +5,34 @@
   </x-breadcrumb>
 
   <x-card>
-    <div class="row d-flex justify-content-center text-center">
-      <div class="col-6">
-        <x-label for="year" class="fw-bolder">Select Class</x-label>
-        <x-select id="year" class="mb-2" wire:model.defer="selected_year">
-          @foreach($years as $year)
-            <option value="{{ $year->year }}" selected>{{ $year->year }}</option>
+    <div class="row">
+      <div class="col-md-6">
+        <x-label for="session" class="fw-bolder">Select Session</x-label>
+        <x-select id="session" class="mb-2" wire:model="selected_session">
+          @foreach($sessions as $sess)
+            <option value="{{ $sess->session }}" selected>{{ $sess->session }}</option>
           @endforeach
         </x-select>
-        <x-input-error for="class" />
+        <x-input-error for="selected_session" />
+      </div>
 
+      <div class="col-md-6">
+        <x-label for="term" class="fw-bolder">Select Term</x-label>
+        <x-select id="term" class="mb-2" wire:model.defer="selected_term">
+          @if(count($terms) > 0)
+            @foreach($terms as $term)
+              <option value="{{ $term->id }}" selected>{{ $term->name }}</option>
+            @endforeach
+          @endif
+        </x-select>
+        <x-input-error for="selected_term" />
         <x-button class="mt-2" wire:click.prevent="submit">Submit</x-button>
       </div>
     </div>
   </x-card>
   <x-spinner />
 
-  @if($selected_year)
+  @if($selected_term)
     <x-card-with-header>
       <x-slot name="header">
         <h6 class="fw-bold my-auto">Debtors</h6>

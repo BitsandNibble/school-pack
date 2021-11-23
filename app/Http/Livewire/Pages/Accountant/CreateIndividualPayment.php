@@ -6,6 +6,7 @@ use App\Models\ClassRoom;
 use App\Models\Payment;
 use App\Models\PaymentRecord;
 use App\Models\Student;
+use App\Models\Term;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -18,12 +19,18 @@ class CreateIndividualPayment extends Component
   use LivewireAlert;
 
   public $payment;
+  public $session;
+  public $term_id;
+  public $terms = [];
   public $class_id;
   public $student_id;
   public $students = [];
   public $year;
 
+
   protected array $rules = [
+    'session' => 'required',
+    'term_id' => 'required',
     'payment.title' => 'required|string',
     'class_id' => 'required',
     'student_id' => 'required',
@@ -33,10 +40,11 @@ class CreateIndividualPayment extends Component
   ];
 
   protected array $validationAttributes = [
+    'term_id' => 'term',
     'payment.title' => 'title',
     'class_id' => 'class',
     'student_id' => 'student',
-    'payment.method' => 'method',
+    'payment.method' => 'payment method',
     'payment.amount' => 'amount',
     'payment.description' => 'description',
   ];
@@ -44,7 +52,10 @@ class CreateIndividualPayment extends Component
   public function render(): Factory|View|Application
   {
     $classes = ClassRoom::get();
-    $this->year = get_setting('current_session');
+
+    if ($this->session) {
+      $this->terms = Term::where('session', $this->session)->get();
+    }
 
     if ($this->class_id) {
       $this->students = Student::where('class_room_id', $this->class_id)->get();
@@ -68,10 +79,13 @@ class CreateIndividualPayment extends Component
       'class_room_id' => $this->class_id,
       'student_id' => $this->student_id,
       'description' => $this->payment['description'] ?? '',
-      'year' => get_setting('current_session') ?? '',
+      'session' => $this->session ?? '',
+      'term_id' => $this->term_id,
     ]);
 
-    $payment = Payment::where('class_room_id', $this->class_id)
+    $payment = Payment::where('session', $this->session)
+      ->where('term_id', $this->term_id)
+      ->where('class_room_id', $this->class_id)
       ->whereNotNull('student_id')
       ->get();
 
@@ -81,7 +95,7 @@ class CreateIndividualPayment extends Component
       foreach ($payment as $p) {
         $pr['student_id'] = $student->id;
         $pr['payment_id'] = $p->id;
-        $pr['year'] = $this->year;
+        $pr['session'] = $this->session;
         $rec = PaymentRecord::firstOrCreate($pr);
         $rec->ref_no ?: $rec->update(['ref_no' => random_int(100000, 99999999)]);
       }

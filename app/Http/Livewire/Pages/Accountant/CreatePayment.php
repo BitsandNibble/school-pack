@@ -72,12 +72,14 @@ class CreatePayment extends Component
     ]);
 
     $pay1 = Payment::where('session', $this->session)
+      ->where('term_id', $this->term_id)
       ->where('class_room_id', $this->payment['class'])
       ->whereNull('student_id')
       ->with('class_room')
       ->get();
 
     $pay2 = Payment::where('session', $this->session)
+      ->where('term_id', $this->term_id)
       ->whereNull('class_room_id')
       ->whereNull('student_id')
       ->with('class_room')

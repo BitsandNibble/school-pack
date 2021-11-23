@@ -5,13 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Laravel</title>
+  <title>{{ config('app.name') }}</title>
 
   <!-- Styles -->
   @include('layouts.styles')
   @stack('styles')
 
   @livewireStyles
+  <x-livewire-alert::scripts />
 </head>
 
 <body>

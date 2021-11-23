@@ -3,37 +3,42 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-class Principal extends Model
+/**
+ * @method static where(string $string, int|string|null $id)
+ * @method static find(int|string|null $id)
+ * @method static create(array $array)
+ * @property mixed profile_photo
+ */
+class Principal extends Authenticatable
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use Notifiable;
+  use HasApiTokens;
+  use HasFactory;
+  use Notifiable;
 
-    protected $fillable = [
-        'firstname',
-        'middlename',
-        'lastname',
-        'email',
-        'phone_number',
-        'password',
-    ];
+  protected $fillable = [
+    'fullname', 'slug', 'email', 'phone_number',
+    'password', 'profile_photo', 'school_id',
+    'address', 'nationality_id', 'state_id', 'lga_id'
+  ];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+  protected $hidden = [
+    'password',
+    'remember_token',
+  ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+  protected $casts = [
+    'email_verified_at' => 'datetime',
+  ];
 
-    protected $appends = [
-        'profile_photo',
-    ];
+  public function getThumbnailAttribute(): string
+  {
+    if ($this->profile_photo) {
+      return asset('storage/profile-photos/' . $this->profile_photo);
+    }
+    return asset('assets/_images/avatars/avatar-10.png');
+  }
 }

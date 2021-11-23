@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Section;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+      view()->composer(
+        'layouts.side-nav',
+        function ($view) {
+          $view->with('sec',
+            Section::where('teacher_id', auth('teacher')->id())
+              ->with('class_room', 'teacher')->get()
+          );
+        }
+      );
     }
 }

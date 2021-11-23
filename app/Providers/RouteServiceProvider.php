@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\ClassRoom;
+use App\Models\Section;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -17,11 +19,12 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
-    // public const PRINCIPALHOME = '/prinicpal/index';
-    // public const TEACHERHOME = '/teacher/index';
-    // public const STUDENTHOME = '/student/index';
-    // public const PARENTHOME = '/parent/index';
+    public const HOME = '/';
+    public const PRINCIPALHOME = 'principal/';
+    public const ACCOUNTANTHOME = 'accountant/';
+    public const TEACHERHOME = 'teacher/';
+    public const STUDENTHOME = 'student/';
+    public const PARENTHOME = 'parent/';
 
     /**
      * The controller namespace for the application.
@@ -51,6 +54,14 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
         });
+
+        Route::bind('classname', function ($value) {
+          return ClassRoom::where('slug', $value)->firstOrFail();
+        });
+
+//        Route::bind('section', function ($value) {
+//          return Section::where('name', $value)->firstOrFail();
+//        });
     }
 
     /**

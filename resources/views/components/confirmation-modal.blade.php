@@ -1,4 +1,5 @@
-<div wire:ignore.self class="modal fade" tabindex="-1" aria-hidden="true" {{ $attributes }}>
+<div wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-hidden="true" {{ $attributes }}>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

@@ -1,4 +1,6 @@
-<div {{ $attributes->merge(['class' => 'card radius-15 w-100 shadow-lg']) }}>
+@props(['radius' => '15', 'shadow' => '-lg'])
+
+<div {{ $attributes->merge(['class' => 'card radius-' . $radius .' w-100 shadow' . $shadow]) }}>
   <div class="card-body">
     {{ $slot }}
   </div>

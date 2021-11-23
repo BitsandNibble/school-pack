@@ -24,14 +24,10 @@ class StudentFactory extends Factory
   public function definition()
   {
     return [
-      'firstname' => $this->faker->firstName(),
-      'middlename' => $this->faker->firstName(),
-      'lastname' => $this->faker->lastName(),
-      'previous_class' => $this->faker->randomElement(['JSS1', 'JSS2', 'JSS3']),
-      'current_class' => $this->faker->randomElement(['SSS1', 'SSS2', 'SSS3']),
+      'fullname' => $this->faker->name(),
       'gender' => $this->faker->randomElement(['Male', 'Female']),
       // 'date_of_birth',
-      'admission_no' => 'GS' . $this->faker->numerify('#####'),
+      'school_id' => 'GS' . $this->faker->numerify('#####'),
       // 'email',
       'password' => Hash::make('password'),
       // 'phone_number',

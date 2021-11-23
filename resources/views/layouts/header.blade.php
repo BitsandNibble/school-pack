@@ -22,7 +22,7 @@
       <div class="position-relative search-bar-box">
         <form>
           <input type="text" class="form-control search-control" autofocus placeholder="Type to search..."> <span
-            class="position-absolute top-50 search-show translate-middle-y"><i class='bx bx-search'></i></span>
+              class="position-absolute top-50 search-show translate-middle-y"><i class='bx bx-search'></i></span>
           <span class="position-absolute top-50 search-close translate-middle-y"><i class='bx bx-x'></i></span>
         </form>
       </div>
@@ -42,7 +42,7 @@
         </li>
         <li class="nav-item dropdown dropdown-large">
           <a class="nav-link dropdown-toggle dropdown-toggle-nocaret text-white" href="#" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false"> <i class='bx bx-category'></i>
+             data-bs-toggle="dropdown" aria-expanded="false"> <i class='bx bx-category'></i>
           </a>
           <div class="dropdown-menu dropdown-menu-end">
             <div class="row row-cols-3 g-3 p-3">
@@ -83,31 +83,114 @@
     </div>
 
     <div class="user-box dropdown border-light-2">
-      <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button"
-        data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="{{ asset('assets/_images/avatars/avatar-10.png') }}" class="user-img" alt="user avatar">
+      <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" role="button"
+         data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="{{ auth()->user()->thumbnail ?? '' }}" class="user-img" alt="">
         <div class="user-info ps-3">
-          <p class="user-name mb-0 text-white">Helen Paul</p>
-          <p class="designattion mb-0">Principal</p>
+          <p class="user-name mb-0 text-white">
+            {{ auth()->user()->fullname ?? '' }}
+          </p>
+          <p class="designattion mb-0">
+            @if(auth('principal')->user())
+              Principal
+            @elseif(auth('teacher')->user())
+              Teacher
+            @elseif(auth('accountant')->user())
+              Accountant
+            @elseif(auth('student')->user())
+              Student
+            @else
+              --------
+            @endif
+          </p>
         </div>
       </a>
-      <ul class="dropdown-menu dropdown-menu-end">
-        <li><a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Profile</span></a>
-        </li>
-        <li><a class="dropdown-item" href="javascript:;"><i class="bx bx-cog"></i><span>Settings</span></a>
-        </li>
-        <li><a class="dropdown-item" href="javascript:;"><i class='bx bx-home-circle'></i><span>Dashboard</span></a>
-        </li>
-        <li><a class="dropdown-item" href="javascript:;"><i class='bx bx-dollar-circle'></i><span>Earnings</span></a>
-        </li>
-        <li><a class="dropdown-item" href="javascript:;"><i class='bx bx-download'></i><span>Downloads</span></a>
-        </li>
-        <li>
-          <div class="dropdown-divider mb-0"></div>
-        </li>
-        <li><a class="dropdown-item" href="javascript:;"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
-        </li>
-      </ul>
+      @if(auth('principal')->user())
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="{{ route('principal.profile') }}"><i
+                  class="bx bx-user"></i><span>Profile</span></a>
+          </li>
+          <li><a class="dropdown-item" href="{{ route('principal.settings') }}"><i
+                  class="bx bx-cog"></i><span>Settings</span></a>
+          </li>
+          <li>
+            <div class="dropdown-divider mb-0"></div>
+          </li>
+          <li>
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+
+              <a class="dropdown-item cursor-pointer" href="{{ route('logout') }}"
+                 onclick="event.preventDefault(); this.closest('form').submit();">
+                <i class='bx bx-log-out-circle'></i><span>Logout</span>
+              </a>
+            </form>
+          </li>
+        </ul>
+      @endif
+
+      @if(auth('teacher')->user())
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="{{ route('teacher.profile') }}"><i
+                  class="bx bx-user"></i><span>Profile</span></a>
+          </li>
+          <li>
+            <div class="dropdown-divider mb-0"></div>
+          </li>
+          <li>
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+
+              <a class="dropdown-item cursor-pointer" href="{{ route('logout') }}"
+                 onclick="event.preventDefault(); this.closest('form').submit();">
+                <i class='bx bx-log-out-circle'></i><span>Logout</span>
+              </a>
+            </form>
+          </li>
+        </ul>
+      @endif
+
+      @if(auth('accountant')->user())
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="{{ route('accountant.profile') }}"><i
+                  class="bx bx-user"></i><span>Profile</span></a>
+          </li>
+          <li>
+            <div class="dropdown-divider mb-0"></div>
+          </li>
+          <li>
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+
+              <a class="dropdown-item cursor-pointer" href="{{ route('logout') }}"
+                 onclick="event.preventDefault(); this.closest('form').submit();">
+                <i class='bx bx-log-out-circle'></i><span>Logout</span>
+              </a>
+            </form>
+          </li>
+        </ul>
+      @endif
+
+      @if(auth('student')->user())
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="{{ route('student.profile') }}"><i
+                  class="bx bx-user"></i><span>Profile</span></a>
+          </li>
+          <li>
+            <div class="dropdown-divider mb-0"></div>
+          </li>
+          <li>
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+
+              <a class="dropdown-item cursor-pointer" href="{{ route('logout') }}"
+                 onclick="event.preventDefault(); this.closest('form').submit();">
+                <i class='bx bx-log-out-circle'></i><span>Logout</span>
+              </a>
+            </form>
+          </li>
+        </ul>
+      @endif
     </div>
   </nav>
 </div>

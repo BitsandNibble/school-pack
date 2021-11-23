@@ -1,0 +1,260 @@
+<div>
+  <x-breadcrumb>Teachers</x-breadcrumb>
+
+  <x-card>
+    <div class="d-flex align-items-center">
+      {{-- <h4 class="my-1">Class</h4> --}}
+
+      <div class="ms-auto d-flex justify-content-end">
+        <x-button data-bs-toggle="modal" data-bs-target="#teacherModal">Add New Teacher</x-button>
+      </div>
+    </div>
+  </x-card>
+
+  <x-card>
+    <div class="d-flex align-items-center mb-3">
+      <div class="d-flex justify-content-start">
+        Show <span>&nbsp;</span>
+        <select class="form-select form-select-sm" wire:model="paginate">
+          <option value="10" selected>10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+        <span>&nbsp;</span> entries
+      </div>
+
+      <div class="ms-auto d-flex justify-content-end">
+        <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" />
+      </div>
+    </div>
+
+    <x-responsive-table>
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th wire:click="sortBy('title')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Title
+              <x-sort-icon sortField="title" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('fullname')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Name
+              <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('school_id')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Staff ID
+              <x-sort-icon sortField="school_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('email')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Email
+              <x-sort-icon sortField="email" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th wire:click="sortBy('phone_number')" class="cursor-pointer">
+            <div class="d-flex justify-content-between">
+              Number
+              <x-sort-icon sortField="phone_number" :sortBy="$sortBy" :sortAsc="$sortAsc" />
+            </div>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @forelse ($teachers as $teacher)
+          <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $teacher->title }}</td>
+            <td>{{ $teacher->fullname }} </td>
+            <td>{{ $teacher->school_id }}</td>
+            <td>{{ $teacher->email }}</td>
+            <td>{{ $teacher->phone_number }}</td>
+            <td>
+              <x-button class="px-0" value="" wire:click="showInfo({{ $teacher->id }})"
+                        data-bs-toggle="modal" data-bs-target="#infoModal">
+                <i class="bx bxs-show"></i>
+              </x-button>
+              <x-button class="px-0" wire:click="edit({{ $teacher->id }})" value="" data-bs-toggle="modal"
+                        data-bs-target="#teacherModal">
+                <i class="bx bxs-pen"></i>
+              </x-button>
+              <x-button class="px-0" value="" wire:click="openDeleteModal({{ $teacher->id }})"
+                        data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <i class="bx bxs-trash-alt"></i>
+              </x-button>
+            </td>
+          </tr>
+        @empty
+          <tr>
+            <td colspan="8" class="text-center">No record found</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </x-responsive-table>
+
+    {{ $teachers->links() }}
+
+  </x-card>
+
+  <x-confirmation-modal id="teacherModal">
+    <x-slot name="title">{{ isset($this->teacher_id) ? 'Edit' : 'Add New' }} Teacher</x-slot>
+
+    <x-slot name="content">
+      <form>
+        <p><span class="text-danger">*</span> fields are required</p>
+
+        <div class="row">
+          {{-- <x-validation-errors /> --}}
+
+          <div class="col-md-4 mb-2">
+            <x-label for="title">Title <span class="text-danger">*</span></x-label>
+            <x-select id="title" wire:model.defer="teacher.title">
+              <option value="Mr">Mr</option>
+              <option value="Mrs">Mrs</option>
+              <option value="Ms">Ms</option>
+              <option value="Miss">Miss</option>
+              <option value="Prof">Prof</option>
+              <option value="Asst. Prof">Asst. Prof</option>
+              <option value="Dr">Dr</option>
+            </x-select>
+            <x-input-error for="teacher.title" />
+          </div>
+
+          <div class="col-md-8 mb-2">
+            <x-label for="fullname">Full Name <span class="text-danger">*</span></x-label>
+            <x-input type="text" id="fullname" wire:model.defer="teacher.fullname" />
+            <x-input-error for="teacher.fullname" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <x-label for="email">Email</x-label>
+            <x-input type="email" id="email" wire:model.defer="teacher.email" />
+            <x-input-error for="teacher.email" />
+          </div>
+
+          <div class="col-md-6 mb-2">
+            <x-label for="gender">Gender</x-label>
+            <x-select id="gender" wire:model.defer="teacher.gender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </x-select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <x-label for="date_of_employment">Date of Employment</x-label>
+            <x-input type="date" id="date_of_employment" wire:model.defer="teacher.date_of_employment"></x-input>
+            <x-input-error for="teacher.date_of_employment" />
+          </div>
+        </div>
+      </form>
+    </x-slot>
+
+    <x-slot name="footer">
+      <x-button value="dark" wire:click="cancel">Close</x-button>
+      <x-button value="submit" wire:click.prevent="store">Save</x-button>
+    </x-slot>
+  </x-confirmation-modal>
+
+  <x-modal id="infoModal">
+    <x-slot name="title">Teacher</x-slot>
+
+    <x-slot name="content">
+      <x-table class="table-borderless table-hover">
+        @if($teacher_info)
+          @foreach($teacher_info as $info)
+            <tr>
+              <th>Fullname</th>
+              <td>{{ $info->fullname }}</td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>{{ $info->email }}</td>
+            </tr>
+            <tr>
+              <th>Address</th>
+              <td>{{ $info->address }}</td>
+            </tr>
+            <tr>
+              <th>Phone Number</th>
+              <td>{{ $info->phone_number }}</td>
+            </tr>
+            <tr>
+              <th>Gender</th>
+              <td>{{ $info->gender }}</td>
+            </tr>
+            <tr>
+              <th>Nationality</th>
+              <td>{{ $info->nationality->name }}</td>
+            </tr>
+            <tr>
+              <th>State</th>
+              <td>{{ $info->state->name }}</td>
+            </tr>
+            <tr>
+              <th>LGA</th>
+              <td>{{ $info->lga->name }}</td>
+            </tr>
+            <tr>
+              <th>Date of Birth</th>
+              <td>{{ $info->date_of_birth }}</td>
+            </tr>
+            <tr>
+              <th>Staff ID</th>
+              <td>{{ $info->school_id }}</td>
+            </tr>
+            <th>Date of Employment</th>
+            <td>{{ $info->date_of_employment }}</td>
+            </tr>
+            <tr>
+              <th>Class Teacher</th>
+              <td>{{ $teacher_class_info . $section }}</td>
+            </tr>
+            <tr>
+              <th>Subjects</th>
+              <td>
+                @if(isset($assigned_subject_id))
+                  <ul>
+                    @foreach($assigned_subject_id as $sub)
+                      <li>{{ $sub->subject->name . ' - ' . $sub->class_room->name }}</li>
+                    @endforeach
+                  </ul>
+                @endif
+              </td>
+            </tr>
+          @endforeach
+        @endif
+      </x-table>
+    </x-slot>
+
+    <x-slot name="footer">
+      <x-button value="dark" wire:click="cancel">Close</x-button>
+    </x-slot>
+  </x-modal>
+
+  <x-confirmation-modal id="deleteModal">
+    <x-slot name="title">Delete Teacher</x-slot>
+
+    <x-slot name="content">
+      Are you sure you want to delete this teacher?
+    </x-slot>
+
+    <x-slot name="footer">
+      <x-button value="dark" wire:click="cancel">Cancel</x-button>
+      <x-button value="danger" wire:click.prevent="delete({{ $deleting }})">Delete</x-button>
+    </x-slot>
+  </x-confirmation-modal>
+
+  <x-spinner />
+</div>

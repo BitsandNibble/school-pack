@@ -61,10 +61,10 @@ if (!function_exists('get_grade2')) {
 
 // get mark for each subject per exam, class, student
 if (!function_exists('get_subject_mark')) {
-  function get_subject_mark($exam_id, $class_id, $subject_id, $student_id, $year)
+  function get_subject_mark($term_id, $class_id, $subject_id, $student_id, $year)
   {
     $d = [
-      'exam_id' => $exam_id, 'class_room_id' => $class_id,
+      'term_id' => $term_id, 'class_room_id' => $class_id,
       'subject_id' => $subject_id, 'student_id' => $student_id, 'year' => $year
     ];
     $ts = 'total_score';
@@ -76,15 +76,15 @@ if (!function_exists('get_subject_mark')) {
 
 // get position of the student in the selected subject
 if (!function_exists('get_subject_position')) {
-  function get_subject_position($student_id, $exam_id, $class_id, $subject_id, $year): ?int
+  function get_subject_position($student_id, $term_id, $class_id, $subject_id, $year): ?int
   {
     $d = [
-      'exam_id' => $exam_id, 'class_room_id' => $class_id,
+      'term_id' => $term_id, 'class_room_id' => $class_id,
       'subject_id' => $subject_id, 'year' => $year
     ];
     $ts = 'total_score';
 
-    $sub_mk = get_subject_mark($exam_id, $class_id, $subject_id, $student_id, $year);
+    $sub_mk = get_subject_mark($term_id, $class_id, $subject_id, $student_id, $year);
     $sub_mks = Mark::where($d)->whereNotNull($ts)->orderBy($ts, 'DESC')->select($ts)->get()->pluck($ts);
 
     return $sub_mks->count() > 0 ? $sub_mks->search($sub_mk) + 1 : NULL;
@@ -94,10 +94,10 @@ if (!function_exists('get_subject_position')) {
 
 // get the total score of all the exams written by a student
 if (!function_exists('get_exam_total')) {
-  function get_exam_total($exam_id, $student_id, $class_id, $year)
+  function get_exam_total($term_id, $student_id, $class_id, $year)
   {
     $d = [
-      'student_id' => $student_id, 'exam_id' => $exam_id,
+      'student_id' => $student_id, 'term_id' => $term_id,
       'class_room_id' => $class_id, 'year' => $year
     ];
     $ts = 'total_score';
@@ -110,10 +110,10 @@ if (!function_exists('get_exam_total')) {
 
 // get average of the exam scores of all subjects the student is offering
 if (!function_exists('get_exam_avg')) {
-  function get_exam_avg($exam_id, $student_id, $class_id, $year): float
+  function get_exam_avg($term_id, $student_id, $class_id, $year): float
   {
     $d = [
-      'student_id' => $student_id, 'exam_id' => $exam_id,
+      'student_id' => $student_id, 'term_id' => $term_id,
       'class_room_id' => $class_id, 'year' => $year
     ];
     $ts = 'total_score';
@@ -128,9 +128,9 @@ if (!function_exists('get_exam_avg')) {
 
 // get average score of all the subjects the student is offering
 if (!function_exists('get_class_avg')) {
-  function get_class_avg($exam_id, $class_id, $year): float
+  function get_class_avg($term_id, $class_id, $year): float
   {
-    $d = ['exam_id' => $exam_id, 'class_room_id' => $class_id, 'year' => $year];
+    $d = ['term_id' => $term_id, 'class_room_id' => $class_id, 'year' => $year];
     $ts = 'total_score';
 
     $avg = Mark::where($d)->select($ts)->avg($ts);
@@ -141,10 +141,10 @@ if (!function_exists('get_class_avg')) {
 
 // get student position in class
 if (!function_exists('get_student_position')) {
-  function get_student_position($exam_id, $student_id, $class_id, $year): bool|int|string
+  function get_student_position($term_id, $student_id, $class_id, $year): bool|int|string
   {
     $d = [
-      'student_id' => $student_id, 'exam_id' => $exam_id,
+      'student_id' => $student_id, 'term_id' => $term_id,
       'class_room_id' => $class_id, 'year' => $year
     ];
     $all_mks = [];
@@ -157,7 +157,7 @@ if (!function_exists('get_student_position')) {
     $students = $mk->select('student_id')->distinct()->get();
 
     foreach ($students as $s) {
-      $all_mks[] = get_exam_total($exam_id, $s->student_id, $class_id, $year);
+      $all_mks[] = get_exam_total($term_id, $s->student_id, $class_id, $year);
     }
     rsort($all_mks);
 

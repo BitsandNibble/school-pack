@@ -7,7 +7,7 @@
       <td><strong>CLASS:</strong> {{ strtoupper($class->name) }}</td>
     </tr>
     <tr>
-      <td><strong>REPORT SHEET FOR:</strong> {!! strtoupper(\App\Helpers\get_suffix($exam->term)) !!} TERM</td>
+      <td><strong>REPORT SHEET FOR:</strong> {{ strtoupper($term->name) }}</td>
       <td><strong>ACADEMIC YEAR:</strong> {{ $exam_record->year }}</td>
       <td><strong>POSITION:</strong> {!! $position !!}</td>
       {{--      <td><strong>AGE:</strong> {{ $s->age ?: ($sr->user->dob ? date_diff(date_create($sr->user->dob), date_create('now'))->y : '-') }}</td>--}}
@@ -51,7 +51,7 @@
     @foreach($subjects as $sub)
       <tr>
         <td style="font-weight: bold">{{ $sub->subject->name }}</td>
-        @foreach($marks->where('subject_id', $sub->subject_id)->where('exam_id', $exam_id) as $mk)
+        @foreach($marks->where('subject_id', $sub->subject_id)->where('term_id', $term_id) as $mk)
           <td>{{ $mk->ca1 ?: '-' }}</td>
           <td>{{ $mk->ca2 ?: '-' }}</td>
           <td>{{ $mk->total_ca ?: '-' }}</td>

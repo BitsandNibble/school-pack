@@ -3,16 +3,16 @@
   <x-card class="border-0 border-dark border-5 border-end">
     <span class="fw-bold">Lock/Unlock Exams</span>
 
-    @foreach($exams as $exam)
+    @foreach($terms as $term)
       <div class="row mb-2">
         <div class="col-md-4">
           {{ $loop->iteration. '.' }}
-          {{ $exam->name }} ({{ $exam->session }})
+          {{ $term->name }} ({{ $term->session }})
         </div>
 
         <div class="col-md-2">
-          <x-button value="" wire:click="unlock({{ $exam->id }})">
-            @if ($exam->locked)
+          <x-button value="" wire:click="unlock({{ $term->id }})">
+            @if ($term->locked)
               <span class="badge rounded-pill bg-warning text-dark">Locked</span>
             @else
               <span class="badge rounded-pill bg-success">Unlocked</span>
@@ -21,7 +21,7 @@
         </div>
       </div>
     @endforeach
-
-    {{--    <x-button value="submit" class="float-end px-4" wire:click.prevent="store">Save</x-button>--}}
   </x-card>
+
+  <x-spinner />
 </div>

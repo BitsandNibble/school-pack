@@ -15,14 +15,19 @@ class ExamRecord extends Model
   use HasFactory;
 
   protected $fillable = [
-    'exam_id', 'class_room_id', 'student_id',
+    'term_id', 'class_room_id', 'student_id',
     'total', 'average', 'class_average', 'position',
     'af', 'ps',
     'year', 'teachers_comment', 'principals_comment',
   ];
 
-  public function exam(): BelongsTo
+  public function term(): BelongsTo
   {
-    return $this->belongsTo(Exam::class)->withDefault();
+    return $this->belongsTo(Term::class)->withDefault();
   }
+
+  protected $casts = [
+    'af' => 'array',
+    'ps' => 'array'
+  ];
 }

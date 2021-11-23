@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExamsTable extends Migration
+class CreateTermsTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,10 +13,9 @@ class CreateExamsTable extends Migration
    */
   public function up()
   {
-    Schema::create('exams', function (Blueprint $table) {
+    Schema::create('terms', function (Blueprint $table) {
       $table->id();
       $table->string('name');
-      $table->string('term');
       $table->string('session');
       $table->boolean('locked')->default('0');
       $table->timestamps();
@@ -30,6 +29,6 @@ class CreateExamsTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('exams');
+    Schema::dropIfExists('terms');
   }
 }

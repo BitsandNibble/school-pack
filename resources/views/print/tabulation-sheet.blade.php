@@ -7,7 +7,7 @@
 
     {{--    <title>Tabulation Sheet - {{ $student_record->fullname }}</title>--}}
     {{--    <title>Tabulation Sheet - {{ $class->name.' '.$section->name.' - '.$ex->name.' ('.$year.')' }}</title>--}}
-    <title>Tabulation Sheet - {{ $class->name . ' - ' . $exam->name . ' ('.$year.')' }}</title>
+    <title>Tabulation Sheet - {{ $class->name . ' - ' . $term->name . ' ('.$year.')' }}</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
@@ -34,7 +34,7 @@
                     style="color: #1b0c80; font-size: 25px;">{{ strtoupper(get_setting('school_name')) }}</span></strong><br />
               <strong><span
                     style="color: #000; font-size: 15px;"><i>{{ ucwords($s['address']) }}</i></span></strong><br />
-              <strong><span style="color: #000; font-size: 15px;"> TABULATION SHEET FOR {{ strtoupper($class->name . ' - ' . $exam->name . ' ('.$year.')') }}
+              <strong><span style="color: #000; font-size: 15px;"> TABULATION SHEET FOR {{ strtoupper($class->name . ' - ' . $term->name . ' ('.$year.')') }}
 
               </span></strong>
             </td>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
-use App\Models\Exam;
+use App\Models\Term;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -15,22 +15,22 @@ class OtherSettings extends Component
 
   public function render(): Factory|View|Application
   {
-    $s['exams'] = Exam::get();
+    $s['terms'] = Term::get();
 
     return view('livewire.pages.principal.other-settings', $s);
   }
 
-  public function unlock(Exam $exam): void
+  public function unlock(Term $term): void
   {
-    if (isset($exam->locked)) {
-      if ($exam->locked === 0) {
-        $exam->locked = 1;
-        $exam->update();
-        $this->alert('success', 'Exam Locked Successfully');
+    if (isset($term->locked)) {
+      if ($term->locked === 0) {
+        $term->locked = 1;
+        $term->update();
+        $this->alert('success', 'Term Locked Successfully');
       } else {
-        $exam->locked = 0;
-        $exam->update();
-        $this->alert('success', 'Exam Unlocked Successfully');
+        $term->locked = 0;
+        $term->update();
+        $this->alert('success', 'Term Unlocked Successfully');
       }
     }
   }

@@ -1,7 +1,7 @@
 <div>
   <x-breadcrumb>
     Grading
-    <li class="breadcrumb-item active" aria-current="page">Exam</li>
+    <li class="breadcrumb-item active" aria-current="page">Terms</li>
   </x-breadcrumb>
 
   <x-card>
@@ -9,7 +9,7 @@
       {{-- <h4 class="my-1">Class</h4> --}}
 
       <div class="ms-auto d-flex justify-content-end">
-        <x-button data-bs-toggle="modal" data-bs-target="#examModal">Add New Exam</x-button>
+        <x-button data-bs-toggle="modal" data-bs-target="#termModal">Add New Term</x-button>
       </div>
     </div>
   </x-card>
@@ -20,7 +20,6 @@
         <tr>
           <th>S/N</th>
           <th>Name</th>
-          <th>Term</th>
           <th>Session</th>
           <th>Status</th>
           <th></th>
@@ -28,19 +27,18 @@
       </thead>
 
       <tbody>
-        @forelse($exams as $exam)
+        @forelse($terms as $term)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $exam->name }}</td>
-            <td>{{ $exam->term }}</td>
-            <td>{{ $exam->session }}</td>
-            <td>{{ $exam->locked ? 'Locked' : 'Unlocked' }}</td>
+            <td>{{ $term->name }}</td>
+            <td>{{ $term->session }}</td>
+            <td>{{ $term->locked ? 'Locked' : 'Unlocked' }}</td>
             <td>
-              <x-button class="px-0" wire:click="edit({{ $exam->id }})" value="" data-bs-toggle="modal"
-                        data-bs-target="#examModal">
+              <x-button class="px-0" wire:click="edit({{ $term->id }})" value="" data-bs-toggle="modal"
+                        data-bs-target="#termModal">
                 <i class="bx bxs-pen"></i>
               </x-button>
-              <x-button class="px-0" value="" wire:click="openDeleteModal({{ $exam->id }})"
+              <x-button class="px-0" value="" wire:click="openDeleteModal({{ $term->id }})"
                         data-bs-toggle="modal" data-bs-target="#deleteModal">
                 <i class="bx bxs-trash-alt"></i>
               </x-button>
@@ -56,28 +54,22 @@
   </x-card>
 
 
-  <x-confirmation-modal id="examModal">
-    <x-slot name="title">{{ isset($this->exam_id) ? 'Edit' : 'Add New' }} Exam</x-slot>
+  <x-confirmation-modal id="termModal">
+    <x-slot name="title">{{ isset($this->term_id) ? 'Edit' : 'Add New' }} Term</x-slot>
 
     <x-slot name="content">
       <p><span class="text-danger">*</span> fields are required</p>
-      <p>You're creating an exam for the current session {{ get_setting('current_session') }}</p>
+      <p>You're creating a term for the current session {{ get_setting('current_session') }}</p>
 
       <div class="row">
-        <div class="col-md-6 mb-2">
-          <x-label for="exam">Name <span class="text-danger">*</span></x-label>
-          <x-input type="text" id="exam" wire:model.defer="exam.name" />
-          <x-input-error for="exam.name" />
-        </div>
-
-        <div class="col-md-6 mb-2">
-          <x-label for="exam.term">Term <span class="text-danger">*</span></x-label>
-          <x-select id="exam.term" wire:model.defer="exam.term">
+        <div class="col-md-12 mb-2">
+          <x-label for="name">Name <span class="text-danger">*</span></x-label>
+          <x-select id="name" wire:model.defer="name">
             @foreach (get_terms() as $index => $term)
-              <option value="{{ $index }}">{{ $term }}</option>
+              <option value="{{ $term }}">{{ $term }}</option>
             @endforeach
           </x-select>
-          <x-input-error for="exam.term" />
+          <x-input-error for="name" />
         </div>
       </div>
     </x-slot>
@@ -89,10 +81,10 @@
   </x-confirmation-modal>
 
   <x-confirmation-modal id="deleteModal">
-    <x-slot name="title">Delete Exam</x-slot>
+    <x-slot name="title">Delete Term</x-slot>
 
     <x-slot name="content">
-      Are you sure you want to delete this exam?
+      Are you sure you want to delete this term?
     </x-slot>
 
     <x-slot name="footer">

@@ -24,4 +24,6 @@
 
     <x-button value="submit" class="float-end px-4" wire:click.prevent="store">Save</x-button>
   </x-card>
+
+  <x-spinner />
 </div>

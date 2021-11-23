@@ -4,10 +4,10 @@ namespace App\Http\Livewire\Components;
 
 use App\Models\ClassRoom;
 use App\Models\ClassType;
-use App\Models\Exam;
 use App\Models\ExamRecord;
 use App\Models\Mark;
 use App\Models\Subject;
+use App\Models\Term;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,8 +20,8 @@ class Scoresheet extends Component
 
   public $subject;
   public $class;
-  public $exam;
-  public $exam_id;
+  public $term;
+  public $term_id;
   public $class_id;
   public $subject_id;
   public $marks = [];
@@ -72,12 +72,12 @@ class Scoresheet extends Component
   {
     $this->class_id = $value['class_id'];
     $this->subject_id = $value['subject_id'];
-    $this->exam_id = $value['exam_id'];
-    $this->selected_year = Exam::where('id', $this->exam_id)->first()->session;
+    $this->term_id = $value['term_id'];
+    $this->selected_year = Term::where('id', $this->term_id)->first()->session;
 
 //    use this for where clause to avoid duplicates
     $this->data = [
-      'exam_id' => $this->exam_id,
+      'term_id' => $this->term_id,
       'class_room_id' => $this->class_id,
       'subject_id' => $this->subject_id,
       'year' => $this->selected_year
@@ -85,7 +85,7 @@ class Scoresheet extends Component
 
     $this->subject = Subject::where('id', $value['subject_id'])->first()->name;
     $this->class = ClassRoom::where('id', $value['class_id'])->first()->name;
-    $this->exam = Exam::where('id', $value['exam_id'])->first();
+    $this->term = Term::where('id', $value['term_id'])->first();
   }
 
   public function store(): void
@@ -125,17 +125,17 @@ class Scoresheet extends Component
 
 //    subject position
     foreach ($marks as $mark) {
-      $sub_pos = get_subject_position($mark->student_id, $this->exam_id, $this->class_id, $this->subject_id, $this->selected_year);
+      $sub_pos = get_subject_position($mark->student_id, $this->term_id, $this->class_id, $this->subject_id, $this->selected_year);
       $mark->update(['subject_position' => $sub_pos]);
     }
 
 //    update records in exam table
     foreach ($all_student_ids as $student_id) {
-      ExamRecord::where(['student_id' => $student_id])->update([
-        'total' => get_exam_total($this->exam_id, $student_id, $this->class_id, $this->selected_year),
-        'average' => get_exam_avg($this->exam_id, $student_id, $this->class_id, $this->selected_year),
-        'class_average' => get_class_avg($this->exam_id, $this->class_id, $this->selected_year),
-        'position' => get_student_position($this->exam_id, $student_id, $this->class_id, $this->selected_year),
+      ExamRecord::where(['student_id' => $student_id, 'term_id' => $this->term_id])->update([
+        'total' => get_exam_total($this->term_id, $student_id, $this->class_id, $this->selected_year),
+        'average' => get_exam_avg($this->term_id, $student_id, $this->class_id, $this->selected_year),
+        'class_average' => get_class_avg($this->term_id, $this->class_id, $this->selected_year),
+        'position' => get_student_position($this->term_id, $student_id, $this->class_id, $this->selected_year),
       ]);
     }
 

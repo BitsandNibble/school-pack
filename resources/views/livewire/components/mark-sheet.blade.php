@@ -7,11 +7,23 @@
   <x-card>
     <div class="row">
       <div class="col-md-4 mb-2">
+        <x-label for="term">Session</x-label>
+        <x-select id="term" wire:model="session">
+          @foreach($sessions as $sess)
+            <option value="{{ $sess->year }}">{{ $sess->year }}</option>
+          @endforeach
+        </x-select>
+        <x-input-error for="session" />
+      </div>
+
+      <div class="col-md-4 mb-2">
         <x-label for="class">Class</x-label>
         <x-select id="class" wire:model="class_id">
-          @foreach($classes as $class)
-            <option value="{{ $class->class_room->id }}">{{ $class->class_room->name }}</option>
-          @endforeach
+          @if(count($classes) > 0)
+            @foreach($classes as $class)
+              <option value="{{ $class->class_room->id }}">{{ $class->class_room->name }}</option>
+            @endforeach
+          @endif
         </x-select>
         <x-input-error for="class_id" />
       </div>
@@ -62,10 +74,10 @@
                     View Marksheet
                   </x-button>
                   <ul class="dropdown-menu">
-                    @foreach($marks->where('student_id', $st->id)->pluck('year')->unique() as $year)
+                    @foreach($marks->where('year', $session)->where('student_id', $st->id)->unique('term') as $term)
                       <li><a class="dropdown-item" target="_blank"
-                             href="{{ route('result.marksheet.show', [$st->id, $year]) }}">
-                          {{ $year }}</a>
+                             href="{{ route('result.marksheet.show', [$st->id, $session, $term->term->id]) }}">
+                          {{ $term->term->name }}</a>
                       </li>
                     @endforeach
                   </ul>

@@ -12,7 +12,7 @@ if (!function_exists('check_teacher_tabulationsheet_access')) {
   function check_teacher_tabulationsheet_access(): void
   {
     if (auth('teacher')->user() && empty(ClassSubjectTeacher::where('teacher_id', auth('teacher')->id())
-      ->get()->toArray())) {
+        ->get()->toArray())) {
       abort(403);
     }
   }
@@ -24,7 +24,7 @@ if (!function_exists('check_teacher_marksheet_access')) {
   function check_teacher_marksheet_access(): void
   {
     if (auth('teacher')->user() && empty(Section::where('teacher_id', auth()->id())
-      ->get()->toArray())) {
+        ->get()->toArray())) {
       abort(403);
     }
   }
@@ -94,5 +94,14 @@ if (!function_exists('get_school_logo')) {
       return asset('storage/logos/' . $logo);
     }
     return asset('assets/_images/school_logo.jpg');
+  }
+}
+
+
+// check if term is locked
+if (!function_exists('is_term_locked')) {
+  function is_term_locked($term): string
+  {
+    return $term->locked === 1 ? 'disabled' : '';
   }
 }

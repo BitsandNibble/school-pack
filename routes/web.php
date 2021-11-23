@@ -17,7 +17,6 @@ use App\Http\Livewire\Pages\Accountant\ManagePayment;
 use App\Http\Livewire\Pages\Accountant\Profile as AccountantProfile;
 use App\Http\Livewire\Pages\Accountant\StudentPayment;
 use App\Http\Livewire\Pages\Principal\Classes;
-use App\Http\Livewire\Pages\Principal\Exams;
 use App\Http\Livewire\Pages\Principal\Grades;
 use App\Http\Livewire\Pages\Principal\Profile as PrincipalProfile;
 use App\Http\Livewire\Pages\Principal\Sections;
@@ -26,6 +25,7 @@ use App\Http\Livewire\Pages\Principal\Skills;
 use App\Http\Livewire\Pages\Principal\Students;
 use App\Http\Livewire\Pages\Principal\Subjects;
 use App\Http\Livewire\Pages\Principal\Teachers;
+use App\Http\Livewire\Pages\Principal\Terms;
 use App\Http\Livewire\Pages\Student\Payment;
 use App\Http\Livewire\Pages\Student\Profile as StudentProfile;
 use App\Http\Livewire\Pages\Student\SelectYear;
@@ -68,7 +68,7 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
   Route::get('notice-board', NoticeBoard::class)->name('.notice-board');
 
   //  grading
-  Route::get('grading/exams', Exams::class)->name('.exams');
+  Route::get('grading/terms', Terms::class)->name('.terms');
   Route::get('grading/grades', Grades::class)->name('.grades');
   Route::get('grading/scores', Scores::class)->name('.scores');
   Route::get('grading/skills', Skills::class)->name('.skills');
@@ -114,7 +114,7 @@ Route::group(['middleware' => 'auth:accountant,principal'], function () {
 
 // print route
 Route::group(['middleware' => 'auth:teacher,principal,student'], function () {
-  Route::get('results/mark-sheet/show/{id}/{year}', [GeneralController::class, 'getMarksheetYear'])->name('result.marksheet.show');
+  Route::get('results/mark-sheet/show/{id}/{session}/{term}', [GeneralController::class, 'getMarksheetYear'])->name('result.marksheet.show');
   Route::get('marks/print/{id}/{exam_id}/{year}', [GeneralController::class, 'printMarkSheet'])->name('print_marksheet');
   Route::get('marks/print/{exam_id}/{class}', [GeneralController::class, 'printTabulationSheet'])->name('print_tabulation_sheet');
   Route::get('payments/receipts/{pr_id}', [GeneralController::class, 'printReceipt'])->name('print_invoice');

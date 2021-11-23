@@ -22,6 +22,7 @@ class CreatePayment extends Component
   public $session;
   public $term_id;
   public $terms = [];
+  public $classes = [];
 
   protected array $rules = [
     'session' => 'required',
@@ -44,13 +45,13 @@ class CreatePayment extends Component
 
   public function render(): Factory|View|Application
   {
-    $classes = ClassRoom::get();
 
     if ($this->session) {
+      $this->classes = ClassRoom::get();
       $this->terms = Term::where('session', $this->session)->get();
     }
 
-    return view('livewire.pages.accountant.create-payment', compact('classes'));
+    return view('livewire.pages.accountant.create-payment');
   }
 
   /**

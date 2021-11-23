@@ -62,10 +62,12 @@
           <div class="col-md-6 mb-2">
             <x-label>Class <span class="text-danger">*</span></x-label>
             <x-select wire:model.defer="payment.class">
-              <option selected value="NULL">ALL CLASSES</option>
-              @foreach($classes as $class)
-                <option value="{{ $class->id }}">{{ $class->name }}</option>
-              @endforeach
+              @if(count($classes) > 0)
+                <option selected value="NULL">ALL CLASSES</option>
+                @foreach($classes as $class)
+                  <option value="{{ $class->id }}">{{ $class->name }}</option>
+                @endforeach
+              @endif
             </x-select>
             <x-input-error for="payment.class" />
           </div>

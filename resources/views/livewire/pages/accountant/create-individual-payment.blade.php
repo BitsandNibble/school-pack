@@ -38,9 +38,11 @@
       <div class="col-md-6 mb-2">
         <x-label>Class</x-label>
         <x-select wire:model="class_id">
-          @foreach($classes as $class)
-            <option value="{{ $class->id }}">{{ $class->name }}</option>
-          @endforeach
+          @if(count($classes) > 0)
+            @foreach($classes as $class)
+              <option value="{{ $class->id }}">{{ $class->name }}</option>
+            @endforeach
+          @endif
         </x-select>
         <x-input-error for="class_id" />
       </div>

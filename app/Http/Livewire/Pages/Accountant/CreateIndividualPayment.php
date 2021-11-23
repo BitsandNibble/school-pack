@@ -26,7 +26,7 @@ class CreateIndividualPayment extends Component
   public $student_id;
   public $students = [];
   public $year;
-
+  public $classes = [];
 
   protected array $rules = [
     'session' => 'required',
@@ -51,17 +51,16 @@ class CreateIndividualPayment extends Component
 
   public function render(): Factory|View|Application
   {
-    $classes = ClassRoom::get();
-
     if ($this->session) {
       $this->terms = Term::where('session', $this->session)->get();
+      $this->classes = ClassRoom::get();
     }
 
     if ($this->class_id) {
       $this->students = Student::where('class_room_id', $this->class_id)->get();
     }
 
-    return view('livewire.pages.accountant.create-individual-payment', compact('classes'));
+    return view('livewire.pages.accountant.create-individual-payment');
   }
 
   /**

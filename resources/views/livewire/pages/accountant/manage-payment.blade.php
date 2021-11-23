@@ -9,8 +9,8 @@
       <div class="col-6">
         <x-label for="session" class="fw-bolder">Select Session</x-label>
         <x-select id="session" class="mb-2" wire:model.defer="session">
-          @foreach($years as $sess)
-            <option value="{{ $sess->year }}" selected>{{ $sess->year }}</option>
+          @foreach($sessions as $sess)
+            <option value="{{ $sess->session }}" selected>{{ $sess->session }}</option>
           @endforeach
         </x-select>
         <x-input-error for="session" />

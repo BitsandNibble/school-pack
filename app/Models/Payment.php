@@ -20,7 +20,8 @@ class Payment extends Model
 
   protected $fillable = [
     'title', 'amount', 'class_room_id',
-    'student_id', 'description', 'year', 'ref_no'
+    'student_id', 'description', 'session',
+    'ref_no', 'term_id',
   ];
 
   public function class_room(): BelongsTo

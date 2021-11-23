@@ -21,7 +21,7 @@ class PaymentRecord extends Model
 
   protected $fillable = [
     'student_id', 'payment_id', 'amount_paid',
-    'year', 'paid', 'balance', 'ref_no'
+    'session', 'paid', 'balance', 'ref_no'
   ];
 
   public function payment(): BelongsTo

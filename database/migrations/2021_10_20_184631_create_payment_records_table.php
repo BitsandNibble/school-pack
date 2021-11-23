@@ -21,7 +21,7 @@ class CreatePaymentRecordsTable extends Migration
       $table->integer('amount_paid')->nullable();
       $table->integer('balance')->nullable();
       $table->tinyInteger('paid')->default(0);
-      $table->string('year');
+      $table->string('session');
       $table->timestamps();
     });
   }

@@ -22,7 +22,7 @@ class CreatePaymentsTable extends Migration
       $table->unsignedBigInteger('class_room_id')->nullable();
       $table->unsignedBigInteger('student_id')->nullable();
       $table->string('description')->nullable();
-      $table->string('year');
+      $table->string('session');
       $table->timestamps();
     });
   }

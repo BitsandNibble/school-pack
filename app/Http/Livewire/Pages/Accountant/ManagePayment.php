@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Pages\Accountant;
 use App\Models\ClassRoom;
 use App\Models\Payment;
 use App\Models\Student;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -15,7 +16,7 @@ class ManagePayment extends Component
 {
   use LivewireAlert;
 
-  public $session_year;
+  public $session;
   public $deleting;
   public $payment_id;
   public $payment;
@@ -26,7 +27,7 @@ class ManagePayment extends Component
   public $individual;
 
   protected array $rules = [
-    'session_year' => 'required',
+    'session' => 'required',
     'payment.title' => 'required|string',
     'payment.class_room_id' => 'sometimes',
     'payment.student_id' => 'sometimes',
@@ -48,12 +49,12 @@ class ManagePayment extends Component
   {
     $years = Payment::select('year')->distinct()->get();
 
-    if ($this->session_year) {
-      $payments = Payment::where('year', $this->session_year)->with('class_room', 'student')->get();
+    if ($this->session) {
+      $payments = Payment::where('year', $this->session)->with('class_room', 'student')->get();
       $this->classes = ClassRoom::get();
 
       $this->general = $payments->whereNull('student_id');
-      $this->individual = $payments->whereNotNull('student_id', $this->session_year);
+      $this->individual = $payments->whereNotNull('student_id', $this->session);
     }
 
     return view('livewire.pages.accountant.manage-payment', compact('years'));
@@ -61,11 +62,9 @@ class ManagePayment extends Component
 
   public function submit(): void
   {
-    $this->validate(
-      ['session_year' => 'required'],
-      [],
-      ['session_year' => 'session/year']
-    );
+    $this->validate([
+      'session' => 'required'
+    ]);
   }
 
   public function cancel(): void
@@ -82,6 +81,9 @@ class ManagePayment extends Component
     $this->student = $pay->student_id;
   }
 
+  /**
+   * @throws Exception
+   */
   public function store(): void
   {
     $this->validate();

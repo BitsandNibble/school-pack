@@ -7,13 +7,13 @@
   <x-card>
     <div class="row d-flex justify-content-center text-center">
       <div class="col-6">
-        <x-label for="select_year" class="fw-bolder">Select Session/Year</x-label>
-        <x-select id="select_year" class="mb-2" wire:model.defer="session_year">
-          @foreach($years as $year)
-            <option value="{{ $year->year }}" selected>{{ $year->year }}</option>
+        <x-label for="session" class="fw-bolder">Select Session</x-label>
+        <x-select id="session" class="mb-2" wire:model.defer="session">
+          @foreach($years as $sess)
+            <option value="{{ $sess->year }}" selected>{{ $sess->year }}</option>
           @endforeach
         </x-select>
-        <x-input-error for="session_year" />
+        <x-input-error for="session" />
 
         <x-button class="mt-2" wire:click.prevent="submit">Submit</x-button>
       </div>
@@ -22,10 +22,10 @@
 
   <x-spinner />
 
-  @if($session_year)
+  @if($session)
     <x-card-with-header>
       <x-slot name="header">
-        <h6 class="fw-bold my-auto">Manage Payments for {{ $session_year }}</h6>
+        <h6 class="fw-bold my-auto">Manage Payments for {{ $session }}</h6>
       </x-slot>
 
 

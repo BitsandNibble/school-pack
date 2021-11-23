@@ -7,13 +7,13 @@
   <x-card>
     <div class="row d-flex justify-content-center text-center">
       <div class="col-6">
-        <x-label for="year" class="fw-bolder">Select Year</x-label>
-        <x-select id="year" class="mb-2" wire:model.defer="year">
-          @foreach($years as $yr)
-            <option value="{{ $yr->year }}" selected>{{ $yr->year }}</option>
+        <x-label for="session" class="fw-bolder">Select Session</x-label>
+        <x-select id="session" class="mb-2" wire:model.defer="session">
+          @foreach($years as $sess)
+            <option value="{{ $sess->year }}" selected>{{ $sess->year }}</option>
           @endforeach
         </x-select>
-        <x-input-error for="year" />
+        <x-input-error for="session" />
 
         <x-button class="mt-2" wire:click.prevent="submit">Submit</x-button>
       </div>
@@ -21,7 +21,7 @@
   </x-card>
   <x-spinner />
 
-  @if($year)
+  @if($session)
 
     <x-card>
       <ul class="nav nav-tabs nav-primary" role="tablist">

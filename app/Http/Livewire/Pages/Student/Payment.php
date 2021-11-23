@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class Payment extends Component
 {
-  public $year;
+  public $session;
   public $payments;
   public $uncleared;
   public $cleared;
@@ -20,9 +20,9 @@ class Payment extends Component
   {
     $years = Mark::where(['student_id' => auth('student')->id()])->select('year')->distinct()->get();
 
-    if ($this->year) {
+    if ($this->session) {
       $this->payments = $pay = PaymentRecord::where('student_id', auth('student')->id())
-        ->where('year', $this->year)
+        ->where('year', $this->session)
         ->get(); // get payment record based on authenticated student
 
       $this->uncleared = $pay->where('paid', 0);
@@ -35,7 +35,7 @@ class Payment extends Component
   public function submit(): void
   {
     $this->validate([
-      'year' => 'required',
+      'session' => 'required',
     ]);
   }
 }

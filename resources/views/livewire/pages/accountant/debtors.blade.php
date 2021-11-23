@@ -26,6 +26,9 @@
           @endif
         </x-select>
         <x-input-error for="selected_term" />
+      </div>
+
+      <div class="d-grid gap-2">
         <x-button class="mt-2" wire:click.prevent="submit">Submit</x-button>
       </div>
     </div>
@@ -54,7 +57,7 @@
 
           <tbody>
             <tr>
-              @foreach($debtors->sortby('student.class_room_id') as $d)
+              @forelse($debtors->sortby('student.class_room_id') as $d)
                 @if($class->name === $d->student->class_room->name)
                   <td>{{ $loop->iteration }}</td>
                   <td>{{ $d->student->fullname }}</td>
@@ -64,7 +67,11 @@
                   <td>{{ $d->payment->description }}</td>
                 @endif
             </tr>
-            @endforeach
+            @empty
+              <tr>
+                <td colspan="6" class="text-center">No record found</td>
+              </tr>
+            @endforelse
           </tbody>
         </x-responsive-table>
         <br>

@@ -74,9 +74,9 @@
                     View Marksheet
                   </x-button>
                   <ul class="dropdown-menu">
-                    @foreach($marks->where('year', $session)->where('student_id', $st->id) as $term)
+                    @foreach($marks->where('year', $session)->where('student_id', $st->id)->unique('term') as $term)
                       <li><a class="dropdown-item" target="_blank"
-                             href="{{ route('result.marksheet.show', [$st->id, $session, $term->id]) }}">
+                             href="{{ route('result.marksheet.show', [$st->id, $session, $term->term->id]) }}">
                           {{ $term->term->name }}</a>
                       </li>
                     @endforeach

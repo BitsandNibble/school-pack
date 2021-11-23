@@ -18,7 +18,7 @@ class CreateReceiptsTable extends Migration
       $table->unsignedBigInteger('pr_id');
       $table->Integer('amount_paid');
       $table->Integer('balance');
-      $table->string('year');
+      $table->string('session');
       $table->timestamps();
     });
   }

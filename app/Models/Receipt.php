@@ -14,7 +14,7 @@ class Receipt extends Model
 {
   use HasFactory;
 
-  protected $fillable = ['pr_id', 'year', 'balance', 'amount_paid'];
+  protected $fillable = ['pr_id', 'session', 'balance', 'amount_paid'];
 
   public function payment_record(): BelongsTo
   {

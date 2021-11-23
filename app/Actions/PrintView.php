@@ -97,7 +97,7 @@ class PrintView
 
   public function getReceiptPrintView($pr_id): array
   {
-    $d['pr'] = $pr = PaymentRecord::orderBy('year', 'DESC')->where('id', $pr_id)->with('payment', 'receipt')->first();
+    $d['pr'] = $pr = PaymentRecord::orderBy('session', 'DESC')->where('id', $pr_id)->with('payment', 'receipt')->first();
 
     $d['receipts'] = $pr->receipt;
     $d['payment'] = $pr->payment;

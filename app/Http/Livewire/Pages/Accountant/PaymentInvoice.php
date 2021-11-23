@@ -69,7 +69,7 @@ class PaymentInvoice extends Component
 //    $d2['amount_paid'] = $this->amount_paid;
       $d2['amount_paid'] = $amt_paid;
       $d2['balance'] = $bal;
-      $d2['year'] = $this->current_year;
+      $d2['session'] = $this->current_session;
 
       Receipt::create($d2);
     }

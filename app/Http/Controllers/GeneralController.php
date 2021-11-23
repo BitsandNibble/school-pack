@@ -39,8 +39,9 @@ class GeneralController extends Controller
     return view('print.receipt', $d);
   }
 
-  public function notice(NoticeBoard $notice): Factory|View|Application
+  public function notice($id): Factory|View|Application
   {
+    $notice = NoticeBoard::find($id);
     return view('partials.notice', compact('notice'));
   }
 }

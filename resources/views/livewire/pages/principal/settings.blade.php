@@ -38,8 +38,8 @@
             </x-select>
             <x-input-error for="year.0" />
           </div>
-          <div>
-            <span>➡️</span>
+          <div class="d-flex">
+            <span class="align-self-center">➡️</span>
           </div>
           <div class="col-5 mb-2">
             <x-select id="session" wire:model.defer="year.1">

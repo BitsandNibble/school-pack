@@ -3,7 +3,7 @@
   <hr>
 
   <div class="row">
-    <div class="col">
+    <div class="col-md-6">
       <x-card radius="10" shadow="" class="overflow-hidden py-1">
         <div class="d-flex align-items-center">
           <div>
@@ -16,7 +16,7 @@
       </x-card>
     </div>
 
-    <div class="col">
+    <div class="col-md-6">
       <x-card radius="10" shadow="" class="overflow-hidden py-1">
         <div class="d-flex align-items-center">
           <div>

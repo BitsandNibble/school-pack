@@ -9,20 +9,21 @@ use App\Models\Student;
 class GetMarkSheetYear
 {
 
-  public function getMarkSheetYear($student_id, $year): array
+  public function getMarkSheetYear($student_id, $session, $term): array
   {
-    $d['year'] = $year;
+    $d['year'] = $session;
+    $d['term'] = $term;
 
     $d['student'] = Student::where('id', $student_id)
       ->with('class_room', 'section')
       ->first();
 
-    $d['exam_record'] = $exr = ExamRecord::where(['year' => $year, 'student_id' => $student_id])
+    $d['exam_record'] = $exr = ExamRecord::where(['year' => $session, 'student_id' => $student_id, 'term_id' => $term])
       ->with('term')
       ->first();
 
-    $d['marks'] = Mark::where(['student_id' => $student_id])
-      ->where('year', $year)
+    $d['marks'] = Mark::where(['year' => $session, 'student_id' => $student_id, 'term_id' => $term])
+      ->where('year', $session)
       ->with('subject', 'grade')
       ->get();
 

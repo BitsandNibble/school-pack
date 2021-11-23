@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Pages\Student;
 
-use App\Models\Mark;
 use App\Models\PaymentRecord;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -18,7 +17,10 @@ class Payment extends Component
 
   public function render(): Factory|View|Application
   {
-    $years = Mark::where(['student_id' => auth('student')->id()])->select('year')->distinct()->get();
+    $years = PaymentRecord::where('student_id', auth('student')->id())
+      ->select('year')
+      ->distinct()
+      ->get();
 
     if ($this->session) {
       $this->payments = $pay = PaymentRecord::where('student_id', auth('student')->id())

@@ -131,7 +131,7 @@ class Scoresheet extends Component
 
 //    update records in exam table
     foreach ($all_student_ids as $student_id) {
-      ExamRecord::where(['student_id' => $student_id])->update([
+      ExamRecord::where(['student_id' => $student_id, 'term_id' => $this->term_id])->update([
         'total' => get_exam_total($this->term_id, $student_id, $this->class_id, $this->selected_year),
         'average' => get_exam_avg($this->term_id, $student_id, $this->class_id, $this->selected_year),
         'class_average' => get_class_avg($this->term_id, $this->class_id, $this->selected_year),

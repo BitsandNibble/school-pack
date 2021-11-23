@@ -28,14 +28,29 @@
           <h6 class="fw-bold my-auto">Create General Payment</h6>
         </x-slot>
 
-        <div class="col-md-6 mb-2">
-          <x-label>Session <span class="text-danger">*</span></x-label>
-          <x-select wire:model.defer="payment.session">
-            @foreach(all_sessions() as $sess)
-              <option value="{{ $sess }}">{{ $sess }}</option>
-            @endforeach
-          </x-select>
-          <x-input-error for="payment.session" />
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <x-label>Session <span class="text-danger">*</span></x-label>
+            <x-select wire:model="session">
+              @foreach(all_sessions() as $sess)
+                <option value="{{ $sess }}">{{ $sess }}</option>
+              @endforeach
+            </x-select>
+            <x-input-error for="session" />
+          </div>
+
+          <div class="col-md-6 mb-2">
+            <x-label>Term <span class="text-danger">*</span></x-label>
+            <x-select wire:model.defer="term_id">
+              @if(count($terms) > 0)
+                @foreach($terms as $t)
+                  <option value="{{ $t->id }}">{{ $t->name }}</option>
+                @endforeach
+              @endif
+            </x-select>
+            <x-input-error for="term_id" />
+          </div>
+
         </div>
 
         <div class="col-md-6 mb-2">

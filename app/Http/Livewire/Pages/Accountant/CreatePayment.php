@@ -19,9 +19,13 @@ class CreatePayment extends Component
   use LivewireAlert;
 
   public $payment;
+  public $session;
+  public $term_id;
+  public $terms = [];
 
   protected array $rules = [
-    'payment.session' => 'required',
+    'session' => 'required',
+    'term_id' => 'required',
     'payment.title' => 'required|string',
     'payment.class' => 'required',
     'payment.method' => 'required',
@@ -30,7 +34,7 @@ class CreatePayment extends Component
   ];
 
   protected array $validationAttributes = [
-    'payment.session' => 'session',
+    'term_id' => 'term',
     'payment.title' => 'title',
     'payment.class' => 'class',
     'payment.method' => 'payment method',
@@ -41,6 +45,10 @@ class CreatePayment extends Component
   public function render(): Factory|View|Application
   {
     $classes = ClassRoom::get();
+
+    if ($this->session) {
+      $this->terms = Term::where('session', $this->session)->get();
+    }
 
     return view('livewire.pages.accountant.create-payment', compact('classes'));
   }
@@ -60,6 +68,7 @@ class CreatePayment extends Component
       'class_room_id' => $this->payment['class'] !== 'NULL' ? $this->payment['class'] : NULL,
       'description' => $this->payment['description'] ?? '',
       'session' => $this->session ?? '',
+      'term_id' => $this->term_id,
     ]);
 
     $pay1 = Payment::where('session', $this->session)

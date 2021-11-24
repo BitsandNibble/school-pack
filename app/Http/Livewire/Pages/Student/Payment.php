@@ -17,21 +17,21 @@ class Payment extends Component
 
   public function render(): Factory|View|Application
   {
-    $years = PaymentRecord::where('student_id', auth('student')->id())
-      ->select('year')
+    $sessions = PaymentRecord::where('student_id', auth('student')->id())
+      ->select('session')
       ->distinct()
       ->get();
 
     if ($this->session) {
       $this->payments = $pay = PaymentRecord::where('student_id', auth('student')->id())
-        ->where('year', $this->session)
+        ->where('session', $this->session)
         ->get(); // get payment record based on authenticated student
 
       $this->uncleared = $pay->where('paid', 0);
       $this->cleared = $pay->where('paid', 1);
     }
 
-    return view('livewire.pages.student.payment', compact('years'));
+    return view('livewire.pages.student.payment', compact('sessions'));
   }
 
   public function submit(): void

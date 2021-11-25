@@ -11,9 +11,11 @@
         "jantinnerezo/livewire-alert": "^2.2.1",
         "laravel/fortify": "^1.8.3",
         "laravel/framework": "^8.70.2",
+        "laravel/octane": "^1.0",
         "laravel/sanctum": "^2.12.1",
         "laravel/tinker": "^2.6.2",
-        "livewire/livewire": "^2.7.2"
+        "livewire/livewire": "^2.7.2",
+        "spiral/roadrunner": "^2.5.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6.4",

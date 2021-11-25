@@ -5,10 +5,10 @@
   <x-card class="border-0 border-dark border-5 border-end">
     @if($school_logo)
       Logo Preview:
-      <img src="{{$school_logo->temporaryUrl()}}" class="mb-2 img-fluid w-50 mx-auto d-block rounded"
+      <img src="{{$school_logo->temporaryUrl()}}" class="mb-2 img-fluid w-50 mx-auto d-block rounded-circle p-1"
            alt="Preview">
     @else
-      <img src="{{ get_school_logo() }}" class="mb-2 img-fluid w-50 mx-auto d-block rounded"
+      <img src="{{ get_school_logo() }}" class="mb-2 img-fluid w-50 mx-auto d-block rounded-circle p-1"
            alt="School Logo">
     @endif
 

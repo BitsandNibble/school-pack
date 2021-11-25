@@ -53,7 +53,7 @@ class Debtors extends Component
         $q->where('term_id', $this->selected_term); // get term from 'payment' relation
       })->where('paid', 0)
         ->where('session', $this->selected_session)
-        ->with('student', 'payment')->get();
+        ->with('student.class_room', 'payment')->get();
 
       foreach ($this->debtors as $debtor) {
         $this->class_id = $debtor->student->class_room_id;

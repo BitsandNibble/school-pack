@@ -43,6 +43,6 @@ class ClassRoom extends Model
 
   public function getNameAttribute($value): string
   {
-    return strtoupper($value);
+    return strtoupper($value); // return all classes as UPPERCASE
   }
 }

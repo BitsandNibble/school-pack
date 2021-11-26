@@ -112,7 +112,7 @@
   </style>
 @endpush
 
-<div wire:loading>
+<div wire:loading.delay>
   {{--  1--}}
   <div id="overlay">
     <div class="spinner"></div>

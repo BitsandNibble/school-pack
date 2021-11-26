@@ -139,14 +139,14 @@ class Subjects extends Component
     $this->cancel();
   }
 
-  public function exportSelected()
-  {
-    return response()->streamDownload(function () {
-      echo (clone $this->subjectsQuery)
-        ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))
-        ->toCsv();
-    }, 'subjects.csv');
-  }
+//  public function exportSelected()
+//  {
+//    return response()->streamDownload(function () {
+//      echo (clone $this->subjectsQuery)
+//        ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))
+//        ->toCsv();
+//    }, 'subjects.csv');
+//  }
 
   public function deleteSelected(): void
   {

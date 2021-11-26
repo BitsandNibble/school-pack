@@ -214,8 +214,9 @@
               <th>Staff ID</th>
               <td>{{ $info->school_id }}</td>
             </tr>
-            <th>Date of Employment</th>
-            <td>{{ $info->date_of_employment }}</td>
+            <tr>
+              <th>Date of Employment</th>
+              <td>{{ $info->date_of_employment }}</td>
             </tr>
             <tr>
               <th>Class Teacher</th>

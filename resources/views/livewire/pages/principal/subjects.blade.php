@@ -45,6 +45,12 @@
       </div>
 
       <div class="ms-auto d-flex justify-content-end">
+        <x-button value="danger" class="float-end" data-bs-toggle="modal"
+                  data-bs-target="#deleteSelectedModal">Delete
+        </x-button>
+        <x-button value="success" wire:click="exportSelected" class="float-end">Export</x-button>
+      </div>
+      <div class="ms-auto d-flex justify-content-end">
         <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" class="mb-3" />
       </div>
     </div>
@@ -52,6 +58,9 @@
     <x-responsive-table>
       <thead>
         <tr>
+          <th class="pe-0" style="width: 30px">
+            <x-checked-input type="checkbox" wire:model="selectPage" />
+          </th>
           <th>S/N</th>
           <th>Name</th>
           <th></th>
@@ -59,8 +68,27 @@
       </thead>
 
       <tbody>
+        @if($selectPage)
+          <tr class="bg-gradient-lush">
+            <td colspan="4">
+              @unless($selectAll)
+                <div>
+                  You have selected <strong>{{ $subjects->count() }}</strong> subjects, do you want to select all
+                  <strong>{{ $subjects->total() }}</strong>?
+                  <x-button-link wire:click="selectAll">Select All</x-button-link>
+                </div>
+              @else
+                You have selected all <strong>{{ $subjects->total() }}</strong> subjects.
+              @endunless
+            </td>
+          </tr>
+        @endif
+
         @forelse ($subjects as $subject)
-          <tr>
+          <tr wire.key="row-{{ $subject->id }}">
+            <td class="pe-0">
+              <x-checked-input type="checkbox" wire:model="selected" value="{{ $subject->id }}" />
+            </td>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $subject->name }}</td>
             <td>
@@ -114,6 +142,19 @@
     <x-slot name="footer">
       <x-button value="dark" wire:click="cancel">Close</x-button>
       <x-button value="submit" wire:click.prevent="store">Save</x-button>
+    </x-slot>
+  </x-confirmation-modal>
+
+  <x-confirmation-modal id="deleteSelectedModal">
+    <x-slot name="title">Delete Subject</x-slot>
+
+    <x-slot name="content">
+      Are you sure you want to delete these subjects? This action is irreversible.
+    </x-slot>
+
+    <x-slot name="footer">
+      <x-button value="dark" wire:click="cancel">Cancel</x-button>
+      <x-button value="danger" wire:click.prevent="deleteSelected">Delete</x-button>
     </x-slot>
   </x-confirmation-modal>
 

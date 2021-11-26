@@ -19,9 +19,9 @@ class SettingsSeeder extends Seeder
     $data = [
       ['type' => 'school_name', 'description' => 'United Kiddies'],
       ['type' => 'school_title', 'description' => 'UnK'],
-      ['type' => 'current_session', 'description' => '2018-2019'],
-      ['type' => 'term_begins', 'description' => '7/10/2018'],
-      ['type' => 'term_ends', 'description' => '7/10/2018'],
+      ['type' => 'current_session', 'description' => '2018 - 2019'],
+      ['type' => 'term_begins', 'description' => '2018-11-25'],
+      ['type' => 'term_ends', 'description' => '2018-11-25'],
       ['type' => 'address', 'description' => '18B North Central Park, Behind Central Square Tourist Center'],
       ['type' => 'school_mail', 'description' => 'schoolpack@gmail.com'],
       ['type' => 'alt_mail', 'description' => ''],

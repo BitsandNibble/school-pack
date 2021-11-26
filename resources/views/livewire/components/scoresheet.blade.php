@@ -36,13 +36,13 @@
                 <td class="px-5">{{ $mark->exam_score }}</td>
               @else
                 <td class="px-5">
-                  <x-input class="form-control-sm" max="{{ $ca1_limit }}" wire:model.defer="marks.{{ $index }}.ca1" />
+                  <x-input type="number" class="form-control-sm" max="{{ $ca1_limit }}" wire:model.defer="marks.{{ $index }}.ca1" />
                 </td>
                 <td class="px-5">
-                  <x-input class="form-control-sm" max="{{ $ca2_limit }}" wire:model.defer="marks.{{ $index }}.ca2" />
+                  <x-input type="number" class="form-control-sm" max="{{ $ca2_limit }}" wire:model.defer="marks.{{ $index }}.ca2" />
                 </td>
                 <td class="px-5">
-                  <x-input class="form-control-sm" max="{{ $exam_limit }}"
+                  <x-input type="number" class="form-control-sm" max="{{ $exam_limit }}"
                            wire:model.defer="marks.{{ $index }}.exam_score" />
                 </td>
               @endunless

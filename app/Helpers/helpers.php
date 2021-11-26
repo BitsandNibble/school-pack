@@ -23,7 +23,7 @@ if (!function_exists('check_teacher_tabulationsheet_access')) {
 if (!function_exists('check_teacher_marksheet_access')) {
   function check_teacher_marksheet_access(): void
   {
-    if (auth('teacher')->user() && empty(Section::where('teacher_id', auth()->id())
+    if (auth('teacher')->user() && empty(Section::where('teacher_id', auth('teacher')->id())
         ->get()->toArray())) {
       abort(403);
     }

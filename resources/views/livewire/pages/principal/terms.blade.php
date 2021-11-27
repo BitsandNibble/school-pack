@@ -63,7 +63,7 @@
       <tbody>
         @if ($selectPage)
           <tr class="bg-gradient-lush">
-            <td colspan="8">
+            <td colspan="6">
               @unless($selectAll)
                 <div>
                   You have selected <strong>{{ $terms->count() }}</strong> term(s)
@@ -102,7 +102,7 @@
           </tr>
         @empty
           <tr>
-            <td colspan="5" class="text-center">No record found</td>
+            <td colspan="6" class="text-center">No record found</td>
           </tr>
         @endforelse
       </tbody>

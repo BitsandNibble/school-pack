@@ -2,21 +2,29 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
-use App\Models\ClassType;
 use App\Models\Skill;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use App\Models\ClassType;
+use App\Traits\WithBulkActions;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Contracts\Foundation\Application;
 
+/**
+ * @property mixed rowsQuery
+ * @property mixed rows
+ * @property mixed selectedRowsQuery
+ */
 class Skills extends Component
 {
   use LivewireAlert;
+  use WithBulkActions;
 
   public $skill;
   public $skill_id;
   public $deleting;
+  public $total;
 
   protected array $rules = [
     'skill.name' => 'required|string',
@@ -29,10 +37,23 @@ class Skills extends Component
     'skill.skill_type' => 'skill type',
   ];
 
+  public function getRowsQueryProperty()
+  {
+    return Skill::with('class_type');
+  }
+
+  public function getRowsProperty()
+  {
+    return $this->rowsQuery->get();
+  }
+
   public function render(): Factory|View|Application
   {
-    $skills = Skill::with('class_type')->get();
+    if ($this->selectAll) $this->selectPageRows(); // for checkbox
+
     $class_types = ClassType::get();
+    $skills = $this->rows;
+    $this->total = $skills->count();
 
     return view('livewire.pages.principal.skills', compact('skills', 'class_types'));
   }
@@ -84,5 +105,14 @@ class Skills extends Component
     $skill->delete();
     $this->cancel();
     $this->alert('success', 'Skill Deleted Successfully');
+  }
+
+  // delete checked/selected rows
+  public function deleteSelected(): void
+  {
+    $this->selectedRowsQuery->delete();
+
+    $this->cancel();
+    $this->alert('success', 'Skills Deleted Successfully');
   }
 }

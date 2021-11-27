@@ -3,22 +3,27 @@
 namespace App\Http\Livewire\Pages\Principal;
 
 use App\Models\Term;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Validation\Rule;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Illuminate\Validation\Rule;
+use App\Traits\WithBulkActions;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Contracts\Foundation\Application;
 
+/**
+ * @property mixed rowsQuery
+ * @property mixed rows
+ * @property mixed selectedRowsQuery
+ */
 class Terms extends Component
 {
   use LivewireAlert;
+  use WithBulkActions;
 
   public $name;
   public $term_id;
   public $deleting;
-
-  protected $rules;
 
   protected function rules(): array
   {
@@ -33,9 +38,21 @@ class Terms extends Component
     ];
   }
 
+  public function getRowsQueryProperty()
+  {
+    return Term::query();
+  }
+
+  public function getRowsProperty()
+  {
+    return $this->rowsQuery->paginate(10);
+  }
+
   public function render(): Factory|View|Application
   {
-    $terms = Term::get();
+    if ($this->selectAll) $this->selectPageRows(); // for checkbox
+
+    $terms = $this->rows;
 
     return view('livewire.pages.principal.terms', compact('terms'));
   }
@@ -86,5 +103,14 @@ class Terms extends Component
     $term->delete();
     $this->cancel();
     $this->alert('success', 'Term Deleted Successfully');
+  }
+
+  // delete checked/selected rows
+  public function deleteSelected(): void
+  {
+    $this->selectedRowsQuery->delete();
+
+    $this->cancel();
+    $this->alert('success', 'Terms Deleted Successfully');
   }
 }

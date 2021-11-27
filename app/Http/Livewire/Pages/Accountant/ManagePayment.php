@@ -83,7 +83,7 @@ class ManagePayment extends Component
 
     if ($this->selected_term) {
       $payments = $this->rows;
-      $this->total = $this->rows->count();
+      $this->total = $payments->count();
 
       $this->term_name = Term::find($this->selected_term)->name;
       $this->classes = ClassRoom::get();

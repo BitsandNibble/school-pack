@@ -2,21 +2,29 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
-use App\Models\ClassType;
 use App\Models\Grade;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use App\Models\ClassType;
+use App\Traits\WithBulkActions;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Contracts\Foundation\Application;
 
+/**
+ * @property mixed rowsQuery
+ * @property mixed rows
+ * @property mixed selectedRowsQuery
+ */
 class Grades extends Component
 {
   use LivewireAlert;
+  use WithBulkActions;
 
   public $grade;
   public $grade_id;
   public $deleting;
+  public $total;
 
   protected array $rules = [
     'grade.name' => 'required|string',
@@ -32,10 +40,24 @@ class Grades extends Component
     'grade.mark_to' => 'mark to',
   ];
 
+  public function getRowsQueryProperty()
+  {
+    return Grade::query()
+      ->with('class_type');
+  }
+
+  public function getRowsProperty()
+  {
+    return $this->rowsQuery->get();
+  }
+
   public function render(): Factory|View|Application
   {
+    if ($this->selectAll) $this->selectPageRows(); // for checkbox
+
     $class_type = ClassType::get();
-    $grades = Grade::with('class_type')->get();
+    $grades = $this->rows;
+    $this->total = $grades->count();
 
     return view('livewire.pages.principal.grades', compact('class_type', 'grades'));
   }
@@ -91,5 +113,14 @@ class Grades extends Component
     $grade->delete();
     $this->cancel();
     $this->alert('success', 'Grade Deleted Successfully');
+  }
+
+  // delete checked/selected rows
+  public function deleteSelected(): void
+  {
+    $this->selectedRowsQuery->delete();
+
+    $this->cancel();
+    $this->alert('success', 'Grades Deleted Successfully');
   }
 }

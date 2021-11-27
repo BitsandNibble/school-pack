@@ -15,9 +15,30 @@
   </x-card>
 
   <x-card>
+    <div class="ms-auto d-flex justify-content-end mb-3">
+      @if ($selected)
+        <x-dropdown class="me-3">
+          <x-slot name="title">Bulk Actions</x-slot>
+
+          <li>
+            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteSelectedModal" href="#">
+              <i class="bx bxs-trash"></i>
+              Delete
+            </a>
+          </li>
+          <li><a class="dropdown-item" href="#">Archive</a></li>
+          <li><a class="dropdown-item" href="#">Export</a></li>
+          {{-- <x-button value="success" wire:click="exportSelected" class="float-end">Export</x-button> --}}
+        </x-dropdown>
+      @endif
+    </div>
+
     <x-responsive-table>
       <thead>
         <tr>
+          <th class="pe-0" style="width: 30px">
+            <x-checked-input type="checkbox" wire:model="selectPage" />
+          </th>
           <th>S/N</th>
           <th>Name</th>
           <th>Session</th>
@@ -27,8 +48,30 @@
       </thead>
 
       <tbody>
+        @if ($selectPage)
+          <tr class="bg-gradient-lush">
+            <td colspan="8">
+              @unless($selectAll)
+                <div>
+                  You have selected <strong>{{ $terms->count() }}</strong> term(s)
+                  @if ($terms->count() !== $terms->total()), do you want to select
+                  all
+                  <strong>{{ $terms->total() }}</strong>?
+                  <x-button-link wire:click="selectAll">Select All</x-button-link>
+                  @endif
+                </div>
+              @else
+                You have selected all <strong>{{ $terms->total() }}</strong> terms.
+              @endunless
+            </td>
+          </tr>
+        @endif
+
         @forelse($terms as $term)
-          <tr>
+          <tr wire.key="row-{{ $term->id }}">
+            <td class="pe-0">
+              <x-checked-input type="checkbox" wire:model="selected" value="{{ $term->id }}" />
+            </td>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $term->name }}</td>
             <td>{{ $term->session }}</td>
@@ -51,6 +94,8 @@
         @endforelse
       </tbody>
     </x-responsive-table>
+
+    {{ $terms->links() }}
   </x-card>
 
 
@@ -74,6 +119,19 @@
     <x-slot name="footer">
       <x-button value="dark" wire:click="cancel">Close</x-button>
       <x-button value="submit" wire:click.prevent="store">Save</x-button>
+    </x-slot>
+  </x-confirmation-modal>
+
+  <x-confirmation-modal id="deleteSelectedModal">
+    <x-slot name="title">Delete Terms</x-slot>
+
+    <x-slot name="content">
+      Are you sure you want to delete these terms? This action is irreversible.
+    </x-slot>
+
+    <x-slot name="footer">
+      <x-button value="dark" wire:click="cancel">Cancel</x-button>
+      <x-button value="danger" wire:click.prevent="deleteSelected">Delete</x-button>
     </x-slot>
   </x-confirmation-modal>
 

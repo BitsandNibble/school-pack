@@ -24,14 +24,34 @@
         <span>&nbsp;</span> entries
       </div>
 
+
       <div class="ms-auto d-flex justify-content-end">
-        <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" />
+        @if ($selected)
+          <x-dropdown class="me-3">
+            <x-slot name="title">Bulk Actions</x-slot>
+
+            <li>
+              <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteSelectedModal" href="#">
+                <i class="bx bxs-trash"></i>
+                Delete
+              </a>
+            </li>
+            <li><a class="dropdown-item" href="#">Archive</a></li>
+            <li><a class="dropdown-item" href="#">Export</a></li>
+            {{-- <x-button value="success" wire:click="exportSelected" class="float-end">Export</x-button> --}}
+          </x-dropdown>
+        @endif
+
+        <x-input type="search" size="sm" placeholder="Search" wire:model.deboounce.500ms="q" />
       </div>
     </div>
 
     <x-responsive-table>
       <thead>
         <tr>
+          <th class="pe-0" style="width: 30px">
+            <x-checked-input type="checkbox" wire:model="selectPage" />
+          </th>
           <th>S/N</th>
           <th>Title</th>
           <th>Message</th>
@@ -43,8 +63,30 @@
       </thead>
 
       <tbody>
+        @if ($selectPage)
+          <tr class="bg-gradient-lush">
+            <td colspan="8">
+              @unless($selectAll)
+                <div>
+                  You have selected <strong>{{ $notices->count() }}</strong> notice(s)
+                  @if ($notices->count() !== $notices->total()), do you want to select
+                  all
+                  <strong>{{ $notices->total() }}</strong>?
+                  <x-button-link wire:click="selectAll">Select All</x-button-link>
+                  @endif
+                </div>
+              @else
+                You have selected all <strong>{{ $notices->total() }}</strong> notice.
+              @endunless
+            </td>
+          </tr>
+        @endif
+
         @forelse ($notices as $notice)
-          <tr>
+          <tr wire.key="row-{{ $notice->id }}">
+            <td class="pe-0">
+              <x-checked-input type="checkbox" wire:model="selected" value="{{ $notice->id }}" />
+            </td>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $notice->title }}</td>
             <td>{{ Str::limit($notice->message, 30) }}</td>
@@ -68,7 +110,7 @@
           </tr>
         @empty
           <tr>
-            <td colspan="7" class="text-center">No record found</td>
+            <td colspan="8" class="text-center">No record found</td>
           </tr>
         @endforelse
       </tbody>
@@ -134,6 +176,19 @@
       <x-button value="dark" wire:click="cancel">Close</x-button>
     </x-slot>
   </x-modal>
+
+  <x-confirmation-modal id="deleteSelectedModal">
+    <x-slot name="title">Delete Notice</x-slot>
+
+    <x-slot name="content">
+      Are you sure you want to delete these notices? This action is irreversible.
+    </x-slot>
+
+    <x-slot name="footer">
+      <x-button value="dark" wire:click="cancel">Cancel</x-button>
+      <x-button value="danger" wire:click.prevent="deleteSelected">Delete</x-button>
+    </x-slot>
+  </x-confirmation-modal>
 
   <x-confirmation-modal id="deleteModal">
     <x-slot name="title">Delete Notice</x-slot>

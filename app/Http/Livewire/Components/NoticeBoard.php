@@ -2,19 +2,26 @@
 
 namespace App\Http\Livewire\Components;
 
-use App\Models\NoticeBoard as NoticeBoardModel;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Traits\WithBulkActions;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\NoticeBoard as NoticeBoardModel;
+use Illuminate\Contracts\Foundation\Application;
 
+/**
+ * @property mixed rowsQuery
+ * @property mixed rows
+ * @property mixed selectedRowsQuery
+ */
 class NoticeBoard extends Component
 {
   use WithPagination;
   use LivewireAlert;
+  use WithBulkActions;
 
   public $q;
   public $paginate = 10;
@@ -35,13 +42,24 @@ class NoticeBoard extends Component
     'message' => 'required',
   ];
 
-  public function render(): Factory|View|Application
+  public function getRowsQueryProperty()
   {
-    $notices = NoticeBoardModel::when($this->q, function ($query) {
+    return NoticeBoardModel::when($this->q, function ($query) {
       return $query->search($this->q);
     })->where('author_id', auth('principal')->id())
-      ->with('principal')
-      ->Paginate($this->paginate);
+      ->with('principal');
+  }
+
+  public function getRowsProperty()
+  {
+    return $this->rowsQuery->paginate($this->paginate);
+  }
+
+  public function render(): Factory|View|Application
+  {
+    if ($this->selectAll) $this->selectPageRows(); // for checkbox
+
+    $notices = $this->rows;
 
     return view('livewire.components.notice-board', compact('notices'));
   }
@@ -105,6 +123,17 @@ class NoticeBoard extends Component
   public function delete(NoticeBoardModel $noticeboard): void
   {
     $noticeboard->delete();
+
     $this->cancel();
+    $this->alert('success', 'Notice Deleted Successfully');
+  }
+
+  // delete checked/selected rows
+  public function deleteSelected(): void
+  {
+    $this->selectedRowsQuery->delete();
+
+    $this->cancel();
+    $this->alert('success', 'Notices Deleted Successfully');
   }
 }

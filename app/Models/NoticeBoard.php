@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static find(mixed $teacher_id)
  * @method static create(array $array)
  * @method static where(string $string, $id)
+ * @method static insert(array[] $array)
  */
 class NoticeBoard extends Model
 {

@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
       StateSeeder::class,
       LgaSeeder::class,
       SkillSeeder::class,
+      NoticeBoardSeeder::class,
     ]);
   }
 }

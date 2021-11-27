@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\ClassRoom;
 use App\Models\ClassType;
 use Illuminate\Support\Str;
+use App\Traits\WithSorting;
 use Livewire\WithPagination;
 use App\Traits\WithBulkActions;
 use Illuminate\Validation\Rule;
@@ -23,22 +24,19 @@ class Classes extends Component
   use WithPagination;
   use LivewireAlert;
   use WithBulkActions;
+  use WithSorting;
 
   public $name;
   public $deleting;
   public $class_id;
   public $class_type_id;
   public string $q = "";
-  public $sortBy = 'name';
-  public $sortAsc = true;
   public $paginate = 10;
 
   protected string $paginationTheme = 'bootstrap';
 
   protected $queryString = [
     'q' => ['except' => ''],
-    'sortBy' => ['except' => 'name'],
-    'sortAsc' => ['except' => true],
   ];
 
   protected function rules(): array
@@ -55,12 +53,11 @@ class Classes extends Component
 
   public function getRowsQueryProperty()
   {
-    return ClassRoom::query()
-      ->when($this->q, function ($query) {
-        return $query->search($this->q);
-      })
-      ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+    $query = ClassRoom::query()
+      ->when($this->q, fn($query) => $query->search($this->q))
       ->with('class_type');
+
+    return $this->applySorting($query); // apply sorting
   }
 
   public function getRowsProperty()
@@ -76,14 +73,6 @@ class Classes extends Component
     $class_types = ClassType::get();
 
     return view('livewire.pages.principal.classes', compact('classes', 'class_types'));
-  }
-
-  public function sortBy($field): void
-  {
-    if ($field === $this->sortBy) {
-      $this->sortAsc = !$this->sortAsc;
-    }
-    $this->sortBy = $field;
   }
 
   public function cancel(): void

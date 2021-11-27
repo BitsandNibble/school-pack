@@ -6,6 +6,7 @@ use App\Models\Section;
 use App\Models\Teacher;
 use Livewire\Component;
 use App\Models\ClassRoom;
+use App\Traits\WithSorting;
 use Livewire\WithPagination;
 use App\Traits\WithBulkActions;
 use Illuminate\Contracts\View\View;
@@ -22,13 +23,12 @@ class Sections extends Component
   use WithPagination;
   use LivewireAlert;
   use WithBulkActions;
+  use WithSorting;
 
   public $name;
   public $class;
   public $deleting;
   public string $q = "";
-  public $sortBy = 'name';
-  public $sortAsc = true;
   public $paginate = 10;
   public $section_id;
   public $teacher_id;
@@ -37,8 +37,6 @@ class Sections extends Component
 
   protected $queryString = [
     'q' => ['except' => ''],
-    'sortBy' => ['except' => 'name'],
-    'sortAsc' => ['except' => true],
   ];
 
   protected array $rules = [
@@ -48,12 +46,11 @@ class Sections extends Component
 
   public function getRowsQueryProperty()
   {
-    return Section::query()
-      ->when($this->q, function ($query) {
-        return $query->search($this->q);
-      })
-      ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+    $query =  Section::query()
+      ->when($this->q, fn ($query) => $query->search($this->q))
       ->with('class_room', 'teacher');
+
+    return $this->applySorting($query); // apply sorting
   }
 
   public function getRowsProperty()
@@ -69,14 +66,6 @@ class Sections extends Component
     $teachers = Teacher::get();
     $sections = $this->rows;
     return view('livewire.pages.principal.sections', compact('classes', 'teachers', 'sections'));
-  }
-
-  public function sortBy($field): void
-  {
-    if ($field === $this->sortBy) {
-      $this->sortAsc = !$this->sortAsc;
-    }
-    $this->sortBy = $field;
   }
 
   public function cancel(): void

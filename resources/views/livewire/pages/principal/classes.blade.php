@@ -55,18 +55,11 @@
             <x-checked-input type="checkbox" wire:model="selectPage" />
           </th>
           <th>S/N</th>
-          <th wire:click="sortBy('name')" class="cursor-pointer">
-            <div class="d-flex justify-content-between">
-              Name
-              <x-sort-icon sortField="name" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-            </div>
-          </th>
-          <th wire:click="sortBy('class_type_id')" class="cursor-pointer">
-            <div class="d-flex justify-content-between">
-              Class Type
-              <x-sort-icon sortField="class_type_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-            </div>
-          </th>
+          <x-table.heading sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">Name
+          </x-table.heading>
+          <x-table.heading sortable wire:click="sortBy('class_type_id')" :direction="$sorts['class_type_id'] ?? null">
+            Class Type
+          </x-table.heading>
           <th></th>
         </tr>
       </thead>

@@ -27,14 +27,34 @@
         <span>&nbsp;</span> entries
       </div>
 
-      {{-- <div class="ms-auto d-flex justify-content-end">
-        <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" class="mb-3" />
-      </div> --}}
+
+      <div class="ms-auto d-flex justify-content-end">
+        @if ($selected)
+          <x-dropdown class="me-3">
+            <x-slot name="title">Bulk Actions</x-slot>
+
+            <li>
+              <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteSelectedModal" href="#">
+                <i class="bx bxs-trash"></i>
+                Delete
+              </a>
+            </li>
+            <li><a class="dropdown-item" href="#">Archive</a></li>
+            <li><a class="dropdown-item" href="#">Export</a></li>
+            {{-- <x-button value="success" wire:click="exportSelected" class="float-end">Export</x-button> --}}
+          </x-dropdown>
+        @endif
+
+        <x-input type="search" size="sm" placeholder="Search" wire:model.deboounce.500ms="q" />
+      </div>
     </div>
 
     <x-responsive-table>
       <thead>
         <tr>
+          <th class="pe-0" style="width: 30px">
+            <x-checked-input type="checkbox" wire:model="selectPage" />
+          </th>
           <th>S/N</th>
           <th wire:click="sortBy('class_room_id')" class="cursor-pointer">
             <div class="d-flex justify-content-between">
@@ -59,8 +79,30 @@
       </thead>
 
       <tbody>
+        @if ($selectPage)
+          <tr class="bg-gradient-lush">
+            <td colspan="6">
+              @unless($selectAll)
+                <div>
+                  You have selected <strong>{{ $sections->count() }}</strong> section(s)
+                  @if ($sections->count() !== $sections->total()), do you want to select
+                  all
+                  <strong>{{ $sections->total() }}</strong>?
+                  <x-button-link wire:click="selectAll">Select All</x-button-link>
+                  @endif
+                </div>
+              @else
+                You have selected all <strong>{{ $sections->total() }}</strong> sections.
+              @endunless
+            </td>
+          </tr>
+        @endif
+
         @forelse($sections as $section)
-          <tr>
+          <tr wire.key="row-{{ $section->id }}">
+            <td class="pe-0">
+              <x-checked-input type="checkbox" wire:model="selected" value="{{ $section->id }}" />
+            </td>
             <td>{{ $loop->iteration }}</td>
             <td style="transform: rotate(0);">
               <a href="{{ route('principal.classes.students', [$section->class_room->slug]) }}"
@@ -88,7 +130,7 @@
           </tr>
         @empty
           <tr>
-            <td colspan="5" class="text-center">No record found</td>
+            <td colspan="6" class="text-center">No record found</td>
           </tr>
         @endforelse
       </tbody>
@@ -137,6 +179,19 @@
     <x-slot name="footer">
       <x-button value="dark" wire:click="cancel">Close</x-button>
       <x-button value="submit" wire:click.prevent="store">Save</x-button>
+    </x-slot>
+  </x-confirmation-modal>
+
+  <x-confirmation-modal id="deleteSelectedModal">
+    <x-slot name="title">Delete Section</x-slot>
+
+    <x-slot name="content">
+      Are you sure you want to delete these sections? This action is irreversible.
+    </x-slot>
+
+    <x-slot name="footer">
+      <x-button value="dark" wire:click="cancel">Cancel</x-button>
+      <x-button value="danger" wire:click.prevent="deleteSelected">Delete</x-button>
     </x-slot>
   </x-confirmation-modal>
 

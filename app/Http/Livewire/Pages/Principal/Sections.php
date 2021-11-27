@@ -2,24 +2,31 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
-use App\Models\ClassRoom;
 use App\Models\Section;
 use App\Models\Teacher;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use App\Models\ClassRoom;
 use Livewire\WithPagination;
+use App\Traits\WithBulkActions;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Contracts\Foundation\Application;
 
+/**
+ * @property mixed rowsQuery
+ * @property mixed rows
+ */
 class Sections extends Component
 {
   use WithPagination;
   use LivewireAlert;
+  use WithBulkActions;
 
   public $name;
   public $class;
   public $deleting;
+  public string $q = "";
   public $sortBy = 'name';
   public $sortAsc = true;
   public $paginate = 10;
@@ -28,19 +35,39 @@ class Sections extends Component
 
   protected string $paginationTheme = 'bootstrap';
 
+  protected $queryString = [
+    'q' => ['except' => ''],
+    'sortBy' => ['except' => 'name'],
+    'sortAsc' => ['except' => true],
+  ];
+
   protected array $rules = [
     'name' => 'required|string',
     'class' => 'required',
   ];
 
+  public function getRowsQueryProperty()
+  {
+    return Section::query()
+      ->when($this->q, function ($query) {
+        return $query->search($this->q);
+      })
+      ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+      ->with('class_room', 'teacher');
+  }
+
+  public function getRowsProperty()
+  {
+    return $this->rowsQuery->paginate($this->paginate);
+  }
+
   public function render(): Factory|View|Application
   {
+    if ($this->selectAll) $this->selectPageRows(); // for checkbox
+
     $classes = ClassRoom::get();
     $teachers = Teacher::get();
-    $sections = Section::orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-      ->with('class_room', 'teacher')
-      ->paginate($this->paginate);
-
+    $sections = $this->rows;
     return view('livewire.pages.principal.sections', compact('classes', 'teachers', 'sections'));
   }
 
@@ -83,7 +110,7 @@ class Sections extends Component
       Section::create([
         'name' => $this->name,
         'class_room_id' => $this->class,
-        'teacher_id' => $this->teacher_id
+        'teacher_id' => $this->teacher_id,
       ]);
       $this->alert('success', 'Section Added Successfully');
     }

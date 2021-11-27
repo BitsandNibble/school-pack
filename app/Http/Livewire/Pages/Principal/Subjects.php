@@ -13,11 +13,8 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Contracts\Foundation\Application;
 
 /**
- * @property mixed subjects
- * @property mixed subjectsQuery
  * @property mixed rows
  * @property mixed rowsQuery
- * @property mixed selectedRowsQuery
  */
 class Subjects extends Component
 {
@@ -130,15 +127,6 @@ class Subjects extends Component
   //      echo $this->selectedRowsQuery->toCsv();
   //    }, 'subjects.csv');
   //  }
-
-  // delete checked/selected rows
-  public function deleteSelected(): void
-  {
-    $this->selectedRowsQuery->delete();
-
-    $this->cancel();
-    $this->alert('success', 'Subjects Deleted Successfully');
-  }
 
   // for dynamic input
   public function addInput(): void

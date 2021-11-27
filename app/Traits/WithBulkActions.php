@@ -2,6 +2,9 @@
 
 namespace App\Traits;
 
+/**
+ * @property mixed selectedRowsQuery
+ */
 trait WithBulkActions
 {
   public bool $selectPage = false;
@@ -10,7 +13,7 @@ trait WithBulkActions
 
   public function selectPageRows(): void
   {
-    $this->selected = $this->rows->pluck('id')->map(fn ($id) => (string)$id);
+    $this->selected = $this->rows->pluck('id')->map(fn($id) => (string)$id);
   }
 
   public function updatedSelected(): void
@@ -34,6 +37,15 @@ trait WithBulkActions
   public function getSelectedRowsQueryProperty()
   {
     return (clone $this->rowsQuery)
-      ->unless($this->selectAll, fn ($query) => $query->whereKey($this->selected));
+      ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected));
+  }
+
+  // delete checked/selected rows
+  public function deleteSelected(): void
+  {
+    $this->selectedRowsQuery->delete();
+
+    $this->cancel();
+    $this->alert('success', 'Deleted Successfully');
   }
 }

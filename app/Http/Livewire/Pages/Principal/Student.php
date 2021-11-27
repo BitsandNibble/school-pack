@@ -19,7 +19,6 @@ use Illuminate\Contracts\Foundation\Application;
 /**
  * @property mixed rowsQuery
  * @property mixed rows
- * @property mixed selectedRowsQuery
  */
 class Student extends Component
 {
@@ -180,14 +179,5 @@ class Student extends Component
 
     $this->cancel();
     $this->alert('success', 'Student Added Successfully');
-  }
-
-  // delete checked/selected rows
-  public function deleteSelected(): void
-  {
-    $this->selectedRowsQuery->delete();
-
-    $this->cancel();
-    $this->alert('success', 'Students Deleted Successfully');
   }
 }

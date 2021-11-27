@@ -17,7 +17,6 @@ use Illuminate\Contracts\Foundation\Application;
 /**
  * @property mixed rowsQuery
  * @property mixed rows
- * @property mixed selectedRowsQuery
  */
 class ManagePayment extends Component
 {
@@ -156,14 +155,5 @@ class ManagePayment extends Component
     $payment->delete();
     $this->cancel();
     $this->alert('success', 'Payment Deleted Successfully');
-  }
-
-  // delete checked/selected rows
-  public function deleteSelected(): void
-  {
-    $this->selectedRowsQuery->delete();
-
-    $this->cancel();
-    $this->alert('success', 'Payments Deleted Successfully');
   }
 }

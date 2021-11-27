@@ -21,6 +21,7 @@ class Terms extends Component
   use LivewireAlert;
   use WithBulkActions;
 
+  public int $paginate = 10;
   public $name;
   public $term_id;
   public $deleting;
@@ -45,7 +46,7 @@ class Terms extends Component
 
   public function getRowsProperty()
   {
-    return $this->rowsQuery->paginate(10);
+    return $this->rowsQuery->paginate($this->paginate);
   }
 
   public function render(): Factory|View|Application

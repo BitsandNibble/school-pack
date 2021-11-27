@@ -15,22 +15,35 @@
   </x-card>
 
   <x-card>
-    <div class="ms-auto d-flex justify-content-end mb-3">
-      @if ($selected)
-        <x-dropdown class="me-3">
-          <x-slot name="title">Bulk Actions</x-slot>
+    <div class="d-flex align-items-center mb-3">
+      <div class="d-flex justify-content-start">
+        Show <span>&nbsp;</span>
+        <select class="form-select form-select-sm" wire:model="paginate">
+          <option value="10" selected>10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+        <span>&nbsp;</span> entries
+      </div>
 
-          <li>
-            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteSelectedModal" href="#">
-              <i class="bx bxs-trash"></i>
-              Delete
-            </a>
-          </li>
-          <li><a class="dropdown-item" href="#">Archive</a></li>
-          <li><a class="dropdown-item" href="#">Export</a></li>
-          {{-- <x-button value="success" wire:click="exportSelected" class="float-end">Export</x-button> --}}
-        </x-dropdown>
-      @endif
+      <div class="ms-auto d-flex justify-content-end">
+        @if ($selected)
+          <x-dropdown class="me-3">
+            <x-slot name="title">Bulk Actions</x-slot>
+
+            <li>
+              <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteSelectedModal" href="#">
+                <i class="bx bxs-trash"></i>
+                Delete
+              </a>
+            </li>
+            <li><a class="dropdown-item" href="#">Archive</a></li>
+            <li><a class="dropdown-item" href="#">Export</a></li>
+            {{-- <x-button value="success" wire:click="exportSelected" class="float-end">Export</x-button> --}}
+          </x-dropdown>
+        @endif
+      </div>
     </div>
 
     <x-responsive-table>

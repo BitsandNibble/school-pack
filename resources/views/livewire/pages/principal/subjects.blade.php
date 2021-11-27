@@ -33,7 +33,7 @@
   <h5>All Subjects</h5>
 
   <x-card>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center mb-3">
       <div class="d-flex justify-content-start">
         Show <span>&nbsp;</span>
         <select class="form-select form-select-sm" wire:model="paginate">
@@ -51,7 +51,7 @@
 
             <li>
               <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteSelectedModal" href="#">
-<i class="bx bxs-trash"></i>
+                <i class="bx bxs-trash"></i>
                 Delete
               </a>
             </li>
@@ -60,10 +60,8 @@
             {{-- <x-button value="success" wire:click="exportSelected" class="float-end">Export</x-button> --}}
           </x-dropdown>
         @endif
-        {{-- </div> --}}
 
-        {{-- <div class="ms-auto d-flex justify-content-end"> --}}
-        <x-input type="search" size="sm" placeholder="Search" wire:model.deboounce.500ms="q" class="mb-3" />
+        <x-input type="search" size="sm" placeholder="Search" wire:model.deboounce.500ms="q" />
       </div>
     </div>
 
@@ -86,10 +84,9 @@
               @unless($selectAll)
                 <div>
                   You have selected <strong>{{ $subjects->count() }}</strong> subjects
-                  @if ($subjects->count() !== $subjects->total()), do you want to select
-                    all
-                    <strong>{{ $subjects->total() }}</strong>?
-                    <x-button-link wire:click="selectAll">Select All</x-button-link>
+                  @if ($subjects->count() !== $subjects->total()), do you want to select all
+                  <strong>{{ $subjects->total() }}</strong>?
+                  <x-button-link wire:click="selectAll">Select All</x-button-link>
                   @endif
                 </div>
               @else
@@ -108,11 +105,11 @@
             <td>{{ $subject->name }}</td>
             <td>
               <x-button class="px-0" wire:click="edit({{ $subject->id }})" value="" data-bs-toggle="modal"
-                data-bs-target="#subjectModal">
+                        data-bs-target="#subjectModal">
                 <i class="bx bxs-pen"></i>
               </x-button>
               <x-button class="px-0" value="" wire:click="openDeleteModal({{ $subject->id }})"
-                data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        data-bs-toggle="modal" data-bs-target="#deleteModal">
                 <i class="bx bxs-trash-alt"></i>
               </x-button>
             </td>

@@ -35,11 +35,11 @@ class Subjects extends Component
   protected string $paginationTheme = 'bootstrap';
 
   protected array $rules = [
-    'names.*.name' => 'required|string'
+    'names.*.name' => 'required|string',
   ];
 
   protected array $validationAttributes = [
-    'names.*.name' => 'subject'
+    'names.*.name' => 'subject',
   ];
 
   public function getRowsQueryProperty()
@@ -57,7 +57,7 @@ class Subjects extends Component
 
   public function render(): Factory|View|Application
   {
-    if ($this->selectAll) $this->selectPageRows();
+    if ($this->selectAll) $this->selectPageRows(); // for checkbox
 
     $classes = ClassRoom::orderBy('name', 'ASC')->get();
     $subjects = $this->rows;
@@ -118,7 +118,9 @@ class Subjects extends Component
   public function delete(Subject $subject): void
   {
     $subject->delete();
+
     $this->cancel();
+    $this->alert('success', 'Subject Deleted Successfully');
   }
 
   // Caleb Porzio used a macro to export csv
@@ -135,6 +137,7 @@ class Subjects extends Component
     $this->selectedRowsQuery->delete();
 
     $this->cancel();
+    $this->alert('success', 'Subjects Deleted Successfully');
   }
 
   // for dynamic input

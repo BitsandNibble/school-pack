@@ -25,13 +25,32 @@
       </div>
 
       <div class="ms-auto d-flex justify-content-end">
-        <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" />
+        @if ($selected)
+          <x-dropdown class="me-3">
+            <x-slot name="title">Bulk Actions</x-slot>
+
+            <li>
+              <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteSelectedModal" href="#">
+                <i class="bx bxs-trash"></i>
+                Delete
+              </a>
+            </li>
+            <li><a class="dropdown-item" href="#">Archive</a></li>
+            <li><a class="dropdown-item" href="#">Export</a></li>
+            {{-- <x-button value="success" wire:click="exportSelected" class="float-end">Export</x-button> --}}
+          </x-dropdown>
+        @endif
+
+        <x-input type="search" size="sm" placeholder="Search" wire:model.deboounce.500ms="q" />
       </div>
     </div>
 
     <x-responsive-table>
       <thead>
         <tr>
+          <th class="pe-0" style="width: 30px">
+            <x-checked-input type="checkbox" wire:model="selectPage" />
+          </th>
           <th>S/N</th>
           <th wire:click="sortBy('title')" class="cursor-pointer">
             <div class="d-flex justify-content-between">
@@ -68,8 +87,30 @@
       </thead>
 
       <tbody>
+        @if ($selectPage)
+          <tr class="bg-gradient-lush">
+            <td colspan="8">
+              @unless($selectAll)
+                <div>
+                  You have selected <strong>{{ $teachers->count() }}</strong> teacher(s)
+                  @if ($teachers->count() !== $teachers->total()), do you want to select
+                  all
+                  <strong>{{ $teachers->total() }}</strong>?
+                  <x-button-link wire:click="selectAll">Select All</x-button-link>
+                  @endif
+                </div>
+              @else
+                You have selected all <strong>{{ $teachers->total() }}</strong> teachers.
+              @endunless
+            </td>
+          </tr>
+        @endif
+
         @forelse ($teachers as $teacher)
-          <tr>
+          <tr wire.key="row-{{ $teacher->id }}">
+            <td class="pe-0">
+              <x-checked-input type="checkbox" wire:model="selected" value="{{ $teacher->id }}" />
+            </td>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $teacher->title }}</td>
             <td>{{ $teacher->fullname }} </td>
@@ -243,6 +284,19 @@
       <x-button value="dark" wire:click="cancel">Close</x-button>
     </x-slot>
   </x-modal>
+
+  <x-confirmation-modal id="deleteSelectedModal">
+    <x-slot name="title">Delete Teacher</x-slot>
+
+    <x-slot name="content">
+      Are you sure you want to delete these teachers? This action is irreversible.
+    </x-slot>
+
+    <x-slot name="footer">
+      <x-button value="dark" wire:click="cancel">Cancel</x-button>
+      <x-button value="danger" wire:click.prevent="deleteSelected">Delete</x-button>
+    </x-slot>
+  </x-confirmation-modal>
 
   <x-confirmation-modal id="deleteModal">
     <x-slot name="title">Delete Teacher</x-slot>

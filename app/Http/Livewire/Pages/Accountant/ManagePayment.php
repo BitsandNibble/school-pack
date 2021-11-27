@@ -2,20 +2,27 @@
 
 namespace App\Http\Livewire\Pages\Accountant;
 
-use App\Models\ClassRoom;
+use Exception;
+use App\Models\Term;
 use App\Models\Payment;
 use App\Models\Student;
-use App\Models\Term;
-use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use App\Models\ClassRoom;
+use App\Traits\WithBulkActions;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Contracts\Foundation\Application;
 
+/**
+ * @property mixed rowsQuery
+ * @property mixed rows
+ * @property mixed selectedRowsQuery
+ */
 class ManagePayment extends Component
 {
   use LivewireAlert;
+  use WithBulkActions;
 
   public $selected_session;
   public $selected_term;
@@ -29,6 +36,7 @@ class ManagePayment extends Component
   public $terms = [];
   public $student_id;
   public $term_name;
+  public $total;
 
 
   protected array $rules = [
@@ -53,16 +61,29 @@ class ManagePayment extends Component
     'payment.description' => 'description',
   ];
 
+  public function getRowsQueryProperty()
+  {
+    return Payment::where('session', $this->selected_session)
+      ->where('term_id', $this->selected_term)
+      ->with('class_room', 'student');
+  }
+
+  public function getRowsProperty()
+  {
+    return $this->rowsQuery->get();
+  }
+
   public function render(): Factory|View|Application
   {
+    if ($this->selectAll) $this->selectPageRows(); // for checkbox
+
     if ($this->selected_session) {
       $this->terms = Term::where('session', $this->selected_session)->get();
     }
 
     if ($this->selected_term) {
-      $payments = Payment::where('session', $this->selected_session)
-        ->where('term_id', $this->selected_term)
-        ->with('class_room', 'student')->get();
+      $payments = $this->rows;
+      $this->total = $this->rows->count();
 
       $this->term_name = Term::find($this->selected_term)->name;
       $this->classes = ClassRoom::get();
@@ -97,7 +118,6 @@ class ManagePayment extends Component
     $this->payment = $pay = Payment::find($id);
     $this->payment_id = $id;
     $this->students = Student::where('class_room_id', $pay->class_room_id)->get();
-    $this->student = $pay->student_id;
   }
 
   /**
@@ -136,5 +156,14 @@ class ManagePayment extends Component
     $payment->delete();
     $this->cancel();
     $this->alert('success', 'Payment Deleted Successfully');
+  }
+
+  // delete checked/selected rows
+  public function deleteSelected(): void
+  {
+    $this->selectedRowsQuery->delete();
+
+    $this->cancel();
+    $this->alert('success', 'Payments Deleted Successfully');
   }
 }

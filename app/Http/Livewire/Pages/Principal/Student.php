@@ -2,23 +2,30 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
-use App\Models\ClassRoom;
-use App\Models\Section;
-use App\Models\Student as StudentModel;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
+use App\Models\Section;
+use Livewire\Component;
+use App\Models\ClassRoom;
+use Illuminate\Support\Str;
+use Livewire\WithPagination;
+use App\Traits\WithBulkActions;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use App\Models\Student as StudentModel;
+use Illuminate\Contracts\View\Factory;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Illuminate\Contracts\Foundation\Application;
 
+/**
+ * @property mixed rowsQuery
+ * @property mixed rows
+ * @property mixed selectedRowsQuery
+ */
 class Student extends Component
 {
   use WithPagination;
   use LivewireAlert;
+  use WithBulkActions;
 
   public $q;
   public $sortBy = 'fullname';
@@ -63,8 +70,25 @@ class Student extends Component
     // type 2 = class
   }
 
+  public function getRowsQueryProperty()
+  {
+    return StudentModel::query()
+      ->when($this->q, function ($query) {
+        return $query->search($this->q);
+      })
+      ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+      ->with('class_room', 'section');
+  }
+
+  public function getRowsProperty()
+  {
+    return $this->rowsQuery->paginate($this->paginate);
+  }
+
   public function render(): Factory|View|Application
   {
+    if ($this->selectAll) $this->selectPageRows(); // for checkbox
+
     $sec = is_null($this->section_id) ? '' : Section::where('id', $this->section_id)->first()->name;
     $class = is_null($this->class_id) ? '' : ClassRoom::where('id', $this->class_id)->first()->name;
     if ($this->class_id) {
@@ -77,24 +101,15 @@ class Student extends Component
         $this->column_id = $this->class_id;
       }
 
-      $students = StudentModel::where($this->class_section_id, $this->column_id)
-        ->when($this->q, function ($query) {
-          return $query->search($this->q);
-        })
-        ->with('class_room', 'section')
-        ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-        ->paginate(10);
+      $students = $this->rowsQuery
+        ->where($this->class_section_id, $this->column_id)
+        ->paginate($this->paginate);
 
       foreach ($students as $student) {
         $this->class_name = $student->class_room->name . ' ' . $sec;
       }
     } else {
-      $students = StudentModel::when($this->q, function ($query) {
-        return $query->search($this->q);
-      })
-        ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-        ->with('class_room', 'section')
-        ->Paginate($this->paginate);
+      $students = $this->rows;
     }
 
     return view('livewire.pages.principal.student', compact('students'));
@@ -165,5 +180,14 @@ class Student extends Component
 
     $this->cancel();
     $this->alert('success', 'Student Added Successfully');
+  }
+
+  // delete checked/selected rows
+  public function deleteSelected(): void
+  {
+    $this->selectedRowsQuery->delete();
+
+    $this->cancel();
+    $this->alert('success', 'Students Deleted Successfully');
   }
 }

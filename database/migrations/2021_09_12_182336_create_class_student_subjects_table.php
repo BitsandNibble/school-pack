@@ -15,9 +15,9 @@ class CreateClassStudentSubjectsTable extends Migration
   {
     Schema::create('class_student_subjects', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('class_room_id')->constrained();
-      $table->foreignId('student_id')->constrained();
-      $table->foreignId('subject_id')->constrained();
+      $table->unsignedBigInteger('class_room_id');
+      $table->unsignedBigInteger('student_id');
+      $table->unsignedBigInteger('subject_id');
     });
   }
 

@@ -2,19 +2,19 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
-use App\Models\ClassRoom;
-use App\Models\ClassStudentSubject;
+use Exception;
 use App\Models\Section;
 use App\Models\Student;
-use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Hash;
+use Livewire\Component;
+use App\Models\ClassRoom;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use App\Models\ClassStudentSubject;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Contracts\View\Factory;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
+use Illuminate\Contracts\Foundation\Application;
 
 class Students extends Component
 {
@@ -30,7 +30,6 @@ class Students extends Component
   public $sections = [];
 
   protected $listeners = ['edit', 'showInfo', 'openDeleteModal'];
-  protected $rules;
 
   protected function rules(): array
   {

@@ -2,30 +2,37 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
-use App\Models\ClassRoom;
-use App\Models\ClassSubjectTeacher;
+use Exception;
 use App\Models\Section;
 use App\Models\Teacher;
-use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
+use Livewire\Component;
+use App\Models\ClassRoom;
+use Illuminate\Support\Str;
+use Livewire\WithPagination;
+use App\Traits\WithBulkActions;
+use Illuminate\Validation\Rule;
+use App\Models\ClassSubjectTeacher;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
+use Illuminate\Contracts\View\Factory;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Illuminate\Contracts\Foundation\Application;
 
+/**
+ * @property mixed rowsQuery
+ * @property mixed rows
+ * @property mixed selectedRowsQuery
+ */
 class Teachers extends Component
 {
   use WithPagination;
   use LivewireAlert;
+  use WithBulkActions;
 
-  public $q;
-  public $sortBy = 'fullname';
-  public $sortAsc = true;
-  public $paginate = 10;
+  public string $q = "";
+  public string $sortBy = 'fullname';
+  public bool $sortAsc = true;
+  public int $paginate = 10;
   public $teacher;
   public $teacher_info;
   public $teacher_class_info;
@@ -35,7 +42,6 @@ class Teachers extends Component
   public $section;
 
   protected string $paginationTheme = 'bootstrap';
-  protected $rules;
 
   protected $queryString = [
     'q' => ['except' => ''],
@@ -43,7 +49,7 @@ class Teachers extends Component
     'sortAsc' => ['except' => true],
   ];
 
-  protected function rules()
+  protected function rules(): array
   {
     return [
       'teacher.title' => 'required',
@@ -62,12 +68,24 @@ class Teachers extends Component
     'teacher.date_of_employment' => 'date of employment',
   ];
 
+  public function getRowsQueryProperty()
+  {
+    return Teacher::query()
+      ->when($this->q, function ($query) {
+        return $query->search($this->q);
+      });
+  }
+
+  public function getRowsProperty()
+  {
+    return $this->rowsQuery->paginate($this->paginate);
+  }
+
   public function render(): Factory|View|Application
   {
-    $teachers = Teacher::when($this->q, function ($query) {
-      return $query->search($this->q);
-    })->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-      ->Paginate($this->paginate);
+    if ($this->selectAll) $this->selectPageRows(); // for checkbox
+
+    $teachers = $this->rows;
 
     return view('livewire.pages.principal.teachers', compact('teachers'));
   }
@@ -127,7 +145,7 @@ class Teachers extends Component
         'password' => Hash::make('password'),
         'slug' => Str::slug($this->teacher['fullname']),
       ]);
-      $this->alert('success', 'Teacher Updated Successfully');
+      $this->alert('success', 'Teacher Added Successfully');
     }
 
     $this->cancel();
@@ -171,5 +189,14 @@ class Teachers extends Component
     $teacher->delete();
     $this->cancel();
     $this->alert('success', 'Teacher Deleted Successfully');
+  }
+
+  // delete checked/selected rows
+  public function deleteSelected(): void
+  {
+    $this->selectedRowsQuery->delete();
+
+    $this->cancel();
+    $this->alert('success', 'Teachers Deleted Successfully');
   }
 }

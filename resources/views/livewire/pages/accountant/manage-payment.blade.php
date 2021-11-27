@@ -39,7 +39,24 @@
   @if($selected_term)
     <x-card-with-header>
       <x-slot name="header">
-        <h6 class="fw-bold my-auto">Manage Payments for {{ $term_name }} ({{ $selected_session }})</h6>
+        <div class="ms-auto d-flex justify-content-between">
+          <h6 class="fw-bold my-auto">Manage Payments for {{ $term_name }} ({{ $selected_session }})</h6>
+          @if ($selected)
+            <x-dropdown class="me-3">
+              <x-slot name="title">Bulk Actions</x-slot>
+
+              <li>
+                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteSelectedModal" href="#">
+                  <i class="bx bxs-trash"></i>
+                  Delete
+                </a>
+              </li>
+              <li><a class="dropdown-item" href="#">Archive</a></li>
+              <li><a class="dropdown-item" href="#">Export</a></li>
+              {{-- <x-button value="success" wire:click="exportSelected" class="float-end">Export</x-button> --}}
+            </x-dropdown>
+          @endif
+        </div>
       </x-slot>
 
       <ul class="nav nav-tabs nav-primary" role="tablist">
@@ -64,6 +81,9 @@
           <x-responsive-table>
             <thead>
               <tr>
+                <th class="pe-0" style="width: 30px">
+                  <x-checked-input type="checkbox" wire:model="selectPage" />
+                </th>
                 <th>S/N</th>
                 <th>Title</th>
                 <th>Amount</th>
@@ -76,8 +96,30 @@
             </thead>
 
             <tbody>
+              @if ($selectPage)
+                <tr class="bg-gradient-lush">
+                  <td colspan="9">
+                    @unless($selectAll)
+                      <div>
+                        You have selected <strong>{{ $general->count() }}</strong> payment(s)
+                        @if ($general->count() !== $total), do you want to select
+                        all
+                        <strong>{{ $total }}</strong>?
+                        <x-button-link wire:click="selectAll">Select All</x-button-link>
+                        @endif
+                      </div>
+                    @else
+                      You have selected all <strong>{{ $total }}</strong> payments.
+                    @endunless
+                  </td>
+                </tr>
+              @endif
+
               @forelse($general as $gen)
                 <tr>
+                  <td class="pe-0">
+                    <x-checked-input type="checkbox" wire:model="selected" value="{{ $gen->id }}" />
+                  </td>
                   <td>{{ $loop->iteration }}</td>
                   <td>{{ $gen->title }}</td>
                   <td>{{ $gen->amount }}</td>
@@ -98,7 +140,7 @@
                 </tr>
               @empty
                 <tr>
-                  <td colspan="8" align="center">No record found</td>
+                  <td colspan="9" align="center">No record found</td>
                 </tr>
               @endforelse
             </tbody>
@@ -109,6 +151,9 @@
           <x-responsive-table>
             <thead>
               <tr>
+                <th class="pe-0" style="width: 30px">
+                  <x-checked-input type="checkbox" wire:model="selectPage" />
+                </th>
                 <th>S/N</th>
                 <th>Title</th>
                 <th>Amount</th>
@@ -122,8 +167,30 @@
             </thead>
 
             <tbody>
+              @if ($selectPage)
+                <tr class="bg-gradient-lush">
+                  <td colspan="9">
+                    @unless($selectAll)
+                      <div>
+                        You have selected <strong>{{ $individual->count() }}</strong> payment(s)
+                        @if ($individual->count() !== $total), do you want to select
+                        all
+                        <strong>{{ $total }}</strong>?
+                        <x-button-link wire:click="selectAll">Select All</x-button-link>
+                        @endif
+                      </div>
+                    @else
+                      You have selected all <strong>{{ $total }}</strong> payments.
+                    @endunless
+                  </td>
+                </tr>
+              @endif
+
               @forelse($individual as $ind)
                 <tr>
+                  <td class="pe-0">
+                    <x-checked-input type="checkbox" wire:model="selected" value="{{ $ind->id }}" />
+                  </td>
                   <td>{{ $loop->iteration }}</td>
                   <td>{{ $ind->title }}</td>
                   <td>{{ $ind->amount }}</td>
@@ -325,6 +392,19 @@
         <x-button value="submit" wire:click.prevent="store">Update</x-button>
       </x-slot>
     </x-modal>
+
+    <x-confirmation-modal id="deleteSelectedModal">
+      <x-slot name="title">Delete Payment</x-slot>
+
+      <x-slot name="content">
+        Are you sure you want to delete these payments? This action is irreversible.
+      </x-slot>
+
+      <x-slot name="footer">
+        <x-button value="dark" wire:click="cancel">Cancel</x-button>
+        <x-button value="danger" wire:click.prevent="deleteSelected">Delete</x-button>
+      </x-slot>
+    </x-confirmation-modal>
 
     <x-confirmation-modal id="deleteModal">
       <x-slot name="title">Delete Payment</x-slot>

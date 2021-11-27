@@ -44,16 +44,26 @@
         <span>&nbsp;</span> entries
       </div>
 
-      @if ($selected)
-        <div class="ms-auto d-flex justify-content-end">
-          <x-button value="danger" class="float-end" data-bs-toggle="modal" data-bs-target="#deleteSelectedModal">
-            Delete
-          </x-button>
-          {{-- <x-button value="success" wire:click="exportSelected" class="float-end">Export</x-button> --}}
-        </div>
-      @endif
       <div class="ms-auto d-flex justify-content-end">
-        <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" class="mb-3" />
+        @if ($selected)
+          <x-dropdown class="me-3">
+            <x-slot name="title">Bulk Actions</x-slot>
+
+            <li>
+              <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteSelectedModal" href="#">
+<i class="bx bxs-trash"></i>
+                Delete
+              </a>
+            </li>
+            <li><a class="dropdown-item" href="#">Archive</a></li>
+            <li><a class="dropdown-item" href="#">Export</a></li>
+            {{-- <x-button value="success" wire:click="exportSelected" class="float-end">Export</x-button> --}}
+          </x-dropdown>
+        @endif
+        {{-- </div> --}}
+
+        {{-- <div class="ms-auto d-flex justify-content-end"> --}}
+        <x-input type="search" size="sm" placeholder="Search" wire:model.deboounce.500ms="q" class="mb-3" />
       </div>
     </div>
 
@@ -75,9 +85,12 @@
             <td colspan="4">
               @unless($selectAll)
                 <div>
-                  You have selected <strong>{{ $subjects->count() }}</strong> subjects, do you want to select all
-                  <strong>{{ $subjects->total() }}</strong>?
-                  <x-button-link wire:click="selectAll">Select All</x-button-link>
+                  You have selected <strong>{{ $subjects->count() }}</strong> subjects
+                  @if ($subjects->count() !== $subjects->total()), do you want to select
+                    all
+                    <strong>{{ $subjects->total() }}</strong>?
+                    <x-button-link wire:click="selectAll">Select All</x-button-link>
+                  @endif
                 </div>
               @else
                 You have selected all <strong>{{ $subjects->total() }}</strong> subjects.

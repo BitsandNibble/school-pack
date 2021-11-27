@@ -2,33 +2,35 @@
 
 namespace App\Http\Livewire\Pages\Principal;
 
-use App\Models\ClassRoom;
 use App\Models\Subject;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use App\Models\ClassRoom;
 use Livewire\WithPagination;
+use App\Traits\WithBulkActions;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Contracts\Foundation\Application;
 
 /**
  * @property mixed subjects
  * @property mixed subjectsQuery
+ * @property mixed rows
+ * @property mixed rowsQuery
+ * @property mixed selectedRowsQuery
  */
 class Subjects extends Component
 {
-  use WithPagination;
   use LivewireAlert;
+  use WithPagination;
+  use WithBulkActions;
 
-  public $i = 1;
-  public $paginate = 15;
   public $q;
-  public $subject_id;
+  public $i = 1;
   public $deleting;
-  public bool $selectPage = false;
-  public bool $selectAll = false;
+  public $subject_id;
   public $names = [0];
-  public $selected = [];
+  public $paginate = 15;
 
   protected string $paginationTheme = 'bootstrap';
 
@@ -40,25 +42,7 @@ class Subjects extends Component
     'names.*.name' => 'subject'
   ];
 
-  public function updatedSelected()
-  {
-    $this->selectAll = false;
-    $this->selectPage = false;
-  }
-
-  public function updatedSelectPage($value)
-  {
-    $this->selected = $value
-      ? $this->subjects->pluck('id')->map(fn($id) => (string)$id)
-      : [];
-  }
-
-  public function selectAll()
-  {
-    $this->selectAll = true;
-  }
-
-  public function getSubjectsQueryProperty()
+  public function getRowsQueryProperty()
   {
     return Subject::query()
       ->when($this->q, function ($query) {
@@ -66,19 +50,17 @@ class Subjects extends Component
       });
   }
 
-  public function getSubjectsProperty()
+  public function getRowsProperty()
   {
-    return $this->subjectsQuery->Paginate($this->paginate);
+    return $this->rowsQuery->Paginate($this->paginate);
   }
 
   public function render(): Factory|View|Application
   {
-    if ($this->selectAll) {
-      $this->selected = $this->subjects->pluck('id')->map(fn($id) => (string)$id);
-    }
+    if ($this->selectAll) $this->selectPageRows();
 
     $classes = ClassRoom::orderBy('name', 'ASC')->get();
-    $subjects = $this->subjects;
+    $subjects = $this->rows;
 
     return view('livewire.pages.principal.subjects', compact('classes', 'subjects'));
   }
@@ -139,20 +121,18 @@ class Subjects extends Component
     $this->cancel();
   }
 
-//  public function exportSelected()
-//  {
-//    return response()->streamDownload(function () {
-//      echo (clone $this->subjectsQuery)
-//        ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))
-//        ->toCsv();
-//    }, 'subjects.csv');
-//  }
+  // Caleb Porzio used a macro to export csv
+  //  public function exportSelected()
+  //  {
+  //    return response()->streamDownload(function () {
+  //      echo $this->selectedRowsQuery->toCsv();
+  //    }, 'subjects.csv');
+  //  }
 
+  // delete checked/selected rows
   public function deleteSelected(): void
   {
-    (clone $this->subjectsQuery)
-      ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))
-      ->delete();
+    $this->selectedRowsQuery->delete();
 
     $this->cancel();
   }
@@ -167,5 +147,4 @@ class Subjects extends Component
   {
     unset($this->names[$index]);
   }
-
 }

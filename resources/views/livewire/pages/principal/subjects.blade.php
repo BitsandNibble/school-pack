@@ -44,12 +44,14 @@
         <span>&nbsp;</span> entries
       </div>
 
-      <div class="ms-auto d-flex justify-content-end">
-        <x-button value="danger" class="float-end" data-bs-toggle="modal"
-                  data-bs-target="#deleteSelectedModal">Delete
-        </x-button>
-        <x-button value="success" wire:click="exportSelected" class="float-end">Export</x-button>
-      </div>
+      @if ($selected)
+        <div class="ms-auto d-flex justify-content-end">
+          <x-button value="danger" class="float-end" data-bs-toggle="modal" data-bs-target="#deleteSelectedModal">
+            Delete
+          </x-button>
+          {{-- <x-button value="success" wire:click="exportSelected" class="float-end">Export</x-button> --}}
+        </div>
+      @endif
       <div class="ms-auto d-flex justify-content-end">
         <x-input type="search" placeholder="Search" wire:model.deboounce.500ms="q" class="mb-3" />
       </div>
@@ -68,7 +70,7 @@
       </thead>
 
       <tbody>
-        @if($selectPage)
+        @if ($selectPage)
           <tr class="bg-gradient-lush">
             <td colspan="4">
               @unless($selectAll)
@@ -93,11 +95,11 @@
             <td>{{ $subject->name }}</td>
             <td>
               <x-button class="px-0" wire:click="edit({{ $subject->id }})" value="" data-bs-toggle="modal"
-                        data-bs-target="#subjectModal">
+                data-bs-target="#subjectModal">
                 <i class="bx bxs-pen"></i>
               </x-button>
               <x-button class="px-0" value="" wire:click="openDeleteModal({{ $subject->id }})"
-                        data-bs-toggle="modal" data-bs-target="#deleteModal">
+                data-bs-toggle="modal" data-bs-target="#deleteModal">
                 <i class="bx bxs-trash-alt"></i>
               </x-button>
             </td>
@@ -117,14 +119,14 @@
     <x-slot name="title">{{ isset($this->subject_id) ? 'Edit' : 'Add New' }} Subject</x-slot>
 
     <x-slot name="content">
-      @foreach($names as $key => $value)
-        <div class="row" wire:key="name-{{$key}}">
+      @foreach ($names as $key => $value)
+        <div class="row" wire:key="name-{{ $key }}">
           <div class="col mb-2">
             <x-label for="name">Subject</x-label>
             <div class="input-group">
               <x-input type="text" id="name" wire:model.defer="names.{{ $key }}.name" />
               @unless($this->subject_id)
-                @if($loop->index === 0)
+                @if ($loop->index === 0)
                   <x-button wire:click="addInput"><i class="bx bx-plus"></i></x-button>
                 @else
                   <x-button value="danger" wire:click.prevent="removeInput({{ $key }})">

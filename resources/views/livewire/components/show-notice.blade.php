@@ -15,8 +15,8 @@
       </div>
     </div>
     <div class="float-end mb-2">
-      <h6>Posted: {{ $notice->created_at->diffForHumans() }}</h6>
-      <h6>Updated: {{ $notice->updated_at->diffForHumans() }}</h6>
+      <h6>Posted: {{ $notice->created_at?->diffForHumans() ?? 'Unknown' }}</h6>
+      <h6>Updated: {{ $notice->updated_at?->diffForHumans() ?? 'Unknown' }}</h6>
     </div>
     <br>
     <br>

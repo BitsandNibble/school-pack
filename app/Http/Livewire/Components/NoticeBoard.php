@@ -6,6 +6,7 @@ use Exception;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Traits\WithBulkActions;
+use Illuminate\Validation\Rule;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -36,10 +37,13 @@ class NoticeBoard extends Component
     'q' => ['except' => ''],
   ];
 
-  protected array $rules = [
-    'title' => 'required|unique:notice_boards,title',
-    'message' => 'required',
-  ];
+  protected function rules(): array
+  {
+    return [
+      'title' => ['required', Rule::unique('notice_boards', 'title')->ignore($this->notice_id)],
+      'message' => 'required',
+    ];
+  }
 
   public function getRowsQueryProperty()
   {

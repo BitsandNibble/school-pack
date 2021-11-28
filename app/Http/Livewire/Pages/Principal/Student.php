@@ -7,6 +7,7 @@ use App\Models\Section;
 use Livewire\Component;
 use App\Models\ClassRoom;
 use Illuminate\Support\Str;
+use App\Traits\WithSorting;
 use Livewire\WithPagination;
 use App\Traits\WithBulkActions;
 use Illuminate\Contracts\View\View;
@@ -25,10 +26,9 @@ class Student extends Component
   use WithPagination;
   use LivewireAlert;
   use WithBulkActions;
+  use WithSorting;
 
   public $q;
-  public $sortBy = 'fullname';
-  public $sortAsc = true;
   public $paginate = 10;
   public $column_id;
   public $class_id;
@@ -54,8 +54,6 @@ class Student extends Component
 
   protected $queryString = [
     'q' => ['except' => ''],
-    'sortBy' => ['except' => 'fullname'],
-    'sortAsc' => ['except' => true],
   ];
 
   public function mount($id, $type): void
@@ -71,12 +69,11 @@ class Student extends Component
 
   public function getRowsQueryProperty()
   {
-    return StudentModel::query()
-      ->when($this->q, function ($query) {
-        return $query->search($this->q);
-      })
-      ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
+    $query =  StudentModel::query()
+      ->when($this->q, fn ($query) => $query->search($this->q))
       ->with('class_room', 'section');
+
+    return $this->applySorting($query);
   }
 
   public function getRowsProperty()
@@ -117,14 +114,6 @@ class Student extends Component
   public function updatingQ(): void
   {
     $this->resetPage();
-  }
-
-  public function sortBy($field): void
-  {
-    if ($field === $this->sortBy) {
-      $this->sortAsc = !$this->sortAsc;
-    }
-    $this->sortBy = $field;
   }
 
   public function filterStudents($id): void

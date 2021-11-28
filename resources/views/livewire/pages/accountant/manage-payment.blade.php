@@ -79,26 +79,24 @@
       <div class="tab-content py-3">
         <div class="tab-pane fade active show" id="general" role="tabpanel">
           <x-responsive-table>
-            <thead>
-              <tr>
-                <th class="pe-0" style="width: 30px">
-                  <x-checked-input type="checkbox" wire:model="selectPage" />
-                </th>
-                <th>S/N</th>
-                <th>Title</th>
-                <th>Amount</th>
-                <th>Ref_No</th>
-                <th>Class</th>
-                <th>Method</th>
-                <th>Description</th>
-                <th></th>
-              </tr>
-            </thead>
+            <x-slot name="head">
+              <x-table.heading class="pe-0" style="width: 30px">
+                <x-checked-input type="checkbox" wire:model="selectPage" />
+              </x-table.heading>
+              <x-table.heading>S/N</x-table.heading>
+              <x-table.heading>Title</x-table.heading>
+              <x-table.heading>Amount</x-table.heading>
+              <x-table.heading>Ref_No</x-table.heading>
+              <x-table.heading>Class</x-table.heading>
+              <x-table.heading>Method</x-table.heading>
+              <x-table.heading>Description</x-table.heading>
+              <x-table.heading></x-table.heading>
+            </x-slot>
 
-            <tbody>
+            <x-slot name="body">
               @if ($selectPage)
-                <tr class="bg-gradient-lush">
-                  <td colspan="9">
+                <x-table.row class="bg-gradient-lush">
+                  <x-table.cell colspan="9">
                     @unless($selectAll)
                       <div>
                         You have selected <strong>{{ $general->count() }}</strong> payment(s)
@@ -111,23 +109,23 @@
                     @else
                       You have selected all <strong>{{ $total }}</strong> payments.
                     @endunless
-                  </td>
-                </tr>
+                  </x-table.cell>
+                </x-table.row>
               @endif
 
               @forelse($general as $gen)
-                <tr>
-                  <td class="pe-0">
+                <x-table.row>
+                  <x-table.cell class="pe-0">
                     <x-checked-input type="checkbox" wire:model="selected" value="{{ $gen->id }}" />
-                  </td>
-                  <td>{{ $loop->iteration }}</td>
-                  <td>{{ $gen->title }}</td>
-                  <td>{{ $gen->amount }}</td>
-                  <td>{{ $gen->ref_no }}</td>
-                  <td>{{ $gen->class_room->name }}</td>
-                  <td>{{ $gen->method }}</td>
-                  <td>{{ $gen->description }}</td>
-                  <td>
+                  </x-table.cell>
+                  <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+                  <x-table.cell>{{ $gen->title }}</x-table.cell>
+                  <x-table.cell>{{ $gen->amount }}</x-table.cell>
+                  <x-table.cell>{{ $gen->ref_no }}</x-table.cell>
+                  <x-table.cell>{{ $gen->class_room->name }}</x-table.cell>
+                  <x-table.cell>{{ $gen->method }}</x-table.cell>
+                  <x-table.cell>{{ $gen->description }}</x-table.cell>
+                  <x-table.cell>
                     <x-button class="px-0" wire:click="edit({{ $gen->id }})" value="" data-bs-toggle="modal"
                               data-bs-target="#editGeneralPaymentModal">
                       <i class="bx bxs-pen"></i>
@@ -136,40 +134,38 @@
                               data-bs-toggle="modal" data-bs-target="#deleteModal">
                       <i class="bx bxs-trash-alt"></i>
                     </x-button>
-                  </td>
-                </tr>
+                  </x-table.cell>
+                </x-table.row>
               @empty
-                <tr>
-                  <td colspan="9" align="center">No record found</td>
-                </tr>
+                <x-table.row>
+                  <x-table.cell colspan="9" align="center">No record found</x-table.cell>
+                </x-table.row>
               @endforelse
-            </tbody>
+            </x-slot>
           </x-responsive-table>
         </div>
 
         <div class="tab-pane fade" id="individual" role="tabpanel">
           <x-responsive-table>
-            <thead>
-              <tr>
-                <th class="pe-0" style="width: 30px">
-                  <x-checked-input type="checkbox" wire:model="selectPage" />
-                </th>
-                <th>S/N</th>
-                <th>Title</th>
-                <th>Amount</th>
-                <th>Ref_No</th>
-                <th>Class</th>
-                <th>Student</th>
-                <th>Method</th>
-                <th>Description</th>
-                <th></th>
-              </tr>
-            </thead>
+            <x-slot name="head">
+              <x-table.heading class="pe-0" style="width: 30px">
+                <x-checked-input type="checkbox" wire:model="selectPage" />
+              </x-table.heading>
+              <x-table.heading>S/N</x-table.heading>
+              <x-table.heading>Title</x-table.heading>
+              <x-table.heading>Amount</x-table.heading>
+              <x-table.heading>Ref_No</x-table.heading>
+              <x-table.heading>Class</x-table.heading>
+              <x-table.heading>Student</x-table.heading>
+              <x-table.heading>Method</x-table.heading>
+              <x-table.heading>Description</x-table.heading>
+              <x-table.heading></x-table.heading>
+            </x-slot>
 
-            <tbody>
+            <x-slot name="body">
               @if ($selectPage)
-                <tr class="bg-gradient-lush">
-                  <td colspan="9">
+                <x-table.row class="bg-gradient-lush">
+                  <x-table.cell colspan="9">
                     @unless($selectAll)
                       <div>
                         You have selected <strong>{{ $individual->count() }}</strong> payment(s)
@@ -182,24 +178,24 @@
                     @else
                       You have selected all <strong>{{ $total }}</strong> payments.
                     @endunless
-                  </td>
-                </tr>
+                  </x-table.cell>
+                </x-table.row>
               @endif
 
               @forelse($individual as $ind)
-                <tr>
-                  <td class="pe-0">
+                <x-table.row>
+                  <x-table.cell class="pe-0">
                     <x-checked-input type="checkbox" wire:model="selected" value="{{ $ind->id }}" />
-                  </td>
-                  <td>{{ $loop->iteration }}</td>
-                  <td>{{ $ind->title }}</td>
-                  <td>{{ $ind->amount }}</td>
-                  <td>{{ $ind->ref_no }}</td>
-                  <td>{{ $ind->class_room->name }}</td>
-                  <td>{{ $ind->student->fullname }}</td>
-                  <td>{{ $ind->method }}</td>
-                  <td>{{ $ind->description }}</td>
-                  <td>
+                  </x-table.cell>
+                  <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+                  <x-table.cell>{{ $ind->title }}</x-table.cell>
+                  <x-table.cell>{{ $ind->amount }}</x-table.cell>
+                  <x-table.cell>{{ $ind->ref_no }}</x-table.cell>
+                  <x-table.cell>{{ $ind->class_room->name }}</x-table.cell>
+                  <x-table.cell>{{ $ind->student->fullname }}</x-table.cell>
+                  <x-table.cell>{{ $ind->method }}</x-table.cell>
+                  <x-table.cell>{{ $ind->description }}</x-table.cell>
+                  <x-table.cell>
                     <x-button class="px-0" wire:click="edit({{ $ind->id }})" value="" data-bs-toggle="modal"
                               data-bs-target="#editIndividualPaymentModal">
                       <i class="bx bxs-pen"></i>
@@ -208,14 +204,14 @@
                               data-bs-toggle="modal" data-bs-target="#deleteModal">
                       <i class="bx bxs-trash-alt"></i>
                     </x-button>
-                  </td>
-                </tr>
+                  </x-table.cell>
+                </x-table.row>
               @empty
-                <tr>
-                  <td colspan="8" align="center">No record found</td>
-                </tr>
+                <x-table.row>
+                  <x-table.cell colspan="8" align="center">No record found</x-table.cell>
+                </x-table.row>
               @endforelse
-            </tbody>
+            </x-slot>
           </x-responsive-table>
         </div>
       </div>

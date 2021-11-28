@@ -19,39 +19,26 @@
       </div>
     </div>
     <x-responsive-table class="table-bordered">
-      <thead>
-        <tr>
-          <th>S/N</th>
-          <th wire:click="sortBy('fullname')" class="cursor-pointer">
-            <div class="d-flex justify-content-between">
-              Full Name
-              <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-            </div>
-          </th>
-          <th wire:click="sortBy('school_id')" class="cursor-pointer">
-            <div class="d-flex justify-content-between">
-              Admission No
-              <x-sort-icon sortField="school_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-            </div>
-          </th>
-          <th wire:click="sortBy('gender')" class="cursor-pointer">
-            <div class="d-flex justify-content-between">
-              Gender
-              <x-sort-icon sortField="gender" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-            </div>
-          </th>
-          <th></th>
-        </tr>
-      </thead>
+      <x-slot name="head">
+        <x-table.heading>S/N</x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('fullname')" :direction="$sorts['fullname'] ?? null">Full Name
+        </x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('school_id')" :direction="$sorts['school_id'] ?? null">Admission
+          No.
+        </x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('gender')" :direction="$sorts['gender'] ?? null">Gender
+        </x-table.heading>
+        <x-table.heading></x-table.heading>
+      </x-slot>
 
-      <tbody>
+      <x-slot name="body">
         @forelse ($students as $student)
-          <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $student->fullname }} </td>
-            <td>{{ $student->school_id }}</td>
-            <td>{{ $student->gender }}</td>
-            <td>
+          <x-table.row>
+            <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+            <x-table.cell>{{ $student->fullname }} </x-table.cell>
+            <x-table.cell>{{ $student->school_id }}</x-table.cell>
+            <x-table.cell>{{ $student->gender }}</x-table.cell>
+            <x-table.cell>
               <x-button class="px-0" value="" wire:click="showInfo({{ $student->id }})"
                         data-bs-toggle="modal" data-bs-target="#infoModal">
                 <i class="bx bxs-show"></i>
@@ -60,14 +47,14 @@
                         data-bs-toggle="modal" data-bs-target="#infoModal">
                 <i class="bx bxs-plus-circle"></i>
               </x-button>
-            </td>
-          </tr>
+            </x-table.cell>
+          </x-table.row>
         @empty
-          <tr>
-            <td colspan="5" align="center">No record found</td>
-          </tr>
+          <x-table.row>
+            <x-table.cell colspan="5" align="center">No record found</x-table.cell>
+          </x-table.row>
         @endforelse
-      </tbody>
+      </x-slot>
     </x-responsive-table>
 
     {{ $students->links() }}
@@ -78,68 +65,72 @@
 
     <x-slot name="content">
       <x-table class="table-borderless table-hover">
-        @if($student_info)
-          @foreach($student_info as $info)
-            <tr>
-              <th>Fullname</th>
-              <td>{{ $info->fullname }}</td>
-            </tr>
-            <tr>
-              <th>Email</th>
-              <td>{{ $info->email }}</td>
-            </tr>
-            <tr>
-              <th>Address</th>
-              <td>{{ $info->address }}</td>
-            </tr>
-            <tr>
-              <th>Phone Number</th>
-              <td>{{ $info->phone_number }}</td>
-            </tr>
-            <tr>
-              <th>Gender</th>
-              <td>{{ $info->gender }}</td>
-            </tr>
-            <tr>
-              <th>Nationality</th>
-              <td>{{ $info->nationality->name }}</td>
-            </tr>
-            <tr>
-              <th>State</th>
-              <td>{{ $info->state->name }}</td>
-            </tr>
-            <tr>
-              <th>LGA</th>
-              <td>{{ $info->lga->name }}</td>
-            </tr>
-            <tr>
-              <th>Date of Birth</th>
-              <td>{{ $info->date_of_birth }}</td>
-            </tr>
-            <tr>
-              <th>Admission No.</th>
-              <td>{{ $info->school_id }}</td>
-            </tr>
-            <tr>
-              <th>Current Class</th>
-              <td>
-                {{ $info->class_room->name . ' ' . $info->section->name }}
-              </td>
-            </tr>
-            <tr>
-              <th>Subjects</th>
-              <td>
-                @if(isset($offered_subjects))
-                  <ul>
-                    @foreach($offered_subjects as $sub)
-                      <li>{{ $sub->subject->name }}</li>
-                    @endforeach
-                  </ul>
-                @endif
-              </td>
-            </tr>
-          @endforeach
-        @endif
+        <x-slot name="head"></x-slot>
+
+        <x-slot name="body">
+          @if($student_info)
+            @foreach($student_info as $info)
+              <x-table.row>
+                <x-table.heading>Fullname</x-table.heading>
+                <x-table.cell>{{ $info->fullname }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Email</x-table.heading>
+                <x-table.cell>{{ $info->email }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Address</x-table.heading>
+                <x-table.cell>{{ $info->address }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Phone Number</x-table.heading>
+                <x-table.cell>{{ $info->phone_number }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Gender</x-table.heading>
+                <x-table.cell>{{ $info->gender }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Nationality</x-table.heading>
+                <x-table.cell>{{ $info->nationality->name }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>State</x-table.heading>
+                <x-table.cell>{{ $info->state->name }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>LGA</x-table.heading>
+                <x-table.cell>{{ $info->lga->name }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Date of Birth</x-table.heading>
+                <x-table.cell>{{ $info->date_of_birth }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Admission No.</x-table.heading>
+                <x-table.cell>{{ $info->school_id }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Current Class</x-table.heading>
+                <x-table.cell>
+                  {{ $info->class_room->name . ' ' . $info->section->name }}
+                </x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Subjects</x-table.heading>
+                <x-table.cell>
+                  @if(isset($offered_subjects))
+                    <ul>
+                      @foreach($offered_subjects as $sub)
+                        <li>{{ $sub->subject->name }}</li>
+                      @endforeach
+                    </ul>
+                  @endif
+                </x-table.cell>
+              </x-table.row>
+            @endforeach
+          @endif
+        </x-slot>
       </x-table>
     </x-slot>
 

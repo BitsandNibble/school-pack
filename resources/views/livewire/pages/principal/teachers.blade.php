@@ -46,50 +46,29 @@
     </div>
 
     <x-responsive-table>
-      <thead>
-        <tr>
-          <th class="pe-0" style="width: 30px">
-            <x-checked-input type="checkbox" wire:model="selectPage" />
-          </th>
-          <th>S/N</th>
-          <th wire:click="sortBy('title')" class="cursor-pointer">
-            <div class="d-flex justify-content-between">
-              Title
-              <x-sort-icon sortField="title" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-            </div>
-          </th>
-          <th wire:click="sortBy('fullname')" class="cursor-pointer">
-            <div class="d-flex justify-content-between">
-              Name
-              <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-            </div>
-          </th>
-          <th wire:click="sortBy('school_id')" class="cursor-pointer">
-            <div class="d-flex justify-content-between">
-              Staff ID
-              <x-sort-icon sortField="school_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-            </div>
-          </th>
-          <th wire:click="sortBy('email')" class="cursor-pointer">
-            <div class="d-flex justify-content-between">
-              Email
-              <x-sort-icon sortField="email" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-            </div>
-          </th>
-          <th wire:click="sortBy('phone_number')" class="cursor-pointer">
-            <div class="d-flex justify-content-between">
-              Number
-              <x-sort-icon sortField="phone_number" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-            </div>
-          </th>
-          <th></th>
-        </tr>
-      </thead>
+      <x-slot name="head">
+        <x-table.heading class="pe-0" style="width: 30px">
+          <x-checked-input type="checkbox" wire:model="selectPage" />
+        </x-table.heading>
+        <x-table.heading>S/N</x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('title')" :direction="$sorts['title'] ?? null">Title
+        </x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('fullname')" :direction="$sorts['fullname'] ?? null">Name
+        </x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('school_id')" :direction="$sorts['school_id'] ?? null">Staff ID
+        </x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('email')" :direction="$sorts['email'] ?? null">Email
+        </x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('phone_number')" :direction="$sorts['phone_number'] ?? null">
+          Number
+        </x-table.heading>
+        <x-table.heading></x-table.heading>
+      </x-slot>
 
-      <tbody>
+      <x-slot name="body">
         @if ($selectPage)
-          <tr class="bg-gradient-lush">
-            <td colspan="8">
+          <x-table.row class="bg-gradient-lush">
+            <x-table.cell colspan="8">
               @unless($selectAll)
                 <div>
                   You have selected <strong>{{ $teachers->count() }}</strong> teacher(s)
@@ -102,22 +81,22 @@
               @else
                 You have selected all <strong>{{ $teachers->total() }}</strong> teachers.
               @endunless
-            </td>
-          </tr>
+            </x-table.cell>
+          </x-table.row>
         @endif
 
         @forelse ($teachers as $teacher)
-          <tr wire.key="row-{{ $teacher->id }}">
-            <td class="pe-0">
+          <x-table.row wire.key="row-{{ $teacher->id }}">
+            <x-table.cell class="pe-0">
               <x-checked-input type="checkbox" wire:model="selected" value="{{ $teacher->id }}" />
-            </td>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $teacher->title }}</td>
-            <td>{{ $teacher->fullname }} </td>
-            <td>{{ $teacher->school_id }}</td>
-            <td>{{ $teacher->email }}</td>
-            <td>{{ $teacher->phone_number }}</td>
-            <td>
+            </x-table.cell>
+            <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+            <x-table.cell>{{ $teacher->title }}</x-table.cell>
+            <x-table.cell>{{ $teacher->fullname }} </x-table.cell>
+            <x-table.cell>{{ $teacher->school_id }}</x-table.cell>
+            <x-table.cell>{{ $teacher->email }}</x-table.cell>
+            <x-table.cell>{{ $teacher->phone_number }}</x-table.cell>
+            <x-table.cell>
               <x-button class="px-0" value="" wire:click="showInfo({{ $teacher->id }})"
                         data-bs-toggle="modal" data-bs-target="#infoModal">
                 <i class="bx bxs-show"></i>
@@ -130,14 +109,14 @@
                         data-bs-toggle="modal" data-bs-target="#deleteModal">
                 <i class="bx bxs-trash-alt"></i>
               </x-button>
-            </td>
-          </tr>
+            </x-table.cell>
+          </x-table.row>
         @empty
-          <tr>
-            <td colspan="8" class="text-center">No record found</td>
-          </tr>
+          <x-table.row>
+            <x-table.cell colspan="8" class="text-center">No record found</x-table.cell>
+          </x-table.row>
         @endforelse
-      </tbody>
+      </x-slot>
     </x-responsive-table>
 
     {{ $teachers->links() }}
@@ -213,70 +192,74 @@
 
     <x-slot name="content">
       <x-table class="table-borderless table-hover">
-        @if($teacher_info)
-          @foreach($teacher_info as $info)
-            <tr>
-              <th>Fullname</th>
-              <td>{{ $info->fullname }}</td>
-            </tr>
-            <tr>
-              <th>Email</th>
-              <td>{{ $info->email }}</td>
-            </tr>
-            <tr>
-              <th>Address</th>
-              <td>{{ $info->address }}</td>
-            </tr>
-            <tr>
-              <th>Phone Number</th>
-              <td>{{ $info->phone_number }}</td>
-            </tr>
-            <tr>
-              <th>Gender</th>
-              <td>{{ $info->gender }}</td>
-            </tr>
-            <tr>
-              <th>Nationality</th>
-              <td>{{ $info->nationality->name }}</td>
-            </tr>
-            <tr>
-              <th>State</th>
-              <td>{{ $info->state->name }}</td>
-            </tr>
-            <tr>
-              <th>LGA</th>
-              <td>{{ $info->lga->name }}</td>
-            </tr>
-            <tr>
-              <th>Date of Birth</th>
-              <td>{{ $info->date_of_birth }}</td>
-            </tr>
-            <tr>
-              <th>Staff ID</th>
-              <td>{{ $info->school_id }}</td>
-            </tr>
-            <tr>
-              <th>Date of Employment</th>
-              <td>{{ $info->date_of_employment }}</td>
-            </tr>
-            <tr>
-              <th>Class Teacher</th>
-              <td>{{ $teacher_class_info . $section }}</td>
-            </tr>
-            <tr>
-              <th>Subjects</th>
-              <td>
-                @if(isset($assigned_subject_id))
-                  <ul>
-                    @foreach($assigned_subject_id as $sub)
-                      <li>{{ $sub->subject->name . ' - ' . $sub->class_room->name }}</li>
-                    @endforeach
-                  </ul>
-                @endif
-              </td>
-            </tr>
-          @endforeach
-        @endif
+        <x-slot name="head"></x-slot>
+
+        <x-slot name="body">
+          @if($teacher_info)
+            @foreach($teacher_info as $info)
+              <x-table.row>
+                <x-table.heading>Fullname</x-table.heading>
+                <x-table.cell>{{ $info->fullname }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Email</x-table.heading>
+                <x-table.cell>{{ $info->email }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Address</x-table.heading>
+                <x-table.cell>{{ $info->address }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Phone Number</x-table.heading>
+                <x-table.cell>{{ $info->phone_number }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Gender</x-table.heading>
+                <x-table.cell>{{ $info->gender }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Nationality</x-table.heading>
+                <x-table.cell>{{ $info->nationality->name }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>State</x-table.heading>
+                <x-table.cell>{{ $info->state->name }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>LGA</x-table.heading>
+                <x-table.cell>{{ $info->lga->name }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Date of Birth</x-table.heading>
+                <x-table.cell>{{ $info->date_of_birth }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Staff ID</x-table.heading>
+                <x-table.cell>{{ $info->school_id }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Date of Employment</x-table.heading>
+                <x-table.cell>{{ $info->date_of_employment }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Class Teacher</x-table.heading>
+                <x-table.cell>{{ $teacher_class_info . $section }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Subjects</x-table.heading>
+                <x-table.cell>
+                  @if(isset($assigned_subject_id))
+                    <ul>
+                      @foreach($assigned_subject_id as $sub)
+                        <li>{{ $sub->subject->name . ' - ' . $sub->class_room->name }}</li>
+                      @endforeach
+                    </ul>
+                  @endif
+                </x-table.cell>
+              </x-table.row>
+            @endforeach
+          @endif
+        </x-slot>
       </x-table>
     </x-slot>
 

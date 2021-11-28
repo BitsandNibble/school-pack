@@ -20,47 +20,46 @@
 <x-table class="table-bordered mt-4 text-center" style="border: 1px solid #000; border-collapse: collapse;">
   {{--  <table style="width:100%;  border: 1px solid #000; margin: 10px auto;" border="1">--}}
 
-  <thead>
-    <tr>
-      <th rowspan="2">SUBJECTS</th>
-      <th colspan="3">CONTINUOUS ASSESSMENT</th>
-      <th rowspan="2">EXAM<br>({{ $exam_limit }})</th>
-      <th rowspan="2">FINAL MARKS <br> ({{ $final_marks }}%)</th>
-      <th rowspan="2">GRADE</th>
-      <th rowspan="2">SUBJECT <br> POSITION</th>
+  <x-slot name="head">
+    <x-table.heading rowspan="2">SUBJECTS</x-table.heading>
+    <x-table.heading colspan="3">CONTINUOUS ASSESSMENT</x-table.heading>
+    <x-table.heading rowspan="2">EXAM<br>({{ $exam_limit }})</x-table.heading>
+    <x-table.heading rowspan="2">FINAL MARKS <br> ({{ $final_marks }}%)</x-table.heading>
+    <x-table.heading rowspan="2">GRADE</x-table.heading>
+    <x-table.heading rowspan="2">SUBJECT <br> POSITION</x-table.heading>
 
 
-      {{--  @if($ex->term == 3) --}}{{-- 3rd Term --}}{{--
-        <th rowspan="2">FINAL MARKS <br>(100%) 3<sup>RD</sup> TERM</th>
-        <th rowspan="2">1<sup>ST</sup> <br> TERM</th>
-        <th rowspan="2">2<sup>ND</sup> <br> TERM</th>
-        <th rowspan="2">CUM (300%) <br> 1<sup>ST</sup> + 2<sup>ND</sup> + 3<sup>RD</sup></th>
-        <th rowspan="2">CUM AVE</th>
-        <th rowspan="2">GRADE</th>
-        @endif--}}
+    {{--  @if($ex->term == 3) --}}{{-- 3rd Term --}}{{--
+      <x-table.heading rowspan="2">FINAL MARKS <br>(100%) 3<sup>RD</sup> TERM</x-table.heading>
+      <x-table.heading rowspan="2">1<sup>ST</sup> <br> TERM</x-table.heading>
+      <x-table.heading rowspan="2">2<sup>ND</sup> <br> TERM</x-table.heading>
+      <x-table.heading rowspan="2">CUM (300%) <br> 1<sup>ST</sup> + 2<sup>ND</sup> + 3<sup>RD</sup></x-table.heading>
+      <x-table.heading rowspan="2">CUM AVE</x-table.heading>
+      <x-table.heading rowspan="2">GRADE</x-table.heading>
+      @endif--}}
 
-      <th rowspan="2">REMARKS</th>
-    </tr>
-    <tr>
-      <th>CA1({{ $ca1_limit }})</th>
-      <th>CA2({{ $ca2_limit }})</th>
-      <th>TOTAL({{ $total_ca_limit }})</th>
-    </tr>
-  </thead>
-  <tbody>
+    <x-table.heading rowspan="2">REMARKS</x-table.heading>
+    <x-table.row>
+      <x-table.heading>CA1({{ $ca1_limit }})</x-table.heading>
+      <x-table.heading>CA2({{ $ca2_limit }})</x-table.heading>
+      <x-table.heading>TOTAL({{ $total_ca_limit }})</x-table.heading>
+    </x-table.row>
+  </x-slot>
+
+  <x-slot name="body">
     @foreach($subjects as $sub)
-      <tr>
+      <x-table.row>
         <td style="font-weight: bold">{{ $sub->subject->name }}</td>
         @foreach($marks->where('subject_id', $sub->subject_id)->where('term_id', $term_id) as $mk)
-          <td>{{ $mk->ca1 ?: '-' }}</td>
-          <td>{{ $mk->ca2 ?: '-' }}</td>
-          <td>{{ $mk->total_ca ?: '-' }}</td>
-          <td>{{ $mk->exam_score ?: '-' }}</td>
+          <x-table.cell>{{ $mk->ca1 ?: '-' }}</x-table.cell>
+          <x-table.cell>{{ $mk->ca2 ?: '-' }}</x-table.cell>
+          <x-table.cell>{{ $mk->total_ca ?: '-' }}</x-table.cell>
+          <x-table.cell>{{ $mk->exam_score ?: '-' }}</x-table.cell>
 
-          <td>{{ $mk->$ts ?: '-'}}</td>
-          <td>{{ $mk->grade?->name ?: '-' }}</td>
-          <td>{!! ($mk->grade) ? get_suffix($mk->subject_position) : '-' !!}</td>
-          <td>{{ $mk->grade?->remark ?: '-' }}</td>
+          <x-table.cell>{{ $mk->$ts ?: '-'}}</x-table.cell>
+          <x-table.cell>{{ $mk->grade?->name ?: '-' }}</x-table.cell>
+          <x-table.cell>{!! ($mk->grade) ? get_suffix($mk->subject_position) : '-' !!}</x-table.cell>
+          <x-table.cell>{{ $mk->grade?->remark ?: '-' }}</x-table.cell>
 
           {{--@if($ex->term == 3)
               <td>{{ $mk->tex3 ?: '-' }}</td>
@@ -73,12 +72,12 @@
           @endif--}}
 
         @endforeach
-      </tr>
+      </x-table.row>
     @endforeach
-    <tr>
-      <td colspan="3"><strong>TOTAL SCORES OBTAINED: </strong> {{ $exam_record->total }}</td>
-      <td colspan="3"><strong>FINAL AVERAGE: </strong> {{ $exam_record->average }}</td>
-      <td colspan="3"><strong>CLASS AVERAGE: </strong> {{ $exam_record->class_average }}</td>
-    </tr>
-  </tbody>
+    <x-table.row>
+      <x-table.cell colspan="3"><strong>TOTAL SCORES OBTAINED: </strong> {{ $exam_record->total }}</x-table.cell>
+      <x-table.cell colspan="3"><strong>FINAL AVERAGE: </strong> {{ $exam_record->average }}</x-table.cell>
+      <x-table.cell colspan="3"><strong>CLASS AVERAGE: </strong> {{ $exam_record->class_average }}</x-table.cell>
+    </x-table.row>
+  </x-slot>
 </x-table>

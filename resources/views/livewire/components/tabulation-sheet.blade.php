@@ -63,37 +63,35 @@
       </div>
 
       <x-responsive-table>
-        <thead>
-          <tr>
-            <th>S/N</th>
-            <th>Name</th>
-            @foreach($subjects as $sub)
-              <th>{{ $sub->subject->slug ?:  $sub->subject->name }}</th>
-            @endforeach
-            <th class="text-danger">Total</th>
-            <th class="text-primary">Average</th>
-            <th class="text-info">Position</th>
-          </tr>
-        </thead>
+        <x-slot name="head">
+          <x-table.heading>S/N</x-table.heading>
+          <x-table.heading>Name</x-table.heading>
+          @foreach($subjects as $sub)
+            <x-table.heading>{{ $sub->subject->slug ?:  $sub->subject->name }}</x-table.heading>
+          @endforeach
+          <x-table.heading class="text-danger">Total</x-table.heading>
+          <x-table.heading class="text-primary">Average</x-table.heading>
+          <x-table.heading class="text-info">Position</x-table.heading>
+        </x-slot>
 
-        <tbody>
+        <x-slot name="body">
           @forelse($students as $s)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ $s->student->fullname }}</td>
+            <x-table.row>
+              <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+              <x-table.cell>{{ $s->student->fullname }}</x-table.cell>
               @foreach($subjects as $sub)
-                <td>{{ $marks->where('student_id', $s->student_id)->where('subject_id', $sub->subject_id)->first()->total_score ?? '-' }}</td>
+                <x-table.cell>{{ $marks->where('student_id', $s->student_id)->where('subject_id', $sub->subject_id)->first()->total_score ?? '-' }}</x-table.cell>
               @endforeach
-              <td class="text-danger">{{ $exam_record->where('student_id', $s->student_id)->first()->total ?? '' }}</td>
-              <td class="text-primary">{{ $exam_record->where('student_id', $s->student_id)->first()->average ?? '' }}</td>
-              <td class="text-info">{!! get_suffix($exam_record->where('student_id', $s->student_id)->first()->position) ?? '' !!}</td>
-            </tr>
+              <x-table.cell class="text-danger">{{ $exam_record->where('student_id', $s->student_id)->first()->total ?? '' }}</x-table.cell>
+              <x-table.cell class="text-primary">{{ $exam_record->where('student_id', $s->student_id)->first()->average ?? '' }}</x-table.cell>
+              <x-table.cell class="text-info">{!! get_suffix($exam_record->where('student_id', $s->student_id)->first()->position) ?? '' !!}</x-table.cell>
+            </x-table.row>
           @empty
-            <tr>
-              <td colspan="6" class="text-center">No record found</td>
-            </tr>
+            <x-table.row>
+              <x-table.cell colspan="6" class="text-center">No record found</x-table.cell>
+            </x-table.row>
           @endforelse
-        </tbody>
+        </x-slot>
       </x-responsive-table>
 
       <div class="d-block mb-2 text-center">

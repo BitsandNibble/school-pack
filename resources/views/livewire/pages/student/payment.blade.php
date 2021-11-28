@@ -43,89 +43,85 @@
       <div class="tab-content py-3">
         <div class="tab-pane fade active show" id="incomplete" role="tabpanel">
           <x-responsive-table>
-            <thead>
-              <tr>
-                <th>S/N</th>
-                <th>Title</th>
-                <th>Desc</th>
-                <th>Pay_Ref</th>
-                <th>Amount</th>
-                <th>Paid</th>
-                <th>Balance</th>
-                <th>Receipt_No</th>
-                <th>Session</th>
-                <th>Term</th>
-                <th></th>
-              </tr>
-            </thead>
+            <x-slot name="head">
+              <x-table.heading>S/N</x-table.heading>
+              <x-table.heading>Title</x-table.heading>
+              <x-table.heading>Desc</x-table.heading>
+              <x-table.heading>Pay_Ref</x-table.heading>
+              <x-table.heading>Amount</x-table.heading>
+              <x-table.heading>Paid</x-table.heading>
+              <x-table.heading>Balance</x-table.heading>
+              <x-table.heading>Receipt_No</x-table.heading>
+              <x-table.heading>Session</x-table.heading>
+              <x-table.heading>Term</x-table.heading>
+              <x-table.heading></x-table.heading>
+            </x-slot>
 
-            <tbody>
+            <x-slot name="body">
               @forelse($uncleared as $index => $uc)
-                <tr>
-                  <td>{{ $loop->iteration }}</td>
-                  <td>{{ $uc->payment->title }}</td>
-                  <td>{{ Str::limit($uc->payment->description, 20) }}</td>
-                  <td>{{ $uc->payment->ref_no }}</td>
-                  <td class="fw-bold text-decoration-underline">{{ $uc->payment->amount }}</td>
-                  <td class="text-info">{{ $uc->amount_paid ?: '0.00' }}</td>
-                  <td class="text-danger">{{ $uc->balance ?: $uc->payment->amount }}</td>
-                  <td>{{ $uc->ref_no }}</td>
-                  <td>{{ $uc->session }}</td>
-                  <td>{{ $uc->payment->term->name }}</td>
-                  <td>
+                <x-table.row>
+                  <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+                  <x-table.cell>{{ $uc->payment->title }}</x-table.cell>
+                  <x-table.cell>{{ Str::limit($uc->payment->description, 20) }}</x-table.cell>
+                  <x-table.cell>{{ $uc->payment->ref_no }}</x-table.cell>
+                  <x-table.cell class="fw-bold text-decoration-underline">{{ $uc->payment->amount }}</x-table.cell>
+                  <x-table.cell class="text-info">{{ $uc->amount_paid ?: '0.00' }}</x-table.cell>
+                  <x-table.cell class="text-danger">{{ $uc->balance ?: $uc->payment->amount }}</x-table.cell>
+                  <x-table.cell>{{ $uc->ref_no }}</x-table.cell>
+                  <x-table.cell>{{ $uc->session }}</x-table.cell>
+                  <x-table.cell>{{ $uc->payment->term->name }}</x-table.cell>
+                  <x-table.cell>
                     <x-button-link target="_blank" href="{{ route('print_invoice', $uc->id) }}" value="">
                       <i class="bx bx-printer"></i>
                     </x-button-link>
-                  </td>
-                </tr>
+                  </x-table.cell>
+                </x-table.row>
               @empty
-                <tr>
-                  <td colspan="11" align="center">No record found</td>
-                </tr>
+                <x-table.row>
+                  <x-table.cell colspan="11" align="center">No record found</x-table.cell>
+                </x-table.row>
               @endforelse
-            </tbody>
+            </x-slot>
           </x-responsive-table>
         </div>
 
         <div class="tab-pane fade" id="complete" role="tabpanel">
           <x-responsive-table>
-            <thead>
-              <tr>
-                <th>S/N</th>
-                <th>Title</th>
-                <th>Desc</th>
-                <th>Pay_Ref</th>
-                <th>Amount</th>
-                <th>Receipt_No</th>
-                <th>Session</th>
-                <th>Term</th>
-                <th></th>
-              </tr>
-            </thead>
+            <x-slot name="head">
+              <x-table.heading>S/N</x-table.heading>
+              <x-table.heading>Title</x-table.heading>
+              <x-table.heading>Desc</x-table.heading>
+              <x-table.heading>Pay_Ref</x-table.heading>
+              <x-table.heading>Amount</x-table.heading>
+              <x-table.heading>Receipt_No</x-table.heading>
+              <x-table.heading>Session</x-table.heading>
+              <x-table.heading>Term</x-table.heading>
+              <x-table.heading></x-table.heading>
+            </x-slot>
 
-            <tbody>
+            <x-slot name="body">
               @forelse($cleared as $cl)
-                <tr>
-                  <td>{{ $loop->iteration }}</td>
-                  <td>{{ $cl->payment->title }}</td>
-                  <td>{{ Str::limit($cl->payment->description, 20) }}</td>
-                  <td>{{ $cl->payment->ref_no }}</td>
-                  <td class="fw-bold text-decoration-underline">{{ $cl->payment->amount }}</td>
-                  <td>{{ $cl->ref_no }}</td>
-                  <td>{{ $cl->session }}</td>
-                  <td>{{ $cl->payment->term->name }}</td>
-                  <td>
+                <x-table.row>
+                  <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+                  <x-table.cell>{{ $cl->payment->title }}</x-table.cell>
+                  <x-table.cell>{{ Str::limit($cl->payment->description, 20) }}</x-table.cell>
+                  <x-table.cell>{{ $cl->payment->ref_no }}</x-table.cell>
+                  <x-table.cell class="fw-bold text-decoration-underline">{{ $cl->payment->amount }}</x-table.cell>
+                  <x-table.cell>{{ $cl->ref_no }}</x-table.cell>
+                  <x-table.cell>{{ $cl->session }}</x-table.cell>
+                  <x-table.cell>{{ $cl->payment->term->name }}</x-table.cell>
+                  <x-table.cell>
                     <x-button-link target="_blank" href="{{ route('print_invoice', $cl->id) }}" value="">
                       <i class="bx bx-printer"></i>
                     </x-button-link>
-                  </td>
-                </tr>
+                  </x-table.cell>
+                </x-table.row>
               @empty
-                <tr>
-                  <td colspan="9" align="center">No record found</td>
-                </tr>
+                <x-table.row>
+                  <x-table.cell colspan="9" align="center">No record found</x-table.cell>
+                </x-table.row>
               @endforelse
-            </tbody>
+            </x-slot>
           </x-responsive-table>
         </div>
       </div>

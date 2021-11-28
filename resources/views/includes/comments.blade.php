@@ -1,22 +1,24 @@
 <div>
   <x-table class="table-borderless">
-    <tbody>
-      <tr>
-        <td><strong>CLASS TEACHER'S COMMENT:</strong></td>
-        <td>  {{ $exam_record->teachers_comment ?: str_repeat('__', 40) }}</td>
-      </tr>
-      <tr>
-        <td><strong>PRINCIPAL'S COMMENT:</strong></td>
-        <td>  {{ $exam_record->principals_comment ?: str_repeat('__', 40) }}</td>
-      </tr>
-      <tr>
-        <td><strong>NEXT TERM BEGINS:</strong></td>
-        <td>{{ date('l\, jS F\, Y', strtotime($s['term_begins'])) }}</td>
-      </tr>
-      {{--      <tr>--}}
-      {{--        <td><strong>NEXT TERM FEES:</strong></td>--}}
-      {{--        <td><del style="text-decoration-style: double">N</del>{{ $s['next_term_fees_'.strtolower($ct)] }}</td>--}}
-      {{--      </tr>--}}
-    </tbody>
+    <x-slot name="head"></x-slot>
+
+    <x-slot name="body">
+      <x-table.row>
+        <x-table.cell><strong>CLASS TEACHER'S COMMENT:</strong></x-table.cell>
+        <x-table.cell>  {{ $exam_record->teachers_comment ?: str_repeat('__', 40) }}</x-table.cell>
+      </x-table.row>
+      <x-table.row>
+        <x-table.cell><strong>PRINCIPAL'S COMMENT:</strong></x-table.cell>
+        <x-table.cell>  {{ $exam_record->principals_comment ?: str_repeat('__', 40) }}</x-table.cell>
+      </x-table.row>
+      <x-table.row>
+        <x-table.cell><strong>NEXT TERM BEGINS:</strong></x-table.cell>
+        <x-table.cell>{{ date('l\, jS F\, Y', strtotime($s['term_begins'])) }}</x-table.cell>
+      </x-table.row>
+      {{--      <x-table.row>--}}
+      {{--        <x-table.cell><strong>NEXT TERM FEES:</strong></x-table.cell>--}}
+      {{--        <x-table.cell><del style="text-decoration-style: double">N</del>{{ $s['next_term_fees_'.strtolower($ct)] }}</x-table.cell>--}}
+      {{--      </x-table.row>--}}
+    </x-slot>
   </x-table>
 </div>

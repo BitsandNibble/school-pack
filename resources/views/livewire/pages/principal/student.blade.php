@@ -51,55 +51,34 @@
     </div>
 
     <x-responsive-table>
-      <thead>
-        <tr>
-          <th class="pe-0" style="width: 30px">
-            <x-checked-input type="checkbox" wire:model="selectPage" />
-          </th>
-          <th>S/N</th>
-          <th wire:click="sortBy('fullname')" class="cursor-pointer">
-            <div class="d-flex justify-content-between">
-              Name
-              <x-sort-icon sortField="fullname" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-            </div>
-          </th>
-          <th wire:click="sortBy('school_id')" class="cursor-pointer">
-            <div class="d-flex justify-content-between">
-              Adm. No
-              <x-sort-icon sortField="school_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-            </div>
-          </th>
-          <th wire:click="sortBy('gender')" class="cursor-pointer">
-            <div class="d-flex justify-content-between">
-              Gender
-              <x-sort-icon sortField="gender" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-            </div>
-          </th>
-          @if (!$class_id)
-            <th wire:click="sortBy('class_room_id')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Class
-                <x-sort-icon sortField="class_room_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-          @else
-            <th wire:click="sortBy('section_id')" class="cursor-pointer">
-              <div class="d-flex justify-content-between">
-                Section
-                <x-sort-icon sortField="section_id" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-              </div>
-            </th>
-          @endif
-          @if ($parent === null)
-            <th></th>
-          @endif
-        </tr>
-      </thead>
+      <x-slot name="head">
+        <x-table.heading class="pe-0" style="width: 30px">
+          <x-checked-input type="checkbox" wire:model="selectPage" />
+        </x-table.heading>
+        <x-table.heading>S/N</x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('fullname')" :direction="$sorts['fullname'] ?? null">Name
+        </x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('school_id')" :direction="$sorts['school_id'] ?? null">Adm. No
+        </x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('gender')" :direction="$sorts['gender'] ?? null">Gender
+        </x-table.heading>
+        @if (!$class_id)
+          <x-table.heading sortable wire:click="sortBy('class_room_id')" :direction="$sorts['class_room_id'] ?? null">
+            Class
+          </x-table.heading>
+        @else
+          <x-table.heading sortable wire:click="sortBy('section_id')" :direction="$sorts['section_id'] ?? null">Section
+          </x-table.heading>
+        @endif
+        @if ($parent === null)
+          <x-table.heading></x-table.heading>
+        @endif
+      </x-slot>
 
-      <tbody>
+      <x-slot name="body">
         @if ($selectPage)
-          <tr class="bg-gradient-lush">
-            <td colspan="7">
+          <x-table.row class="bg-gradient-lush">
+            <x-table.cell colspan="7">
               @unless($selectAll)
                 <div>
                   You have selected <strong>{{ $students->count() }}</strong> student(s)
@@ -112,30 +91,26 @@
               @else
                 You have selected all <strong>{{ $students->total() }}</strong> students.
               @endunless
-            </td>
-          </tr>
+            </x-table.cell>
+          </x-table.row>
         @endif
 
         @forelse ($students as $student)
-          <tr wire.key="row-{{ $student->id }}">
-            <td class="pe-0">
+          <x-table.row wire.key="row-{{ $student->id }}">
+            <x-table.cell class="pe-0">
               <x-checked-input type="checkbox" wire:model="selected" value="{{ $student->id }}" />
-            </td>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $student->fullname }} </td>
-            <td>{{ $student->school_id }}</td>
-            <td>{{ $student->gender }}</td>
+            </x-table.cell>
+            <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+            <x-table.cell>{{ $student->fullname }} </x-table.cell>
+            <x-table.cell>{{ $student->school_id }}</x-table.cell>
+            <x-table.cell>{{ $student->gender }}</x-table.cell>
             @if (!$class_id)
-              <td>
-                {{ $student->class_room->name }} {{ $student->section->name }}
-              </td>
+              <x-table.cell>{{ $student->class_room->name }} {{ $student->section->name }}</x-table.cell>
             @else
-              <td>
-                {{ $student->section->name }}
-              </td>
+              <x-table.cell>{{ $student->section->name }}</x-table.cell>
             @endif
             @if ($parent === null)
-              <td>
+              <x-table.cell>
                 <x-button class="px-0" value="" wire:click="$emit('showInfo', {{ $student->id }})"
                           data-bs-toggle="modal" data-bs-target="#infoModal">
                   <i class="bx bxs-show"></i>
@@ -148,15 +123,15 @@
                           data-bs-toggle="modal" data-bs-target="#deleteModal">
                   <i class="bx bxs-trash-alt"></i>
                 </x-button>
-              </td>
+              </x-table.cell>
             @endif
-          </tr>
+          </x-table.row>
         @empty
-          <tr>
-            <td colspan="7" class="text-center">No record found</td>
-          </tr>
+          <x-table.row>
+            <x-table.cell colspan="7" class="text-center">No record found</x-table.cell>
+          </x-table.row>
         @endforelse
-      </tbody>
+      </x-slot>
     </x-responsive-table>
 
     {{ $students->links() }}

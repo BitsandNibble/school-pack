@@ -1,35 +1,37 @@
 <div class="row">
   <div class="col-5">
     <x-table class="table-bordered" style="border: solid 1px">
-      <thead>
-        <th>AFFECTIVE SKILLS</th>
-        <th>RATING</th>
-      </thead>
-      <tbody>
+      <x-slot name="head">
+        <x-table.heading>AFFECTIVE SKILLS</x-table.heading>
+        <x-table.heading>RATING</x-table.heading>
+      </x-slot>
+
+      <x-slot name="body">
         @foreach($skills->where('skill_type', 'AF') as $af)
-          <tr>
-            <td>{{ $af->name }}</td>
-            <td>{{ $exam_record->af ? explode(',', $exam_record->af)[$loop->index] : '-' }}</td>
-          </tr>
+          <x-table.row>
+            <x-table.cell>{{ $af->name }}</x-table.cell>
+            <x-table.cell>{{ $exam_record->af ? explode(',', $exam_record->af)[$loop->index] : '-' }}</x-table.cell>
+          </x-table.row>
         @endforeach
-      </tbody>
+      </x-slot>
     </x-table>
   </div>
 
   <div class="col-5">
     <x-table class="table-bordered" style="border: solid 1px">
-      <thead>
-        <th>BEHAVIOUR</th>
-        <th>RATING</th>
-      </thead>
-      <tbody>
+      <x-slot name="head">
+        <x-table.heading>BEHAVIOUR</x-table.heading>
+        <x-table.heading>RATING</x-table.heading>
+      </x-slot>
+
+      <x-slot name="body">
         @foreach($skills->where('skill_type', 'PS') as $ps)
-          <tr>
-            <td>{{ $ps->name }}</td>
-            <td>{{ $exam_record->ps ? explode(',', $exam_record->ps)[$loop->index] : '' }}</td>
-          </tr>
+          <x-table.row>
+            <x-table.cell>{{ $ps->name }}</x-table.cell>
+            <x-table.cell>{{ $exam_record->ps ? explode(',', $exam_record->ps)[$loop->index] : '' }}</x-table.cell>
+          </x-table.row>
         @endforeach
-      </tbody>
+      </x-slot>
     </x-table>
   </div>
 

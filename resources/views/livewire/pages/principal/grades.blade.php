@@ -34,24 +34,22 @@
     </div>
 
     <x-responsive-table>
-      <thead>
-        <tr>
-          <th class="pe-0" style="width: 30px">
-            <x-checked-input type="checkbox" wire:model="selectPage" />
-          </th>
-          <th>S/N</th>
-          <th>Name</th>
-          <th>Grade Type</th>
-          <th>Range</th>
-          <th>Remark</th>
-          <th></th>
-        </tr>
-      </thead>
+      <x-slot name="head">
+        <x-table.heading class="pe-0" style="width: 30px">
+          <x-checked-input type="checkbox" wire:model="selectPage" />
+        </x-table.heading>
+        <x-table.heading>S/N</x-table.heading>
+        <x-table.heading>Name</x-table.heading>
+        <x-table.heading>Grade Type</x-table.heading>
+        <x-table.heading>Range</x-table.heading>
+        <x-table.heading>Remark</x-table.heading>
+        <x-table.heading></x-table.heading>
+      </x-slot>
 
-      <tbody>
+      <x-slot name="body">
         @if ($selectPage)
-          <tr class="bg-gradient-lush">
-            <td colspan="7">
+          <x-table.row class="bg-gradient-lush">
+            <x-table.cell colspan="7">
               @unless($selectAll)
                 <div>
                   You have selected <strong>{{ $grades->count() }}</strong> grade(s)
@@ -64,21 +62,21 @@
               @else
                 You have selected all <strong>{{ $total }}</strong> grades.
               @endunless
-            </td>
-          </tr>
+            </x-table.cell>
+          </x-table.row>
         @endif
 
         @forelse($grades as $gr)
-          <tr wire.key="row-{{ $gr->id }}">
-            <td class="pe-0">
+          <x-table.row wire.key="row-{{ $gr->id }}">
+            <x-table.cell class="pe-0">
               <x-checked-input type="checkbox" wire:model="selected" value="{{ $gr->id }}" />
-            </td>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $gr->name }}</td>
-            <td>{{ $gr->class_type->name }}</td>
-            <td>{{ $gr->mark_from . ' - ' . $gr->mark_to }}</td>
-            <td>{{ $gr->remark }}</td>
-            <td>
+            </x-table.cell>
+            <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+            <x-table.cell>{{ $gr->name }}</x-table.cell>
+            <x-table.cell>{{ $gr->class_type->name }}</x-table.cell>
+            <x-table.cell>{{ $gr->mark_from . ' - ' . $gr->mark_to }}</x-table.cell>
+            <x-table.cell>{{ $gr->remark }}</x-table.cell>
+            <x-table.cell>
               <x-button class="px-0" wire:click="edit({{ $gr->id }})" value="" data-bs-toggle="modal"
                         data-bs-target="#gradeModal">
                 <i class="bx bxs-pen"></i>
@@ -87,14 +85,14 @@
                         data-bs-toggle="modal" data-bs-target="#deleteModal">
                 <i class="bx bxs-trash-alt"></i>
               </x-button>
-            </td>
-          </tr>
+            </x-table.cell>
+          </x-table.row>
         @empty
-          <tr>
-            <td colspan="7" class="text-center">No record found</td>
-          </tr>
+          <x-table.row>
+            <x-table.cell colspan="7" class="text-center">No record found</x-table.cell>
+          </x-table.row>
         @endforelse
-      </tbody>
+      </x-slot>
     </x-responsive-table>
   </x-card>
 

@@ -47,25 +47,23 @@
     </div>
 
     <x-responsive-table>
-      <thead>
-        <tr>
-          <th class="pe-0" style="width: 30px">
-            <x-checked-input type="checkbox" wire:model="selectPage" />
-          </th>
-          <th>S/N</th>
-          <th>Title</th>
-          <th>Message</th>
-          <th>Author</th>
-          <th>Created</th>
-          <th>Updated</th>
-          <th></th>
-        </tr>
-      </thead>
+      <x-slot name="head">
+        <x-table.heading class="pe-0" style="width: 30px">
+          <x-checked-input type="checkbox" wire:model="selectPage" />
+        </x-table.heading>
+        <x-table.heading>S/N</x-table.heading>
+        <x-table.heading>Title</x-table.heading>
+        <x-table.heading>Message</x-table.heading>
+        <x-table.heading>Author</x-table.heading>
+        <x-table.heading>Created</x-table.heading>
+        <x-table.heading>Updated</x-table.heading>
+        <x-table.heading></x-table.heading>
+      </x-slot>
 
-      <tbody>
+      <x-slot name="body">
         @if ($selectPage)
-          <tr class="bg-gradient-lush">
-            <td colspan="8">
+          <x-table.row class="bg-gradient-lush">
+            <x-table.cell colspan="8">
               @unless($selectAll)
                 <div>
                   You have selected <strong>{{ $notices->count() }}</strong> notice(s)
@@ -78,22 +76,22 @@
               @else
                 You have selected all <strong>{{ $notices->total() }}</strong> notice.
               @endunless
-            </td>
-          </tr>
+            </x-table.cell>
+          </x-table.row>
         @endif
 
         @forelse ($notices as $notice)
-          <tr wire.key="row-{{ $notice->id }}">
-            <td class="pe-0">
+          <x-table.row wire.key="row-{{ $notice->id }}">
+            <x-table.cell class="pe-0">
               <x-checked-input type="checkbox" wire:model="selected" value="{{ $notice->id }}" />
-            </td>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $notice->title }}</td>
-            <td>{{ Str::limit($notice->message, 30) }}</td>
-            <td>{{ $notice->principal->fullname }}</td>
-            <td>{{ $notice->created_at }}</td>
-            <td>{{ $notice->updated_at }}</td>
-            <td>
+            </x-table.cell>
+            <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+            <x-table.cell>{{ $notice->title }}</x-table.cell>
+            <x-table.cell>{{ Str::limit($notice->message, 30) }}</x-table.cell>
+            <x-table.cell>{{ $notice->principal->fullname }}</x-table.cell>
+            <x-table.cell>{{ $notice->created_at }}</x-table.cell>
+            <x-table.cell>{{ $notice->updated_at }}</x-table.cell>
+            <x-table.cell>
               <x-button class="px-0" value="" wire:click="showInfo({{ $notice->id }})"
                         data-bs-toggle="modal" data-bs-target="#infoModal">
                 <i class="bx bxs-show"></i>
@@ -106,14 +104,14 @@
                         data-bs-toggle="modal" data-bs-target="#deleteModal">
                 <i class="bx bxs-trash-alt"></i>
               </x-button>
-            </td>
-          </tr>
+            </x-table.cell>
+          </x-table.row>
         @empty
-          <tr>
-            <td colspan="8" class="text-center">No record found</td>
-          </tr>
+          <x-table.row>
+            <x-table.cell colspan="8" class="text-center">No record found</x-table.cell>
+          </x-table.row>
         @endforelse
-      </tbody>
+      </x-slot>
     </x-responsive-table>
 
     {{ $notices->links() }}
@@ -153,22 +151,26 @@
 
     <x-slot name="content">
       <x-table class="table-borderless table-hover">
-        @if($notice_info)
-          @foreach($notice_info as $info)
-            <tr>
-              <th>Title</th>
-              <td>{{ $info->title }}</td>
-            </tr>
-            <tr>
-              <th>Message</th>
-              <td>{{ $info->message }}</td>
-            </tr>
-            <tr>
-              <th>Author</th>
-              <td>{{ $info->principal->fullname }}</td>
-            </tr>
-          @endforeach
-        @endif
+        <x-slot name="head"></x-slot>
+
+        <x-slot name="body">
+          @if($notice_info)
+            @foreach($notice_info as $info)
+              <x-table.row>
+                <x-table.heading>Title</x-table.heading>
+                <x-table.cell>{{ $info->title }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Message</x-table.heading>
+                <x-table.cell>{{ $info->message }}</x-table.cell>
+              </x-table.row>
+              <x-table.row>
+                <x-table.heading>Author</x-table.heading>
+                <x-table.cell>{{ $info->principal->fullname }}</x-table.cell>
+              </x-table.row>
+            @endforeach
+          @endif
+        </x-slot>
       </x-table>
     </x-slot>
 

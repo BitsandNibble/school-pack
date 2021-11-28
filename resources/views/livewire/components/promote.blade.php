@@ -61,7 +61,6 @@
     </div>
   </x-card-with-header>
 
-  {{--  <livewire:components.promote />--}}
   <x-spinner />
 
   @if($selected)
@@ -78,35 +77,33 @@
       <x-validation-errors />
 
       <x-responsive-table>
-        <thead>
-          <tr>
-            <th>S/N</th>
-            <th>Name</th>
-            <th>Current Session</th>
-            <th></th>
-          </tr>
-        </thead>
+        <x-slot name="head">
+            <x-table.heading>S/N</x-table.heading>
+            <x-table.heading>Name</x-table.heading>
+            <x-table.heading>Current Session</x-table.heading>
+            <x-table.heading></x-table.heading>
+        </x-slot>
 
-        <tbody>
+        <x-slot name="body">
           @forelse($students as $s)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ $s->fullname }}</td>
-              <td>{{ get_setting('current_session') ?? '' }}</td>
-              <td>
+            <x-table.row>
+              <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+              <x-table.cell>{{ $s->fullname }}</x-table.cell>
+              <x-table.cell>{{ get_setting('current_session') ?? '' }}</x-table.cell>
+              <x-table.cell>
                 <x-select class="form-select-sm" wire:model.defer="decision">
                   <option value="P">Promote</option>
                   <option value="D">Don't Promote</option>
                   <option value="G">Graduate</option>
                 </x-select>
-              </td>
-            </tr>
+              </x-table.cell>
+            </x-table.row>
           @empty
-            <tr>
-              <td colspan="4" class="text-center">No record found</td>
-            </tr>
+            <x-table.row>
+              <x-table.cell colspan="4" class="text-center">No record found</x-table.cell>
+            </x-table.row>
           @endforelse
-        </tbody>
+        </x-slot>
       </x-responsive-table>
 
       <div class="d-block mb-2 text-center">

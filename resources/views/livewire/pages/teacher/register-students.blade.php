@@ -20,25 +20,19 @@
     </div>
 
     <x-responsive-table class="table-bordered">
-      <thead>
-        <tr>
-          <th>S/N</th>
-          <th wire:click="sortBy('name')" class="cursor-pointer">
-            <div class="d-flex justify-content-between">
-              Name
-              <x-sort-icon sortField="name" :sortBy="$sortBy" :sortAsc="$sortAsc" />
-            </div>
-          </th>
-          <th></th>
-        </tr>
-      </thead>
+      <x-slot name="head">
+        <x-table.heading>S/N</x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">Name
+        </x-table.heading>
+        <x-table.heading></x-table.heading>
+      </x-slot>
 
-      <tbody>
+      <x-slot name="body">
         @forelse($subjects as $subject)
-          <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $subject->name }}</td>
-            <td>
+          <x-table.row>
+            <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+            <x-table.cell>{{ $subject->name }}</x-table.cell>
+            <x-table.cell>
               <x-button class="px-0" value="" wire:click="registerStudents({{ $subject->id }})" data-bs-toggle="modal"
                         data-bs-target="#registerStudentModal">
                 <i class="bx bxs-plus-circle"></i>
@@ -48,14 +42,14 @@
               {{--                          data-bs-target="#registerStudentModal">--}}
               {{--                  <i class="bx bxs-pen"></i>--}}
               {{--                </x-button>--}}
-            </td>
-          </tr>
+            </x-table.cell>
+          </x-table.row>
         @empty
-          <tr>
-            <td colspan="3" align="center">No record found</td>
-          </tr>
+          <x-table.row>
+            <x-table.cell colspan="3" align="center">No record found</x-table.cell>
+          </x-table.row>
         @endforelse
-      </tbody>
+      </x-slot>
     </x-responsive-table>
   </x-card>
 

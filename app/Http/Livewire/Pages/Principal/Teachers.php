@@ -8,6 +8,7 @@ use App\Models\Teacher;
 use Livewire\Component;
 use App\Models\ClassRoom;
 use Illuminate\Support\Str;
+use App\Traits\WithSorting;
 use Livewire\WithPagination;
 use App\Traits\WithBulkActions;
 use Illuminate\Validation\Rule;
@@ -27,10 +28,9 @@ class Teachers extends Component
   use WithPagination;
   use LivewireAlert;
   use WithBulkActions;
+  use WithSorting;
 
   public string $q = "";
-  public string $sortBy = 'fullname';
-  public bool $sortAsc = true;
   public int $paginate = 10;
   public $teacher;
   public $teacher_info;
@@ -44,8 +44,6 @@ class Teachers extends Component
 
   protected $queryString = [
     'q' => ['except' => ''],
-    'sortBy' => ['except' => 'fullname'],
-    'sortAsc' => ['except' => true],
   ];
 
   protected function rules(): array
@@ -69,10 +67,10 @@ class Teachers extends Component
 
   public function getRowsQueryProperty()
   {
-    return Teacher::query()
-      ->when($this->q, function ($query) {
-        return $query->search($this->q);
-      });
+    $query = Teacher::query()
+      ->when($this->q, fn($query) => $query->search($this->q));
+
+    return $this->applySorting($query);
   }
 
   public function getRowsProperty()
@@ -92,14 +90,6 @@ class Teachers extends Component
   public function updatingQ(): void
   {
     $this->resetPage();
-  }
-
-  public function sortBy($field): void
-  {
-    if ($field === $this->sortBy) {
-      $this->sortAsc = !$this->sortAsc;
-    }
-    $this->sortBy = $field;
   }
 
   public function cancel(): void

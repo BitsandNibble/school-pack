@@ -11,33 +11,31 @@
     </x-slot>
 
     <x-responsive-table>
-      <thead>
-        <tr>
-          <th>S/N</th>
-          <th>Name</th>
-          <th>From Class</th>
-          <th>To Class</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-      </thead>
+      <x-slot name="head">
+          <x-table.heading>S/N</x-table.heading>
+          <x-table.heading>Name</x-table.heading>
+          <x-table.heading>From Class</x-table.heading>
+          <x-table.heading>To Class</x-table.heading>
+          <x-table.heading>Status</x-table.heading>
+          <x-table.heading></x-table.heading>
+      </x-slot>
 
-      <tbody>
+      <x-slot name="body">
         @forelse($promotions as $promotion)
-          <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $promotion->student->fullname }}</td>
-            <td>{{ $promotion->fc->name . ' ' . $promotion->fs->name }}</td>
-            <td>{{ $promotion->tc->name . ' ' . $promotion->ts->name }}</td>
-            <td>{{ $promotion->status }}</td>
-            <td></td>
-          </tr>
+          <x-table.row>
+            <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+            <x-table.cell>{{ $promotion->student->fullname }}</x-table.cell>
+            <x-table.cell>{{ $promotion->fc->name . ' ' . $promotion->fs->name }}</x-table.cell>
+            <x-table.cell>{{ $promotion->tc->name . ' ' . $promotion->ts->name }}</x-table.cell>
+            <x-table.cell>{{ $promotion->status }}</x-table.cell>
+            <x-table.cell></x-table.cell>
+          </x-table.row>
         @empty
-          <tr>
-            <td colspan="6" class="text-center">No record found</td>
-          </tr>
+          <x-table.row>
+            <x-table.cell colspan="6" class="text-center">No record found</x-table.cell>
+          </x-table.row>
         @endforelse
-      </tbody>
+      </x-slot>
     </x-responsive-table>
 
   </x-card-with-header>

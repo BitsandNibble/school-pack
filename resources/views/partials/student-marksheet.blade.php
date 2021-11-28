@@ -17,41 +17,39 @@
     <x-responsive-table class="table-bordered text-center">
       {{--        <table class="table table-bordered table-sm mt-4 text-center" style="width:100%; border: 1px solid #000; border-collapse:collapse;">--}}
 
-      <thead>
-        <tr>
-          <th>S/N</th>
-          <th>SUBJECTS</th>
-          <th>CA1 <br> ({{ $ca1_limit }})</th>
-          <th>CA2 <br> ({{ $ca2_limit }})</th>
-          <th>EXAM <br> ({{ $exam_limit }})</th>
-          <th>TOTAL <br> ({{ $total }})</th>
-          <th>GRADE</th>
-          <th>SUBJECT <br> POSITION</th>
-          <th>REMARKS</th>
-        </tr>
-      </thead>
+      <x-slot name="head">
+        <x-table.heading>S/N</x-table.heading>
+        <x-table.heading>SUBJECTS</x-table.heading>
+        <x-table.heading>CA1 <br> ({{ $ca1_limit }})</x-table.heading>
+        <x-table.heading>CA2 <br> ({{ $ca2_limit }})</x-table.heading>
+        <x-table.heading>EXAM <br> ({{ $exam_limit }})</x-table.heading>
+        <x-table.heading>TOTAL <br> ({{ $total }})</x-table.heading>
+        <x-table.heading>GRADE</x-table.heading>
+        <x-table.heading>SUBJECT <br> POSITION</x-table.heading>
+        <x-table.heading>REMARKS</x-table.heading>
+      </x-slot>
 
-      <tbody>
+      <x-slot name="body">
         @foreach($marks as $mark)
-          <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $mark->subject->name }}</td>
-            <td>{{ $mark->ca1 }}</td>
-            <td>{{ $mark->ca2 }}</td>
-            <td>{{ $mark->exam_score }}</td>
-            <td>{{ $mark->total_score }}</td>
-            <td>{{ $mark->grade->name }}</td>
-            <td>{!! get_suffix($mark->subject_position) !!}</td>
-            <td>{{ $mark->grade->remark }}</td>
-          </tr>
+          <x-table.row>
+            <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+            <x-table.cell>{{ $mark->subject->name }}</x-table.cell>
+            <x-table.cell>{{ $mark->ca1 }}</x-table.cell>
+            <x-table.cell>{{ $mark->ca2 }}</x-table.cell>
+            <x-table.cell>{{ $mark->exam_score }}</x-table.cell>
+            <x-table.cell>{{ $mark->total_score }}</x-table.cell>
+            <x-table.cell>{{ $mark->grade->name }}</x-table.cell>
+            <x-table.cell>{!! get_suffix($mark->subject_position) !!}</x-table.cell>
+            <x-table.cell>{{ $mark->grade->remark }}</x-table.cell>
+          </x-table.row>
         @endforeach
-        <tr>
-          <td colspan="3"><strong>TOTAL SCORES OBTAINED: </strong> {{ $exam_record->total }}</td>
-          <td colspan="3"><strong>FINAL AVERAGE: </strong> {{ $exam_record->average }}</td>
-          <td colspan="2"><strong>CLASS AVERAGE: </strong> {{ $exam_record->class_average }}</td>
-          <td><strong>POSITION: </strong> {!! $position !!}</td>
-        </tr>
-      </tbody>
+        <x-table.row>
+          <x-table.cell colspan="3"><strong>TOTAL SCORES OBTAINED: </strong> {{ $exam_record->total }}</x-table.cell>
+          <x-table.cell colspan="3"><strong>FINAL AVERAGE: </strong> {{ $exam_record->average }}</x-table.cell>
+          <x-table.cell colspan="2"><strong>CLASS AVERAGE: </strong> {{ $exam_record->class_average }}</x-table.cell>
+          <x-table.cell><strong>POSITION: </strong> {!! $position !!}</x-table.cell>
+        </x-table.row>
+      </x-slot>
 
     </x-responsive-table>
 

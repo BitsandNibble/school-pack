@@ -24,22 +24,20 @@
   @if($class)
     <x-card>
       <x-responsive-table>
-        <thead>
-          <tr>
-            <th>S/N</th>
-            <th>Name</th>
-            <th>Adm No</th>
-            <th>Payments</th>
-          </tr>
-        </thead>
+        <x-slot name="head">
+          <x-table.heading>S/N</x-table.heading>
+          <x-table.heading>Name</x-table.heading>
+          <x-table.heading>Adm No</x-table.heading>
+          <x-table.heading>Payments</x-table.heading>
+        </x-slot>
 
-        <tbody>
+        <x-slot name="body">
           @forelse($students as $st)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ $st->fullname }}</td>
-              <td>{{ $st->school_id }}</td>
-              <td>
+            <x-table.row>
+              <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+              <x-table.cell>{{ $st->fullname }}</x-table.cell>
+              <x-table.cell>{{ $st->school_id }}</x-table.cell>
+              <x-table.cell>
                 <div class="dropdown">
                   <x-button class="dropdown-toggle" value="danger" data-bs-toggle="dropdown" aria-expanded="false">
                     Manage Payments
@@ -57,14 +55,14 @@
                     @endforeach
                   </ul>
                 </div>
-              </td>
-            </tr>
+              </x-table.cell>
+            </x-table.row>
           @empty
-            <tr>
-              <td colspan="4" align="center">No record found</td>
-            </tr>
+            <x-table.row>
+              <x-table.cell colspan="4" align="center">No record found</x-table.cell>
+            </x-table.row>
           @endforelse
-        </tbody>
+        </x-slot>
       </x-responsive-table>
     </x-card>
   @endif

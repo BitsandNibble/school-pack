@@ -44,35 +44,33 @@
       @foreach($classes as $class)
         <h5>{{ $class->name }}</h5>
         <x-responsive-table>
-          <thead>
-            <tr>
-              <th>S/N</th>
-              <th>Name</th>
-              <th>Amount</th>
-              <th>Balance</th>
-              <th>Name</th>
-              <th>Description</th>
-            </tr>
-          </thead>
+          <x-slot name="head">
+            <x-table.heading>S/N</x-table.heading>
+            <x-table.heading>Name</x-table.heading>
+            <x-table.heading>Amount</x-table.heading>
+            <x-table.heading>Balance</x-table.heading>
+            <x-table.heading>Name</x-table.heading>
+            <x-table.heading>Description</x-table.heading>
+          </x-slot>
 
-          <tbody>
-            <tr>
-              @forelse($debtors->sortby('student.class_room_id') as $d)
+          <x-slot name="body">
+            @forelse($debtors->sortby('student.class_room_id') as $d)
+              <x-table.row>
                 @if($class->name === $d->student->class_room->name)
-                  <td>{{ $loop->iteration }}</td>
-                  <td>{{ $d->student->fullname }}</td>
-                  <td>{{ $d->payment->amount }}</td>
-                  <td>{{ $d->balance ?: $d->payment->amount  }}</td>
-                  <td>{{ $d->payment->title }}</td>
-                  <td>{{ $d->payment->description }}</td>
+                  <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+                  <x-table.cell>{{ $d->student->fullname }}</x-table.cell>
+                  <x-table.cell>{{ $d->payment->amount }}</x-table.cell>
+                  <x-table.cell>{{ $d->balance ?: $d->payment->amount  }}</x-table.cell>
+                  <x-table.cell>{{ $d->payment->title }}</x-table.cell>
+                  <x-table.cell>{{ $d->payment->description }}</x-table.cell>
                 @endif
-            </tr>
+              </x-table.row>
             @empty
-              <tr>
-                <td colspan="6" class="text-center">No record found</td>
-              </tr>
+              <x-table.row>
+                <x-table.cell colspan="6" class="text-center">No record found</x-table.cell>
+              </x-table.row>
             @endforelse
-          </tbody>
+          </x-slot>
         </x-responsive-table>
         <br>
       @endforeach

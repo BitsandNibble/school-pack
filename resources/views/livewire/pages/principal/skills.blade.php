@@ -34,23 +34,21 @@
     </div>
 
     <x-responsive-table>
-      <thead>
-        <tr>
-          <th class="pe-0" style="width: 30px">
-            <x-checked-input type="checkbox" wire:model="selectPage" />
-          </th>
-          <th>S/N</th>
-          <th>Name</th>
-          <th>Skill Type</th>
-          <th>Class Type</th>
-          <th></th>
-        </tr>
-      </thead>
+      <x-slot name="head">
+        <x-table.heading class="pe-0" style="width: 30px">
+          <x-checked-input type="checkbox" wire:model="selectPage" />
+        </x-table.heading>
+        <x-table.heading>S/N</x-table.heading>
+        <x-table.heading>Name</x-table.heading>
+        <x-table.heading>Skill Type</x-table.heading>
+        <x-table.heading>Class Type</x-table.heading>
+        <x-table.heading></x-table.heading>
+      </x-slot>
 
-      <tbody>
+      <x-slot name="body">
         @if ($selectPage)
-          <tr class="bg-gradient-lush">
-            <td colspan="7">
+          <x-table.row class="bg-gradient-lush">
+            <x-table.cell colspan="7">
               @unless($selectAll)
                 <div>
                   You have selected <strong>{{ $skills->count() }}</strong> skill(s)
@@ -63,20 +61,20 @@
               @else
                 You have selected all <strong>{{ $total }}</strong> skills.
               @endunless
-            </td>
-          </tr>
+            </x-table.cell>
+          </x-table.row>
         @endif
 
         @forelse($skills as $sk)
-          <tr wire.key="row-{{ $sk->id }}">
-            <td class="pe-0">
+          <x-table.row wire.key="row-{{ $sk->id }}">
+            <x-table.cell class="pe-0">
               <x-checked-input type="checkbox" wire:model="selected" value="{{ $sk->id }}" />
-            </td>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $sk->name }}</td>
-            <td>{{ $sk->skill_type }}</td>
-            <td>{{ $sk->class_type->name }}</td>
-            <td>
+            </x-table.cell>
+            <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+            <x-table.cell>{{ $sk->name }}</x-table.cell>
+            <x-table.cell>{{ $sk->skill_type }}</x-table.cell>
+            <x-table.cell>{{ $sk->class_type->name }}</x-table.cell>
+            <x-table.cell>
               <x-button class="px-0" wire:click="edit({{ $sk->id }})" value="" data-bs-toggle="modal"
                         data-bs-target="#skillModal">
                 <i class="bx bxs-pen"></i>
@@ -85,14 +83,14 @@
                         data-bs-toggle="modal" data-bs-target="#deleteModal">
                 <i class="bx bxs-trash-alt"></i>
               </x-button>
-            </td>
-          </tr>
+            </x-table.cell>
+          </x-table.row>
         @empty
-          <tr>
-            <td colspan="7" class="text-center">No record found</td>
-          </tr>
+          <x-table.row>
+            <x-table.cell colspan="7" class="text-center">No record found</x-table.cell>
+          </x-table.row>
         @endforelse
-      </tbody>
+      </x-slot>
     </x-responsive-table>
   </x-card>
 

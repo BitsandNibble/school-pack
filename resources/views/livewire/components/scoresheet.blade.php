@@ -11,48 +11,48 @@
 
       <x-responsive-table>
         <x-validation-errors />
-        <thead>
-          <tr>
-            <th>S/N</th>
-            <th>Name</th>
-            <th>Adm. No</th>
-            <th>1st CA ({{ $ca1_limit }})</th>
-            <th>2nd CA ({{ $ca2_limit }})</th>
-            <th>Exam ({{ $exam_limit }})</th>
-          </tr>
-        </thead>
+        <x-slot name="head">
+          <x-table.heading>S/N</x-table.heading>
+          <x-table.heading>Name</x-table.heading>
+          <x-table.heading>Adm. No</x-table.heading>
+          <x-table.heading>1st CA ({{ $ca1_limit }})</x-table.heading>
+          <x-table.heading>2nd CA ({{ $ca2_limit }})</x-table.heading>
+          <x-table.heading>Exam ({{ $exam_limit }})</x-table.heading>
+        </x-slot>
 
-        <tbody>
+        <x-slot name="body">
           @forelse($get_marks as $index => $mark)
-            <tr>
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ $mark->student->fullname }}</td>
-              <td>{{ $mark->student->school_id }}</td>
+            <x-table.row>
+              <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+              <x-table.cell>{{ $mark->student->fullname }}</x-table.cell>
+              <x-table.cell>{{ $mark->student->school_id }}</x-table.cell>
 
               {{--                CA and exam score--}}
               @unless($showEdit)
-                <td class="px-5">{{ $mark->ca1 }}</td>
-                <td class="px-5">{{ $mark->ca2 }}</td>
-                <td class="px-5">{{ $mark->exam_score }}</td>
+                <x-table.cell class="px-5">{{ $mark->ca1 }}</x-table.cell>
+                <x-table.cell class="px-5">{{ $mark->ca2 }}</x-table.cell>
+                <x-table.cell class="px-5">{{ $mark->exam_score }}</x-table.cell>
               @else
-                <td class="px-5">
-                  <x-input type="number" class="form-control-sm" max="{{ $ca1_limit }}" wire:model.defer="marks.{{ $index }}.ca1" />
-                </td>
-                <td class="px-5">
-                  <x-input type="number" class="form-control-sm" max="{{ $ca2_limit }}" wire:model.defer="marks.{{ $index }}.ca2" />
-                </td>
-                <td class="px-5">
+                <x-table.cell class="px-5">
+                  <x-input type="number" class="form-control-sm" max="{{ $ca1_limit }}"
+                           wire:model.defer="marks.{{ $index }}.ca1" />
+                </x-table.cell>
+                <x-table.cell class="px-5">
+                  <x-input type="number" class="form-control-sm" max="{{ $ca2_limit }}"
+                           wire:model.defer="marks.{{ $index }}.ca2" />
+                </x-table.cell>
+                <x-table.cell class="px-5">
                   <x-input type="number" class="form-control-sm" max="{{ $exam_limit }}"
                            wire:model.defer="marks.{{ $index }}.exam_score" />
-                </td>
+                </x-table.cell>
               @endunless
-            </tr>
+            </x-table.row>
           @empty
-            <tr>
-              <td colspan="6" class="text-center">No record found</td>
-            </tr>
+            <x-table.row>
+              <x-table.cell colspan="6" class="text-center">No record found</x-table.cell>
+            </x-table.row>
           @endforelse
-        </tbody>
+        </x-slot>
       </x-responsive-table>
 
       <div class="d-block mb-2 float-end">

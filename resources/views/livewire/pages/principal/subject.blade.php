@@ -17,26 +17,24 @@
     </div>
 
     <x-responsive-table>
-      <thead>
-        <tr>
-          <th>S/N</th>
-          <th>Subject Name</th>
-          <th>Subject Teacher</th>
-          <th></th>
-        </tr>
-      </thead>
+      <x-slot name="head">
+        <x-table.heading>S/N</x-table.heading>
+        <x-table.heading>Subject Name</x-table.heading>
+        <x-table.heading>Subject Teacher</x-table.heading>
+        <x-table.heading></x-table.heading>
+      </x-slot>
 
-      <tbody>
+      <x-slot name="body">
         @forelse($classes as $class)
-          <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>
+          <x-table.row>
+            <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+            <x-table.cell>
               {{ $class->subject->name }}
-            </td>
-            <td>
+            </x-table.cell>
+            <x-table.cell>
               {{ $class->teacher->fullname }}
-            </td>
-            <td>
+            </x-table.cell>
+            <x-table.cell>
               <x-button class="px-0" wire:click="edit({{ $class->id }})" value=""
                         data-bs-toggle="modal" data-bs-target="#subjectTeacherModal">
                 <i class="bx bxs-pen"></i>
@@ -45,14 +43,14 @@
                         data-bs-toggle="modal" data-bs-target="#deleteModal">
                 <i class="bx bxs-trash-alt"></i>
               </x-button>
-            </td>
-          </tr>
+            </x-table.cell>
+          </x-table.row>
         @empty
-          <tr>
-            <td colspan="5" align="center">No record found</td>
-          </tr>
+          <x-table.row>
+            <x-table.cell colspan="5" align="center">No record found</x-table.cell>
+          </x-table.row>
         @endforelse
-      </tbody>
+      </x-slot>
     </x-responsive-table>
   </x-card>
 

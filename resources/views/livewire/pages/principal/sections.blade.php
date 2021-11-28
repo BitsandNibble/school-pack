@@ -50,28 +50,26 @@
     </div>
 
     <x-responsive-table>
-      <thead>
-        <tr>
-          <th class="pe-0" style="width: 30px">
-            <x-checked-input type="checkbox" wire:model="selectPage" />
-          </th>
-          <th>S/N</th>
-          <x-table.heading sortable wire:click="sortBy('class_room_id')" :direction="$sorts['class_room_id'] ?? null">
-            Class
-          </x-table.heading>
-          <x-table.heading sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">Section
-          </x-table.heading>
-          <x-table.heading sortable wire:click="sortBy('teacher_id')" :direction="$sorts['teacher_id'] ?? null">
-            Teacher
-          </x-table.heading>
-          <th></th>
-        </tr>
-      </thead>
+      <x-slot name="head">
+        <x-table.heading class="pe-0" style="width: 30px">
+          <x-checked-input type="checkbox" wire:model="selectPage" />
+        </x-table.heading>
+        <x-table.heading>S/N</x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('class_room_id')" :direction="$sorts['class_room_id'] ?? null">
+          Class
+        </x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">Section
+        </x-table.heading>
+        <x-table.heading sortable wire:click="sortBy('teacher_id')" :direction="$sorts['teacher_id'] ?? null">
+          Teacher
+        </x-table.heading>
+        <x-table.heading></x-table.heading>
+      </x-slot>
 
-      <tbody>
+      <x-slot name="body">
         @if ($selectPage)
-          <tr class="bg-gradient-lush">
-            <td colspan="6">
+          <x-table.row class="bg-gradient-lush">
+            <x-table.cell colspan="6">
               @unless($selectAll)
                 <div>
                   You have selected <strong>{{ $sections->count() }}</strong> section(s)
@@ -84,30 +82,30 @@
               @else
                 You have selected all <strong>{{ $sections->total() }}</strong> sections.
               @endunless
-            </td>
-          </tr>
+            </x-table.cell>
+          </x-table.row>
         @endif
 
         @forelse($sections as $section)
-          <tr wire.key="row-{{ $section->id }}">
-            <td class="pe-0">
+          <x-table.row wire.key="row-{{ $section->id }}">
+            <x-table.cell class="pe-0">
               <x-checked-input type="checkbox" wire:model="selected" value="{{ $section->id }}" />
-            </td>
-            <td>{{ $loop->iteration }}</td>
-            <td style="transform: rotate(0);">
+            </x-table.cell>
+            <x-table.cell>{{ $loop->iteration }}</x-table.cell>
+            <x-table.cell style="transform: rotate(0);">
               <a href="{{ route('principal.classes.students', [$section->class_room->slug]) }}"
                  class="stretched-link">
                 {{ $section->class_room->name }}
               </a>
-            </td>
-            <td style="transform: rotate(0);">
+            </x-table.cell>
+            <x-table.cell style="transform: rotate(0);">
               <a href="{{ route('principal.sections.students', [$section->class_room->slug, $section]) }}"
                  class="stretched-link">
                 {{ $section->name }}
               </a>
-            </td>
-            <td>{{ $section->teacher->fullname }}</td>
-            <td>
+            </x-table.cell>
+            <x-table.cell>{{ $section->teacher->fullname }}</x-table.cell>
+            <x-table.cell>
               <x-button class="px-0" wire:click="edit({{ $section->id }})" value="" data-bs-toggle="modal"
                         data-bs-target="#sectionModal">
                 <i class="bx bxs-pen"></i>
@@ -116,14 +114,14 @@
                         data-bs-toggle="modal" data-bs-target="#deleteModal">
                 <i class="bx bxs-trash-alt"></i>
               </x-button>
-            </td>
-          </tr>
+            </x-table.cell>
+          </x-table.row>
         @empty
-          <tr>
-            <td colspan="6" class="text-center">No record found</td>
-          </tr>
+          <x-table.row>
+            <x-table.heading colspan="6" class="text-center">No record found</x-table.heading>
+          </x-table.row>
         @endforelse
-      </tbody>
+      </x-slot>
     </x-responsive-table>
 
     {{ $sections->links() }}

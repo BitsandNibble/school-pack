@@ -2,21 +2,29 @@
 
 namespace App\Http\Livewire\Pages\Teacher;
 
+use App\Models\Subject;
+use Livewire\Component;
+use App\Traits\WithSorting;
+use Livewire\WithPagination;
 use App\Models\ClassStudentSubject;
 use App\Models\ClassSubjectTeacher;
-use App\Models\Student as StudentModel;
-use App\Models\Subject;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use App\Models\Student as StudentModel;
+use Illuminate\Contracts\View\Factory;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Illuminate\Contracts\Foundation\Application;
 
+/**
+ * @property mixed subjects
+ * @property mixed rows
+ * @property mixed subjectsQuery
+ * @property mixed rowsQuery
+ */
 class RegisterStudents extends Component
 {
   use WithPagination;
   use LivewireAlert;
+  use WithSorting;
 
   public $class_id;
   public $section_id;
@@ -24,8 +32,6 @@ class RegisterStudents extends Component
   public $subject_id;
   public $fullname = [];
   public $q;
-  public $sortBy = 'name';
-  public $sortAsc = true;
   public $paginate = 10;
   public $selectAll = false;
 
@@ -41,17 +47,37 @@ class RegisterStudents extends Component
     $this->section_id = $id[1] ?? null;
   }
 
-  public function render(): Factory|View|Application
+  public function getRowsQueryProperty()
+  {
+    return StudentModel::where('class_room_id', $this->class_id)
+      ->where('section_id', $this->section_id);
+  }
+
+  public function getRowsProperty()
+  {
+    return $this->rowsQuery->get();
+  }
+
+  public function getSubjectsQueryProperty()
   {
     $cst = ClassSubjectTeacher::select('subject_id')->where('class_room_id', $this->class_id)->get();
-    $subjects = Subject::whereIn('id', $cst)
-      ->when($this->q, function ($query) {
-        return $query->search($this->q);
-      })
-      ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-      ->Paginate($this->paginate);
 
-    $students = $this->students;
+    $query = Subject::whereIn('id', $cst)
+      ->when($this->q, fn($query) => $query->search($this->q));
+
+    return $this->applySorting($query); // apply sorting
+  }
+
+  public function getSubjectsProperty()
+  {
+    return $this->subjectsQuery->paginate($this->paginate);
+  }
+
+  public function render(): Factory|View|Application
+  {
+    $subjects = $this->subjects;
+
+    $students = $this->rows;
 
     return view('livewire.pages.teacher.register-students', compact('subjects', 'students'));
   }
@@ -59,30 +85,15 @@ class RegisterStudents extends Component
   public function updatedSelectAll($value): void
   {
     if ($value) {
-      $this->fullname = $this->students->pluck('id')->map(fn($item) => (string)$item);
+      $this->fullname = $this->rows->pluck('id')->map(fn($item) => (string)$item);
     } else {
       $this->fullname = [];
     }
   }
 
-  public function getStudentsProperty()
-  {
-    return StudentModel::where('class_room_id', $this->class_id)
-      ->where('section_id', $this->section_id)
-      ->get();
-  }
-
   public function updatedFullname(): void
   {
     $this->selectAll = false;
-  }
-
-  public function sortBy($field): void
-  {
-    if ($field === $this->sortBy) {
-      $this->sortAsc = !$this->sortAsc;
-    }
-    $this->sortBy = $field;
   }
 
   public function registerStudents($value): void

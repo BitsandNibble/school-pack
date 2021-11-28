@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Pages\Teacher;
 
+use App\Traits\WithSorting;
 use App\Models\ClassStudentSubject;
 use App\Models\Student as StudentModel;
 use Illuminate\Contracts\Foundation\Application;
@@ -13,10 +14,9 @@ use Livewire\WithPagination;
 class Student extends Component
 {
   use WithPagination;
+  use WithSorting;
 
   public $q;
-  public $sortBy = 'fullname';
-  public $sortAsc = true;
   public $paginate = 10;
   public $section_id;
   public $student_info;
@@ -26,8 +26,6 @@ class Student extends Component
 
   protected $queryString = [
     'q' => ['except' => ''],
-    'sortBy' => ['except' => 'fullname'],
-    'sortAsc' => ['except' => true],
   ];
 
   public function mount($id): void
@@ -43,12 +41,12 @@ class Student extends Component
 
   public function render(): Factory|View|Application
   {
-    $students = StudentModel::where('section_id', $this->section_id)
-      ->when($this->q, function ($query) {
-        return $query->search($this->q);
-      })
-      ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-      ->paginate(10);
+    $query = StudentModel::where('section_id', $this->section_id)
+      ->when($this->q, fn ($query) => $query->search($this->q));
+
+    $students = $query->paginate(10);
+
+    $this->applySorting($query);
 
     return view('livewire.pages.teacher.student', compact('students'));
   }
@@ -56,14 +54,6 @@ class Student extends Component
   public function updatingQ(): void
   {
     $this->resetPage();
-  }
-
-  public function sortBy($field): void
-  {
-    if ($field === $this->sortBy) {
-      $this->sortAsc = !$this->sortAsc;
-    }
-    $this->sortBy = $field;
   }
 
   public function showInfo($id): void

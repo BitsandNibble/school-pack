@@ -68,7 +68,7 @@ class Teachers extends Component
   public function getRowsQueryProperty()
   {
     $query = Teacher::query()
-      ->when($this->q, fn($query) => $query->search($this->q));
+      ->when($this->q, fn ($query) => $query->search($this->q));
 
     return $this->applySorting($query);
   }

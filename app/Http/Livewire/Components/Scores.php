@@ -66,8 +66,7 @@ class Scores extends Component
 
 //    show subjects specific to a class
       if (!empty($this->class_id)) {
-        $this->subjects = ClassSubjectTeacher::where('teacher_id', auth()->id())
-          ->where('class_room_id', $this->class_id)
+        $this->subjects = ClassSubjectTeacher::where('class_room_id', $this->class_id)
           ->with('subject')
           ->get();
       }

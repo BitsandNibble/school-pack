@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Components;
 
 use App\Models\ExamRecord;
+use App\Models\PrincipalsComments;
+use App\Models\TeachersComments;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -14,7 +16,9 @@ class Comment extends Component
   use LivewireAlert;
 
   public $teachers_comment;
+  public $default_teachers_comment;
   public $principals_comment;
+  public $default_principals_comment;
   public $student_id;
   public $user_comment;
 
@@ -29,12 +33,16 @@ class Comment extends Component
       $this->teachers_comment = ExamRecord::where(['student_id' => $this->student_id])
         ->first()
         ->teachers_comment;
+
+      $this->default_teachers_comment = TeachersComments::get();
     }
 
     if (auth('principal')->user()) {
       $this->principals_comment = ExamRecord::where(['student_id' => $this->student_id])
         ->first()
         ->principals_comment;
+
+      $this->default_principals_comment = PrincipalsComments::get();
     }
 
     return view('livewire.components.comment');

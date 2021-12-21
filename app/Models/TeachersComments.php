@@ -9,6 +9,6 @@ class TeachersComments extends Model
 {
   use HasFactory;
 
-  private $timestamps =  false;
+  public $timestamps =  false;
   protected $guarded = [];
 }

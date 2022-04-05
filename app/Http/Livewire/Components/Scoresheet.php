@@ -25,7 +25,7 @@ class Scoresheet extends Component
   public $class_id;
   public $subject_id;
   public $marks = [];
-  public $get_marks;
+  public bool $get_marks = false;
   public $data;
   public $ca1_limit;
   public $ca2_limit;
@@ -58,11 +58,11 @@ class Scoresheet extends Component
     $this->exam_limit = get_setting('exam');
 //    show students based on selected class and subject from grading
     if ($this->class_id) {
-      $this->get_marks = Mark::where($this->data)
+      $this->get_marks = true;
+
+      $this->marks = Mark::where($this->data)
         ->with('class_room', 'student')
         ->get();
-
-      $this->marks = $this->get_marks;
     }
 
     return view('livewire.components.scoresheet');

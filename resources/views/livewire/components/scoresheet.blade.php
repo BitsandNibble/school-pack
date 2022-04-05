@@ -21,7 +21,7 @@
         </x-slot>
 
         <x-slot name="body">
-          @forelse($get_marks as $index => $mark)
+          @forelse($marks as $index => $mark)
             <x-table.row>
               <x-table.cell>{{ $loop->iteration }}</x-table.cell>
               <x-table.cell>{{ $mark->student->fullname }}</x-table.cell>

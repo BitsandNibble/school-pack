@@ -59,8 +59,8 @@
                 @if($class->name === $d->student->class_room->name)
                   <x-table.cell>{{ $loop->iteration }}</x-table.cell>
                   <x-table.cell>{{ $d->student->fullname }}</x-table.cell>
-                  <x-table.cell>{{ $d->payment->amount }}</x-table.cell>
-                  <x-table.cell>{{ $d->balance ?: $d->payment->amount  }}</x-table.cell>
+                  <x-table.cell class="text-danger">{{ $d->payment->amount }}</x-table.cell>
+                  <x-table.cell class="text-dark fw-bolder">{{ $d->balance ?: $d->payment->amount  }}</x-table.cell>
                   <x-table.cell>{{ $d->payment->title }}</x-table.cell>
                   <x-table.cell>{{ $d->payment->description }}</x-table.cell>
                 @endif

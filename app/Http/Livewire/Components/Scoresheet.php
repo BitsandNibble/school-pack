@@ -113,6 +113,9 @@ class Scoresheet extends Component
 
       $grade = get_grade($total, $class_type_id);
 
+      // subject position
+      $sub_pos = get_subject_position($mark->student_id, $this->term_id, $this->class_id, $this->subject_id, $this->selected_year);
+
       $mark->update([
         'ca1' => $ca1,
         'ca2' => $ca2,
@@ -120,13 +123,8 @@ class Scoresheet extends Component
         'exam_score' => $exam,
         'total_score' => $total,
         'grade_id' => $grade?->id,
+        'subject_position' => $sub_pos
       ]);
-    }
-
-//    subject position
-    foreach ($marks as $mark) {
-      $sub_pos = get_subject_position($mark->student_id, $this->term_id, $this->class_id, $this->subject_id, $this->selected_year);
-      $mark->update(['subject_position' => $sub_pos]);
     }
 
 //    update records in exam table

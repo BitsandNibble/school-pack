@@ -18,6 +18,7 @@ class CreateMarksTable extends Migration
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('subject_id');
             $table->unsignedBigInteger('class_room_id');
+            $table->unsignedBigInteger('section_id')->nullable();
             $table->unsignedBigInteger('term_id');
             $table->integer('ca1')->nullable();
             $table->integer('ca2')->nullable();

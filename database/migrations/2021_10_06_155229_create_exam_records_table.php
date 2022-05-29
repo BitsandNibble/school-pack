@@ -18,6 +18,7 @@ class CreateExamRecordsTable extends Migration
             $table->unsignedBigInteger('term_id');
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('class_room_id');
+            $table->unsignedBigInteger('section_id')->nullable();
             $table->integer('total')->nullable();
             $table->string('average')->nullable();
             $table->string('class_average')->nullable();

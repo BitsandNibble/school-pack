@@ -67,6 +67,7 @@ class CreateFks extends Migration
         Schema::table('marks', function (Blueprint $table) {
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->foreign('class_room_id')->references('id')->on('class_rooms')->onDelete('cascade');
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
             $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade');
             $table->foreign('grade_id')->references('id')->on('grades')->onDelete('set null');
@@ -75,6 +76,7 @@ class CreateFks extends Migration
         Schema::table('exam_records', function (Blueprint $table) {
             $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade');
             $table->foreign('class_room_id')->references('id')->on('class_rooms')->onDelete('cascade');
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
         });
 

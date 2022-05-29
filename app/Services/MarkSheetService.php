@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Actions;
+namespace App\Services;
 
 use App\Models\Mark;
 use App\Models\Student;
 use App\Models\ExamRecord;
 
-class GetMarkSheetYear
+class MarkSheetService
 {
-
     public function getMarkSheetYear($student_id, $session, $term): array
     {
         $d['year'] = $session;

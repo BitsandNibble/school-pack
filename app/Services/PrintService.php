@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Actions;
+namespace App\Services;
 
 use App\Models\Mark;
 use App\Models\Term;
 use App\Models\Skill;
-use App\Models\Setting;
 use App\Models\Student;
+use App\Models\Setting;
 use App\Models\Subject;
 use App\Models\ClassRoom;
 use App\Models\ClassType;
@@ -14,9 +14,8 @@ use App\Models\ExamRecord;
 use App\Models\PaymentRecord;
 use App\Models\ClassStudentSubject;
 
-class PrintView
+class PrintService
 {
-
     public function getMarksheetPrintView($student_id, $term_id, $year): array
     {
         $data = ['student_id' => $student_id, 'term_id' => $term_id, 'year' => $year];

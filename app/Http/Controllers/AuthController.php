@@ -49,22 +49,22 @@ class AuthController extends Controller
 
     public function destroy(Request $request): Redirector|Application|RedirectResponse
     {
-        if (auth('principal')->logout()) {
+        if (auth('principal')?->logout()) {
             $request->session()->invalidate();
             $request->session()->regenerateToken();
         }
 
-        if (auth('accountant')->logout()) {
+        if (auth('accountant')?->logout()) {
             $request->session()->invalidate();
             $request->session()->regenerateToken();
         }
 
-        if (auth('teacher')->logout()) {
+        if (auth('teacher')?->logout()) {
             $request->session()->invalidate();
             $request->session()->regenerateToken();
         }
 
-        if (auth('student')->logout()) {
+        if (auth('student')?->logout()) {
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 //    } else if (auth('parent')->logout()) {

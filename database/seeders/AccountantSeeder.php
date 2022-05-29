@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Accountant;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AccountantSeeder extends Seeder
@@ -15,6 +16,8 @@ class AccountantSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('accountants')->truncate();
+
         Accountant::create([
             'fullname' => 'Adams Anna',
             'slug' => 'adams-anna',

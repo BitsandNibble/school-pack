@@ -14,9 +14,10 @@ class SkillSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('skills')->truncate();
+
         $types = ['AF', 'PS']; // Affective & Psychomotor Traits/Skills
         $d = [
-
             ['name' => 'PUNCTUALITY', 'skill_type' => $types[0]],
             ['name' => 'NEATNESS', 'skill_type' => $types[0]],
             ['name' => 'HONESTY', 'skill_type' => $types[0]],

@@ -15,7 +15,7 @@ class GradeSeeder extends Seeder
 
     public function run()
     {
-        DB::table('grades')->delete();
+        DB::table('grades')->truncate();
 
         $data = [
             ['name' => 'A', 'mark_from' => 70, 'mark_to' => 100, 'remark' => 'Excellent'],

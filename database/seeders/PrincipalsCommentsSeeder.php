@@ -14,6 +14,7 @@ class PrincipalsCommentsSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('principals_comments')->truncate();
 
         $data = [
             ['comment' => 'He is a very remarkable student'],

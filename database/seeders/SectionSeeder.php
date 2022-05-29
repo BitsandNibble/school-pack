@@ -15,7 +15,7 @@ class SectionSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('sections')->delete();
+        DB::table('sections')->truncate();
         $c = ClassRoom::pluck('id')->all();
 
         $data = [

@@ -14,7 +14,7 @@ class ClassTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('class_types')->delete();
+        DB::table('class_types')->truncate();
 
         $data = [
             ['name' => 'Creche', 'code' => 'C'],

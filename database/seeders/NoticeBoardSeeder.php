@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Principal;
 use App\Models\NoticeBoard;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class NoticeBoardSeeder extends Seeder
 {
@@ -15,6 +16,8 @@ class NoticeBoardSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('notice_boards')->truncate();
+
         $author = Principal::first()->id;
         NoticeBoard::insert([
             ['title' => 'Something', 'message' => 'Description of something', 'author_id' => $author, 'created_at' => now()],

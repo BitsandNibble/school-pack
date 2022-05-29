@@ -14,14 +14,14 @@ class SettingsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('settings')->delete();
+        DB::table('settings')->truncate();
 
         $data = [
             ['type' => 'school_name', 'description' => 'United Kiddies'],
             ['type' => 'school_title', 'description' => 'UnK'],
             ['type' => 'current_session', 'description' => '2018 - 2019'],
-            ['type' => 'term_begins', 'description' => '2018-11-25'],
-            ['type' => 'term_ends', 'description' => '2018-11-25'],
+            ['type' => 'term_begins', 'description' => now()->toDateString()],
+            ['type' => 'term_ends', 'description' => now()->addMonths(3)->toDateString()],
             ['type' => 'address', 'description' => '18B North Central Park, Behind Central Square Tourist Center'],
             ['type' => 'school_mail', 'description' => 'schoolpack@gmail.com'],
             ['type' => 'alt_mail', 'description' => ''],

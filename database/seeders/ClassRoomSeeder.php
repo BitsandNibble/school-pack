@@ -15,7 +15,7 @@ class ClassRoomSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('class_rooms')->delete();
+        DB::table('class_rooms')->truncate();
         $ct = ClassType::pluck('id')->all();
 
         $data = [

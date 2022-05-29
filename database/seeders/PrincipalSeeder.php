@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Principal;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class PrincipalSeeder extends Seeder
@@ -15,6 +16,8 @@ class PrincipalSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('principals')->truncate();
+
         Principal::create([
             'fullname' => 'Sam Daniels Adekoya',
             'slug' => 'sam-daniels',

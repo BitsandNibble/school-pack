@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
+
         // \App\Models\User::factory(10)->create();
 
         // User::create([
@@ -31,13 +34,15 @@ class DatabaseSeeder extends Seeder
             AccountantSeeder::class,
             StudentSeeder::class,
             TeacherSeeder::class,
-            NationalitySeeder::class,
-            StateSeeder::class,
-            LgaSeeder::class,
+//            NationalitySeeder::class,
+//            StateSeeder::class,
+//            LgaSeeder::class,
             SkillSeeder::class,
             NoticeBoardSeeder::class,
             PrincipalsCommentsSeeder::class,
             TeachersCommentsSeeder::class,
         ]);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
     }
 }

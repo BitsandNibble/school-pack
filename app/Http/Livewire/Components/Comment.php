@@ -29,12 +29,14 @@ class Comment extends Component
 
     public function render(): Factory|View|Application
     {
+        // check authenticated user, to ascertain the type of comment to render(Teacher or Principal)
+
         if (auth('teacher')->user()) {
             $this->teachers_comment = ExamRecord::where(['student_id' => $this->student_id])
                 ->first()
                 ->teachers_comment;
 
-            $this->default_teachers_comment = TeachersComments::get();
+            $this->default_teachers_comment = TeachersComments::query()->get();
         }
 
         if (auth('principal')->user()) {
@@ -42,7 +44,7 @@ class Comment extends Component
                 ->first()
                 ->principals_comment;
 
-            $this->default_principals_comment = PrincipalsComments::get();
+            $this->default_principals_comment = PrincipalsComments::query()->get();
         }
 
         return view('livewire.components.comment');
@@ -50,6 +52,8 @@ class Comment extends Component
 
     public function store(): void
     {
+        // check authenticated user, to ascertain which column to store the comment
+
         if (auth('teacher')->user()) {
             $this->validate([
                 'teachers_comment' => 'required|string',

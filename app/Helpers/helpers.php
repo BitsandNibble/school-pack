@@ -7,9 +7,9 @@ use App\Models\Teacher;
 use App\Models\ClassSubjectTeacher;
 
 
-// check if teacher has access to view tabulationsheet page
-if (!function_exists('check_teacher_tabulationsheet_access')) {
-    function check_teacher_tabulationsheet_access(): void
+// check if teacher has access to view tabulation-sheet page
+if (!function_exists('check_teacher_tabulation_sheet_access')) {
+    function check_teacher_tabulation_sheet_access(): void
     {
         if (auth('teacher')->user() && empty(ClassSubjectTeacher::where('teacher_id', auth('teacher')->id())
                 ->get()->toArray())) {

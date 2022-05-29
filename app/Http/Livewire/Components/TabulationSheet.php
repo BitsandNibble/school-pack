@@ -42,7 +42,7 @@ class TabulationSheet extends Component
 
     public function render(): Factory|View|Application
     {
-        check_teacher_tabulationsheet_access(); // check if teacher has access to view this page
+        check_teacher_tabulation_sheet_access(); // check if teacher has access to view this page
 
         $terms = Term::get(); // get all terms
 

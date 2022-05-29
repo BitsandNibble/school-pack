@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Closure;
 use App\Traits\WithSearch;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -44,6 +45,11 @@ class Student extends Authenticatable
     public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class)->withDefault();
+    }
+
+    public function mark(): HasMany
+    {
+        return $this->hasMany(Mark::class);
     }
 
     public function nationality(): BelongsTo

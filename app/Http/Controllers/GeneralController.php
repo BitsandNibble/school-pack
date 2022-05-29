@@ -11,9 +11,9 @@ use Illuminate\Contracts\Foundation\Application;
 
 class GeneralController extends Controller
 {
-    public function getMarksheetYear($student_id, $session, $term, MarkSheetService $markSheetService): Factory|View|Application
+    public function getMarksheetYear($student_id, $session, $class_id, MarkSheetService $markSheetService): Factory|View|Application
     {
-        $d = $markSheetService->getMarkSheetYear($student_id, $session, $term);
+        $d = $markSheetService->getMarkSheetYear($student_id, $session, $class_id);
 
         return view('partials.student-marksheet', $d);
     }

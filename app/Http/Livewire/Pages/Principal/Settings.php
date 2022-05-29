@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Pages\Principal;
 use App\Models\Setting;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use App\Actions\CreateTerms;
 use Livewire\WithFileUploads;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
@@ -78,7 +79,7 @@ class Settings extends Component
         return view('livewire.pages.principal.settings', $s);
     }
 
-    public function store(): void
+    public function store(CreateTerms $createTerms): void
     {
         $credentials = $this->validate();
 
@@ -100,7 +101,9 @@ class Settings extends Component
         for ($i = 0; $i < $iMax; $i++) {
             Setting::where('type', $keys[$i])->update(['description' => $values[$i]]);
         }
-        create_terms(); // create 1st, 2nd & 3rd term on new session create
+
+		// create 1st, 2nd & 3rd term when a new session is created
+		$createTerms->create();
 
         $this->alert('success', 'School Settings Updated Successfully');
     }

@@ -9,7 +9,7 @@ use App\Models\Teacher;
 use Livewire\Component;
 use App\Models\Nationality;
 use Livewire\WithFileUploads;
-use App\Actions\UpdateProfile;
+use App\Actions\UserProfileAction;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -72,10 +72,10 @@ class Profile extends Component
     /**
      * @throws Exception
      */
-    public function update(UpdateProfile $updateProfile): void
+    public function update(UserProfileAction $userProfileAction): void
     {
         $this->validate();
-        $updateProfile->updateTeacherProfile([$this->teacher->toArray(), $this->state, $this->lga], $this->profile_photo);
+        $userProfileAction->updateTeacherProfile([$this->teacher->toArray(), $this->state, $this->lga], $this->profile_photo);
 
         $this->reset();
         $this->alert('success', 'Profile Updated Successfully');

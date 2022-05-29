@@ -10,7 +10,7 @@ use App\Models\Accountant;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 
-class UpdateProfile
+class UserProfileAction
 {
     use WithFileUploads;
 
@@ -75,7 +75,7 @@ class UpdateProfile
     /**
      * @throws Exception
      */
-    public function handleAvatarUpload($profile_photo, $slug): string
+    private function handleAvatarUpload($profile_photo, $slug): string
     {
         $photo = $profile_photo;
         $name = $slug . '.' . $photo->getClientOriginalExtension();
@@ -89,7 +89,7 @@ class UpdateProfile
      * @param $profile_photo
      * @throws Exception
      */
-    public function getUpdate($updateUser, array $data, $profile_photo): void
+    private function getUpdate($updateUser, array $data, $profile_photo): void
     {
         $updateUser->update([
             'fullname' => $data[0]['fullname'],

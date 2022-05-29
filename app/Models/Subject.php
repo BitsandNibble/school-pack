@@ -18,17 +18,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Subject extends Model
 {
-    use HasFactory, WithSearch;
+	use HasFactory, WithSearch;
 
-    public $timestamps = false;
+	public $timestamps = false;
 
-    protected $fillable = [
-        'name', 'slug',
-    ];
+	protected $fillable = [
+		'name', 'slug',
+	];
 
-    public function subjectTeachers(): BelongsToMany
-    {
-        return $this->belongsToMany(Teacher::class, 'class_room_subject_teacher', 'class_room_id');
-//    return $this->belongsToMany(Teacher::class, 'class_room_subject_teacher', 'class_room_id', 'teacher_id')->withPivot('subject_id');
-    }
+	public function subjectTeachers(): BelongsToMany
+	{
+		return $this->belongsToMany(Teacher::class, 'class_subject_teacher', 'class_room_id');
+		// return $this->belongsToMany(Teacher::class, 'class_subject_teacher', 'class_room_id', 'teacher_id')->withPivot('subject_id');
+	}
 }

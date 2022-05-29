@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @method static create(array $d2)
@@ -12,12 +12,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Receipt extends Model
 {
-  use HasFactory;
+    use HasFactory;
 
-  protected $fillable = ['pr_id', 'session', 'balance', 'amount_paid'];
+    protected $fillable = ['pr_id', 'session', 'balance', 'amount_paid'];
 
-  public function payment_record(): BelongsTo
-  {
-    return $this->belongsTo(PaymentRecord::class, 'pr_id')->withDefault();
-  }
+    public function payment_record(): BelongsTo
+    {
+        return $this->belongsTo(PaymentRecord::class, 'pr_id')->withDefault();
+    }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @method static get()
@@ -16,28 +16,28 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Payment extends Model
 {
-  use HasFactory;
+    use HasFactory;
 
-  protected $fillable = [
-    'title', 'amount', 'class_room_id',
-    'student_id', 'description', 'session',
-    'ref_no', 'term_id',
-  ];
+    protected $fillable = [
+        'title', 'amount', 'class_room_id',
+        'student_id', 'description', 'session',
+        'ref_no', 'term_id',
+    ];
 
-  public function class_room(): BelongsTo
-  {
-    return $this->belongsTo(ClassRoom::class)->withDefault(
-      ['name' => 'All Classes']
-    );
-  }
+    public function class_room(): BelongsTo
+    {
+        return $this->belongsTo(ClassRoom::class)->withDefault(
+            ['name' => 'All Classes']
+        );
+    }
 
-  public function student(): BelongsTo
-  {
-    return $this->belongsTo(Student::class)->withDefault();
-  }
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Student::class)->withDefault();
+    }
 
-  public function term(): BelongsTo
-  {
-    return $this->belongsTo(Term::class)->withDefault();
-  }
+    public function term(): BelongsTo
+    {
+        return $this->belongsTo(Term::class)->withDefault();
+    }
 }

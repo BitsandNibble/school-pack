@@ -15,7 +15,7 @@ $text-color: white;
   border-color: $submit;
 }
 
-.btn-check:focus+.btn-submit,
+.btn-check:focus + .btn-submit,
 .btn-submit:focus {
   color: $text-color;
   background-color: $submit;
@@ -23,11 +23,11 @@ $text-color: white;
   box-shadow: 0 0 0 .25rem $shadow
 }
 
-.btn-check:active+.btn-submit,
-.btn-check:checked+.btn-submit,
+.btn-check:active + .btn-submit,
+.btn-check:checked + .btn-submit,
 .btn-submit.active,
 .btn-submit:active,
-.show>.btn-submit.dropdown-toggle {
+.show > .btn-submit.dropdown-toggle {
   color: $text-color;
   background-color: $submit;
   border-color: $submit
@@ -59,13 +59,13 @@ $text-color: white;
   border-color: $submit
 }
 
-.btn-check:focus+.btn-outline-submit,
+.btn-check:focus + .btn-outline-submit,
 .btn-outline-submit:focus {
   box-shadow: 0 0 0 .25rem $shadow
 }
 
-.btn-check:active+.btn-outline-submit,
-.btn-check:checked+.btn-outline-submit,
+.btn-check:active + .btn-outline-submit,
+.btn-check:checked + .btn-outline-submit,
 .btn-outline-submit.active,
 .btn-outline-submit.dropdown-toggle.show,
 .btn-outline-submit:active {
@@ -74,8 +74,8 @@ $text-color: white;
   border-color: $submit
 }
 
-.btn-check:active+.btn-outline-submit:focus,
-.btn-check:checked+.btn-outline-submit:focus,
+.btn-check:active + .btn-outline-submit:focus,
+.btn-check:checked + .btn-outline-submit:focus,
 .btn-outline-submit.active:focus,
 .btn-outline-submit.dropdown-toggle.show:focus,
 .btn-outline-submit:active:focus {
@@ -90,8 +90,8 @@ $text-color: white;
 
 .btn-round {
   border-radius: 30px;
-  padding-left: 1.5rem!important;
-  padding-right: 1.5rem!important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
 }
 
 div.dt-buttons {

@@ -1,3 +1,3 @@
 <label {{ $attributes->merge(['class' => 'form-check-label']) }}>
-  {{ $slot }}
+    {{ $slot }}
 </label>

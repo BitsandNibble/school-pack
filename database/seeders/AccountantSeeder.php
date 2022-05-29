@@ -8,21 +8,21 @@ use Illuminate\Support\Facades\Hash;
 
 class AccountantSeeder extends Seeder
 {
-  /**
-   * Run the database seeds.
-   *
-   * @return void
-   */
-  public function run()
-  {
-    Accountant::create([
-      'fullname' => 'Adams Anna',
-      'slug' => 'adams-anna',
-      'title' => 'Mrs',
-      'email' => 'accountant@gmail.com',
-      'phone_number' => '0801111222',
-      'school_id' => 'GS_002',
-      'password' => Hash::make('password'),
-    ]);
-  }
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Accountant::create([
+            'fullname' => 'Adams Anna',
+            'slug' => 'adams-anna',
+            'title' => 'Mrs',
+            'email' => 'accountant@gmail.com',
+            'phone_number' => '0801111222',
+            'school_id' => 'GS_002',
+            'password' => Hash::make('password'),
+        ]);
+    }
 }

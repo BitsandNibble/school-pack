@@ -25,158 +25,158 @@ use Illuminate\Contracts\Foundation\Application;
  */
 class Teachers extends Component
 {
-  use WithPagination;
-  use LivewireAlert;
-  use WithBulkActions;
-  use WithSorting;
+    use WithPagination;
+    use LivewireAlert;
+    use WithBulkActions;
+    use WithSorting;
 
-  public string $q = "";
-  public int $paginate = 10;
-  public $teacher;
-  public $teacher_info;
-  public $teacher_class_info;
-  public $deleting;
-  public $teacher_id;
-  public $assigned_subject_id;
-  public $section;
+    public string $q = "";
+    public int $paginate = 10;
+    public $teacher;
+    public $teacher_info;
+    public $teacher_class_info;
+    public $deleting;
+    public $teacher_id;
+    public $assigned_subject_id;
+    public $section;
 
-  protected string $paginationTheme = 'bootstrap';
+    protected string $paginationTheme = 'bootstrap';
 
-  protected $queryString = [
-    'q' => ['except' => ''],
-  ];
-
-  protected function rules(): array
-  {
-    return [
-      'teacher.title' => 'required',
-      'teacher.fullname' => ['required', 'string', Rule::unique('teachers', 'fullname')->ignore($this->teacher_id)],
-      'teacher.email' => ['sometimes', 'email', Rule::unique('teachers', 'email')->ignore($this->teacher_id)],
-      'teacher.gender' => 'sometimes',
-      'teacher.date_of_employment' => 'sometimes',
+    protected $queryString = [
+        'q' => ['except' => ''],
     ];
-  }
 
-  protected array $validationAttributes = [
-    'teacher.title' => 'title',
-    'teacher.fullname' => 'fullname',
-    'teacher.email' => 'email',
-    'teacher.gender' => 'gender',
-    'teacher.date_of_employment' => 'date of employment',
-  ];
-
-  public function getRowsQueryProperty()
-  {
-    $query = Teacher::query()
-      ->when($this->q, fn ($query) => $query->search($this->q));
-
-    return $this->applySorting($query);
-  }
-
-  public function getRowsProperty()
-  {
-    return $this->rowsQuery->paginate($this->paginate);
-  }
-
-  public function render(): Factory|View|Application
-  {
-    if ($this->selectAll) $this->selectPageRows(); // for checkbox
-
-    $teachers = $this->rows;
-
-    return view('livewire.pages.principal.teachers', compact('teachers'));
-  }
-
-  public function updatingQ(): void
-  {
-    $this->resetPage();
-  }
-
-  public function cancel(): void
-  {
-    $this->emit('closeModal');
-    $this->reset();
-  }
-
-  public function edit($id): void
-  {
-    $teacher = Teacher::where('id', $id)->first();
-    $this->teacher_id = $teacher['id'];
-    $this->teacher = $teacher;
-  }
-
-  /**
-   * @throws Exception
-   */
-  public function store(): void
-  {
-    $this->validate();
-
-    if ($this->teacher_id) {
-      $teacher = Teacher::find($this->teacher_id);
-      $teacher->update([
-        'fullname' => $this->teacher['fullname'],
-        'title' => $this->teacher['title'],
-        'email' => $this->teacher['email'] ?? '',
-        'gender' => $this->teacher['gender'] ?? '',
-        'date_of_employment' => $this->teacher['date_of_employment'] ?? '',
-        'slug' => Str::slug($this->teacher['fullname']),
-      ]);
-      $this->alert('success', 'Teacher Updated Successfully');
-    } else {
-      Teacher::create([
-        'fullname' => $this->teacher['fullname'],
-        'title' => $this->teacher['title'],
-        'email' => $this->teacher['email'] ?? '',
-        'gender' => $this->teacher['gender'] ?? '',
-        'date_of_employment' => $this->teacher['date_of_employment'] ?? '',
-        'school_id' => 'GS_' . random_int(500, 1000),
-        'password' => Hash::make('password'),
-        'slug' => Str::slug($this->teacher['fullname']),
-      ]);
-      $this->alert('success', 'Teacher Added Successfully');
+    protected function rules(): array
+    {
+        return [
+            'teacher.title' => 'required',
+            'teacher.fullname' => ['required', 'string', Rule::unique('teachers', 'fullname')->ignore($this->teacher_id)],
+            'teacher.email' => ['sometimes', 'email', Rule::unique('teachers', 'email')->ignore($this->teacher_id)],
+            'teacher.gender' => 'sometimes',
+            'teacher.date_of_employment' => 'sometimes',
+        ];
     }
 
-    $this->cancel();
-  }
+    protected array $validationAttributes = [
+        'teacher.title' => 'title',
+        'teacher.fullname' => 'fullname',
+        'teacher.email' => 'email',
+        'teacher.gender' => 'gender',
+        'teacher.date_of_employment' => 'date of employment',
+    ];
 
-  public function showInfo($id): void
-  {
-    $this->teacher_info = Teacher::where('id', $id)
-      ->with('nationality', 'state', 'lga')
-      ->get();
+    public function getRowsQueryProperty()
+    {
+        $query = Teacher::query()
+            ->when($this->q, fn($query) => $query->search($this->q));
 
-    $sec = Section::with('class_room')->where('teacher_id', $id)->first();
-
-    $this->assigned_subject_id = ClassSubjectTeacher::where('teacher_id', $id)
-      ->with('class_room', 'subject')
-      ->get();
-    $this->teacher_class_info = is_null($sec) ? '' : $sec->class_room->name;
-
-    $this->section = is_null($sec) ? '' : ' - ' . $sec->name;
-  }
-
-  public function deleteExistingClass($id): void
-  {
-    $class = ClassRoom::where('id', $id)->with('teachers')->first();
-
-    foreach ($class->teachers()->get() as $classTeacher) {
-      $class->teachers()->detach($classTeacher->id);
+        return $this->applySorting($query);
     }
 
-    $this->cancel();
-  }
+    public function getRowsProperty()
+    {
+        return $this->rowsQuery->paginate($this->paginate);
+    }
 
-  public function openDeleteModal($id): void
-  {
-    $del = Teacher::find($id);
-    $this->deleting = $del['id'];
-  }
+    public function render(): Factory|View|Application
+    {
+        if ($this->selectAll) $this->selectPageRows(); // for checkbox
 
-  public function delete(Teacher $teacher): void
-  {
-    $teacher->delete();
-    $this->cancel();
-    $this->alert('success', 'Teacher Deleted Successfully');
-  }
+        $teachers = $this->rows;
+
+        return view('livewire.pages.principal.teachers', compact('teachers'));
+    }
+
+    public function updatingQ(): void
+    {
+        $this->resetPage();
+    }
+
+    public function cancel(): void
+    {
+        $this->emit('closeModal');
+        $this->reset();
+    }
+
+    public function edit($id): void
+    {
+        $teacher = Teacher::where('id', $id)->first();
+        $this->teacher_id = $teacher['id'];
+        $this->teacher = $teacher;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function store(): void
+    {
+        $this->validate();
+
+        if ($this->teacher_id) {
+            $teacher = Teacher::find($this->teacher_id);
+            $teacher->update([
+                'fullname' => $this->teacher['fullname'],
+                'title' => $this->teacher['title'],
+                'email' => $this->teacher['email'] ?? '',
+                'gender' => $this->teacher['gender'] ?? '',
+                'date_of_employment' => $this->teacher['date_of_employment'] ?? '',
+                'slug' => Str::slug($this->teacher['fullname']),
+            ]);
+            $this->alert('success', 'Teacher Updated Successfully');
+        } else {
+            Teacher::create([
+                'fullname' => $this->teacher['fullname'],
+                'title' => $this->teacher['title'],
+                'email' => $this->teacher['email'] ?? '',
+                'gender' => $this->teacher['gender'] ?? '',
+                'date_of_employment' => $this->teacher['date_of_employment'] ?? '',
+                'school_id' => 'GS_' . random_int(500, 1000),
+                'password' => Hash::make('password'),
+                'slug' => Str::slug($this->teacher['fullname']),
+            ]);
+            $this->alert('success', 'Teacher Added Successfully');
+        }
+
+        $this->cancel();
+    }
+
+    public function showInfo($id): void
+    {
+        $this->teacher_info = Teacher::where('id', $id)
+            ->with('nationality', 'state', 'lga')
+            ->get();
+
+        $sec = Section::with('class_room')->where('teacher_id', $id)->first();
+
+        $this->assigned_subject_id = ClassSubjectTeacher::where('teacher_id', $id)
+            ->with('class_room', 'subject')
+            ->get();
+        $this->teacher_class_info = is_null($sec) ? '' : $sec->class_room->name;
+
+        $this->section = is_null($sec) ? '' : ' - ' . $sec->name;
+    }
+
+    public function deleteExistingClass($id): void
+    {
+        $class = ClassRoom::where('id', $id)->with('teachers')->first();
+
+        foreach ($class->teachers()->get() as $classTeacher) {
+            $class->teachers()->detach($classTeacher->id);
+        }
+
+        $this->cancel();
+    }
+
+    public function openDeleteModal($id): void
+    {
+        $del = Teacher::find($id);
+        $this->deleting = $del['id'];
+    }
+
+    public function delete(Teacher $teacher): void
+    {
+        $teacher->delete();
+        $this->cancel();
+        $this->alert('success', 'Teacher Deleted Successfully');
+    }
 }

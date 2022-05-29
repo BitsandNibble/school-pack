@@ -17,100 +17,100 @@ use Illuminate\Contracts\Foundation\Application;
  */
 class Grades extends Component
 {
-  use LivewireAlert;
-  use WithBulkActions;
+    use LivewireAlert;
+    use WithBulkActions;
 
-  public $grade;
-  public $grade_id;
-  public $deleting;
-  public $total;
+    public $grade;
+    public $grade_id;
+    public $deleting;
+    public $total;
 
-  protected array $rules = [
-    'grade.name' => 'required|string',
-    'grade.mark_from' => 'required|numeric',
-    'grade.mark_to' => 'required|numeric',
-    'grade.class_type_id' => 'sometimes',
-    'grade.remark' => 'sometimes',
-  ];
+    protected array $rules = [
+        'grade.name' => 'required|string',
+        'grade.mark_from' => 'required|numeric',
+        'grade.mark_to' => 'required|numeric',
+        'grade.class_type_id' => 'sometimes',
+        'grade.remark' => 'sometimes',
+    ];
 
-  protected array $validationAttributes = [
-    'grade.name' => 'name',
-    'grade.mark_from' => 'mark from',
-    'grade.mark_to' => 'mark to',
-  ];
+    protected array $validationAttributes = [
+        'grade.name' => 'name',
+        'grade.mark_from' => 'mark from',
+        'grade.mark_to' => 'mark to',
+    ];
 
-  public function getRowsQueryProperty()
-  {
-    return Grade::query()
-      ->with('class_type');
-  }
-
-  public function getRowsProperty()
-  {
-    return $this->rowsQuery->get();
-  }
-
-  public function render(): Factory|View|Application
-  {
-    if ($this->selectAll) $this->selectPageRows(); // for checkbox
-
-    $class_type = ClassType::get();
-    $grades = $this->rows;
-    $this->total = $grades->count();
-
-    return view('livewire.pages.principal.grades', compact('class_type', 'grades'));
-  }
-
-  public function cancel(): void
-  {
-    $this->emit('closeModal');
-    $this->reset();
-  }
-
-  public function edit($id): void
-  {
-    $this->grade = Grade::where('id', $id)->first();
-    $this->grade_id = $this->grade['id'];
-  }
-
-  public function store(): void
-  {
-    $this->validate();
-
-    if ($this->grade_id) {
-      $grade = Grade::find($this->grade_id);
-      $grade->update([
-        'name' => $this->grade['name'],
-        'class_type_id' => $this->grade['class_type_id'] !== 'NULL' ? $this->grade['class_type_id'] : NULL,
-        'mark_from' => $this->grade['mark_from'],
-        'mark_to' => $this->grade['mark_to'],
-        'remark' => $this->grade['remark'],
-      ]);
-      $this->alert('success', 'Grade Updated Successfully');
-    } else {
-      Grade::create([
-        'name' => $this->grade['name'],
-        'class_type_id' => $this->grade['class_type_id'] !== 'NULL' ? $this->grade['class_type_id'] : NULL,
-        'mark_from' => $this->grade['mark_from'],
-        'mark_to' => $this->grade['mark_to'],
-        'remark' => $this->grade['remark'],
-      ]);
-      $this->alert('success', 'Grade Added Successfully');
+    public function getRowsQueryProperty()
+    {
+        return Grade::query()
+            ->with('class_type');
     }
 
-    $this->cancel();
-  }
+    public function getRowsProperty()
+    {
+        return $this->rowsQuery->get();
+    }
 
-  public function openDeleteModal($id): void
-  {
-    $del = Grade::find($id);
-    $this->deleting = $del['id'];
-  }
+    public function render(): Factory|View|Application
+    {
+        if ($this->selectAll) $this->selectPageRows(); // for checkbox
 
-  public function delete(Grade $grade): void
-  {
-    $grade->delete();
-    $this->cancel();
-    $this->alert('success', 'Grade Deleted Successfully');
-  }
+        $class_type = ClassType::get();
+        $grades = $this->rows;
+        $this->total = $grades->count();
+
+        return view('livewire.pages.principal.grades', compact('class_type', 'grades'));
+    }
+
+    public function cancel(): void
+    {
+        $this->emit('closeModal');
+        $this->reset();
+    }
+
+    public function edit($id): void
+    {
+        $this->grade = Grade::where('id', $id)->first();
+        $this->grade_id = $this->grade['id'];
+    }
+
+    public function store(): void
+    {
+        $this->validate();
+
+        if ($this->grade_id) {
+            $grade = Grade::find($this->grade_id);
+            $grade->update([
+                'name' => $this->grade['name'],
+                'class_type_id' => $this->grade['class_type_id'] !== 'NULL' ? $this->grade['class_type_id'] : NULL,
+                'mark_from' => $this->grade['mark_from'],
+                'mark_to' => $this->grade['mark_to'],
+                'remark' => $this->grade['remark'],
+            ]);
+            $this->alert('success', 'Grade Updated Successfully');
+        } else {
+            Grade::create([
+                'name' => $this->grade['name'],
+                'class_type_id' => $this->grade['class_type_id'] !== 'NULL' ? $this->grade['class_type_id'] : NULL,
+                'mark_from' => $this->grade['mark_from'],
+                'mark_to' => $this->grade['mark_to'],
+                'remark' => $this->grade['remark'],
+            ]);
+            $this->alert('success', 'Grade Added Successfully');
+        }
+
+        $this->cancel();
+    }
+
+    public function openDeleteModal($id): void
+    {
+        $del = Grade::find($id);
+        $this->deleting = $del['id'];
+    }
+
+    public function delete(Grade $grade): void
+    {
+        $grade->delete();
+        $this->cancel();
+        $this->alert('success', 'Grade Deleted Successfully');
+    }
 }

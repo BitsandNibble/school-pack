@@ -25,16 +25,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      Model::preventLazyLoading(! app()->isProduction());
+        Model::preventLazyLoading(!app()->isProduction());
 
-      view()->composer(
-        'layouts.side-nav',
-        function ($view) {
-          $view->with('sec',
-            Section::where('teacher_id', auth('teacher')->id())
-              ->with('class_room', 'teacher')->get()
-          );
-        }
-      );
+        view()->composer(
+            'layouts.side-nav',
+            function ($view) {
+                $view->with('sec',
+                    Section::where('teacher_id', auth('teacher')->id())
+                        ->with('class_room', 'teacher')->get()
+                );
+            }
+        );
     }
 }

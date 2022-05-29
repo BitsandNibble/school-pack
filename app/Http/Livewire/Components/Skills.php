@@ -2,59 +2,59 @@
 
 namespace App\Http\Livewire\Components;
 
-use App\Models\ExamRecord;
 use App\Models\Skill;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use App\Models\ExamRecord;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Contracts\Foundation\Application;
 
 class Skills extends Component
 {
-  use LivewireAlert;
+    use LivewireAlert;
 
-  public int $student_id;
-  public $year;
-  public $data;
-  public array $af = [];
-  public array $ps = [];
+    public int $student_id;
+    public $year;
+    public $data;
+    public array $af = [];
+    public array $ps = [];
 
-  public function mount($id, $year): void
-  {
-    $this->student_id = $id;
-    $this->year = $year;
-    $this->data = [
-      'student_id' => $this->student_id,
-      'year' => $this->year,
-    ];
-  }
-
-  public function render(): Factory|View|Application
-  {
-    $skills = Skill::get();
-
-    $a = ExamRecord::where($this->data)->get();
-    $b = $a->toArray()[0];
-    $this->af = explode(',', $b['af']);
-    $this->ps = explode(',', $b['ps']);
-
-    return view('livewire.components.skills', compact('skills'));
-  }
-
-  public function store($skill): void
-  {
-    $d = [];
-
-    if ($skill === 'af') {
-      $d[$skill] = implode(',', $this->af);
-    }
-    if ($skill === 'ps') {
-      $d[$skill] = implode(',', $this->ps);
+    public function mount($id, $year): void
+    {
+        $this->student_id = $id;
+        $this->year = $year;
+        $this->data = [
+            'student_id' => $this->student_id,
+            'year' => $this->year,
+        ];
     }
 
-    ExamRecord::where($this->data)->first()->update($d);
+    public function render(): Factory|View|Application
+    {
+        $skills = Skill::get();
 
-    $this->alert('success', 'Skill Updated Successfully');
-  }
+        $a = ExamRecord::where($this->data)->get();
+        $b = $a->toArray()[0];
+        $this->af = explode(',', $b['af']);
+        $this->ps = explode(',', $b['ps']);
+
+        return view('livewire.components.skills', compact('skills'));
+    }
+
+    public function store($skill): void
+    {
+        $d = [];
+
+        if ($skill === 'af') {
+            $d[$skill] = implode(',', $this->af);
+        }
+        if ($skill === 'ps') {
+            $d[$skill] = implode(',', $this->ps);
+        }
+
+        ExamRecord::where($this->data)->first()->update($d);
+
+        $this->alert('success', 'Skill Updated Successfully');
+    }
 }

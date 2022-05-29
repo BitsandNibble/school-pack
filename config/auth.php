@@ -42,23 +42,23 @@ return [
         ],
 
         'principal' => [
-          'driver' => 'session',
-          'provider' => 'principals',
+            'driver' => 'session',
+            'provider' => 'principals',
         ],
 
         'accountant' => [
-          'driver' => 'session',
-          'provider' => 'accountants',
+            'driver' => 'session',
+            'provider' => 'accountants',
         ],
 
         'teacher' => [
-          'driver' => 'session',
-          'provider' => 'teachers',
+            'driver' => 'session',
+            'provider' => 'teachers',
         ],
 
         'student' => [
-          'driver' => 'session',
-          'provider' => 'students',
+            'driver' => 'session',
+            'provider' => 'students',
         ],
 
         // 'parent' => [
@@ -95,23 +95,23 @@ return [
         //     'table' => 'users',
         // ],
         'principals' => [
-          'driver' => 'eloquent',
-          'model' => App\Models\Principal::class,
+            'driver' => 'eloquent',
+            'model' => App\Models\Principal::class,
         ],
 
         'accountants' => [
-          'driver' => 'eloquent',
-          'model' => App\Models\Accountant::class,
+            'driver' => 'eloquent',
+            'model' => App\Models\Accountant::class,
         ],
 
         'teachers' => [
-          'driver' => 'eloquent',
-          'model' => App\Models\Teacher::class,
+            'driver' => 'eloquent',
+            'model' => App\Models\Teacher::class,
         ],
 
         'students' => [
-          'driver' => 'eloquent',
-          'model' => App\Models\Student::class,
+            'driver' => 'eloquent',
+            'model' => App\Models\Student::class,
         ],
     ],
 

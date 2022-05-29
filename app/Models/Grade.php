@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @method static create(array $credentials)
@@ -14,15 +14,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Grade extends Model
 {
-  use HasFactory;
+    use HasFactory;
 
-  protected $fillable = [
-    'name', 'class_type_id', 'mark_from',
-    'mark_to', 'remark'
-  ];
+    protected $fillable = [
+        'name', 'class_type_id', 'mark_from',
+        'mark_to', 'remark'
+    ];
 
-  public function class_type(): BelongsTo
-  {
-    return $this->belongsTo(ClassType::class)->withDefault();
-  }
+    public function class_type(): BelongsTo
+    {
+        return $this->belongsTo(ClassType::class)->withDefault();
+    }
 }

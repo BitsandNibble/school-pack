@@ -50,7 +50,7 @@ class TabulationSheet extends Component
         if (!empty($this->term_id)) {
             if (auth('teacher')->user()) {
                 $this->classes = ClassSubjectTeacher::where('teacher_id', auth()->id())
-                    ->with('classroom')
+                    ->with('class_room')
                     ->select('class_room_id')
                     ->distinct()
                     ->get();

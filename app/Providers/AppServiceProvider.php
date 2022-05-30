@@ -8,34 +8,33 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-	/**
-	 * Register any application services.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-		//
-	}
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
 
-	/**
-	 * Bootstrap any application services.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		Model::preventLazyLoading(!app()->isProduction());
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        Model::preventLazyLoading(!app()->isProduction());
 
-		view()->composer(
-			'layouts.side-nav',
-			function ($view) {
-				$view->with(
-					'sec',
-					Section::where('teacher_id', auth('teacher')->id())
-						->with('classroom', 'teacher')->get()
-				);
-			}
-		);
-	}
+        view()->composer(
+            'layouts.side-nav',
+            function ($view) {
+                $view->with('sec',
+                    Section::where('teacher_id', auth('teacher')->id())
+                        ->with('class_room', 'teacher')->get()
+                );
+            }
+        );
+    }
 }

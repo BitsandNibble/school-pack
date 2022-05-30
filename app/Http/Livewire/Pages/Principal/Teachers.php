@@ -146,10 +146,10 @@ class Teachers extends Component
             ->with('nationality', 'state', 'lga')
             ->get();
 
-        $sec = Section::with('classroom')->where('teacher_id', $id)->first();
+        $sec = Section::with('class_room')->where('teacher_id', $id)->first();
 
         $this->assigned_subject_id = ClassSubjectTeacher::where('teacher_id', $id)
-            ->with('classroom', 'subject')
+            ->with('class_room', 'subject')
             ->get();
         $this->teacher_class_info = is_null($sec) ? '' : $sec->class_room->name;
 

@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @method static create(string[] $array)
+ * @method static firstOrCreate(array $array)
+ * @method static where(array $data)
+ * @method static get()
+ * @method static distinct()
+ */
 class Mark extends Model
 {
     use HasFactory;
@@ -17,7 +24,7 @@ class Mark extends Model
         'subject_position', 'grade_id', 'year',
     ];
 
-    public function classroom(): BelongsTo
+    public function class_room(): BelongsTo
     {
         return $this->belongsTo(ClassRoom::class)->withDefault();
     }

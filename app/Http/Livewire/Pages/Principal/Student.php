@@ -71,7 +71,7 @@ class Student extends Component
     {
         $query = StudentModel::query()
             ->when($this->q, fn($query) => $query->search($this->q))
-            ->with('classroom', 'section');
+            ->with('class_room', 'section');
 
         return $this->applySorting($query);
     }

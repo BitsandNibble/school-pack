@@ -108,7 +108,7 @@ class Students extends Component
     public function showInfo($id): void
     {
         $student = Student::where('id', $id)
-            ->with('classroom', 'section', 'nationality', 'state', 'lga')
+            ->with('class_room', 'section', 'nationality', 'state', 'lga')
             ->get();
 
         $this->student_info = $student;

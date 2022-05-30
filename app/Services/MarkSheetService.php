@@ -14,7 +14,7 @@ class MarkSheetService
         $d['year'] = $session;
 
         $d['student'] = Student::where('id', $student_id)
-            ->with('classroom', 'section')
+            ->with('class_room', 'section')
             ->first();
 
         $d['exam_record'] = $exr = ExamRecord::where(['year' => $session, 'student_id' => $student_id, 'class_room_id' => $class_id])

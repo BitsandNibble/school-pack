@@ -48,7 +48,7 @@ class Sections extends Component
     {
         $query = Section::query()
             ->when($this->q, fn($query) => $query->search($this->q))
-            ->with('classroom', 'teacher');
+            ->with('class_room', 'teacher');
 
         return $this->applySorting($query); // apply sorting
     }

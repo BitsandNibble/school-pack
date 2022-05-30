@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @method static get()
+ * @method static find($id)
+ * @method static select(string $string)
+ * @method static whereNull(string $string)
+ * @method static where(string $string, $session_year)
+ * @method static create(array $array)
+ */
 class Payment extends Model
 {
     use HasFactory;
@@ -16,7 +24,7 @@ class Payment extends Model
         'ref_no', 'term_id',
     ];
 
-    public function classroom(): BelongsTo
+    public function class_room(): BelongsTo
     {
         return $this->belongsTo(ClassRoom::class)->withDefault(
             ['name' => 'All Classes']

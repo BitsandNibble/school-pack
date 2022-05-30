@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function index(): Factory|View|Application
     {
         $sections = Section::where('teacher_id', auth('teacher')->id())
-            ->with('class_room', 'teacher')->get();
+            ->with('classroom', 'teacher')->get();
 
         return view('users.teacher.index', compact('sections'));
     }

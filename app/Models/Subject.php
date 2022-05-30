@@ -8,14 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-/**
- * @method static get()
- * @method static when($q, Closure $param)
- * @method static where(string $string, $id)
- * @method static find($subject_id)
- * @method static create(array $array)
- * @method static whereIn(string $string, $cst)
- */
 class Subject extends Model
 {
 	use HasFactory, WithSearch;
@@ -26,9 +18,13 @@ class Subject extends Model
 		'name', 'slug',
 	];
 
-	public function subjectTeachers(): BelongsToMany
+	// public function subjectTeachers(): BelongsToMany
+	// {
+	// 	return $this->belongsToMany(Teacher::class, 'class_subject_teachers', 'class_room_id');
+	// }
+
+	public function class_subjects(): BelongsToMany
 	{
-		return $this->belongsToMany(Teacher::class, 'class_subject_teacher', 'class_room_id');
-		// return $this->belongsToMany(Teacher::class, 'class_subject_teacher', 'class_room_id', 'teacher_id')->withPivot('subject_id');
+		return $this->belongsToMany(ClassRoom::class, 'class_subject_teachers', 'subject_id');
 	}
 }

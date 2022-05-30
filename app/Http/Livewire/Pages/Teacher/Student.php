@@ -58,7 +58,7 @@ class Student extends Component
 
     public function showInfo($id): void
     {
-        $this->student_info = StudentModel::where('id', $id)->with('class_room', 'section')->get();
+        $this->student_info = StudentModel::where('id', $id)->with('classroom', 'section')->get();
         $this->offered_subjects = ClassStudentSubject::where('student_id', $id)->get();
     }
 }

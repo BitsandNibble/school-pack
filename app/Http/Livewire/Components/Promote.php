@@ -43,13 +43,13 @@ class Promote extends Component
         // show sections per class
         if ($this->from_class) {
             $this->fs = Section::where('class_room_id', $this->from_class)
-                ->with('class_room')
+                ->with('classroom')
                 ->get();
         }
 
         if ($this->to_class) {
             $this->ts = Section::where('class_room_id', $this->to_class)
-                ->with('class_room')
+                ->with('classroom')
                 ->get();
         }
 

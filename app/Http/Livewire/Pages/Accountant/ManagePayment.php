@@ -64,7 +64,7 @@ class ManagePayment extends Component
     {
         return Payment::where('session', $this->selected_session)
             ->where('term_id', $this->selected_term)
-            ->with('class_room', 'student');
+            ->with('classroom', 'student');
     }
 
     public function getRowsProperty()

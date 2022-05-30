@@ -9,16 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-/**
- * @method static where(string $string, $class_id)
- * @method static when($q, Closure $param)
- * @method static create(array $array)
- * @method static find($id)
- * @method static whereIn(string $string, $css)
- * @method static get()
- * @method static findOrFail($id)
- * @property mixed profile_photo
- */
 class Student extends Authenticatable
 {
     use HasFactory, WithSearch;
@@ -37,7 +27,7 @@ class Student extends Authenticatable
         'remember_token',
     ];
 
-    public function class_room(): BelongsTo
+    public function classroom(): BelongsTo
     {
         return $this->belongsTo(ClassRoom::class)->withDefault();
     }

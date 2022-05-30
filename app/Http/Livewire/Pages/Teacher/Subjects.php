@@ -13,7 +13,7 @@ class Subjects extends Component
     public function render(): Factory|View|Application
     {
         $sub = ClassSubjectTeacher::where('teacher_id', auth()->id())
-            ->with('subject', 'class_room')
+            ->with('subject', 'classroom')
             ->get();
 
         return view('livewire.pages.teacher.subjects', compact('sub'));

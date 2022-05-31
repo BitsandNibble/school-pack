@@ -10,7 +10,7 @@ class Section extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $guarded = [];
 
     public function class_room(): BelongsTo
     {

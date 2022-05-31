@@ -2,14 +2,12 @@
 
 namespace App\Http\Livewire\Components;
 
-use App\Models\Mark;
 use App\Models\Term;
 use Livewire\Component;
 use App\Models\Section;
 use App\Models\Subject;
-use App\Models\Student;
 use App\Models\ClassRoom;
-use App\Models\ExamRecord;
+use App\Services\ScoreService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
@@ -20,22 +18,22 @@ class Scores extends Component
 	public $class_id;
 	public $section_id;
 	public $subject_id;
-	public $classes = [];
+	public $classes  = [];
 	public $sections = [];
 	public $subjects = [];
 
 	protected $listeners = ['create_marks'];
 
 	protected array $rules = [
-		'term_id' => 'required',
-		'class_id' => 'required',
+		'term_id'    => 'required',
+		'class_id'   => 'required',
 		'section_id' => 'required',
 		'subject_id' => 'required',
 	];
 
 	protected array $validationAttributes = [
-		'term_id' => 'term',
-		'class_id' => 'class',
+		'term_id'    => 'term',
+		'class_id'   => 'class',
 		'section_id' => 'section',
 		'subject_id' => 'subject',
 	];
@@ -94,40 +92,13 @@ class Scores extends Component
 	}
 
 	// get values from select box
-	public function manage(): void
+	public function manage(ScoreService $scoreService): void
 	{
-		$value = $this->validate();
+		$data = $this->validate();
 
-		// add records to marks & exam_records table
-		$students = Student::query()->whereHas('class_subjects', function ($query) {
-			$query->where([
-				'subject_id' => $this->subject_id,
-				'class_room_id' => $this->class_id
-			]);
-		})->get(['id']);
-
-		$year = Term::query()->find($this->term_id)->session;
-
-		foreach ($students as $student) {
-			Mark::query()->firstOrCreate([
-				'student_id' => $student->id,
-				'subject_id' => $this->subject_id,
-				'class_room_id' => $this->class_id,
-				'section_id' => $this->section_id,
-				'term_id' => $this->term_id,
-				'year' => $year,
-			]);
-
-			ExamRecord::query()->firstOrCreate([
-				'student_id' => $student->id,
-				'class_room_id' => $this->class_id,
-				'section_id' => $this->section_id,
-				'term_id' => $this->term_id,
-				'year' => $year,
-			]);
-		}
+		$scoreService->createScores($data);
 
 		// add records to mark table
-		$this->emit('getValues', $value);
+		$this->emit('getValues', $data);
 	}
 }

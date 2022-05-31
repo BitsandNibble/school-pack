@@ -3,11 +3,45 @@
 namespace App\Services;
 
 use App\Models\Mark;
+use App\Models\Term;
+use App\Models\Student;
 use App\Models\ClassRoom;
 use App\Models\ExamRecord;
 
 class ScoreService
 {
+	public function createScores($data)
+	{
+		// add records to marks & exam_records table
+		$students = Student::query()->whereHas('class_subjects', function ($query, $data) {
+			$query->where([
+				'subject_id'    => $data['subject_id'],
+				'class_room_id' => $data['class_id']
+			]);
+		})->get(['id']);
+
+		$year = Term::query()->find($this->term_id)->session;
+
+		foreach ($students as $student) {
+			Mark::query()->firstOrCreate([
+				'student_id'    => $student->id,
+				'subject_id'    => $data['subject_id'],
+				'class_room_id' => $data['class_id'],
+				'section_id'    => $data['section_id'],
+				'term_id'       => $data['term_id'],
+				'year'          => $year,
+			]);
+
+			ExamRecord::query()->firstOrCreate([
+				'student_id'    => $student->id,
+				'class_room_id' => $data['class_id'],
+				'section_id'    => $data['section_id'],
+				'term_id'       => $data['term_id'],
+				'year'          => $year,
+			]);
+		}
+	}
+
 	public function updateScores($data, $cred)
 	{
 		$all_student_ids = [];
@@ -20,7 +54,7 @@ class ScoreService
 
 		// update records in mark table
 		foreach ($marks as $index => $mark) {
-			// insert each student id into the array, to be used 
+			// insert each student id into the array, to be used
 			// for inserting data into the exam_records table
 			array_push($all_student_ids, $mark->student_id);
 

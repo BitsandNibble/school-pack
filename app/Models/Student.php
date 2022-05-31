@@ -52,6 +52,11 @@ class Student extends Authenticatable
         return $this->hasMany(Mark::class);
     }
 
+	public function class_subjects()
+	{
+		return $this->belongsToMany(ClassRoom::class, 'class_student_subjects', 'student_id');
+    }
+
     public function nationality(): BelongsTo
     {
         return $this->belongsTo(Nationality::class)->withDefault();

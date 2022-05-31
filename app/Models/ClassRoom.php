@@ -25,15 +25,15 @@ class ClassRoom extends Model
 		'name', 'class_type_id', 'slug'
 	];
 
-	public function subjectTeachers(): BelongsToMany
+	public function subject_teachers(): BelongsToMany
 	{
-		return $this->belongsToMany(Teacher::class, 'class_subject_teacher', 'class_room_id');
+		return $this->belongsToMany(Teacher::class, 'class_subject_teachers', 'class_room_id');
 		// return $this->belongsToMany(Teacher::class, 'class_subject_teacher', 'class_room_id', 'teacher_id')->withPivot('subject_id');
 	}
 
 	public function subjects(): BelongsToMany
 	{
-		return $this->belongsToMany(Subject::class, 'class_subject_teacher', 'class_room_id');
+		return $this->belongsToMany(Subject::class, 'class_subject_teachers', 'class_room_id');
 		// return $this->belongsToMany(Subject::class, 'class_subject_teacher', 'class_room_id', 'subject_id')->withPivot('teacher_id');
 	}
 

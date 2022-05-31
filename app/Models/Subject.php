@@ -26,9 +26,8 @@ class Subject extends Model
 		'name', 'slug',
 	];
 
-	public function subjectTeachers(): BelongsToMany
+	public function class_subjects(): BelongsToMany
 	{
-		return $this->belongsToMany(Teacher::class, 'class_subject_teacher', 'class_room_id');
-		// return $this->belongsToMany(Teacher::class, 'class_subject_teacher', 'class_room_id', 'teacher_id')->withPivot('subject_id');
-	}
+		return $this->belongsToMany(ClassRoom::class, 'class_student_subjects', 'subject_id');
+    }
 }

@@ -1,9 +1,13 @@
 <div>
-    @if($get_marks)
+    @if ($get_marks)
         <x-card>
             <div class="row fw-bolder">
-                <div class="col"><p>Subject: {{ $subject }}</p></div>
-                <div class="col"><p>Class: {{ $class }}</p></div>
+                <div class="col">
+                    <p>Subject: {{ $subject }}</p>
+                </div>
+                <div class="col">
+                    <p>Class: {{ $class }} {{ $section }}</p>
+                </div>
                 <div class="col">
                     <p>Term: {{ $term->name }} ({{ $term->session }})</p>
                 </div>
@@ -27,7 +31,7 @@
                             <x-table.cell>{{ $mark->student->fullname }}</x-table.cell>
                             <x-table.cell>{{ $mark->student->school_id }}</x-table.cell>
 
-                            {{--                CA and exam score--}}
+                            {{-- CA and exam score --}}
                             @unless($showEdit)
                                 <x-table.cell class="px-5">{{ $mark->ca1 }}</x-table.cell>
                                 <x-table.cell class="px-5">{{ $mark->ca2 }}</x-table.cell>
@@ -35,15 +39,15 @@
                             @else
                                 <x-table.cell class="px-5">
                                     <x-input type="number" class="form-control-sm" max="{{ $ca1_limit }}"
-                                             wire:model.defer="marks.{{ $index }}.ca1" />
+                                        wire:model.defer="marks.{{ $index }}.ca1" />
                                 </x-table.cell>
                                 <x-table.cell class="px-5">
                                     <x-input type="number" class="form-control-sm" max="{{ $ca2_limit }}"
-                                             wire:model.defer="marks.{{ $index }}.ca2" />
+                                        wire:model.defer="marks.{{ $index }}.ca2" />
                                 </x-table.cell>
                                 <x-table.cell class="px-5">
                                     <x-input type="number" class="form-control-sm" max="{{ $exam_limit }}"
-                                             wire:model.defer="marks.{{ $index }}.exam_score" />
+                                        wire:model.defer="marks.{{ $index }}.exam_score" />
                                 </x-table.cell>
                             @endunless
                         </x-table.row>
@@ -56,17 +60,17 @@
             </x-responsive-table>
 
             <div class="d-block mb-2 float-end">
-                {{--        check if exam is locked--}}
+                {{-- check if exam is locked --}}
                 @unless($term->locked)
-                    <x-button value="dark"
-                              wire:click="$toggle('showEdit')">{{ $showEdit ? 'Cancel Edit' : 'Edit Marks' }}</x-button>
-                    @if($showEdit)
+                    <x-button value="dark" wire:click="$toggle('showEdit')">
+                        {{ $showEdit ? 'Cancel Edit' : 'Edit Marks' }}</x-button>
+                    @if ($showEdit)
                         <x-button wire:click.prevent="store">Update Marks</x-button>
                     @endif
                 @else
-                    <sub class="text-danger">Session is locked. Contact admin to unlock before any changes can be made
-                        to
-                        this page</sub>
+                    <sub class="text-danger">
+                        Session is locked. Contact admin to unlock before any changes be made to this page
+                    </sub>
                 @endunless
             </div>
         </x-card>

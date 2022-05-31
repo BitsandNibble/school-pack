@@ -6,20 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-/**
- * @method static orderBy(string $sortBy, string $param)
- * @method static where(string $string, $id)
- * @method static find($section_id)
- * @method static create(array $array)
- * @method static get()
- */
 class Section extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name', 'class_room_id', 'teacher_id'
-    ];
+    protected $fillable = [];
 
     public function class_room(): BelongsTo
     {

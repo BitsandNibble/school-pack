@@ -9,25 +9,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-/**
- * @method static where(string $string, $id)
- * @method static find($id)
- * @method static create(array $array)
- * @method static get()
- * @method static when($q, Closure $param)
- * @property mixed profile_photo
- */
 class Teacher extends Authenticatable
 {
 	use HasFactory, WithSearch;
 
-	protected $fillable = [
-		'fullname', 'title', 'gender',
-		'date_of_birth', 'school_id', 'email',
-		'password', 'phone_number', 'profile_photo',
-		'slug', 'address', 'nationality_id',
-		'state_id', 'lga_id', 'date_of_employment'
-	];
+	protected $guarded = [];
 
 	// protected $search = [
 	//   'firstname', 'middlename', 'lastname',

@@ -6,23 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-/**
- * @method static create(string[] $array)
- * @method static firstOrCreate(array $array)
- * @method static where(array $data)
- * @method static get()
- * @method static distinct()
- */
 class Mark extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'student_id', 'subject_id', 'class_room_id',
-        'term_id', 'ca1', 'ca2', 'total_ca',
-        'exam_score', 'total_score',
-        'subject_position', 'grade_id', 'year',
-    ];
+    protected $guarded = [];
 
     public function class_room(): BelongsTo
     {

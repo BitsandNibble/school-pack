@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TeachersComments extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    public $timestamps = false;
-    protected $guarded = [];
+	public $timestamps = false;
+
+	protected $guarded = [];
 }

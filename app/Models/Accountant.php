@@ -7,24 +7,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-/**
- * @method static create(array $array)
- * @method static find(int|string|null $id)
- * @method static where(string $string, int|string|null $id)
- */
 class Accountant extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
 
-    protected $fillable = [
-        'fullname', 'slug', 'gender', 'email',
-        'date_of_birth', 'school_id', 'password',
-        'phone_number', 'profile_photo',
-        'address', 'nationality_id',
-        'state_id', 'lga_id', 'date_of_employment'
-    ];
+    protected $guarded = [];
 
     protected $hidden = [
         'password',

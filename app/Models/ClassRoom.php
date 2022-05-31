@@ -9,21 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-/**
- * @method static where(string $string, $id)
- * @method static orderBy(string $sortBy, string $param)
- * @method static find($class_id)
- * @method static create(array $array)
- * @method static get()
- * @method static whereIn(string $string, $students)
- */
 class ClassRoom extends Model
 {
 	use HasFactory, WithSearch;
 
-	protected $fillable = [
-		'name', 'class_type_id', 'slug'
-	];
+	protected $guarded = [];
 
 	public function subject_teachers(): BelongsToMany
 	{

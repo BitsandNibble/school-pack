@@ -6,15 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-/**
- * @method static create(array $d2)
- * @method static where(string $string, $id)
- */
 class Receipt extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['pr_id', 'session', 'balance', 'amount_paid'];
+    protected $guarded = [];
 
     public function payment_record(): BelongsTo
     {

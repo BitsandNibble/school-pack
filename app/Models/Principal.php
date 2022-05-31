@@ -7,24 +7,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-/**
- * @method static where(string $string, int|string|null $id)
- * @method static find(int|string|null $id)
- * @method static create(array $array)
- * @method static first()
- * @property mixed profile_photo
- */
 class Principal extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
 
-    protected $fillable = [
-        'fullname', 'slug', 'email', 'phone_number',
-        'password', 'profile_photo', 'school_id',
-        'address', 'nationality_id', 'state_id', 'lga_id'
-    ];
+    protected $guarded = [];
 
     protected $hidden = [
         'password',

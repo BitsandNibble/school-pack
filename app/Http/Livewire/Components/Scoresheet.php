@@ -5,17 +5,14 @@ namespace App\Http\Livewire\Components;
 use App\Models\Mark;
 use App\Models\Term;
 use App\Models\Subject;
+use App\Models\Section;
 use Livewire\Component;
 use App\Models\ClassRoom;
-use App\Models\ClassType;
-use App\Models\ExamRecord;
-use App\Models\Section;
 use App\Services\ScoreService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Support\Facades\DB;
 
 class Scoresheet extends Component
 {

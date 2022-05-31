@@ -23,19 +23,19 @@ class Skills extends Component
     public function mount($id, $year): void
     {
         $this->student_id = $id;
-        $this->year = $year;
-        $this->data = [
+        $this->year       = $year;
+        $this->data       = [
             'student_id' => $this->student_id,
-            'year' => $this->year,
+            'year'       => $this->year,
         ];
     }
 
     public function render(): Factory|View|Application
     {
-        $skills = Skill::get();
+        $skills = Skill::query()->get();
 
-        $a = ExamRecord::where($this->data)->get();
-        $b = $a->toArray()[0];
+        $a        = ExamRecord::query()->where($this->data)->get();
+        $b        = $a->toArray()[0];
         $this->af = explode(',', $b['af']);
         $this->ps = explode(',', $b['ps']);
 
@@ -53,7 +53,7 @@ class Skills extends Component
             $d[$skill] = implode(',', $this->ps);
         }
 
-        ExamRecord::where($this->data)->first()->update($d);
+        ExamRecord::query()->where($this->data)->first()->update($d);
 
         $this->alert('success', 'Skill Updated Successfully');
     }

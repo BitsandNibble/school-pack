@@ -42,7 +42,8 @@ class MarkSheet extends Component
 
 	public function render(): Factory|View|Application
 	{
-		check_teacher_marksheet_access(); // check if teacher has access to view this page
+		// check if teacher has access to view this page
+		check_teacher_marksheet_access();
 
 		$sessions = Mark::query()->distinct()->select('year')->get();
 
@@ -77,13 +78,12 @@ class MarkSheet extends Component
 
 		if ($this->selected) {
 			// fetch students results based on the selected class and the specific year
-
 			$this->students = Student::query()
 				->whereHas('mark', function ($query) {
 					$query->where('year', $this->session)
 						->where('class_room_id', $this->class_id);
 				})
-				->get(['id', 'fullname', 'school_id']); // get students
+				->get(['id', 'fullname', 'school_id']);
 		}
 
 		return view('livewire.components.mark-sheet', compact('sessions'));

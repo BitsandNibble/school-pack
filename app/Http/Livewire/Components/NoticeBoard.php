@@ -13,10 +13,6 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\NoticeBoard as NoticeBoardModel;
 use Illuminate\Contracts\Foundation\Application;
 
-/**
- * @property mixed rowsQuery
- * @property mixed rows
- */
 class NoticeBoard extends Component
 {
     use WithPagination;
@@ -40,16 +36,18 @@ class NoticeBoard extends Component
     protected function rules(): array
     {
         return [
-            'title' => ['required', Rule::unique('notice_boards', 'title')->ignore($this->notice_id)],
+            'title'   => ['required', Rule::unique('notice_boards', 'title')->ignore($this->notice_id)],
             'message' => 'required',
         ];
     }
 
     public function getRowsQueryProperty()
     {
-        return NoticeBoardModel::when($this->q, function ($query) {
-            return $query->search($this->q);
-        })->where('author_id', auth('principal')->id())
+        return NoticeBoardModel::query()
+            ->when($this->q, function ($query) {
+                return $query->search($this->q);
+            })
+            ->where('author_id', auth('principal')->id())
             ->with('principal');
     }
 
@@ -80,10 +78,10 @@ class NoticeBoard extends Component
 
     public function edit($id): void
     {
-        $notice = NoticeBoardModel::where('id', $id)->first();
+        $notice          = NoticeBoardModel::query()->where('id', $id)->first();
         $this->notice_id = $notice['id'];
-        $this->title = $notice->title;
-        $this->message = $notice->message;
+        $this->title     = $notice->title;
+        $this->message   = $notice->message;
     }
 
     /**
@@ -94,15 +92,15 @@ class NoticeBoard extends Component
         $this->validate();
 
         if ($this->notice_id) {
-            NoticeBoardModel::find($this->notice_id)->update([
-                'title' => $this->title,
+            NoticeBoardModel::query()->find($this->notice_id)->update([
+                'title'   => $this->title,
                 'message' => $this->message,
             ]);
             $this->alert('success', 'Notice Updated Successfully');
         } else {
-            NoticeBoardModel::create([
-                'title' => $this->title,
-                'message' => $this->message,
+            NoticeBoardModel::query()->create([
+                'title'     => $this->title,
+                'message'   => $this->message,
                 'author_id' => auth('principal')->id(),
             ]);
             $this->alert('success', 'Notice Added Successfully');
@@ -113,13 +111,13 @@ class NoticeBoard extends Component
 
     public function showInfo($id): void
     {
-        $this->notice_info = NoticeBoardModel::where('id', $id)
+        $this->notice_info = NoticeBoardModel::query()->where('id', $id)
             ->with('principal')->get();
     }
 
     public function openDeleteModal($id): void
     {
-        $del = NoticeBoardModel::find($id);
+        $del            = NoticeBoardModel::query()->find($id);
         $this->deleting = $del['id'];
     }
 

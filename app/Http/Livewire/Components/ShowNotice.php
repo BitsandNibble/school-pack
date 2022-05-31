@@ -17,7 +17,7 @@ class ShowNotice extends Component
 
     public function render(): Factory|View|Application
     {
-        $notices = NoticeBoardModel::with('principal')->Paginate(5);
+        $notices = NoticeBoardModel::query()->with('principal')->Paginate(5);
 
         return view('livewire.components.show-notice', compact('notices'));
     }

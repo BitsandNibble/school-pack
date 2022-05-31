@@ -29,27 +29,28 @@ class TabulationSheet extends Component
     public $selected_year;
 
     protected array $rules = [
-        'term_id' => 'required',
+        'term_id'  => 'required',
         'class_id' => 'required',
         // 'subject_id' => 'required',
     ];
 
     protected array $validationAttributes = [
-        'term_id' => 'term',
+        'term_id'  => 'term',
         'class_id' => 'class',
         // 'subject_id' => 'subject',
     ];
 
     public function render(): Factory|View|Application
     {
-        check_teacher_tabulation_sheet_access(); // check if teacher has access to view this page
+		// check if teacher has access to view this page
+        check_teacher_tabulation_sheet_access();
 
-        $terms = Term::get(); // get all terms
+        $terms = Term::query()->get();
 
         // show classes only when user has selected a term
         if (!empty($this->term_id)) {
             if (auth('teacher')->user()) {
-                $this->classes = ClassSubjectTeacher::where('teacher_id', auth()->id())
+                $this->classes = ClassSubjectTeacher::query()->where('teacher_id', auth()->id())
                     ->with('class_room')
                     ->select('class_room_id')
                     ->distinct()
@@ -57,31 +58,31 @@ class TabulationSheet extends Component
             }
 
             if (auth('principal')->user()) {
-                $this->classes = ClassRoom::get();
+                $this->classes = ClassRoom::query()->get();
             }
 
-            $this->selected_year = Term::where('id', $this->term_id)->first()['session']; // get selected year
+            $this->selected_year = Term::query()->where('id', $this->term_id)->first()['session'];  // get selected year
         }
 
         if ($this->class_id) {
             // get distinct subjects per class and show in table head
-            $this->subjects = Mark::where($this->data)
+            $this->subjects = Mark::query()->where($this->data)
                 ->select('subject_id')
                 ->distinct()
                 ->with('subject')
                 ->get(['subject_id']);
 
             // get students along with the subjects they're registered with to show in table body
-            $this->students = Mark::where($this->data)
+            $this->students = Mark::query()->where($this->data)
                 ->select('student_id')
                 ->distinct()
                 ->with('student')
                 ->get(['student_id']);
 
-            $this->marks = Mark::where($this->data)
+            $this->marks = Mark::query()->where($this->data)
                 ->get(['student_id', 'subject_id', 'total_score']);
 
-            $this->exam_record = ExamRecord::where($this->data)
+            $this->exam_record = ExamRecord::query()->where($this->data)
                 ->get(['student_id', 'total', 'average', 'position']);
         }
 
@@ -95,13 +96,13 @@ class TabulationSheet extends Component
 
         // use this for where clause to avoid duplicates
         $this->data = [
-            'term_id' => $this->term_id,
+            'term_id'       => $this->term_id,
             'class_room_id' => $this->class_id,
-            'year' => $this->selected_year,
+            'year'          => $this->selected_year,
         ];
 
-        $this->selected_year = Term::where('id', $this->term_id)->first()->session;
-        $this->class_name = ClassRoom::where('id', $this->class_id)->first()->name;
-        $this->term_name = Term::where('id', $this->term_id)->first()->name;
+        $this->selected_year = Term::query()->find($this->term_id)->session;
+        $this->class_name    = ClassRoom::query()->find($this->class_id)->name;
+        $this->term_name     = Term::query()->find($this->term_id)->name;
     }
 }

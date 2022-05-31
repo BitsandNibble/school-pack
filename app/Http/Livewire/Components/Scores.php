@@ -5,106 +5,129 @@ namespace App\Http\Livewire\Components;
 use App\Models\Mark;
 use App\Models\Term;
 use Livewire\Component;
+use App\Models\Section;
+use App\Models\Subject;
+use App\Models\Student;
 use App\Models\ClassRoom;
 use App\Models\ExamRecord;
-use App\Models\ClassStudentSubject;
-use App\Models\ClassSubjectTeacher;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
 
 class Scores extends Component
 {
-    public $term_id;
-    public $class_id;
-    public $subject_id;
-    public $classes = [];
-    public $subjects = [];
+	public $term_id;
+	public $class_id;
+	public $section_id;
+	public $subject_id;
+	public $classes = [];
+	public $sections = [];
+	public $subjects = [];
 
-    protected $listeners = ['create_marks'];
-    protected array $rules = [
-        'term_id' => 'required',
-        'class_id' => 'required',
-        'subject_id' => 'required',
-    ];
+	protected $listeners = ['create_marks'];
 
-    protected array $validationAttributes = [
-        'term_id' => 'term',
-        'class_id' => 'class',
-        'subject_id' => 'subject',
-    ];
+	protected array $rules = [
+		'term_id' => 'required',
+		'class_id' => 'required',
+		'section_id' => 'required',
+		'subject_id' => 'required',
+	];
 
-    public function render(): Factory|View|Application
-    {
-        // get terms for current session
-        $terms = Term::get();
+	protected array $validationAttributes = [
+		'term_id' => 'term',
+		'class_id' => 'class',
+		'section_id' => 'section',
+		'subject_id' => 'subject',
+	];
 
-        if (auth('teacher')->user()) {
-            // show classes only when user has selected an term
-            if (!empty($this->term_id)) {
-                $this->classes = ClassSubjectTeacher::where('teacher_id', auth()->id())
-                    ->with('subject', 'class_room')
-                    ->select('class_room_id')
-                    ->distinct()
-                    ->get();
-            }
+	public function render(): Factory|View|Application
+	{
 
-//    show subjects specific to a class
-            if (!empty($this->class_id)) {
-                $this->subjects = ClassSubjectTeacher::where('teacher_id', auth()->id())
-                    ->where('class_room_id', $this->class_id)
-                    ->with('subject')
-                    ->get();
-            }
-        }
+		// get terms for current session
+		$terms = Term::query()->get();
 
-        if (auth('principal')->user()) {
-            // show classes only when user has selected an term
-            if (!empty($this->term_id)) {
-                $this->classes = ClassRoom::get();
-            }
+		if (auth('teacher')->user()) {
 
-//    show subjects specific to a class
-            if (!empty($this->class_id)) {
-                $this->subjects = ClassSubjectTeacher::where('class_room_id', $this->class_id)
-                    ->with('subject')
-                    ->get();
-            }
-        }
+			// show classes only when user has selected an term
+			if (!empty($this->term_id)) {
+				$this->classes = ClassRoom::query()->whereHas('subject_teachers', function ($query) {
+					$query->where('teacher_id', auth()->id());
+				})->get();
+			}
 
-        return view('livewire.components.scores', compact('terms'));
-    }
+			// show section for the selected class
+			if (!empty($this->class_id)) {
+				$this->sections = Section::query()->where('class_room_id', $this->class_id)
+					->get();
+			}
 
-//  get values from select box
-    public function manage(): void
-    {
-        $value = $this->validate();
+			// show subjects specific to the selcected class
+			if (!empty($this->section_id)) {
+				$this->subjects = Subject::query()->whereHas('class_subjects', function ($query) {
+					$query->where('class_room_id', $this->class_id);
+				})->get();
+			}
+		}
 
-        //  add records to mark table
-        $student_id = ClassStudentSubject::where('subject_id', $this->subject_id)
-            ->where('class_room_id', $this->class_id)
-            ->get('student_id');
+		if (auth('principal')->user()) {
 
-        $year = Term::where('id', $this->term_id)->first()->session;
+			// show classes only when user has selected a term
+			if (!empty($this->term_id)) {
+				$this->classes = ClassRoom::query()->get();
+			}
 
-        foreach ($student_id as $id) {
-            Mark::firstOrCreate([
-                'student_id' => $id->student_id,
-                'subject_id' => $this->subject_id,
-                'class_room_id' => $this->class_id,
-                'term_id' => $this->term_id,
-                'year' => $year,
-            ]);
+			// show section for the selected class
+			if (!empty($this->class_id)) {
+				$this->sections = Section::query()->where('class_room_id', $this->class_id)
+					->get();
+			}
 
-            ExamRecord::firstOrCreate([
-                'student_id' => $id->student_id,
-                'class_room_id' => $this->class_id,
-                'term_id' => $this->term_id,
-                'year' => $year,
-            ]);
-        }
-        //  add records to mark table
+			// show subjects specific to the selcected class
+			if (!empty($this->section_id)) {
+				$this->subjects = Subject::query()->whereHas('class_subjects', function ($query) {
+					$query->where('class_room_id', $this->class_id);
+				})->get();
+			}
+		}
 
-        $this->emit('getValues', $value);
-    }
+		return view('livewire.components.scores', compact('terms'));
+	}
+
+	// get values from select box
+	public function manage(): void
+	{
+		$value = $this->validate();
+
+		// add records to marks & exam_records table
+		$students = Student::query()->whereHas('class_subjects', function ($query) {
+			$query->where([
+				'subject_id' => $this->subject_id,
+				'class_room_id' => $this->class_id
+			]);
+		})->get(['id']);
+
+		$year = Term::query()->find($this->term_id)->session;
+
+		foreach ($students as $student) {
+			Mark::query()->firstOrCreate([
+				'student_id' => $student->id,
+				'subject_id' => $this->subject_id,
+				'class_room_id' => $this->class_id,
+				'section_id' => $this->section_id,
+				'term_id' => $this->term_id,
+				'year' => $year,
+			]);
+
+			ExamRecord::query()->firstOrCreate([
+				'student_id' => $student->id,
+				'class_room_id' => $this->class_id,
+				'section_id' => $this->section_id,
+				'term_id' => $this->term_id,
+				'year' => $year,
+			]);
+		}
+
+		// add records to mark table
+		$this->emit('getValues', $value);
+	}
 }

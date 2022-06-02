@@ -13,14 +13,14 @@ class ScoreService
 	public function createScores($data)
 	{
 		// add records to marks & exam_records table
-		$students = Student::query()->whereHas('class_subjects', function ($query, $data) {
+		$students = Student::query()->whereHas('class_subjects', function ($query) use ($data) {
 			$query->where([
 				'subject_id'    => $data['subject_id'],
 				'class_room_id' => $data['class_id']
 			]);
 		})->get(['id']);
 
-		$year = Term::query()->find($this->term_id)->session;
+		$year = Term::query()->find($data['term_id'])->session;
 
 		foreach ($students as $student) {
 			Mark::query()->firstOrCreate([
@@ -66,8 +66,6 @@ class ScoreService
 
 			// get grade
 			$grade = get_grade($total, $class_type_id);
-
-			dd($ca2);
 
 			// get subject position
 			$sub_pos = get_subject_position($mark->student_id, $data['term_id'], $data['class_room_id'], $data['subject_id'], $data['year']);

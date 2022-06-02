@@ -30,7 +30,7 @@ class Student extends Authenticatable
         return $this->belongsTo(Section::class)->withDefault();
     }
 
-    public function mark(): HasMany
+    public function marks(): HasMany
     {
         return $this->hasMany(Mark::class);
     }

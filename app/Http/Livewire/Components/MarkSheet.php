@@ -49,10 +49,10 @@ class MarkSheet extends Component
 
 		// show classes only when user has selected a term
 		if (!empty($this->session)) {
-			// get all classes where current logged in teacher has been
-			// assigned to and when accessing from teacher's dashboard
+			// get all classes where authenticated teacher
+			// is assigned to from teacher's dashboard
 			if (auth('teacher')->user()) {
-				$this->classes = ClassRoom::query()->query()
+				$this->classes = ClassRoom::query()
 					->whereHas('sections', function ($query) {
 						$query->where('teacher_id', auth()->id());
 					})->get();
@@ -79,7 +79,7 @@ class MarkSheet extends Component
 		if ($this->selected) {
 			// fetch students results based on the selected class and the specific year
 			$this->students = Student::query()
-				->whereHas('mark', function ($query) {
+				->whereHas('marks', function ($query) {
 					$query->where('year', $this->session)
 						->where('class_room_id', $this->class_id);
 				})

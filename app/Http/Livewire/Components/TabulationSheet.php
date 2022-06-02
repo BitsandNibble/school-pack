@@ -5,104 +5,104 @@ namespace App\Http\Livewire\Components;
 use App\Models\Mark;
 use App\Models\Term;
 use Livewire\Component;
+use App\Models\Student;
+use App\Models\Subject;
 use App\Models\ClassRoom;
 use App\Models\ExamRecord;
 use Illuminate\Contracts\View\View;
-use App\Models\ClassSubjectTeacher;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
 
 class TabulationSheet extends Component
 {
-    public $term_id;
-    public $class_id;
-    public $subject_id;
-    public $classes = [];
-    // public $subjects = [];
-    public $data;
-    public $marks;
-    public $subjects;
-    public $students;
-    public $exam_record;
-    public $class_name;
-    public $term_name;
-    public $selected_year;
+	public $term_id;
+	public $class_id;
+	public $subject_id;
+	public $classes = [];
+	// public $subjects = [];
+	public $data;
+	public $marks;
+	public $subjects;
+	public $students;
+	public $exam_record;
+	public $class_name;
+	public $term_name;
+	public $selected_term;
+	public $selected_year;
 
-    protected array $rules = [
-        'term_id'  => 'required',
-        'class_id' => 'required',
-        // 'subject_id' => 'required',
-    ];
+	protected array $rules = [
+		'term_id'  => 'required',
+		'class_id' => 'required',
+		// 'subject_id' => 'required',
+	];
 
-    protected array $validationAttributes = [
-        'term_id'  => 'term',
-        'class_id' => 'class',
-        // 'subject_id' => 'subject',
-    ];
+	protected array $validationAttributes = [
+		'term_id'  => 'term',
+		'class_id' => 'class',
+		// 'subject_id' => 'subject',
+	];
 
-    public function render(): Factory|View|Application
-    {
+	public function render(): Factory|View|Application
+	{
 		// check if teacher has access to view this page
-        check_teacher_tabulation_sheet_access();
+		check_teacher_tabulation_sheet_access();
 
-        $terms = Term::query()->get();
+		$terms = Term::query()->get();
 
-        // show classes only when user has selected a term
-        if (!empty($this->term_id)) {
-            if (auth('teacher')->user()) {
-                $this->classes = ClassSubjectTeacher::query()->where('teacher_id', auth()->id())
-                    ->with('class_room')
-                    ->select('class_room_id')
-                    ->distinct()
-                    ->get();
-            }
+		// show classes only when user has selected a term
+		if (!empty($this->term_id)) {
+			if (auth('teacher')->user()) {
+				$this->classes = ClassRoom::query()
+					->whereHas('sections', function ($query) {
+						$query->where('teacher_id', auth()->id());
+					})->get();
+			}
 
-            if (auth('principal')->user()) {
-                $this->classes = ClassRoom::query()->get();
-            }
+			if (auth('principal')->user()) $this->classes = ClassRoom::query()->get();
 
-            $this->selected_year = Term::query()->where('id', $this->term_id)->first()['session'];  // get selected year
-        }
+			$this->selected_term = Term::query()->find($this->term_id);
 
-        if ($this->class_id) {
-            // get distinct subjects per class and show in table head
-            $this->subjects = Mark::query()->where($this->data)
-                ->select('subject_id')
-                ->distinct()
-                ->with('subject')
-                ->get(['subject_id']);
+			// get selected year
+			$this->selected_year = $this->selected_term->session;
+		}
 
-            // get students along with the subjects they're registered with to show in table body
-            $this->students = Mark::query()->where($this->data)
-                ->select('student_id')
-                ->distinct()
-                ->with('student')
-                ->get(['student_id']);
+		if ($this->class_id) {
+			// fetch all subjects of selected class and show in table head
+			$this->subjects = Subject::query()
+				->whereHas('marks', function ($query) {
+					$query->where($this->data);
+				})->get();
 
-            $this->marks = Mark::query()->where($this->data)
-                ->get(['student_id', 'subject_id', 'total_score']);
+			// get students along with registered subjects to show in table body
+			$this->students = Student::query()
+				->whereHas('marks', function ($query) {
+					$query->where($this->data);
+				})
+				->get(['id', 'fullname']);
 
-            $this->exam_record = ExamRecord::query()->where($this->data)
-                ->get(['student_id', 'total', 'average', 'position']);
-        }
+			$this->marks = Mark::query()->where($this->data)
+				->get(['student_id', 'subject_id', 'total_score']);
 
-        return view('livewire.components.tabulation-sheet', compact('terms'));
-    }
+			$this->exam_record = ExamRecord::query()->where($this->data)
+				->get(['student_id', 'total', 'average', 'position']);
+		}
 
-    // get values from select box
-    public function view(): void
-    {
-        $this->validate();
+		return view('livewire.components.tabulation-sheet', compact('terms'));
+	}
 
-        // use this for where clause to avoid duplicates
-        $this->data = [
-            'term_id'       => $this->term_id,
-            'class_room_id' => $this->class_id,
-            'year'          => $this->selected_year,
-        ];
+	// get values from select box
+	public function view(): void
+	{
+		$this->validate();
 
-        $this->selected_year = Term::query()->find($this->term_id)->session;
-        $this->class_name    = ClassRoom::query()->find($this->class_id)->name;
-        $this->term_name     = Term::query()->find($this->term_id)->name;
-    }
+		// use this for where clause to avoid duplicates
+		$this->data = [
+			'term_id'       => $this->term_id,
+			'class_room_id' => $this->class_id,
+			'year'          => $this->selected_year,
+		];
+
+		$this->class_name = ClassRoom::query()->find($this->class_id)->name;
+		$this->term_name  = $this->selected_term->name;
+	}
 }

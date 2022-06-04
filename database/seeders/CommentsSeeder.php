@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class PrincipalsCommentsSeeder extends Seeder
+class CommentsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class PrincipalsCommentsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('principals_comments')->truncate();
+        DB::table('comments')->truncate();
 
         $data = [
             ['comment' => 'He is a very remarkable student'],
@@ -23,6 +23,6 @@ class PrincipalsCommentsSeeder extends Seeder
             ['comment' => 'She is very good'],
         ];
 
-        DB::table('principals_comments')->insert($data);
+        DB::table('comments')->insert($data);
     }
 }

@@ -39,8 +39,7 @@ class DatabaseSeeder extends Seeder
 //            LgaSeeder::class,
 			SkillSeeder::class,
 			NoticeBoardSeeder::class,
-			PrincipalsCommentsSeeder::class,
-			TeachersCommentsSeeder::class,
+			CommentsSeeder::class,
 			SubjectsSeeder::class,
 		]);
 

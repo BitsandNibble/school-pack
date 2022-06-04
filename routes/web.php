@@ -114,7 +114,7 @@ Route::group(['middleware' => 'auth:accountant,principal'], function () {
 
 // print route
 Route::group(['middleware' => 'auth:teacher,principal,student'], function () {
-    Route::get('results/mark-sheet/show/{id}/{session}/{term}', [GeneralController::class, 'getMarksheetYear'])->name('result.marksheet.show');
+    Route::get('results/mark-sheet/show/{id}/{session}/{class}', [GeneralController::class, 'getMarksheetYear'])->name('result.marksheet.show');
     Route::get('marks/print/{id}/{exam_id}/{year}', [GeneralController::class, 'printMarkSheet'])->name('print_marksheet');
     Route::get('marks/print/{exam_id}/{class}', [GeneralController::class, 'printTabulationSheet'])->name('print_tabulation_sheet');
     Route::get('payments/receipts/{pr_id}', [GeneralController::class, 'printReceipt'])->name('print_invoice');

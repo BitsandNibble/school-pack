@@ -17,23 +17,19 @@ class MarkSheetService
             ->with('class_room', 'section')
             ->first();
 
-        $d['exam_record'] = $exr = ExamRecord::where(['year' => $session, 'student_id' => $student_id, 'class_room_id' => $class_id])
+        $d['exam_records'] = $exr = ExamRecord::where(['year' => $session, 'student_id' => $student_id, 'class_room_id' => $class_id])
             ->with('term')
-            ->first();
-
-        $d['marks'] = Mark::where(['year' => $session, 'student_id' => $student_id, 'class_room_id' => $class_id])
-            ->where('year', $session)
-            ->with('subject', 'grade')
             ->get();
 
-        $d['position'] = get_suffix($exr->position);
+        $d['marks'] = Mark::where(['year' => $session, 'student_id' => $student_id, 'class_room_id' => $class_id])
+            ->with('subject', 'grade')
+            ->get();
 
         $d['ca1_limit'] = get_setting('ca1') ?: null;
         $d['ca2_limit'] = get_setting('ca2') ?: null;
         $d['exam_limit'] = get_setting('exam') ?: null;
         $d['total'] = $d['ca1_limit'] + $d['ca2_limit'] + $d['exam_limit'];
 
-        dd($d);
         return $d;
     }
 }

@@ -49,27 +49,28 @@ to publish your changes to `public/assets/css/custom.css`
 
 ### General
 
+-   [x] Create a 'Comments Bank' so principal & teachers can either type or select comments
+-   [ ] Feature to insert comments in the 'Comments Bank'
+-   [ ] Fetch student's past results using the year, and student_id (from mark/exam_records table)
+-   [ ] Seperate 'manage payment' into General and Individual Comnoonent
 -   [ ] Setup Wizard to insert all the necessary data before using the app
 -   [ ] Disable button when submitting a form or updating a form
 -   [ ] Print profile pages (Still thinking)
--   [ ] Create a 'Comments Bank' so principal & teachers can either type or select comments
 -   [ ] Add csv icon to import or export data on various pages
 -   [ ] Probably Use select2 picker for select boxes
 -   [ ] Customise tables: Add CSV, PDF, PRINT buttons & handle functionality personally
 -   [ ] Use <datalist></datalist> to recommend a list of subjects from a subject bank, when creating a new subject
 -   [ ] Users should be able to update/change password
 -   [ ] Figure out a way to generate school_id for admin/principal
--   [ ] Fetch student's past results using the year, and student_id (from mark/exam_records table)
 -   [ ] Automatically register all junior school students to specified subjects
 -   [ ] Multi delete with checkbox
--   [ ] Use another approach to generae staff_id, student_id
+-   [ ] Use another approach to generate staff_id, student_id
 -   [ ] Find another name for TabulationSheet
 -   [ ] Crop school image/logo before upload
 -   [ ] Automatic promotion when term comes to an and or something of sort. (Could be done by a trigger) (Admin sets the criteria for promotion & at the end of the session, button appears and onclick, students that meet the crtieria are promoted) (Might have to create another table for this)
 -   [ ] On app load/sign in, do the following:
     -   [ ] Check if exam is locked
     -   [ ] Get current session, and lock all other sessions
--   [ ] Seperate 'manage payment' into General and Indivicual Comnoonent
 
 ### Principal/Admin
 
@@ -90,7 +91,7 @@ to publish your changes to `public/assets/css/custom.css`
 
 ### Bugs
 
--   [ ] When selecting skills on result page
+-   [ ] When selecting/inserting skills on result page
 -   [ ] When inserting scores (very slow due to multiple request to the 'grades' table)
 -   [ ] Optimize db query on debtors page
 -   [ ] When adding multiple subjects

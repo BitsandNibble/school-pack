@@ -4,35 +4,19 @@
             <div class="col-md-3">
                 @auth('teacher')
                     <p>Teacher's Comment</p>
-                @endauth
-
-                @auth('principal')
+                @else
                     <p>Principal's Comment</p>
                 @endauth
             </div>
 
             <div class="col-md-9">
-                @auth('teacher')
-                    {{-- <x-textarea wire:model.defer="teachers_comment" placeholder="Type comment"></x-textarea> --}}
-                    <x-input type="text" list="comments" wire:model.defer="teachers_comment" />
-                    <datalist id="comments">
-                        @foreach ($default_teachers_comment as $dpc)
-                            <option value="{{ $dpc->comment }}" />
-                        @endforeach
-                    </datalist>
-                    <x-input-error for="teachers_comment" />
-                @endauth
-
-                @auth('principal')
-                    {{-- <x-textarea list="comments" wire:model.defer="principals_comment" placeholder="Type comment"></x-textarea> --}}
-                    <x-input type="text" list="comments" wire:model.defer="principals_comment" />
-                    <datalist id="comments">
-                        @foreach ($default_principals_comment as $dpc)
-                            <option value="{{ $dpc->comment }}" />
-                        @endforeach
-                    </datalist>
-                    <x-input-error for="principals_comment" />
-                @endauth
+                <x-input type="text" list="comments" wire:model.defer="comment" />
+                <datalist id="comments">
+                    @foreach ($comments as $comment)
+                        <option value="{{ $comment->description }}" />
+                    @endforeach
+                </datalist>
+                <x-input-error for="comment" />
             </div>
         </div>
 

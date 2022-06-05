@@ -14,18 +14,23 @@ class Skills extends Component
 {
     use LivewireAlert;
 
-    public int $student_id;
-    public $year;
-    public $data;
+
+	public $year;
+	public $data;
+	public $term;
+    public $student_id;
     public array $af = [];
     public array $ps = [];
 
-    public function mount($id, $year): void
-    {
-        $this->student_id = $id;
-        $this->year       = $year;
+    public function mount($id, $term, $year): void
+	{
+		$this->student_id = $id;
+		$this->term       = $term;
+		$this->year       = $year;
+
         $this->data       = [
             'student_id' => $this->student_id,
+            // 'term_id'       => $this->term,
             'year'       => $this->year,
         ];
     }

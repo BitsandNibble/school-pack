@@ -52,8 +52,8 @@ to publish your changes to `public/assets/css/custom.css`
 -   [x] Create a 'Comments Bank' so principal & teachers can either type or select comments
 -   [x] Feature to insert comments in the 'Comments Bank'
 -   [x] Rename 'comments' to 'comments_bank'
+-   [x] Seperate 'manage payment' into General and Individual Comnoonent
 -   [ ] Fetch student's past results using the year, and student_id (from mark/exam_records table)
--   [ ] Seperate 'manage payment' into General and Individual Comnoonent
 -   [ ] Setup Wizard to insert all the necessary data before using the app
 -   [ ] Disable button when submitting a form or updating a form
 -   [ ] Print profile pages (Still thinking)

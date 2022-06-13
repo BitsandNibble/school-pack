@@ -9,7 +9,7 @@
             <div class="col-md-6">
                 <x-label for="session" class="fw-bolder">Select Session</x-label>
                 <x-select id="session" class="mb-2" wire:model="selected_session">
-                    @foreach(all_sessions()  as $sess)
+                    @foreach (all_sessions() as $sess)
                         <option value="{{ $sess }}" selected>{{ $sess }}</option>
                     @endforeach
                 </x-select>
@@ -19,8 +19,8 @@
             <div class="col-md-6">
                 <x-label for="term" class="fw-bolder">Select Term</x-label>
                 <x-select id="term" class="mb-2" wire:model.defer="selected_term">
-                    @if(count($terms) > 0)
-                        @foreach($terms as $term)
+                    @if (count($terms) > 0)
+                        @foreach ($terms as $term)
                             <option value="{{ $term->id }}" selected>{{ $term->name }}</option>
                         @endforeach
                     @endif
@@ -36,7 +36,7 @@
 
     <x-spinner />
 
-    @if($selected_term)
+    @if ($selected_term)
         <x-card-with-header>
             <x-slot name="header">
                 <div class="ms-auto d-flex justify-content-between">
@@ -47,7 +47,7 @@
 
                             <li>
                                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteSelectedModal"
-                                   href="#">
+                                    href="#">
                                     <i class="bx bxs-trash"></i>
                                     Delete
                                 </a>
@@ -118,7 +118,8 @@
                             @forelse($general as $gen)
                                 <x-table.row>
                                     <x-table.cell class="pe-0">
-                                        <x-checked-input type="checkbox" wire:model="selected" value="{{ $gen->id }}" />
+                                        <x-checked-input type="checkbox" wire:model="selected"
+                                            value="{{ $gen->id }}" />
                                     </x-table.cell>
                                     <x-table.cell>{{ $loop->iteration }}</x-table.cell>
                                     <x-table.cell>{{ $gen->title }}</x-table.cell>
@@ -128,13 +129,13 @@
                                     <x-table.cell>{{ $gen->method }}</x-table.cell>
                                     <x-table.cell>{{ $gen->description }}</x-table.cell>
                                     <x-table.cell>
-                                        <x-button class="px-0" wire:click="edit({{ $gen->id }})" value=""
-                                                  data-bs-toggle="modal"
-                                                  data-bs-target="#editGeneralPaymentModal">
+                                        <x-button class="px-0" wire:click="edit({{ $gen->id }})"
+                                            value="" data-bs-toggle="modal" data-bs-target="#editGeneralPaymentModal">
                                             <i class="bx bxs-pen"></i>
                                         </x-button>
-                                        <x-button class="px-0" value="" wire:click="openDeleteModal({{ $gen->id }})"
-                                                  data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                        <x-button class="px-0" value=""
+                                            wire:click="openDeleteModal({{ $gen->id }})" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal">
                                             <i class="bx bxs-trash-alt"></i>
                                         </x-button>
                                     </x-table.cell>
@@ -189,7 +190,8 @@
                             @forelse($individual as $ind)
                                 <x-table.row>
                                     <x-table.cell class="pe-0">
-                                        <x-checked-input type="checkbox" wire:model="selected" value="{{ $ind->id }}" />
+                                        <x-checked-input type="checkbox" wire:model="selected"
+                                            value="{{ $ind->id }}" />
                                     </x-table.cell>
                                     <x-table.cell>{{ $loop->iteration }}</x-table.cell>
                                     <x-table.cell>{{ $ind->title }}</x-table.cell>
@@ -200,20 +202,21 @@
                                     <x-table.cell>{{ $ind->method }}</x-table.cell>
                                     <x-table.cell>{{ $ind->description }}</x-table.cell>
                                     <x-table.cell>
-                                        <x-button class="px-0" wire:click="edit({{ $ind->id }})" value=""
-                                                  data-bs-toggle="modal"
-                                                  data-bs-target="#editIndividualPaymentModal">
+                                        <x-button class="px-0" wire:click="edit({{ $ind->id }})"
+                                            value="" data-bs-toggle="modal"
+                                            data-bs-target="#editIndividualPaymentModal">
                                             <i class="bx bxs-pen"></i>
                                         </x-button>
-                                        <x-button class="px-0" value="" wire:click="openDeleteModal({{ $ind->id }})"
-                                                  data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                        <x-button class="px-0" value=""
+                                            wire:click="openDeleteModal({{ $ind->id }})" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal">
                                             <i class="bx bxs-trash-alt"></i>
                                         </x-button>
                                     </x-table.cell>
                                 </x-table.row>
                             @empty
                                 <x-table.row>
-                                    <x-table.cell colspan="8" align="center">No record found</x-table.cell>
+                                    <x-table.cell colspan="10" align="center">No record found</x-table.cell>
                                 </x-table.row>
                             @endforelse
                         </x-slot>
@@ -230,7 +233,7 @@
                     <div class="col-md-6 mb-2">
                         <x-label>Session <span class="text-danger">*</span></x-label>
                         <x-select wire:model="payment.session">
-                            @foreach(all_sessions() as $sess)
+                            @foreach (all_sessions() as $sess)
                                 <option value="{{ $sess }}">{{ $sess }}</option>
                             @endforeach
                         </x-select>
@@ -240,8 +243,8 @@
                     <div class="col-md-6 mb-2">
                         <x-label>Term <span class="text-danger">*</span></x-label>
                         <x-select wire:model.defer="payment.term_id">
-                            @if(count($terms) > 0)
-                                @foreach($terms as $t)
+                            @if (count($terms) > 0)
+                                @foreach ($terms as $t)
                                     <option value="{{ $t->id }}">{{ $t->name }}</option>
                                 @endforeach
                             @endif
@@ -259,12 +262,12 @@
 
                     <div class="col-md-6 mb-2">
                         <x-label>Class <span class="text-danger">*</span></x-label>
-                        <x-select wire:model.defer="payment.class_room_id">
+                        <select class="form-select" wire:model.defer="payment.class_room_id">
                             <option selected value="NULL">ALL CLASSES</option>
-                            @foreach($classes as $class)
+                            @foreach ($classes as $class)
                                 <option value="{{ $class->id }}">{{ $class->name }}</option>
                             @endforeach
-                        </x-select>
+                        </select>
                         <x-input-error for="payment.class_room_id" />
                     </div>
                 </div>
@@ -310,7 +313,7 @@
                     <div class="col-md-6 mb-2">
                         <x-label>Session <span class="text-danger">*</span></x-label>
                         <x-select wire:model="payment.session">
-                            @foreach(all_sessions() as $sess)
+                            @foreach (all_sessions() as $sess)
                                 <option value="{{ $sess }}">{{ $sess }}</option>
                             @endforeach
                         </x-select>
@@ -320,8 +323,8 @@
                     <div class="col-md-6 mb-2">
                         <x-label>Term <span class="text-danger">*</span></x-label>
                         <x-select wire:model.defer="payment.term_id">
-                            @if(count($terms) > 0)
-                                @foreach($terms as $t)
+                            @if (count($terms) > 0)
+                                @foreach ($terms as $t)
                                     <option value="{{ $t->id }}">{{ $t->name }}</option>
                                 @endforeach
                             @endif
@@ -340,8 +343,8 @@
                     <div class="col-md-6 mb-2">
                         <x-label>Class</x-label>
                         <x-select wire:model="payment.class_room_id">
-                            @if(count($classes) > 0)
-                                @foreach($classes as $class)
+                            @if (count($classes) > 0)
+                                @foreach ($classes as $class)
                                     <option value="{{ $class->id }}">{{ $class->name }}</option>
                                 @endforeach
                             @endif
@@ -354,8 +357,8 @@
                     <div class="col-md-6 mb-2">
                         <x-label>Student</x-label>
                         <x-select wire:model.defer="payment.student_id">
-                            @if(count($students) > 0)
-                                @foreach($students as $st)
+                            @if (count($students) > 0)
+                                @foreach ($students as $st)
                                     <option value="{{ $st->id }}">{{ $st->fullname }}</option>
                                 @endforeach
                             @endif
@@ -423,11 +426,11 @@
 
     @push('scripts')
         <script>
-            $(document).ready(function () {
+            $(document).ready(function() {
                 $(".wrapper").addClass("toggled");
-                $(".sidebar-wrapper").hover(function () {
+                $(".sidebar-wrapper").hover(function() {
                     $(".wrapper").addClass("sidebar-hovered");
-                }, function () {
+                }, function() {
                     $(".wrapper").removeClass("sidebar-hovered");
                 })
             });

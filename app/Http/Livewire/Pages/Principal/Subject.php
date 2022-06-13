@@ -35,7 +35,8 @@ class Subject extends Component
     {
         $this->emit('closeModal');
         $this->reset(['teacher', 'subject']);
-    }
+		$this->resetErrorBag();
+	}
 
     public function mount($id): void
     {

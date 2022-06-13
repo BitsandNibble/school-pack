@@ -110,7 +110,8 @@ class ManagePayment extends Component
     {
         $this->emit('closeModal');
         $this->reset('deleting', 'payment_id', 'payment');
-    }
+		$this->resetErrorBag();
+	}
 
     public function edit($id): void
     {

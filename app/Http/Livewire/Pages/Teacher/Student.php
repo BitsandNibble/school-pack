@@ -37,7 +37,8 @@ class Student extends Component
     {
         $this->emit('closeModal');
         $this->reset(['student_info']);
-    }
+		$this->resetErrorBag();
+	}
 
     public function render(): Factory|View|Application
     {

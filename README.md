@@ -109,7 +109,7 @@ to publish your changes to `public/assets/css/custom.css`
 -   [ ] Promote button promotes all students, etc
 -   [ ] When you promote a student, it seems his grade for his previous class disappears
 -   [ ] When you edit a payment i.e. when you choose a payment class froom "all classes" to "SSS1, should resulrs containing "all classes be deleted"?
--   [ ] Insert specif values to rese() on livewire compoent when usiig $this->cancel() so that when it's done bulk deleting, and you cancel, it still retains the selected values
+-   [ ] Insert specific values to reset() on livewire compoent when usiig $this->cancel() so that when it's done bulk deleting, and you cancel, it still retains the selected values
 -   [ ] Remove wire:defer and button from pages/components with "select tag" on top, and render when the last "select tag" is populated
 
 ### Future Features

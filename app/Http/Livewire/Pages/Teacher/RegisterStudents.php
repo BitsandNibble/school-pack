@@ -125,7 +125,8 @@ class RegisterStudents extends Component
 
     public function cancel(): void
     {
-        $this->reset(['fullname', 'subject_name', 'selectAll']);
         $this->emit('closeModal');
-    }
+        $this->reset(['fullname', 'subject_name', 'selectAll']);
+		$this->resetErrorBag();
+	}
 }

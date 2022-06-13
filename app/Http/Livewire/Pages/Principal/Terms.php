@@ -61,7 +61,8 @@ class Terms extends Component
     {
         $this->emit('closeModal');
         $this->reset();
-    }
+		$this->resetErrorBag();
+	}
 
     public function edit($id): void
     {

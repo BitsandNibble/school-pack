@@ -136,7 +136,8 @@ class Student extends Component
     {
         $this->emit('closeModal');
         $this->reset(['student']);
-    }
+		$this->resetErrorBag();
+	}
 
     /**
      * @throws Exception

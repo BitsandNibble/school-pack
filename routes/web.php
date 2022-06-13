@@ -14,7 +14,6 @@ use App\Http\Livewire\Pages\Principal\Skills;
 use App\Http\Livewire\Pages\Principal\Classes;
 use App\Http\Livewire\Pages\Accountant\Debtors;
 use App\Http\Livewire\Pages\Principal\Sections;
-use App\Http\Livewire\Pages\Principal\Settings;
 use App\Http\Livewire\Pages\Principal\Students;
 use App\Http\Livewire\Pages\Principal\Subjects;
 use App\Http\Livewire\Pages\Principal\Teachers;
@@ -24,6 +23,8 @@ use App\Http\Livewire\Pages\Student\SelectSession;
 use App\Http\Livewire\Pages\Accountant\CreatePayment;
 use App\Http\Livewire\Pages\Accountant\ManagePayment;
 use App\Http\Livewire\Pages\Accountant\StudentPayment;
+use App\Http\Livewire\Pages\Principal\Settings\School;
+use App\Http\Livewire\Pages\Principal\Settings\Comments;
 use App\Http\Livewire\Pages\Student\Profile as StudentProfile;
 use App\Http\Livewire\Pages\Teacher\Profile as TeacherProfile;
 use App\Http\Livewire\Pages\Teacher\Subjects as TeacherSubjects;
@@ -63,7 +64,8 @@ Route::group(['middleware' => 'auth:principal', 'prefix' => 'principal', 'as' =>
     Route::get('results/mark-sheet', MarkSheet::class)->name('.result.marksheet');
     Route::get('subjects', Subjects::class)->name('.subjects');
     Route::get('subjects/{classname:name}', [PrincipalHomeController::class, 'getSubjectsPerClass'])->name('.classes.subjects');
-    Route::get('settings', Settings::class)->name('.settings');
+    Route::get('settings/school', School::class)->name('.settings.school');
+    Route::get('settings/comments', Comments::class)->name('.settings.comments');
     Route::get('profile', PrincipalProfile::class)->name('.profile');
     Route::get('notice-board', NoticeBoard::class)->name('.notice-board');
 

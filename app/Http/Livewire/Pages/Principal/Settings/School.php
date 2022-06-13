@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Pages\Principal;
+namespace App\Http\Livewire\Pages\Principal\Settings;
 
 use App\Models\Setting;
 use Livewire\Component;
@@ -12,7 +12,7 @@ use Illuminate\Contracts\View\Factory;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Contracts\Foundation\Application;
 
-class Settings extends Component
+class School extends Component
 {
     use WithFileUploads;
     use LivewireAlert;
@@ -76,7 +76,7 @@ class Settings extends Component
         $this->date2 = date('Y');
         $this->date2_value = date('Y');
 
-        return view('livewire.pages.principal.settings', $s);
+        return view('livewire.pages.principal.settings.school', $s);
     }
 
     public function store(CreateTerms $createTerms): void

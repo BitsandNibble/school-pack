@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Pages\Principal;
+namespace App\Http\Livewire\Pages\Principal\Settings;
 
 use App\Models\Term;
 use Livewire\Component;
@@ -9,7 +9,7 @@ use Illuminate\Contracts\View\Factory;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Contracts\Foundation\Application;
 
-class OtherSettings extends Component
+class Others extends Component
 {
     use LivewireAlert;
 
@@ -17,7 +17,7 @@ class OtherSettings extends Component
     {
         $s['terms'] = Term::get();
 
-        return view('livewire.pages.principal.other-settings', $s);
+        return view('livewire.pages.principal.settings.others', $s);
     }
 
     public function unlock(Term $term): void

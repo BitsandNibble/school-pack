@@ -1,5 +1,8 @@
 <div>
-    <x-breadcrumb>Settings</x-breadcrumb>
+    <x-breadcrumb>
+        Settings
+        <li class="breadcrumb-item active" aria-current="page">School</li>
+    </x-breadcrumb>
 
     <h5 class="mt-5">School Information</h5>
     <x-card class="border-0 border-dark border-5 border-end">
@@ -117,6 +120,6 @@
 
     <x-spinner />
 
-    <livewire:pages.principal.grade-settings />
-    <livewire:pages.principal.other-settings />
+    <livewire:pages.principal.settings.grading />
+    <livewire:pages.principal.settings.others />
 </div>

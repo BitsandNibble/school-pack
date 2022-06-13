@@ -22,10 +22,10 @@
             <div class="position-relative search-bar-box">
                 <form>
                     <input type="text" class="form-control search-control" autofocus placeholder="Type to search...">
-                    <span
-                            class="position-absolute top-50 search-show translate-middle-y"><i class='bx bx-search'></i></span>
+                    <span class="position-absolute top-50 search-show translate-middle-y"><i
+                            class='bx bx-search'></i></span>
                     <span class="position-absolute top-50 search-close translate-middle-y"><i
-                                class='bx bx-x'></i></span>
+                            class='bx bx-x'></i></span>
                 </form>
             </div>
         </div>
@@ -44,7 +44,7 @@
                 </li>
                 <li class="nav-item dropdown dropdown-large">
                     <a class="nav-link dropdown-toggle dropdown-toggle-nocaret text-white" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false"> <i class='bx bx-category'></i>
+                        data-bs-toggle="dropdown" aria-expanded="false"> <i class='bx bx-category'></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
                         <div class="row row-cols-3 g-3 p-3">
@@ -65,7 +65,7 @@
                             </div>
                             <div class="col text-center">
                                 <div class="app-box mx-auto bg-gradient-kyoto text-dark"><i
-                                            class='bx bx-notification'></i>
+                                        class='bx bx-notification'></i>
                                 </div>
                                 <div class="app-title">Feeds</div>
                             </div>
@@ -76,7 +76,7 @@
                             </div>
                             <div class="col text-center">
                                 <div class="app-box mx-auto bg-gradient-moonlit text-white"><i
-                                            class='bx bx-filter-alt'></i>
+                                        class='bx bx-filter-alt'></i>
                                 </div>
                                 <div class="app-title">Alerts</div>
                             </div>
@@ -88,14 +88,14 @@
 
         <div class="user-box dropdown border-light-2">
             <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" role="button"
-               data-bs-toggle="dropdown" aria-expanded="false">
+                data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="{{ auth()->user()->thumbnail ?? '' }}" class="user-img" alt="">
                 <div class="user-info ps-3">
                     <p class="user-name mb-0 text-white">
                         {{ auth()->user()->fullname ?? '' }}
                     </p>
                     <p class="designattion mb-0">
-                        @if(auth('principal')->user())
+                        @if (auth('principal')->user())
                             Principal
                         @elseif(auth('teacher')->user())
                             Teacher
@@ -109,14 +109,14 @@
                     </p>
                 </div>
             </a>
-            @if(auth('principal')->user())
+            @if (auth('principal')->user())
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="{{ route('principal.profile') }}"><i
-                                    class="bx bx-user"></i><span>Profile</span></a>
+                                class="bx bx-user"></i><span>Profile</span></a>
                     </li>
-                    <li><a class="dropdown-item" href="{{ route('principal.settings') }}"><i
+                    {{-- <li><a class="dropdown-item" href="{{ route('principal.settings') }}"><i
                                     class="bx bx-cog"></i><span>Settings</span></a>
-                    </li>
+                    </li> --}}
                     <li>
                         <div class="dropdown-divider mb-0"></div>
                     </li>
@@ -125,7 +125,7 @@
                             @csrf
 
                             <a class="dropdown-item cursor-pointer" href="{{ route('logout') }}"
-                               onclick="event.preventDefault(); this.closest('form').submit();">
+                                onclick="event.preventDefault(); this.closest('form').submit();">
                                 <i class='bx bx-log-out-circle'></i><span>Logout</span>
                             </a>
                         </form>
@@ -133,10 +133,10 @@
                 </ul>
             @endif
 
-            @if(auth('teacher')->user())
+            @if (auth('teacher')->user())
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="{{ route('teacher.profile') }}"><i
-                                    class="bx bx-user"></i><span>Profile</span></a>
+                                class="bx bx-user"></i><span>Profile</span></a>
                     </li>
                     <li>
                         <div class="dropdown-divider mb-0"></div>
@@ -146,7 +146,7 @@
                             @csrf
 
                             <a class="dropdown-item cursor-pointer" href="{{ route('logout') }}"
-                               onclick="event.preventDefault(); this.closest('form').submit();">
+                                onclick="event.preventDefault(); this.closest('form').submit();">
                                 <i class='bx bx-log-out-circle'></i><span>Logout</span>
                             </a>
                         </form>
@@ -154,10 +154,10 @@
                 </ul>
             @endif
 
-            @if(auth('accountant')->user())
+            @if (auth('accountant')->user())
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="{{ route('accountant.profile') }}"><i
-                                    class="bx bx-user"></i><span>Profile</span></a>
+                                class="bx bx-user"></i><span>Profile</span></a>
                     </li>
                     <li>
                         <div class="dropdown-divider mb-0"></div>
@@ -167,7 +167,7 @@
                             @csrf
 
                             <a class="dropdown-item cursor-pointer" href="{{ route('logout') }}"
-                               onclick="event.preventDefault(); this.closest('form').submit();">
+                                onclick="event.preventDefault(); this.closest('form').submit();">
                                 <i class='bx bx-log-out-circle'></i><span>Logout</span>
                             </a>
                         </form>
@@ -175,10 +175,10 @@
                 </ul>
             @endif
 
-            @if(auth('student')->user())
+            @if (auth('student')->user())
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="{{ route('student.profile') }}"><i
-                                    class="bx bx-user"></i><span>Profile</span></a>
+                                class="bx bx-user"></i><span>Profile</span></a>
                     </li>
                     <li>
                         <div class="dropdown-divider mb-0"></div>
@@ -188,7 +188,7 @@
                             @csrf
 
                             <a class="dropdown-item cursor-pointer" href="{{ route('logout') }}"
-                               onclick="event.preventDefault(); this.closest('form').submit();">
+                                onclick="event.preventDefault(); this.closest('form').submit();">
                                 <i class='bx bx-log-out-circle'></i><span>Logout</span>
                             </a>
                         </form>

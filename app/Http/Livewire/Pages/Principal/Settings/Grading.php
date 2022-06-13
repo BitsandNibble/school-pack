@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Pages\Principal;
+namespace App\Http\Livewire\Pages\Principal\Settings;
 
 use App\Models\Setting;
 use Livewire\Component;
@@ -9,7 +9,7 @@ use Illuminate\Contracts\View\Factory;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Contracts\Foundation\Application;
 
-class GradeSettings extends Component
+class Grading extends Component
 {
     use LivewireAlert;
 
@@ -35,7 +35,7 @@ class GradeSettings extends Component
         });
         $this->settings = $s['set'];
 
-        return view('livewire.pages.principal.grade-settings', $s);
+        return view('livewire.pages.principal.settings.grading', $s);
     }
 
     public function store(): void

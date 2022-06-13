@@ -60,7 +60,6 @@ to publish your changes to `public/assets/css/custom.css`
 -   [ ] Print profile pages (Still thinking)
 -   [ ] Add csv icon to import or export data on various pages
 -   [ ] Customise tables: Add CSV, PDF, PRINT buttons & handle functionality personally
--   [ ] Use <datalist></datalist> to recommend a list of subjects from a subject bank, when creating a new subject
 -   [ ] Figure out a way to generate school_id for admin/principal
 -   [ ] Automatically register all junior school students to specified subjects
 -   [ ] Multi delete with checkbox
@@ -82,7 +81,7 @@ to publish your changes to `public/assets/css/custom.css`
 -   [ ] Show only subjects that haven't been assigned to a teacher when assigning subjects to teachers
 -   [ ] Validation: when creating sections, prevent duplicate section names for the same class
 -   [ ] Create skills bank to easily be used in the marksheet
--   [ ] Work on Students > Manage Promotions [Reset Prompotions]
+-   [ ] Work on Students > Manage Promotions [Reset Promotions]
 -   [ ] Show graduated students
 
 ### Students
@@ -101,13 +100,13 @@ to publish your changes to `public/assets/css/custom.css`
 -   [ ] Search querying results from other parts of the db (Student Livewire Component)
 -   [ ] Unable to unregister students from a subject
 -   [ ] Validation not kicking in when registering subjects for students because it's auto-fetching the records from the db
--   [ ] Term date not showing in settings
--   [ ] When updating image, other fields aren't updated until second click
+-   [ ] Term date not showing in settings (After seeding)
+-   [ ] When updating image on profile page, other fields are restored to default
 -   [ ] Only assigned form teacher can print out tabulation sheet
 -   [ ] Issues when trying to edit state & LGA in user profiles
 -   [ ] Promote button promotes all students, etc
 -   [ ] When you promote a student, it seems his grade for his previous class disappears
--   [ ] When you edit a payment i.e. when you choose a payment class froom "all classes" to "SSS1, should resulrs containing "all classes be deleted"?
+-   [ ] When you edit a payment i.e. when you change a payment class from "all classes" to "SSS1, should results containing "all classes be deleted"?
 -   [ ] Insert specific values to reset() on livewire compoent when usiig $this->cancel() so that when it's done bulk deleting, and you cancel, it still retains the selected values
 -   [ ] Remove wire:defer and button from pages/components with "select tag" on top, and render when the last "select tag" is populated
 

@@ -3,8 +3,8 @@
 namespace App\Http\Livewire\Components;
 
 use Livewire\Component;
-use App\Models\Principal;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Actions\Fortify\PasswordValidationRules;
 
@@ -13,32 +13,43 @@ class UpdatePassword extends Component
 	use PasswordValidationRules;
 	use LivewireAlert;
 
-	public $principal;
-
-	public $validationAttributes = [
-		'principal.current_password'      => 'current password',
-		'principal.password'              => 'password',
-		'principal.password_confirmation' => 'password',
-	];
+	public $current_password;
+	public $password;
+	public $password_confirmation;
 
 	public function render()
 	{
 		return view('livewire.components.update-password');
 	}
 
-	public function updatePrincipalPassword()
+	public function updatePassword()
 	{
-		$this->validate([
-			'principal.current_password'      => 'required',
-			'principal.password'              => 'required|min:6',
-			'principal.password_confirmation' => 'required',
-		]);
+		$input = [
+			'current_password'      => $this->current_password ?? '',
+			'password'              => $this->password ?? '',
+			'password_confirmation' => $this->password_confirmation ?? '',
+		];
 
-		Principal::query()->find(auth()->id())
-			->update([
-				'password' => Hash::make($this->principal['password_confirmation'])
-			]);
+		$user = auth()->user();
+
+		Validator::make($input, [
+			'current_password' => ['required', 'string'],
+			'password'         => $this->passwordRules(),
+		])->after(function ($validator) use ($user, $input) {
+			if (!isset($input['current_password']) || !Hash::check($input['current_password'], $user->password)) {
+				$validator->errors()->add('current_password', __('The provided password does not match your current password.'));
+			}
+		})->validate();
+
+		$user->forceFill([
+			'password' => Hash::make($input['password']),
+		])->save();
+
+		session()->invalidate();
+		session()->regenerateToken();
 
 		$this->alert('success', 'Password Updated Successfully');
+
+		return redirect(request()->header('Referer'));
 	}
 }

@@ -96,8 +96,8 @@ to publish your changes to `public/assets/css/custom.css`
 -   [ ] When inserting scores (very slow due to multiple request to the 'grades' table)
 -   [ ] Optimize db query on debtors page
 -   [ ] When adding multiple subjects
-    -   [ ] Graphical bug
-    -   [ ] Error on submit
+    -   [ ] Graphical bug on subjects & comments bank
+    -   [x] Error on submit
 -   [ ] Fix pagination(resetPage()) on delete. (i.e. If there are only 11 items and you navigate to the second page which only shows the last (11th) item, when you delete the 11th item, the page should reset and show only 10 items. But it just renders a blank table, until you refresh)
 -   [ ] Search querying results from other parts of the db (Student Livewire Component)
 -   [ ] Unable to unregister students from a subject

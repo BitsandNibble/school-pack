@@ -28,11 +28,11 @@ class Comments extends Component
 	protected string $paginationTheme = 'bootstrap';
 
 	protected array $rules = [
-		'descriptions.*.description' => 'required|string',
+		'descriptions.*.description' => 'required|string|unique:comments_banks',
 	];
 
 	protected array $validationAttributes = [
-		'descriptions.*.description' => 'Comment',
+		'descriptions.*.description' => 'comment',
 	];
 
 	public function getRowsQueryProperty()
@@ -68,9 +68,9 @@ class Comments extends Component
 		$comment = CommentsBank::where('id', $id)->get();
 		$this->comment_id = $comment->first()->id;
 
-		$this->description = [];
+		$this->descriptions = [];
 		foreach ($comment as $key => $value) {
-			$this->description[$key]['description'] = $value->description;
+			$this->descriptions[$key]['description'] = $value->description;
 		}
 	}
 
@@ -78,19 +78,17 @@ class Comments extends Component
 	{
 		$this->validate();
 
-		foreach ($this->descriptions as $key => $value) {
+		foreach ($this->descriptions as $value) {
 			if ($this->comment_id) {
 				$comment = CommentsBank::find($this->comment_id);
 				$comment->update([
-					'description' => $this->descriptions[$key]['description'],
+					'description' => $value['description'],
 				]);
 				$this->alert('success', 'Comment Updated Successfully');
 			} else {
-				foreach ($this->descriptions as $key => $description) {
-					CommentsBank::create([
-						'description' => $description['description'],
-					]);
-				}
+				CommentsBank::create([
+					'description' => $value['description'],
+				]);
 				$this->alert('success', 'Comment Updated Successfully');
 			}
 

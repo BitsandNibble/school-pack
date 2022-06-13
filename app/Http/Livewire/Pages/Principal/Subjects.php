@@ -87,15 +87,14 @@ class Subjects extends Component
             if ($this->subject_id) {
                 $subject = Subject::find($this->subject_id);
                 $subject->update([
-                    'name' => $this->names[$key]['name'],
-                    'slug' => get_first_word($this->names[$key]['name']),
+                    'name' => $value['name'],
+                    'slug' => get_first_word($value['name']),
                 ]);
                 $this->alert('success', 'Subject Updated Successfully');
             } else {
                 Subject::create([
-                    // need to fix a bug somewhere around here
-                    'name' => $this->names[$key]['name'],
-                    'slug' => get_first_word($this->names[$key]['name']),
+                    'name' => $value['name'],
+                    'slug' => get_first_word($value['name']),
                 ]);
                 $this->alert('success', 'Subject Updated Successfully');
             }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Pages\Principal\Settings;
 
-use App\Models\Comment;
+use App\Models\CommentsBank;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Traits\WithBulkActions;
@@ -37,7 +37,7 @@ class Comments extends Component
 
 	public function getRowsQueryProperty()
 	{
-		return Comment::query()
+		return CommentsBank::query()
 			->when($this->q, function ($query) {
 				return $query->search($this->q);
 			});
@@ -65,7 +65,7 @@ class Comments extends Component
 
 	public function edit($id): void
 	{
-		$comment = Comment::where('id', $id)->get();
+		$comment = CommentsBank::where('id', $id)->get();
 		$this->comment_id = $comment->first()->id;
 
 		$this->description = [];
@@ -80,14 +80,14 @@ class Comments extends Component
 
 		foreach ($this->descriptions as $key => $value) {
 			if ($this->comment_id) {
-				$comment = Comment::find($this->comment_id);
+				$comment = CommentsBank::find($this->comment_id);
 				$comment->update([
 					'description' => $this->descriptions[$key]['description'],
 				]);
 				$this->alert('success', 'Comment Updated Successfully');
 			} else {
 				foreach ($this->descriptions as $key => $description) {
-					Comment::create([
+					CommentsBank::create([
 						'description' => $description['description'],
 					]);
 				}
@@ -102,13 +102,13 @@ class Comments extends Component
 
 	public function openDeleteModal($id): void
 	{
-		$del = Comment::find($id);
+		$del = CommentsBank::find($id);
 		$this->deleting = $del['id'];
 	}
 
-	public function delete(Comment $comment): void
+	public function delete(CommentsBank $commentsBank): void
 	{
-		$comment->delete();
+		$commentsBank->delete();
 
 		$this->cancel();
 		$this->alert('success', 'Comment Deleted Successfully');

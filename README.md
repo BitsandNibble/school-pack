@@ -50,7 +50,7 @@ to publish your changes to `public/assets/css/custom.css`
 ### General
 
 -   [x] Create a 'Comments Bank' so principal & teachers can either type or select comments
--   [ ] Feature to insert comments in the 'Comments Bank'
+-   [x] Feature to insert comments in the 'Comments Bank'
 -   [ ] Fetch student's past results using the year, and student_id (from mark/exam_records table)
 -   [ ] Seperate 'manage payment' into General and Individual Comnoonent
 -   [ ] Setup Wizard to insert all the necessary data before using the app

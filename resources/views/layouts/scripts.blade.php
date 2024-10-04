@@ -10,7 +10,7 @@
 
 <!--app JS-->
 <script src="{{ asset('assets/js/app.js') }}"></script>
-{{-- <script src="{{ mix('js/app.js') }}"></script> --}}
+{{-- @vite('resources/js/app.js') --}}
 
 <script>
     Livewire.on('closeModal', () => $('.modal').modal('hide'));

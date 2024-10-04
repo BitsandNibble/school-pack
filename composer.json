@@ -13,7 +13,7 @@
         "guzzlehttp/guzzle": "^7.4.3",
         "jantinnerezo/livewire-alert": "^2.2.6",
         "laravel/fortify": "^1.13.0",
-        "laravel/framework": "^9.14.1",
+        "laravel/framework": "^9.19",
         "laravel/octane": "^1.2.11",
         "laravel/sanctum": "^2.15.1",
         "laravel/tinker": "^2.7.2",

@@ -40,7 +40,7 @@ npm run dev
 or
 
 ```bash
-npm run watch
+npm run dev
 ```
 
 to publish your changes to `public/assets/css/custom.css`

@@ -11,6 +11,7 @@ class ClassSubjectTeacher extends Model
 	use HasFactory;
 
 	public $timestamps = false;
+	protected $table = 'class_subject_teacher';
 
 	protected $guarded = [];
 

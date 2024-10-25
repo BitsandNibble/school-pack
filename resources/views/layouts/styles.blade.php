@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/semi-dark.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/header-colors.css') }}">
 
-@vite('resources/assets/css/custom.css')
+{{-- @vite('assets/css/custom.css') --}}
 
 <style>
     body {

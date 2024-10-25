@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\ExamRecord;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
-use App\Models\Comment as CommentModel;
+use App\Models\CommentsBank;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Contracts\Foundation\Application;
 
@@ -41,7 +41,7 @@ class Comment extends Component
 
 		$this->comment = auth('teacher')->user() ? $get_comment->teachers_comment : $get_comment->principals_comment;
 
-		$comments = CommentModel::query()->get();
+		$comments = CommentsBank::query()->get();
 
 		return view('livewire.components.comment', compact('comments'));
 	}

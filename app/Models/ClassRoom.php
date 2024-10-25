@@ -17,7 +17,7 @@ class ClassRoom extends Model
 
 	public function subject_teachers(): BelongsToMany
 	{
-		return $this->belongsToMany(Teacher::class, 'class_subject_teachers', 'class_room_id');
+		return $this->belongsToMany(Teacher::class, 'class_subject_teacher', 'class_room_id');
 		// return $this->belongsToMany(Teacher::class, 'class_subject_teacher', 'class_room_id', 'teacher_id')->withPivot('subject_id');
 	}
 
